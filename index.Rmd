@@ -1,0 +1,48 @@
+--- 
+title: "R for Data Analysis and Visualization"
+author: "Jonathan Page"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: 
+  bookdown::gitbook:
+    highlight: kate
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: jonpage/r-course
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
+
+# Resources {-}
+
+There are many useful resources you should be aware of while going through this course:
+
+## Statistics {-}
+
+[Variance Explained](http://varianceexplained.org/RData/resources/)
+
+[R for Data Science - Grolemund and Wickham](http://r4ds.had.co.nz/)
+
+## Visualization
+
+[ggvis](http://ggvis.rstudio.com/)
+
+
+## Courses
+
+[Gary King - Quantitative Research Methodology](http://projects.iq.harvard.edu/gov2001/)
+
+[John Stasko - Information Visualization](http://www.cc.gatech.edu/~stasko/7450/)
+
+[Jenny Bryan - Data wrangling, exploration, and analysis with R](http://stat545.com/)
+
+## Books
+
+[Econometrics in R](https://cran.r-project.org/doc/contrib/Farnsworth-EconometricsInR.pdf)
+
+[Using R for Data Analysis and Graphics](ftp://cran.r-project.org/pub/R/doc/contrib/usingR.pdf)
+
+## Papers
+
+[Embedded Plots](http://vita.had.co.nz/papers/embedded-plots.pdf)
