@@ -48,10 +48,78 @@ summary(swiss)
 
 ### Visual summaries
 
-```{r}
+Scatterplot matrix (default plot of a data.frame):
+```
+plot(swiss)
+# or
+pairs(swiss)
+```
+```{r, echo=FALSE}
+plot(swiss)
 ```
 
-## Other stuff
+Scatterplot of two dimensions
+```
+plot(swiss[,c("Education", "Fertility")])
+# or
+plot(swiss[4,1])
+# or
+plot(swiss$Education, swiss$Fertility)
+# or
+plot(swiss$Fertility ~ swiss$Education)
+```
+```{r, echo=FALSE}
+plot(swiss$Fertility ~ swiss$Education)
+```
 
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
+Smoothed Scatterplot of two dimensions
+```{r}
+smoothScatter(swiss$Fertility ~ swiss$Examination)
+```
 
+Scatterplot with a `loess` (locally weighted polynomial regression)
+```{r}
+smoothScatter(swiss$Fertility ~ swiss$Agriculture)
+```
+
+### Distribution plots
+
+Histograms:
+```{r}
+hist(swiss$Catholic)
+```
+
+Stem-and-Leaf Plots:
+```{r}
+stem(swiss$Fertility)
+```
+
+Kernel density plot (and add a rug showing where observation occur):
+```{r}
+plot(density(swiss$Fertility))
+rug(swiss$Fertility)
+```
+
+Boxplots:
+```{r}
+boxplot(swiss)
+```
+
+
+#### More complicated charts
+Conditioning plots:
+```{r}
+coplot(swiss$Fertility ~ swiss$Examination | as.factor(swiss$Catholic > 50))
+```
+
+Star plots (half-star plots here):
+```{r}
+stars(swiss, key.loc = c(15,1), flip.labels = FALSE, full = FALSE)
+```
+
+## Assignment
+
+Choose a dataset from `datasets` (`library(help = "datasets")` will show you a list) and create 5 charts in an R Markdown file from the example charts above. Run the following command to see what else is available in the base R graphics package:
+```
+demo(graphics)
+```
