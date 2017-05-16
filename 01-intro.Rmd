@@ -3,24 +3,55 @@ output:
   html_document: default
   pdf_document: default
 ---
-# Introduction {#intro}
 
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
+# (PART) R Tutorials {-} 
+
+# R Basics {#intro}
+
+Before we begin, make sure you have [R](https://cran.r-project.org/) and 
+[RStudio](https://www.rstudio.com/products/rstudio/download3/#download) installed.
+
+## R Markdown
+
+Throughout this course, [R Markdown](http://rmarkdown.rstudio.com/lesson-1.html) will make our lives easier. Make sure that the `rmarkdown` library is installed:
+
+```
+install.packages("rmarkdown")
+```
+
+Intro to R and RStudio; Histograms, scatterplots, summary statistics
+
+## Working with data already loaded into R
+
+Base R comes with a set of sample data that is useful for illustrating techniques in R.
+Run the following command to see a list of the datasets in the core library `datasets`:
+
+```{r include=FALSE}
+library(help = "datasets")
+```
+
+These datasets are accessible automatically. We'll start with the Swiss Fertility and Socioeconomic Inicators (1888) dataset. See a description of the dataset by using the help command, either `?swiss` or `help(swiss)`. This dataset is technically a `data.frame`, which you can see by using the command `class(swiss)`. For more information on `data.frame`s take a look at the documentation(`help(data.frame)`)
+
+### Numeric summaries
+
+Here are a few ways we can summarize a dataset:
+
+`head()` shows us the first six rows of a `data.frame`.
+```{r}
+head(swiss)
+```
+
+`summary()` provides summary statistics for each column in a `data.frame`.
+```{r}
+summary(swiss)
+```
+
+### Visual summaries
+
+```{r}
+```
+
+## Other stuff
 
 Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
 
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
-```
-
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
-
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
-```
-
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
