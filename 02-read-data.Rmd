@@ -1,0 +1,14 @@
+# Reading data {#read-data}
+
+The first step in analyzing data with R is reading data into it. This lesson focuses on reading data, manipulating it with `dplyr` and a few summary visualizations.
+
+## `read_csv`
+
+## `dplyr`
+
+## First Look at `ggplot2`
+
+## Heatmaps
+
+## Hexbins
+

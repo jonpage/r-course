@@ -1,8 +1,8 @@
 --- 
-title: |
+title: "R for Data Analysis and Visualization"
+subtitle: |
   | ECON 396 (Fall 2017)
-  | R for Data Analysis and Visualization
-subtitle: "TR 10:30-11:45, Webster Hall 112"
+  | TR 10:30-11:45, Webster Hall 112
 author: "Jonathan Page"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -80,7 +80,7 @@ The following schedule is tentative and subject to change.
 
 ### Week 2 {-}
 
-* **R** read_csv, dplyr basics, heatmaps, hexbins
+* **R** [read_csv, dplyr basics, heatmaps, hexbins](#read-data)
 * **Topic** Anscombe's Quartet
 * **Project Assignment** Choose question and dataset for your project
 

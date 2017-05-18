@@ -19,14 +19,14 @@ Throughout this course, [R Markdown](http://rmarkdown.rstudio.com/lesson-1.html)
 install.packages("rmarkdown")
 ```
 
-Intro to R and RStudio; Histograms, scatterplots, summary statistics
+For each assignment, you will create an R Markdown file (*.Rmd) and submit that file by the following class session using [classroom.google.com](https://classroom.google.com)
 
 ## Working with data already loaded into R
 
 Base R comes with a set of sample data that is useful for illustrating techniques in R.
 Run the following command to see a list of the datasets in the core library `datasets`:
 
-```{r include=FALSE}
+```
 library(help = "datasets")
 ```
 
@@ -79,7 +79,7 @@ smoothScatter(swiss$Fertility ~ swiss$Examination)
 
 Scatterplot with a `loess` (locally weighted polynomial regression)
 ```{r}
-smoothScatter(swiss$Fertility ~ swiss$Agriculture)
+scatter.smooth(swiss$Fertility ~ swiss$Agriculture)
 ```
 
 ### Distribution plots
@@ -120,6 +120,7 @@ stars(swiss, key.loc = c(15,1), flip.labels = FALSE, full = FALSE)
 ## Assignment
 
 Choose a dataset from `datasets` (`library(help = "datasets")` will show you a list) and create 5 charts in an R Markdown file from the example charts above. Run the following command to see what else is available in the base R graphics package:
+
 ```
 demo(graphics)
 ```
