@@ -1,4 +1,5 @@
 book_filename: "jonpage-r-course"
+output_dir: "docs"
 language:
   ui:
     chapter_name: "Lecture "
