@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R for Data Analysis and Visualization</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R for Data Analysis and Visualization" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a course on using R focused on data analysis and visualization through case studies." />
+  <meta name="github-repo" content="jonpage/r-course" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R for Data Analysis and Visualization" />
+  
+  <meta name="twitter:description" content="This is a course on using R focused on data analysis and visualization through case studies." />
+  
+
+<meta name="author" content="Jonathan Page">
+
+
+<meta name="date" content="2017-06-01">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+
+<link rel="next" href="intro.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; background-color: #dddddd; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { font-weight: bold; } /* Keyword */
+code > span.dt { color: #800000; } /* DataType */
+code > span.dv { color: #0000ff; } /* DecVal */
+code > span.bn { color: #0000ff; } /* BaseN */
+code > span.fl { color: #800080; } /* Float */
+code > span.ch { color: #ff00ff; } /* Char */
+code > span.st { color: #dd0000; } /* String */
+code > span.co { color: #808080; font-style: italic; } /* Comment */
+code > span.al { color: #00ff00; font-weight: bold; } /* Alert */
+code > span.fu { color: #000080; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #ff0000; font-weight: bold; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #ff00ff; } /* SpecialChar */
+code > span.vs { color: #dd0000; } /* VerbatimString */
+code > span.ss { color: #dd0000; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #808080; font-style: italic; } /* Documentation */
+code > span.an { color: #808080; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #808080; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Jonathan Page R-Course</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#office-hours"><i class="fa fa-check"></i>Office Hours</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#student-learning-objectives"><i class="fa fa-check"></i>Student Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#resources"><i class="fa fa-check"></i>Resources</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#required"><i class="fa fa-check"></i>Required</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recommended"><i class="fa fa-check"></i>Recommended:</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-requirements"><i class="fa fa-check"></i>Course Requirements</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#weekly-assignments-30"><i class="fa fa-check"></i>Weekly assignments (30%)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#individual-project"><i class="fa fa-check"></i>Individual Project</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#project-assignments-30"><i class="fa fa-check"></i>Project assignments (30%)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#project-proposal-presentation-5"><i class="fa fa-check"></i>Project proposal presentation (5%)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#final-project-15"><i class="fa fa-check"></i>Final project (15%)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#final-project-presentation-participation-20"><i class="fa fa-check"></i>Final project presentation participation (20%)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#schedule"><i class="fa fa-check"></i>Schedule</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-1"><i class="fa fa-check"></i>Week 1</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-2"><i class="fa fa-check"></i>Week 2</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-3"><i class="fa fa-check"></i>Week 3</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-4"><i class="fa fa-check"></i>Week 4</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-5"><i class="fa fa-check"></i>Week 5</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-6"><i class="fa fa-check"></i>Week 6</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-7"><i class="fa fa-check"></i>Week 7</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-8"><i class="fa fa-check"></i>Week 8</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-9"><i class="fa fa-check"></i>Week 9</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-10"><i class="fa fa-check"></i>Week 10</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-11"><i class="fa fa-check"></i>Week 11</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-12"><i class="fa fa-check"></i>Week 12</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-13"><i class="fa fa-check"></i>Week 13</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-14"><i class="fa fa-check"></i>Week 14</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-15"><i class="fa fa-check"></i>Week 15</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#statistics"><i class="fa fa-check"></i>Statistics</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#visualization"><i class="fa fa-check"></i>Visualization</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#courses"><i class="fa fa-check"></i>Courses</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#books"><i class="fa fa-check"></i>Books</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#papers"><i class="fa fa-check"></i>Papers</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>I R Tutorials</b></span></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> R Basics</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#r-markdown"><i class="fa fa-check"></i><b>1.1</b> R Markdown</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#working-with-data-already-loaded-into-r"><i class="fa fa-check"></i><b>1.2</b> Working with data already loaded into R</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="intro.html"><a href="intro.html#numeric-summaries"><i class="fa fa-check"></i><b>1.2.1</b> Numeric summaries</a></li>
+<li class="chapter" data-level="1.2.2" data-path="intro.html"><a href="intro.html#visual-summaries"><i class="fa fa-check"></i><b>1.2.2</b> Visual summaries</a></li>
+<li class="chapter" data-level="1.2.3" data-path="intro.html"><a href="intro.html#distribution-plots"><i class="fa fa-check"></i><b>1.2.3</b> Distribution plots</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#assignment"><i class="fa fa-check"></i><b>1.3</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="read-data.html"><a href="read-data.html"><i class="fa fa-check"></i><b>2</b> Reading data</a><ul>
+<li class="chapter" data-level="2.1" data-path="read-data.html"><a href="read-data.html#read_csv"><i class="fa fa-check"></i><b>2.1</b> <code>read_csv</code></a></li>
+<li class="chapter" data-level="2.2" data-path="read-data.html"><a href="read-data.html#dplyr"><i class="fa fa-check"></i><b>2.2</b> <code>dplyr</code></a></li>
+<li class="chapter" data-level="2.3" data-path="read-data.html"><a href="read-data.html#first-look-at-ggplot2"><i class="fa fa-check"></i><b>2.3</b> First Look at <code>ggplot2</code></a></li>
+<li class="chapter" data-level="2.4" data-path="read-data.html"><a href="read-data.html#heatmaps"><i class="fa fa-check"></i><b>2.4</b> Heatmaps</a></li>
+<li class="chapter" data-level="2.5" data-path="read-data.html"><a href="read-data.html#hexbins"><i class="fa fa-check"></i><b>2.5</b> Hexbins</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="trifecta.html"><a href="trifecta.html"><i class="fa fa-check"></i><b>3</b> How to Judge Visualizations</a><ul>
+<li class="chapter" data-level="3.1" data-path="trifecta.html"><a href="trifecta.html#pre-class-assignment"><i class="fa fa-check"></i><b>3.1</b> Pre-class assignment</a></li>
+<li class="chapter" data-level="3.2" data-path="trifecta.html"><a href="trifecta.html#lecture"><i class="fa fa-check"></i><b>3.2</b> Lecture</a></li>
+<li class="chapter" data-level="3.3" data-path="trifecta.html"><a href="trifecta.html#assignment-1"><i class="fa fa-check"></i><b>3.3</b> Assignment</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Data Analysis and Visualization</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">R for Data Analysis and Visualization</h1>
+<h3 class="subtitle"><em><p>ECON 396 (Fall 2017)<br />
+TR 10:30-11:45, Webster Hall 112</p></em></h3>
+<h4 class="author"><em>Jonathan Page</em></h4>
+<h4 class="date"><em>2017-06-01</em></h4>
+</div>
+<div id="syllabus" class="section level1 unnumbered">
+<h1>Syllabus</h1>
+<div id="office-hours" class="section level2 unnumbered">
+<h2>Office Hours</h2>
+<p>Monday 2-3 PM and Tuesday 3-4 PM, or by appointment, Saunders 509, jrpage at hawaii dot edu.</p>
+</div>
+<div id="student-learning-objectives" class="section level2 unnumbered">
+<h2>Student Learning Objectives</h2>
+<ol style="list-style-type: decimal">
+<li>To be familiar with standard techniques for visualizing data, including heat maps, contour plots, (look at the list in the Data Visualization book)</li>
+<li>To be able to transform raw data into formats suitable for analysis</li>
+<li>To be able to perform basic exploratory analysis</li>
+<li>To be able to create data visualizations</li>
+</ol>
+<p>There is no prerequisite for this course.</p>
+</div>
+<div id="resources" class="section level2 unnumbered">
+<h2>Resources</h2>
+<div id="required" class="section level3 unnumbered">
+<h3>Required</h3>
+<p>Introductory Statistics with Randomization and Simulation: Available as a free PDF (<a href="https://www.openintro.org/stat/textbook.php?stat_book=isrs" class="uri">https://www.openintro.org/stat/textbook.php?stat_book=isrs</a>) or for $8.49 on Amazon.</p>
+<p>R Graphics Cookbook</p>
+</div>
+<div id="recommended" class="section level3 unnumbered">
+<h3>Recommended:</h3>
+<p>ggplot2 Cheatsheet</p>
+</div>
+</div>
+<div id="course-requirements" class="section level2 unnumbered">
+<h2>Course Requirements</h2>
+<p>Grades for this course will be based on weekly assignments (30%), project assignments (30%), the project proposal (5%), the final project deliverable (15%), and final project presentation participation (20%).</p>
+<div id="weekly-assignments-30" class="section level3 unnumbered">
+<h3>Weekly assignments (30%)</h3>
+<p>Weekly assignments are short R excercises. Each exercise should take no longer than 15 minutes. You will typically be given time to complete the exercise in class the day the assignment is given. The assignment will be in the form of R Markdown file (*.Rmd). You will submit the completed assignments via <a href="https//classroom.google.com">classroom.google.com</a> by the following class period.</p>
+</div>
+</div>
+<div id="individual-project" class="section level2 unnumbered">
+<h2>Individual Project</h2>
+<div id="project-assignments-30" class="section level3 unnumbered">
+<h3>Project assignments (30%)</h3>
+<p>Each week, leading up to the project proposal, you will be given an assignment that is designed to provide you with an organized workflow for approaching new data science projects. Project assignments are submitted via <a href="https//classroom.google.com">classroom.google.com</a>, with the exception of the two presentations</p>
+</div>
+<div id="project-proposal-presentation-5" class="section level3 unnumbered">
+<h3>Project proposal presentation (5%)</h3>
+<p>This presentation should be less than 2 minutes. You simply need to communicate the core question your project seeks to answer and the dataset(s) you will be using to answer this question.</p>
+</div>
+<div id="final-project-15" class="section level3 unnumbered">
+<h3>Final project (15%)</h3>
+<p>The final project will be an R Markdown document which communicates your project question, the data you used, and your results.</p>
+</div>
+<div id="final-project-presentation-participation-20" class="section level3 unnumbered">
+<h3>Final project presentation participation (20%)</h3>
+<p>Your final project participation grade is based on a combination of your own presentation and the feedback you provide to your classmates.</p>
+</div>
+</div>
+<div id="schedule" class="section level2 unnumbered">
+<h2>Schedule</h2>
+<p>The following schedule is tentative and subject to change.</p>
+<div id="week-1" class="section level3 unnumbered">
+<h3>Week 1</h3>
+<ul>
+<li><strong>R</strong> <a href="intro.html#intro">Intro to R and RStudio; Histograms, scatterplots, summary statistics</a></li>
+<li><strong>Topic</strong> Data sources overview</li>
+<li><strong>Project Assignment</strong> Indentify interesting datasets and questions</li>
+</ul>
+</div>
+<div id="week-2" class="section level3 unnumbered">
+<h3>Week 2</h3>
+<ul>
+<li><strong>R</strong> <a href="read-data.html#read-data">read_csv, dplyr basics, heatmaps, hexbins</a></li>
+<li><strong>Topic</strong> Anscombe’s Quartet</li>
+<li><strong>Project Assignment</strong> Choose question and dataset for your project</li>
+</ul>
+</div>
+<div id="week-3" class="section level3 unnumbered">
+<h3>Week 3</h3>
+<ul>
+<li><strong>R</strong> ggplot facets, bubble plots, transparency</li>
+<li><strong>Topic</strong> Effective Data Visualization</li>
+<li><strong>Project Assignment</strong> Write description of your question</li>
+</ul>
+</div>
+<div id="week-4" class="section level3 unnumbered">
+<h3>Week 4</h3>
+<ul>
+<li><strong>R</strong> geom_smooth, abline, vline, hline, ggTimeSeries</li>
+<li><strong>Topic</strong> Time series analysis</li>
+<li><strong>Project Assignment</strong> Write description of your dataset(s)</li>
+</ul>
+</div>
+<div id="week-5" class="section level3 unnumbered">
+<h3>Week 5</h3>
+<ul>
+<li><strong>R</strong> <a href="http://www.ggplot2-exts.org/gallery">ggplot2 extensions</a>, scatterplot matrix (GGally)</li>
+<li><strong>Topic</strong> <a href="trifecta.html#trifecta">JunkCharts Trifecta Checkup</a></li>
+<li><strong>Project Assignment</strong> Create 2 descriptive plots of your datasets(s)</li>
+</ul>
+</div>
+<div id="week-6" class="section level3 unnumbered">
+<h3>Week 6</h3>
+<ul>
+<li><strong>R</strong> Boxplots, violin plots</li>
+<li><strong>Topic</strong></li>
+<li><strong>Project Assignment</strong> Write a description of the data cleaning required for your project</li>
+</ul>
+</div>
+<div id="week-7" class="section level3 unnumbered">
+<h3>Week 7</h3>
+<ul>
+<li><strong>R</strong> geom_spoke, maps</li>
+<li><strong>Topic</strong></li>
+<li><strong>Project Assignment</strong> Write a description of your planned approach</li>
+</ul>
+</div>
+<div id="week-8" class="section level3 unnumbered">
+<h3>Week 8</h3>
+<ul>
+<li><strong>R</strong> geom_area, geom_ribbon</li>
+<li><strong>Topic</strong> Project Proposal Description</li>
+<li><strong>Project Assignment</strong> Work on project proposal presentation</li>
+</ul>
+</div>
+<div id="week-9" class="section level3 unnumbered">
+<h3>Week 9</h3>
+<ul>
+<li><strong>R</strong> jitter, rug, aesthetics</li>
+<li><strong>Project Assignment</strong> Present project proposal (&lt;2 Minutes)</li>
+</ul>
+</div>
+<div id="week-10" class="section level3 unnumbered">
+<h3>Week 10</h3>
+<ul>
+<li><strong>R</strong> themes, ggthemes extension, labels, color scales</li>
+<li><strong>Topic</strong></li>
+<li><strong>Project Assignment</strong> Work on final project</li>
+</ul>
+</div>
+<div id="week-11" class="section level3 unnumbered">
+<h3>Week 11</h3>
+<ul>
+<li><strong>R</strong> polar coordinates, ggradar extension</li>
+<li><strong>Topic</strong></li>
+<li><strong>Project Assignment</strong> Work on final project (cont.)</li>
+</ul>
+</div>
+<div id="week-12" class="section level3 unnumbered">
+<h3>Week 12</h3>
+<ul>
+<li><strong>R</strong> word/text analysis</li>
+<li><strong>Topic</strong></li>
+<li><strong>Project Assignment</strong> Work on final project (cont.)</li>
+</ul>
+</div>
+<div id="week-13" class="section level3 unnumbered">
+<h3>Week 13</h3>
+<ul>
+<li><strong>R</strong> gganimate</li>
+<li><strong>Topic</strong></li>
+<li><strong>Project Assignment</strong> Work on final project (cont.)</li>
+</ul>
+</div>
+<div id="week-14" class="section level3 unnumbered">
+<h3>Week 14</h3>
+<ul>
+<li><strong>R</strong> git and GitHub for R</li>
+<li><strong>Topic</strong></li>
+<li><strong>Project Assignment</strong></li>
+</ul>
+</div>
+<div id="week-15" class="section level3 unnumbered">
+<h3>Week 15</h3>
+<ul>
+<li><strong>R</strong> networks, geomnet extension</li>
+<li><strong>Topic</strong> Final Project presentations</li>
+<li><strong>Project Assignment</strong></li>
+</ul>
+</div>
+</div>
+<div id="other-resources" class="section level2 unnumbered">
+<h2>Other Resources</h2>
+<p>There are many useful resources you should be aware of while going through this course:</p>
+<div id="statistics" class="section level3 unnumbered">
+<h3>Statistics</h3>
+<p><a href="http://varianceexplained.org/RData/resources/">Variance Explained</a></p>
+<p><a href="http://r4ds.had.co.nz/">R for Data Science - Grolemund and Wickham</a></p>
+</div>
+<div id="visualization" class="section level3 unnumbered">
+<h3>Visualization</h3>
+<p><a href="">FlowingData</a></p>
+<p><a href="http://junkcharts.typepad.com/">Junk Charts</a></p>
+</div>
+<div id="courses" class="section level3 unnumbered">
+<h3>Courses</h3>
+<p><a href="http://projects.iq.harvard.edu/gov2001/">Gary King - Quantitative Research Methodology</a></p>
+<p><a href="http://www.cc.gatech.edu/~stasko/7450/">John Stasko - Information Visualization</a></p>
+<p><a href="http://stat545.com/">Jenny Bryan - Data wrangling, exploration, and analysis with R</a></p>
+</div>
+<div id="books" class="section level3 unnumbered">
+<h3>Books</h3>
+<p><a href="https://cran.r-project.org/doc/contrib/Farnsworth-EconometricsInR.pdf">Econometrics in R</a></p>
+<p><a href="ftp://cran.r-project.org/pub/R/doc/contrib/usingR.pdf">Using R for Data Analysis and Graphics</a></p>
+</div>
+<div id="papers" class="section level3 unnumbered">
+<h3>Papers</h3>
+<p><a href="http://vita.had.co.nz/papers/embedded-plots.pdf">Embedded Plots</a></p>
+
+</div>
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jonpage/r-course/edit/master/index.Rmd",
+"text": "Edit"
+},
+"download": ["jonpage-r-course.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
