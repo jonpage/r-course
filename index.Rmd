@@ -8,6 +8,9 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: 
   bookdown::gitbook:
+    config:
+      toc:
+        collapse: section
     highlight: kate
 documentclass: book
 bibliography: [book.bib, packages.bib]
