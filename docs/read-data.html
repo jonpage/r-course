@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-06-01">
+<meta name="date" content="2017-06-25">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -34,8 +33,7 @@
   
   
 <link rel="prev" href="intro.html">
-<link rel="next" href="trifecta.html">
-
+<link rel="next" href="anscombe.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -92,6 +90,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -155,16 +154,25 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#assignment"><i class="fa fa-check"></i><b>1.3</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="read-data.html"><a href="read-data.html"><i class="fa fa-check"></i><b>2</b> Reading data</a><ul>
-<li class="chapter" data-level="2.1" data-path="read-data.html"><a href="read-data.html#read_csv"><i class="fa fa-check"></i><b>2.1</b> <code>read_csv</code></a></li>
-<li class="chapter" data-level="2.2" data-path="read-data.html"><a href="read-data.html#dplyr"><i class="fa fa-check"></i><b>2.2</b> <code>dplyr</code></a></li>
-<li class="chapter" data-level="2.3" data-path="read-data.html"><a href="read-data.html#first-look-at-ggplot2"><i class="fa fa-check"></i><b>2.3</b> First Look at <code>ggplot2</code></a></li>
-<li class="chapter" data-level="2.4" data-path="read-data.html"><a href="read-data.html#heatmaps"><i class="fa fa-check"></i><b>2.4</b> Heatmaps</a></li>
-<li class="chapter" data-level="2.5" data-path="read-data.html"><a href="read-data.html#hexbins"><i class="fa fa-check"></i><b>2.5</b> Hexbins</a></li>
+<li class="chapter" data-level="2.1" data-path="read-data.html"><a href="read-data.html#data-source"><i class="fa fa-check"></i><b>2.1</b> Data Source:</a></li>
+<li class="chapter" data-level="2.2" data-path="read-data.html"><a href="read-data.html#read_csv"><i class="fa fa-check"></i><b>2.2</b> <code>read_csv</code></a></li>
+<li class="chapter" data-level="2.3" data-path="read-data.html"><a href="read-data.html#dplyr"><i class="fa fa-check"></i><b>2.3</b> <code>dplyr</code></a></li>
+<li class="chapter" data-level="2.4" data-path="read-data.html"><a href="read-data.html#first-look-at-ggplot2"><i class="fa fa-check"></i><b>2.4</b> First Look at <code>ggplot2</code></a></li>
+<li class="chapter" data-level="2.5" data-path="read-data.html"><a href="read-data.html#heatmaps"><i class="fa fa-check"></i><b>2.5</b> Heatmaps</a></li>
+<li class="chapter" data-level="2.6" data-path="read-data.html"><a href="read-data.html#hexbins"><i class="fa fa-check"></i><b>2.6</b> Hexbins</a></li>
+<li class="chapter" data-level="2.7" data-path="read-data.html"><a href="read-data.html#other-topics-from-this-dataset"><i class="fa fa-check"></i><b>2.7</b> Other topics from this dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="trifecta.html"><a href="trifecta.html"><i class="fa fa-check"></i><b>3</b> How to Judge Visualizations</a><ul>
-<li class="chapter" data-level="3.1" data-path="trifecta.html"><a href="trifecta.html#pre-class-assignment"><i class="fa fa-check"></i><b>3.1</b> Pre-class assignment</a></li>
-<li class="chapter" data-level="3.2" data-path="trifecta.html"><a href="trifecta.html#lecture"><i class="fa fa-check"></i><b>3.2</b> Lecture</a></li>
-<li class="chapter" data-level="3.3" data-path="trifecta.html"><a href="trifecta.html#assignment-1"><i class="fa fa-check"></i><b>3.3</b> Assignment</a></li>
+<li class="part"><span><b>II Topics</b></span></li>
+<li class="chapter" data-level="3" data-path="anscombe.html"><a href="anscombe.html"><i class="fa fa-check"></i><b>3</b> Anscombe’s Quartet</a><ul>
+<li class="chapter" data-level="3.1" data-path="anscombe.html"><a href="anscombe.html#prep-the-data"><i class="fa fa-check"></i><b>3.1</b> Prep the data</a></li>
+<li class="chapter" data-level="3.2" data-path="anscombe.html"><a href="anscombe.html#numeric-summary"><i class="fa fa-check"></i><b>3.2</b> Numeric summary</a></li>
+<li class="chapter" data-level="3.3" data-path="anscombe.html"><a href="anscombe.html#visual-summary"><i class="fa fa-check"></i><b>3.3</b> Visual summary</a></li>
+<li class="chapter" data-level="3.4" data-path="anscombe.html"><a href="anscombe.html#the-datasaurus-dozen"><i class="fa fa-check"></i><b>3.4</b> The Datasaurus Dozen</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="trifecta.html"><a href="trifecta.html"><i class="fa fa-check"></i><b>4</b> How to Judge Visualizations</a><ul>
+<li class="chapter" data-level="4.1" data-path="trifecta.html"><a href="trifecta.html#pre-class-assignment"><i class="fa fa-check"></i><b>4.1</b> Pre-class assignment</a></li>
+<li class="chapter" data-level="4.2" data-path="trifecta.html"><a href="trifecta.html#lecture"><i class="fa fa-check"></i><b>4.2</b> Lecture</a></li>
+<li class="chapter" data-level="4.3" data-path="trifecta.html"><a href="trifecta.html#assignment-1"><i class="fa fa-check"></i><b>4.3</b> Assignment</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -189,31 +197,313 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <div id="read-data" class="section level1">
 <h1><span class="header-section-number">Lecture 2</span> Reading data</h1>
 <p>The first step in analyzing data with R is reading data into it. This lesson focuses on reading data, manipulating it with <code>dplyr</code> and a few summary visualizations.</p>
+<div id="data-source" class="section level2">
+<h2><span class="header-section-number">2.1</span> Data Source:</h2>
+<p>The US Census Bureau has a large selection of data on the population of the United States. We’ll take a look at the 1-year American Community Survey results for the state of Hawaii.</p>
+<p><a href="https://www2.census.gov/programs-surveys/acs/data/pums/2015/1-Year/csv_phi.zip">Hawaii Population Records</a></p>
+<p><a href="https://www2.census.gov/programs-surveys/acs/tech_docs/pums/data_dict/PUMSDataDict15.txt">The data dictionary</a></p>
+</div>
 <div id="read_csv" class="section level2">
-<h2><span class="header-section-number">2.1</span> <code>read_csv</code></h2>
+<h2><span class="header-section-number">2.2</span> <code>read_csv</code></h2>
+<p>To read in the downloaded file, we’ll use the <code>readr</code> package, which you can install by installing <code>tidyverse</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr) <span class="co"># also in library(tidyverse)</span>
+pop_hi &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/csv_phi.zip&quot;</span>)</code></pre></div>
+<pre><code>## Multiple files in zip: reading &#39;ss15phi.csv&#39;</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   .default = col_integer(),
+##   RT = col_character(),
+##   SPORDER = col_character(),
+##   PUMA = col_character(),
+##   PWGTP = col_character(),
+##   AGEP = col_character(),
+##   INTP = col_character(),
+##   JWMNP = col_character(),
+##   JWRIP = col_character(),
+##   JWTR = col_character(),
+##   OIP = col_character(),
+##   PAP = col_character(),
+##   RELP = col_character(),
+##   RETP = col_character(),
+##   SCHG = col_character(),
+##   SCHL = col_character(),
+##   SEMP = col_character(),
+##   SSIP = col_character(),
+##   SSP = col_character(),
+##   WAGP = col_character(),
+##   WKHP = col_character()
+##   # ... with 99 more columns
+## )</code></pre>
+<pre><code>## See spec(...) for full column specifications.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_hi</code></pre></div>
+<pre><code>## # A tibble: 14,124 x 284
+##       RT SERIALNO SPORDER  PUMA    ST  ADJINC PWGTP  AGEP   CIT CITWP
+##    &lt;chr&gt;    &lt;int&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt;
+##  1     P       21      01 00303    15 1001264 00078    63     1    NA
+##  2     P      158      01 00306    15 1001264 00056    54     1    NA
+##  3     P      267      01 00100    15 1001264 00059    52     5    NA
+##  4     P      267      02 00100    15 1001264 00071    56     5    NA
+##  5     P      267      03 00100    15 1001264 00102    25     5    NA
+##  6     P      267      04 00100    15 1001264 00155    22     5    NA
+##  7     P      267      05 00100    15 1001264 00074    15     5    NA
+##  8     P      351      01 00100    15 1001264 00307    32     4  2005
+##  9     P      351      02 00100    15 1001264 00578    02     1    NA
+## 10     P      470      01 00200    15 1001264 00041    79     1    NA
+## # ... with 14,114 more rows, and 274 more variables: COW &lt;int&gt;,
+## #   DDRS &lt;int&gt;, DEAR &lt;int&gt;, DEYE &lt;int&gt;, DOUT &lt;int&gt;, DPHY &lt;int&gt;,
+## #   DRAT &lt;int&gt;, DRATX &lt;int&gt;, DREM &lt;int&gt;, ENG &lt;int&gt;, FER &lt;int&gt;, GCL &lt;int&gt;,
+## #   GCM &lt;int&gt;, GCR &lt;int&gt;, HINS1 &lt;int&gt;, HINS2 &lt;int&gt;, HINS3 &lt;int&gt;,
+## #   HINS4 &lt;int&gt;, HINS5 &lt;int&gt;, HINS6 &lt;int&gt;, HINS7 &lt;int&gt;, INTP &lt;chr&gt;,
+## #   JWMNP &lt;chr&gt;, JWRIP &lt;chr&gt;, JWTR &lt;chr&gt;, LANX &lt;int&gt;, MAR &lt;int&gt;,
+## #   MARHD &lt;int&gt;, MARHM &lt;int&gt;, MARHT &lt;int&gt;, MARHW &lt;int&gt;, MARHYP &lt;int&gt;,
+## #   MIG &lt;int&gt;, MIL &lt;int&gt;, MLPA &lt;int&gt;, MLPB &lt;int&gt;, MLPCD &lt;int&gt;, MLPE &lt;int&gt;,
+## #   MLPFG &lt;int&gt;, MLPH &lt;int&gt;, MLPI &lt;int&gt;, MLPJ &lt;int&gt;, MLPK &lt;int&gt;,
+## #   NWAB &lt;int&gt;, NWAV &lt;int&gt;, NWLA &lt;int&gt;, NWLK &lt;int&gt;, NWRE &lt;int&gt;, OIP &lt;chr&gt;,
+## #   PAP &lt;chr&gt;, RELP &lt;chr&gt;, RETP &lt;chr&gt;, SCH &lt;int&gt;, SCHG &lt;chr&gt;, SCHL &lt;chr&gt;,
+## #   SEMP &lt;chr&gt;, SEX &lt;int&gt;, SSIP &lt;chr&gt;, SSP &lt;chr&gt;, WAGP &lt;chr&gt;, WKHP &lt;chr&gt;,
+## #   WKL &lt;int&gt;, WKW &lt;int&gt;, WRK &lt;int&gt;, YOEP &lt;int&gt;, ANC &lt;int&gt;, ANC1P &lt;chr&gt;,
+## #   ANC2P &lt;chr&gt;, DECADE &lt;int&gt;, DIS &lt;int&gt;, DRIVESP &lt;int&gt;, ESP &lt;int&gt;,
+## #   ESR &lt;int&gt;, FHICOVP &lt;int&gt;, FOD1P &lt;int&gt;, FOD2P &lt;int&gt;, HICOV &lt;int&gt;,
+## #   HISP &lt;chr&gt;, INDP &lt;chr&gt;, JWAP &lt;chr&gt;, JWDP &lt;chr&gt;, LANP &lt;int&gt;,
+## #   MIGPUMA &lt;chr&gt;, MIGSP &lt;chr&gt;, MSP &lt;int&gt;, NAICSP &lt;chr&gt;, NATIVITY &lt;int&gt;,
+## #   NOP &lt;int&gt;, OC &lt;int&gt;, OCCP &lt;chr&gt;, PAOC &lt;int&gt;, PERNP &lt;chr&gt;, PINCP &lt;chr&gt;,
+## #   POBP &lt;chr&gt;, POVPIP &lt;chr&gt;, POWPUMA &lt;chr&gt;, POWSP &lt;chr&gt;, PRIVCOV &lt;int&gt;,
+## #   PUBCOV &lt;int&gt;, QTRBIR &lt;int&gt;, ...</code></pre>
 </div>
 <div id="dplyr" class="section level2">
-<h2><span class="header-section-number">2.2</span> <code>dplyr</code></h2>
+<h2><span class="header-section-number">2.3</span> <code>dplyr</code></h2>
+<p>Using the data dictionary we can identify some interesting variables.</p>
+<pre><code>PERSON RECORD
+
+RT      1   
+    Record Type     
+        P .Person Record
+
+AGEP        2   
+    Age
+        00  .Under 1 year   
+        01..99  .1 to 99 years (Top-coded***)
+
+COW     1   
+    Class of worker
+        b .N/A (less than 16 years old/NILF who last
+          .worked more than 5 years ago or never worked)
+        1 .Employee of a private for-profit company or
+          .business, or of an individual, for wages,
+          .salary, or commissions
+        2 .Employee of a private not-for-profit,
+          .tax-exempt, or charitable organization
+        3 .Local government employee (city, county, etc.)
+        4 .State government employee
+        5 .Federal government employee
+        6 .Self-employed in own not incorporated
+          .business, professional practice, or farm
+        7 .Self-employed in own incorporated
+          .business, professional practice or farm
+        8 .Working without pay in family business or farm
+        9 .Unemployed and last worked 5 years ago or earlier or never
+                  .worked
+        
+SCHL        2   
+    Educational attainment
+        bb .N/A (less than 3 years old)
+        01 .No schooling completed
+        02 .Nursery school, preschool   
+        03 .Kindergarten
+        04 .Grade 1
+        05 .Grade 2
+        06 .Grade 3     
+        07 .Grade 4
+        08 .Grade 5
+        09 .Grade 6
+        10 .Grade 7     
+        11 .Grade 8  
+        12 .Grade 9
+        13 .Grade 10
+        14 .Grade 11        
+        15 .12th grade - no diploma   
+        16 .Regular high school diploma
+        17 .GED or alternative credential
+        18 .Some college, but less than 1 year
+        19 .1 or more years of college credit, no degree
+        20 .Associate&#39;s degree      
+        21 .Bachelor&#39;s degree
+        22 .Master&#39;s degree
+        23 .Professional degree beyond a bachelor&#39;s degree
+        24 .Doctorate degree
+        
+WAGP        6   
+    Wages or salary income past 12 months
+        bbbbbb      .N/A (less than 15 years old)
+        000000      .None
+        000001..999999  .$1 to 999999 (Rounded and top-coded)
+
+Note: Use ADJINC to adjust WAGP to constant dollars.
+
+
+WKHP        2   
+    Usual hours worked per week past 12 months
+        bb   .N/A (less than 16 years old/did not work 
+             .during the past 12 months)
+        01..98   .1 to 98 usual hours
+        99   .99 or more usual hours
+        
+WKW     1   
+    Weeks worked during past 12 months
+        b .N/A (less than 16 years old/did not work 
+          .during the past 12 months)
+        1 .50 to 52 weeks worked during past 12 months
+        2 .48 to 49 weeks worked during past 12 months
+        3 .40 to 47 weeks worked during past 12 months
+        4 .27 to 39 weeks worked during past 12 months
+        5 .14 to 26 weeks worked during past 12 months 
+        6 .less than 14 weeks worked during past 12 months
+        
+ESR     1   
+    Employment status recode
+        b .N/A (less than 16 years old)
+        1 .Civilian employed, at work
+        2 .Civilian employed, with a job but not at work
+        3 .Unemployed
+        4 .Armed forces, at work
+        5 .Armed forces, with a job but not at work
+        6 .Not in labor force
+        
+PERNP       7   
+    Total person&#39;s earnings
+        bbbbbbb         .N/A (less than 15 years old)
+        0000000         .No earnings
+        -010000         .Loss of $10000 or more (Rounded &amp; bottom-coded 
+                        .components) 
+        -000001..-009999    .Loss $1 to $9999 (Rounded components)
+        0000001         .$1 or break even
+        0000002..9999999    .$2 to $9999999 (Rounded &amp; top-coded components)
+        
+Note: Use ADJINC to adjust PERNP to constant dollars.
+
+PINCP       7   
+    Total person&#39;s income (signed)
+        bbbbbbb         .N/A (less than 15 years old)
+        0000000         .None
+        -019999         .Loss of $19999 or more (Rounded &amp; bottom-coded 
+                        .components) 
+        -000001..-019998    .Loss $1 to $19998 (Rounded components)
+        0000001         .$1 or break even
+        0000002..9999999    .$2 to $9999999 (Rounded &amp; top-coded components)
+            
+Note: Use ADJINC to adjust PINCP to constant dollars.</code></pre>
+<p>Let’s focus on employed civilians (ESR either 1 or 2) working full time (WKHP &gt; 32) for close to the entire year (WKW either 1 or 2).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr) <span class="co"># also in library(tidyverse)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_hi &lt;-<span class="st"> </span>pop_hi %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(
+    ESR %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),
+    <span class="kw">as.numeric</span>(WKHP) &gt;<span class="st"> </span><span class="dv">32</span>,
+    WKW %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)
+  )</code></pre></div>
+<p>If you are unsure if a column that you want to treat as numeric contains letters, you can run the following command to get a list of the values containing letters:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;[[:alpha:]]&quot;</span>, pop_hi$WKHP, <span class="dt">value =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## character(0)</code></pre>
+<p>We can use two functions to add new columns (or change existing ones).</p>
+<ol style="list-style-type: decimal">
+<li><code>mutate()</code> adds columns and keeps the previous columns</li>
+<li><code>transmute()</code> adds columns and removes the previous columns</li>
+</ol>
+<p>This time we want to drop the columns we don’t mention.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_hi &lt;-<span class="st"> </span>pop_hi %&gt;%
+<span class="st">  </span><span class="kw">transmute</span>(
+    <span class="dt">age =</span> <span class="kw">as.numeric</span>(AGEP),
+    <span class="dt">worker_class =</span> <span class="kw">factor</span>(COW, <span class="dt">labels =</span> <span class="kw">c</span>(
+      <span class="st">&quot;for-profit&quot;</span>,
+      <span class="st">&quot;not-for-profit&quot;</span>,
+      <span class="st">&quot;local government&quot;</span>,
+      <span class="st">&quot;state government&quot;</span>,
+      <span class="st">&quot;federal government&quot;</span>,
+      <span class="st">&quot;self-employed not incorporated&quot;</span>,
+      <span class="st">&quot;self-employed incorporated&quot;</span>,
+      <span class="st">&quot;family business no pay&quot;</span>
+    )),
+    <span class="dt">school =</span> SCHL,
+    <span class="dt">wages =</span> <span class="kw">as.numeric</span>(WAGP),
+    <span class="dt">top_coded_wages =</span> WAGP ==<span class="st"> </span><span class="dv">999999</span>
+)</code></pre></div>
+<p>Creating a custom factor variable for educational attainment:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">education_levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;less than HS&quot;</span>, <span class="st">&quot;HS&quot;</span>, <span class="st">&quot;associates&quot;</span>, <span class="st">&quot;bachelors&quot;</span>, <span class="st">&quot;masters&quot;</span>, <span class="st">&quot;doctorate&quot;</span>)
+
+pop_hi$education &lt;-<span class="st"> </span><span class="ot">NA</span>
+pop_hi[pop_hi$school &lt;<span class="st"> </span><span class="dv">16</span>,]$education &lt;-<span class="st"> &quot;less than HS&quot;</span>
+pop_hi[pop_hi$school &gt;<span class="st"> </span><span class="dv">16</span> &amp;<span class="st"> </span>pop_hi$school &lt;<span class="st"> </span><span class="dv">20</span>,]$education &lt;-<span class="st"> &quot;HS&quot;</span>
+pop_hi[pop_hi$school ==<span class="st"> </span><span class="dv">20</span>,]$education &lt;-<span class="st"> &quot;associates&quot;</span>
+pop_hi[pop_hi$school ==<span class="st"> </span><span class="dv">21</span>,]$education &lt;-<span class="st"> &quot;bachelors&quot;</span>
+pop_hi[pop_hi$school %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">22</span>, <span class="dv">23</span>),]$education &lt;-<span class="st"> &quot;masters&quot;</span>
+pop_hi[pop_hi$school ==<span class="st"> </span><span class="dv">24</span>,]$education &lt;-<span class="st"> &quot;doctorate&quot;</span>
+
+pop_hi &lt;-<span class="st"> </span>pop_hi %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">education =</span> <span class="kw">factor</span>(education, <span class="dt">levels =</span> education_levels))</code></pre></div>
 </div>
 <div id="first-look-at-ggplot2" class="section level2">
-<h2><span class="header-section-number">2.3</span> First Look at <code>ggplot2</code></h2>
+<h2><span class="header-section-number">2.4</span> First Look at <code>ggplot2</code></h2>
+<p>See the <a href="ggplot2.tidyverse.org/reference/">ggplot2 documentation</a> for details and inspiration.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2) <span class="co"># also in library(tidyverse)</span>
+<span class="kw">ggplot</span>(pop_hi, <span class="kw">aes</span>(age, wages)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>Income has a skewed distribution, so it is often presented/analyzed in logs. Here’s how to modify the above chart to display income in logs:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_hi &lt;-<span class="st"> </span>pop_hi %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">log_safe_wages =</span> <span class="kw">ifelse</span>(wages ==<span class="st"> </span><span class="dv">0</span>, <span class="dv">1</span>, wages))
+pop_hi %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(age, log_safe_wages)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">scale_y_log10</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 </div>
 <div id="heatmaps" class="section level2">
-<h2><span class="header-section-number">2.4</span> Heatmaps</h2>
+<h2><span class="header-section-number">2.5</span> Heatmaps</h2>
+<p>Heatmaps allow you to get a sense of the concetration of observations in regions where there are many overlapping points:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(pop_hi, <span class="kw">aes</span>(age, log_safe_wages)) +
+<span class="st">  </span><span class="kw">geom_bin2d</span>() +
+<span class="st">  </span><span class="kw">scale_y_log10</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 </div>
 <div id="hexbins" class="section level2">
-<h2><span class="header-section-number">2.5</span> Hexbins</h2>
+<h2><span class="header-section-number">2.6</span> Hexbins</h2>
+<p>Hexbins use hexagons instead of squares, which helps avoid the rectangular sections in heatmaps that may misrepresent your data.</p>
+<p>You will need to install the <code>hexbin</code> package.</p>
+<pre><code>install.packages(&quot;hexbin&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_hi %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(wages &gt;<span class="st"> </span><span class="dv">10000</span>, wages &lt;<span class="st"> </span><span class="dv">300000</span>) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(age, wages)) +
+<span class="st">  </span><span class="kw">geom_hex</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_x_log10</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>Here we can see that inequality in wages for workers increases with age.</p>
+</div>
+<div id="other-topics-from-this-dataset" class="section level2">
+<h2><span class="header-section-number">2.7</span> Other topics from this dataset</h2>
+<p>This dataset includes information on the majors for degree holders and the industry codes. You could use that additional information to ask how well targeted majors are to particular industries and how incomes vary across choice of major. Because of the size of the data in the Hawaii sample, it would be better to ask some of these questions at the national level.</p>
+<p>Go to the <a href="https://www.census.gov/programs-surveys/acs/technical-documentation/pums/documentation.2015.html">ACS PUMS documentation page</a> for more information.</p>
 
 </div>
 </div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
 <a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="trifecta.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="anscombe.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>

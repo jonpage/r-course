@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-06-01">
+<meta name="date" content="2017-06-25">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 
 <link rel="next" href="intro.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -92,6 +90,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -155,16 +154,25 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#assignment"><i class="fa fa-check"></i><b>1.3</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="read-data.html"><a href="read-data.html"><i class="fa fa-check"></i><b>2</b> Reading data</a><ul>
-<li class="chapter" data-level="2.1" data-path="read-data.html"><a href="read-data.html#read_csv"><i class="fa fa-check"></i><b>2.1</b> <code>read_csv</code></a></li>
-<li class="chapter" data-level="2.2" data-path="read-data.html"><a href="read-data.html#dplyr"><i class="fa fa-check"></i><b>2.2</b> <code>dplyr</code></a></li>
-<li class="chapter" data-level="2.3" data-path="read-data.html"><a href="read-data.html#first-look-at-ggplot2"><i class="fa fa-check"></i><b>2.3</b> First Look at <code>ggplot2</code></a></li>
-<li class="chapter" data-level="2.4" data-path="read-data.html"><a href="read-data.html#heatmaps"><i class="fa fa-check"></i><b>2.4</b> Heatmaps</a></li>
-<li class="chapter" data-level="2.5" data-path="read-data.html"><a href="read-data.html#hexbins"><i class="fa fa-check"></i><b>2.5</b> Hexbins</a></li>
+<li class="chapter" data-level="2.1" data-path="read-data.html"><a href="read-data.html#data-source"><i class="fa fa-check"></i><b>2.1</b> Data Source:</a></li>
+<li class="chapter" data-level="2.2" data-path="read-data.html"><a href="read-data.html#read_csv"><i class="fa fa-check"></i><b>2.2</b> <code>read_csv</code></a></li>
+<li class="chapter" data-level="2.3" data-path="read-data.html"><a href="read-data.html#dplyr"><i class="fa fa-check"></i><b>2.3</b> <code>dplyr</code></a></li>
+<li class="chapter" data-level="2.4" data-path="read-data.html"><a href="read-data.html#first-look-at-ggplot2"><i class="fa fa-check"></i><b>2.4</b> First Look at <code>ggplot2</code></a></li>
+<li class="chapter" data-level="2.5" data-path="read-data.html"><a href="read-data.html#heatmaps"><i class="fa fa-check"></i><b>2.5</b> Heatmaps</a></li>
+<li class="chapter" data-level="2.6" data-path="read-data.html"><a href="read-data.html#hexbins"><i class="fa fa-check"></i><b>2.6</b> Hexbins</a></li>
+<li class="chapter" data-level="2.7" data-path="read-data.html"><a href="read-data.html#other-topics-from-this-dataset"><i class="fa fa-check"></i><b>2.7</b> Other topics from this dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="trifecta.html"><a href="trifecta.html"><i class="fa fa-check"></i><b>3</b> How to Judge Visualizations</a><ul>
-<li class="chapter" data-level="3.1" data-path="trifecta.html"><a href="trifecta.html#pre-class-assignment"><i class="fa fa-check"></i><b>3.1</b> Pre-class assignment</a></li>
-<li class="chapter" data-level="3.2" data-path="trifecta.html"><a href="trifecta.html#lecture"><i class="fa fa-check"></i><b>3.2</b> Lecture</a></li>
-<li class="chapter" data-level="3.3" data-path="trifecta.html"><a href="trifecta.html#assignment-1"><i class="fa fa-check"></i><b>3.3</b> Assignment</a></li>
+<li class="part"><span><b>II Topics</b></span></li>
+<li class="chapter" data-level="3" data-path="anscombe.html"><a href="anscombe.html"><i class="fa fa-check"></i><b>3</b> Anscombe’s Quartet</a><ul>
+<li class="chapter" data-level="3.1" data-path="anscombe.html"><a href="anscombe.html#prep-the-data"><i class="fa fa-check"></i><b>3.1</b> Prep the data</a></li>
+<li class="chapter" data-level="3.2" data-path="anscombe.html"><a href="anscombe.html#numeric-summary"><i class="fa fa-check"></i><b>3.2</b> Numeric summary</a></li>
+<li class="chapter" data-level="3.3" data-path="anscombe.html"><a href="anscombe.html#visual-summary"><i class="fa fa-check"></i><b>3.3</b> Visual summary</a></li>
+<li class="chapter" data-level="3.4" data-path="anscombe.html"><a href="anscombe.html#the-datasaurus-dozen"><i class="fa fa-check"></i><b>3.4</b> The Datasaurus Dozen</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="trifecta.html"><a href="trifecta.html"><i class="fa fa-check"></i><b>4</b> How to Judge Visualizations</a><ul>
+<li class="chapter" data-level="4.1" data-path="trifecta.html"><a href="trifecta.html#pre-class-assignment"><i class="fa fa-check"></i><b>4.1</b> Pre-class assignment</a></li>
+<li class="chapter" data-level="4.2" data-path="trifecta.html"><a href="trifecta.html#lecture"><i class="fa fa-check"></i><b>4.2</b> Lecture</a></li>
+<li class="chapter" data-level="4.3" data-path="trifecta.html"><a href="trifecta.html#assignment-1"><i class="fa fa-check"></i><b>4.3</b> Assignment</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -191,7 +199,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <h3 class="subtitle"><em><p>ECON 396 (Fall 2017)<br />
 TR 10:30-11:45, Webster Hall 112</p></em></h3>
 <h4 class="author"><em>Jonathan Page</em></h4>
-<h4 class="date"><em>2017-06-01</em></h4>
+<h4 class="date"><em>2017-06-25</em></h4>
 </div>
 <div id="syllabus" class="section level1 unnumbered">
 <h1>Syllabus</h1>
@@ -254,7 +262,7 @@ TR 10:30-11:45, Webster Hall 112</p></em></h3>
 <div id="week-1" class="section level3 unnumbered">
 <h3>Week 1</h3>
 <ul>
-<li><strong>R</strong> <a href="intro.html#intro">Intro to R and RStudio; Histograms, scatterplots, summary statistics</a></li>
+<li><strong>R</strong> <a href="intro.html#intro">Intro to R and RStudio; Histograms, scatterplots, summary statistics</a> <!-- datasets --></li>
 <li><strong>Topic</strong> Data sources overview</li>
 <li><strong>Project Assignment</strong> Indentify interesting datasets and questions</li>
 </ul>
@@ -262,31 +270,31 @@ TR 10:30-11:45, Webster Hall 112</p></em></h3>
 <div id="week-2" class="section level3 unnumbered">
 <h3>Week 2</h3>
 <ul>
-<li><strong>R</strong> <a href="read-data.html#read-data">read_csv, dplyr basics, heatmaps, hexbins</a></li>
-<li><strong>Topic</strong> Anscombe’s Quartet</li>
+<li><strong>R</strong> <a href="read-data.html#read-data">read_csv, dplyr basics, heatmaps, hexbins</a> <!--install `hexbin`, ACS PUMS  --></li>
+<li><strong>Topic</strong> <a href="anscombe.html#anscombe">Anscombe’s Quartet</a> <!-- --></li>
 <li><strong>Project Assignment</strong> Choose question and dataset for your project</li>
 </ul>
 </div>
 <div id="week-3" class="section level3 unnumbered">
 <h3>Week 3</h3>
 <ul>
-<li><strong>R</strong> ggplot facets, bubble plots, transparency</li>
-<li><strong>Topic</strong> Effective Data Visualization</li>
+<li><strong>R</strong> ggplot facets, bubble plots, transparency <!-- --></li>
+<li><strong>Topic</strong> Effective Data Visualization <!-- --></li>
 <li><strong>Project Assignment</strong> Write description of your question</li>
 </ul>
 </div>
 <div id="week-4" class="section level3 unnumbered">
 <h3>Week 4</h3>
 <ul>
-<li><strong>R</strong> geom_smooth, abline, vline, hline, ggTimeSeries</li>
-<li><strong>Topic</strong> Time series analysis</li>
+<li><strong>R</strong> geom_smooth, abline, vline, hline, ggTimeSeries <!-- --></li>
+<li><strong>Topic</strong> Time series analysis <!-- --></li>
 <li><strong>Project Assignment</strong> Write description of your dataset(s)</li>
 </ul>
 </div>
 <div id="week-5" class="section level3 unnumbered">
 <h3>Week 5</h3>
 <ul>
-<li><strong>R</strong> <a href="http://www.ggplot2-exts.org/gallery">ggplot2 extensions</a>, scatterplot matrix (GGally)</li>
+<li><strong>R</strong> <a href="http://www.ggplot2-exts.org/gallery">ggplot2 extensions</a>, scatterplot matrix (GGally) <!-- --></li>
 <li><strong>Topic</strong> <a href="trifecta.html#trifecta">JunkCharts Trifecta Checkup</a></li>
 <li><strong>Project Assignment</strong> Create 2 descriptive plots of your datasets(s)</li>
 </ul>
@@ -294,7 +302,7 @@ TR 10:30-11:45, Webster Hall 112</p></em></h3>
 <div id="week-6" class="section level3 unnumbered">
 <h3>Week 6</h3>
 <ul>
-<li><strong>R</strong> Boxplots, violin plots</li>
+<li><strong>R</strong> Boxplots, violin plots <!-- --></li>
 <li><strong>Topic</strong></li>
 <li><strong>Project Assignment</strong> Write a description of the data cleaning required for your project</li>
 </ul>
@@ -302,7 +310,7 @@ TR 10:30-11:45, Webster Hall 112</p></em></h3>
 <div id="week-7" class="section level3 unnumbered">
 <h3>Week 7</h3>
 <ul>
-<li><strong>R</strong> geom_spoke, maps</li>
+<li><strong>R</strong> geom_spoke, maps <!-- --></li>
 <li><strong>Topic</strong></li>
 <li><strong>Project Assignment</strong> Write a description of your planned approach</li>
 </ul>
@@ -310,7 +318,7 @@ TR 10:30-11:45, Webster Hall 112</p></em></h3>
 <div id="week-8" class="section level3 unnumbered">
 <h3>Week 8</h3>
 <ul>
-<li><strong>R</strong> geom_area, geom_ribbon</li>
+<li><strong>R</strong> geom_area, geom_ribbon <!-- --></li>
 <li><strong>Topic</strong> Project Proposal Description</li>
 <li><strong>Project Assignment</strong> Work on project proposal presentation</li>
 </ul>
@@ -318,14 +326,14 @@ TR 10:30-11:45, Webster Hall 112</p></em></h3>
 <div id="week-9" class="section level3 unnumbered">
 <h3>Week 9</h3>
 <ul>
-<li><strong>R</strong> jitter, rug, aesthetics</li>
+<li><strong>R</strong> jitter, rug, aesthetics <!-- --></li>
 <li><strong>Project Assignment</strong> Present project proposal (&lt;2 Minutes)</li>
 </ul>
 </div>
 <div id="week-10" class="section level3 unnumbered">
 <h3>Week 10</h3>
 <ul>
-<li><strong>R</strong> themes, ggthemes extension, labels, color scales</li>
+<li><strong>R</strong> themes, ggthemes extension, labels, color scales <!-- --></li>
 <li><strong>Topic</strong></li>
 <li><strong>Project Assignment</strong> Work on final project</li>
 </ul>
@@ -333,7 +341,7 @@ TR 10:30-11:45, Webster Hall 112</p></em></h3>
 <div id="week-11" class="section level3 unnumbered">
 <h3>Week 11</h3>
 <ul>
-<li><strong>R</strong> polar coordinates, ggradar extension</li>
+<li><strong>R</strong> polar coordinates, ggradar extension <!-- --></li>
 <li><strong>Topic</strong></li>
 <li><strong>Project Assignment</strong> Work on final project (cont.)</li>
 </ul>
@@ -341,7 +349,7 @@ TR 10:30-11:45, Webster Hall 112</p></em></h3>
 <div id="week-12" class="section level3 unnumbered">
 <h3>Week 12</h3>
 <ul>
-<li><strong>R</strong> word/text analysis</li>
+<li><strong>R</strong> word/text analysis <!-- --></li>
 <li><strong>Topic</strong></li>
 <li><strong>Project Assignment</strong> Work on final project (cont.)</li>
 </ul>
@@ -349,7 +357,7 @@ TR 10:30-11:45, Webster Hall 112</p></em></h3>
 <div id="week-13" class="section level3 unnumbered">
 <h3>Week 13</h3>
 <ul>
-<li><strong>R</strong> gganimate</li>
+<li><strong>R</strong> gganimate <!-- --></li>
 <li><strong>Topic</strong></li>
 <li><strong>Project Assignment</strong> Work on final project (cont.)</li>
 </ul>
@@ -365,7 +373,7 @@ TR 10:30-11:45, Webster Hall 112</p></em></h3>
 <div id="week-15" class="section level3 unnumbered">
 <h3>Week 15</h3>
 <ul>
-<li><strong>R</strong> networks, geomnet extension</li>
+<li><strong>R</strong> networks, geomnet extension <!-- --></li>
 <li><strong>Topic</strong> Final Project presentations</li>
 <li><strong>Project Assignment</strong></li>
 </ul>
@@ -411,8 +419,9 @@ TR 10:30-11:45, Webster Hall 112</p></em></h3>
         </div>
       </div>
 
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>

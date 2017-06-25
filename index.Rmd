@@ -75,77 +75,93 @@ The following schedule is tentative and subject to change.
 ### Week 1 {-}
 
 * **R** [Intro to R and RStudio; Histograms, scatterplots, summary statistics](#intro)
+<!-- datasets -->
 * **Topic** Data sources overview
 * **Project Assignment** Indentify interesting datasets and questions
 
 ### Week 2 {-}
 
 * **R** [read_csv, dplyr basics, heatmaps, hexbins](#read-data)
-* **Topic** Anscombe's Quartet
+<!--install `hexbin`, ACS PUMS  -->
+* **Topic** [Anscombe's Quartet](#anscombe)
+<!-- -->
 * **Project Assignment** Choose question and dataset for your project
 
 ### Week 3 {-}
 
 * **R** ggplot facets, bubble plots, transparency
+<!-- -->
 * **Topic** Effective Data Visualization
+<!-- -->
 * **Project Assignment** Write description of your question
 
 ### Week 4 {-}
 
 * **R** geom_smooth, abline, vline, hline, ggTimeSeries
+<!-- -->
 * **Topic** Time series analysis
+<!-- -->
 * **Project Assignment** Write description of your dataset(s)
 
 ### Week 5 {-}
 
 * **R** [ggplot2 extensions](http://www.ggplot2-exts.org/gallery), scatterplot matrix (GGally)
+<!-- -->
 * **Topic** [JunkCharts Trifecta Checkup](#trifecta)
 * **Project Assignment** Create 2 descriptive plots of your datasets(s)
 
 ### Week 6 {-}
 
 * **R** Boxplots, violin plots
+<!-- -->
 * **Topic** 
 * **Project Assignment** Write a description of the data cleaning required for your project
 
 ### Week 7 {-}
 
 * **R** geom_spoke, maps
+<!-- -->
 * **Topic** 
 * **Project Assignment** Write a description of your planned approach
 
 ### Week 8 {-}
 
 * **R** geom_area, geom_ribbon
+<!-- -->
 * **Topic** Project Proposal Description
 * **Project Assignment** Work on project proposal presentation
 
 ### Week 9 {-}
 
 * **R** jitter, rug, aesthetics
+<!-- -->
 * **Project Assignment** Present project proposal (<2 Minutes)
 
 ### Week 10 {-}
 
 * **R** themes, ggthemes extension, labels, color scales
+<!-- -->
 * **Topic** 
 * **Project Assignment** Work on final project
 
 ### Week 11 {-}
 
 * **R** polar coordinates, ggradar extension
+<!-- -->
 * **Topic** 
 * **Project Assignment** Work on final project (cont.)
 
 ### Week 12 {-}
 
 * **R** word/text analysis
+<!-- -->
 * **Topic** 
 * **Project Assignment** Work on final project (cont.)
 
 ### Week 13 {-}
 
 * **R** gganimate
+<!-- -->
 * **Topic** 
 * **Project Assignment** Work on final project (cont.)
 
@@ -158,9 +174,9 @@ The following schedule is tentative and subject to change.
 ### Week 15 {-}
 
 * **R** networks, geomnet extension
+<!-- -->
 * **Topic** Final Project presentations
 * **Project Assignment** 
-
 
 ## Other Resources {-}
 

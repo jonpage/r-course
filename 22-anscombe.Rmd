@@ -1,0 +1,103 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# (PART) Topics {-} 
+
+# Anscombe's Quartet {#anscombe}
+
+Anscombe quartet emphasizes the need to move beyond basic numerical summaries of your data.
+The `anscombe` dataset has four sets of `x` and `y` variables with very similar summaries, 
+but distinct visual patterns
+
+## Prep the data
+
+```{r}
+anscombe
+```
+
+First we'll use `tidyr` to reshape the anscombe dataset to make it easier to work with.
+
+```{r}
+library(tidyr)
+tidy_anscombe <- anscombe %>%
+  mutate(id = row_number()) %>%
+  gather(key = key, value = value, everything(), -id)
+tidy_anscombe
+```
+
+```{r}
+tidy_anscombe <- tidy_anscombe %>%
+  separate(key, c("x_or_y", "series"), 1)
+tidy_anscombe
+```
+
+```{r}
+tidy_anscombe <- tidy_anscombe %>%
+  spread(x_or_y, value)
+tidy_anscombe
+```
+
+
+## Numeric summary
+
+```{r}
+tidy_anscombe %>%
+  group_by(series) %>%
+  summarise(
+    mean_x = mean(x),
+    mean_y = mean(y),
+    sd_x = sd(x),
+    sd_y = sd(y),
+    cor = cor(x, y)
+  )
+```
+
+
+
+## Visual summary
+
+While the visual summaries suggest very similar datasets, the visual summaries help identify the differences:
+
+```{r}
+library(ggplot2)
+tidy_anscombe %>%
+  ggplot(aes(x, y)) +
+  geom_point() +
+  facet_wrap(~ series) +
+  coord_fixed()
+```
+
+
+## The Datasaurus Dozen
+
+The Datasaurus Dozen is a set of series, like the Anscombe's quartet with similar numerical summaries and
+radically different visual summaries. See a great discussion of this dataset by the creators, Justin Matejka and
+George Fitzmaurice [here](https://www.autodeskresearch.com/publications/samestats)
+
+Download the data [here](https://www.autodeskresearch.com/sites/default/files/The%20Datasaurus%20Dozen.zip) and 
+move the DatasaurusDozen.tsv file into your data folder.
+
+```{r}
+datasaurus <- read_tsv("data/DatasaurusDozen.tsv")
+datasaurus %>%
+  group_by(dataset) %>%
+  summarise(
+    mean_x = mean(x),
+    mean_y = mean(y),
+    sd_x = sd(x),
+    sd_y = sd(y),
+    cor = cor(x, y)
+  )
+```
+
+Visual summaries
+```{r}
+datasaurus %>%
+  ggplot(aes(x, y)) +
+  geom_point() +
+  facet_wrap(~ dataset, ncol = 6) +
+  coord_fixed()
+```
