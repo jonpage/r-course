@@ -1,0 +1,117 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# Lines and Curves
+
+## Data
+
+We will use data on the number of active duty personnel in Hawaii. The first dataset is an
+Excel file pulled from the State of Hawaii Department of Business, Economic Development, and
+Tourism (DBEDT) [2015 State of Hawaii Data Book](http://dbedt.hawaii.gov/economic/databook/2015-individual/). 
+The data is originally from the [US Defense Manpower Data Center](www.dmdc.osd.mil/appj/dwp/stats_reports.jsp)
+
+```{r}
+library(readxl)
+library(dplyr)
+library(magrittr)
+mil_personnel <- read_excel("data/100315.xls", range = "A5:L38", col_types = "numeric")
+mil_personnel <- bind_rows(
+  select(mil_personnel, 1:6) %>% set_colnames(c("Year", "Total", "Army", "Navy", "Marine Corps", "Air Force")),
+  select(mil_personnel, 7:12) %>% set_colnames(c("Year", "Total", "Army", "Navy", "Marine Corps", "Air Force"))
+) %>%
+  filter(!is.na(Year))
+mil_personnel
+```
+
+
+## geom_smooth
+
+`geom_smooth` allows you to have smooth lines appear in your chart. With no argument, it will
+choose `loess` for series shorter than 1,000 observations. It shows a shaded confidence interval.
+
+```{r}
+mil_personnel %>%
+  ggplot(aes(Year, Total)) +
+  geom_point() +
+  geom_smooth()
+```
+
+Here's what it looks like if we fit a linear model instead:
+
+```{r}
+mil_personnel %>%
+  ggplot(aes(Year, Total)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+We can also just have a line chart that connects the points:
+
+```{r}
+mil_personnel %>%
+  ggplot(aes(Year, Total)) +
+  geom_point() +
+  geom_line()
+```
+
+## geom_abline
+
+`geom_abline` allows you to display lines with a specific intercept and slope. If no intercept or slope is
+provided, a 45-degree line will be shown.
+
+```{r}
+x = rnorm(100)
+y = 2.5 + 1.2 * x + rnorm(100)
+test_data <- data_frame(x, y)
+
+test_data %>% 
+  ggplot(aes(x, y)) +
+  geom_point() +
+  xlim(-2, 6) + ylim(-2, 6) +
+  coord_fixed() +
+  geom_abline() 
+```
+
+```{r}
+test_data %>% 
+  ggplot(aes(x, y)) +
+  geom_point() +
+  xlim(-2, 6) + ylim(-2, 6) +
+  coord_fixed() +
+  geom_abline() +
+  geom_abline(intercept = 2.5, slope = 1.2, color = "red") 
+```
+
+## geom_vline
+
+`geom_vline` allows you to draw vertical lines by specifying an x intercept.
+
+```{r}
+test_data %>% 
+  ggplot(aes(x, y)) +
+  geom_point() +
+  xlim(-2, 6) + ylim(-2, 6) +
+  coord_fixed() +
+  geom_abline() +
+  geom_abline(intercept = 2.5, slope = 1.2, color = "red") +
+  geom_vline(xintercept = 2, color = "blue")
+```
+
+## hline
+
+`geom_vline` allows you to draw vertical lines by specifying an x intercept.
+
+```{r}
+test_data %>% 
+  ggplot(aes(x, y)) +
+  geom_point() +
+  xlim(-2, 6) + ylim(-2, 6) +
+  coord_fixed() +
+  geom_abline() +
+  geom_abline(intercept = 2.5, slope = 1.2, color = "red") +
+  geom_vline(xintercept = 2, color = "blue") +
+  geom_hline(yintercept = 1, color = "#4FCC53", lty = 2)
+```

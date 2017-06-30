@@ -43,7 +43,7 @@ R Graphics Cookbook
 
 ### Recommended: {-}
 
-ggplot2 Cheatsheet
+[RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
 
 ## Course Requirements {-}
 
@@ -79,7 +79,7 @@ The following schedule is tentative and subject to change.
 
 * **R** [Intro to R and RStudio; Histograms, scatterplots, summary statistics](#intro)
 <!-- datasets -->
-* **Topic** Data sources overview
+* **Topic** [Data sources overview](#data-sources)
 * **Project Assignment** Indentify interesting datasets and questions
 
 ### Week 2 {-}
@@ -92,24 +92,24 @@ The following schedule is tentative and subject to change.
 
 ### Week 3 {-}
 
-* **R** ggplot facets, bubble plots, transparency
-<!-- -->
+* **R** [ggplot facets, bubble plots, transparency](#facets-and-bubbles)
+<!-- Hawaii Tourism Authority -->
 * **Topic** Effective Data Visualization
 <!-- -->
 * **Project Assignment** Write description of your question
 
 ### Week 4 {-}
 
-* **R** geom_smooth, abline, vline, hline, ggTimeSeries
-<!-- -->
+* **R** [geom_smooth, abline, vline, hline](#lines)
+<!-- active duty personell over time -->
 * **Topic** Time series analysis
 <!-- -->
 * **Project Assignment** Write description of your dataset(s)
 
 ### Week 5 {-}
 
-* **R** [ggplot2 extensions](http://www.ggplot2-exts.org/gallery), scatterplot matrix (GGally)
-<!-- -->
+* **R** [ggplot2 Extensions and Scatterplot Matrices (GGally)](#ggplot-exts)
+<!-- BLS American Time Use Survey (ATUS) -->
 * **Topic** [JunkCharts Trifecta Checkup](#trifecta)
 * **Project Assignment** Create 2 descriptive plots of your datasets(s)
 

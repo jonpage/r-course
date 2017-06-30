@@ -1,0 +1,190 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# Facets, Bubbles, and Transparency {#facets-and-bubbles}
+
+## Data
+
+For this session, we'll explore the Hawaii Tourism Authority (HTA) [monthly
+visitor statistics](http://www.hawaiitourismauthority.org/research/research/visitor-highlights/).
+I'll be working with the 
+[April 2017 Table(http://www.hawaiitourismauthority.org/default/assets/File/research/monthly-visitors/Apr17%20(rev).xlsx). Feel free to download the latest available.
+
+### Importing non-standard Excel files
+
+The first steps in preparing a non-standard Excel file are (1) identify how many rows to skip
+and (2) provide column names if the column names are not neatly contained in a single row. You may
+also want to set the `range` if there is metadata at the end of the table you are importing. `range`
+overrides any `skip` setting, so we wont have to specify the number of rows to skip.
+
+```{r}
+library(readxl)
+seats <- read_excel("data/2017 Air Seat Forecast rev 0617.xls", col_names = c(
+  "dep_city", 
+  "seats2017Q1", "seats2017Q2", "seats2017Q3", "seats2017Q4", "seats2017", 
+  "seats2016Q1", "seats2016Q2", "seats2016Q3", "seats2016Q4", "seats2016",
+  "seatschangeQ1", "seatschangeQ2", "seatschangeQ3", "seatschangeQ4", "seatschange"
+), range = "A5:P78")
+seats
+```
+
+Let's add a region identifier
+```{r}
+library(dplyr)
+us_west_range <- 10:23
+us_east_range <- 26:33
+japan_range <- 40:45
+canada_range <- 48:52
+other_asia_range <-55:58
+oceania_range <- 61:64
+other_range <- 67:74
+
+seats$region <- NA
+seats[us_west_range,]$region <- "US West"
+seats[us_east_range,]$region <- "US East"
+seats[japan_range,]$region <- "Japan"
+seats[canada_range,]$region <- "Canada"
+seats[other_asia_range,]$region <- "Other Asia"
+seats[oceania_range,]$region <- "Oceania"
+seats[other_range,]$region <- "Other"
+
+seats <- seats %>%
+  filter(!is.na(region))
+seats
+```
+
+## Facets
+
+Let's do a simple plot comparing 2017 seats outlook to the 2016 seats outlook.
+
+```{r}
+library(ggplot2)
+seats %>%
+  ggplot(aes(seats2016, seats2017)) +
+  geom_point()
+```
+
+
+The distribution of this data looks like a good candidate for using the log scale (high concentration in lower
+values and lower concentration in higher values).
+
+```{r}
+seats %>%
+  ggplot(aes(seats2016, seats2017)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10() + 
+  geom_abline(lty = 2) # dashed line type (lty)
+```
+
+Since we have region identifiers it would be nice to divide our data and see charts of each region side-by-side.
+Facets allow us to make multiple charts based on a variable or set of variables.
+
+```{r}
+seats %>%
+  ggplot(aes(seats2016, seats2017)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10() + 
+  geom_abline(lty = 2) +
+  facet_wrap(~ region) +
+  coord_fixed()
+```
+
+
+An alternative representation is to present each region using color:
+```{r}
+seats %>%
+  ggplot(aes(seats2016, seats2017, color = region, label = dep_city)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10() + 
+  geom_abline(lty = 2) +
+  geom_text(check_overlap = TRUE, nudge_y = 0.1)
+```
+
+
+## Bubbles
+
+Bubble charts are scatter plots (geom_point) with points that vary in size corresponding to the value of
+a given variable. Let's create a measure of the size of a city's seats relative to its regional total.
+
+```{r}
+seats <- seats %>%
+  group_by(region) %>%
+  mutate(proportion_of_region = seats2017/sum(seats2017))
+```
+
+Now we can modify the chart to show the importance of each city in the context of its region.
+
+```{r}
+seats %>%
+  filter(region %in% c("US West", "US East")) %>%
+  ggplot(aes(seats2016, seats2017, color = region, label = dep_city)) +
+  geom_abline(lty = 2) +
+  geom_point(aes(size = proportion_of_region)) +
+  scale_x_log10(labels = scales::comma) +
+  scale_y_log10(labels = scales::comma) + 
+  geom_text(check_overlap = TRUE, nudge_y = 0.1)
+```
+
+## Transparency
+
+We can also use transparency (or alpha) to make less important points less visible. We do this
+by setting the `alpha` aesthetic. Let's try adding the alpha setting to the `geom_point()` call
+first.
+
+```{r}
+seats %>%
+  filter(region %in% c("US West", "US East")) %>%
+  ggplot(aes(seats2016, seats2017, color = region, label = dep_city)) +
+  geom_abline(lty = 2) +
+  geom_point(aes(size = proportion_of_region, alpha = proportion_of_region)) +
+  scale_x_log10(labels = scales::comma) +
+  scale_y_log10(labels = scales::comma) + 
+  geom_text(check_overlap = TRUE, nudge_y = 0.1)
+```
+
+Let's add the alpha to the ggplot-level aesthetic instead, so that it also affects the text labels.
+
+```{r}
+seats %>%
+  filter(region %in% c("US West", "US East")) %>%
+  ggplot(aes(seats2016, seats2017, color = region, label = dep_city, alpha = proportion_of_region)) +
+  geom_abline(lty = 2) +
+  geom_point(aes(size = proportion_of_region)) +
+  scale_x_log10(labels = scales::comma) +
+  scale_y_log10(labels = scales::comma) + 
+  geom_text(nudge_y = 0.1)
+```
+
+We can combine all the regions now and use transparency to help us see how many cities are
+in the same area on the plot by how dark a region is.
+
+```{r}
+seats %>%
+  ggplot(aes(seats2016, seats2017, label = dep_city, alpha = proportion_of_region)) +
+  geom_abline(lty = 2) +
+  geom_point(aes(size = proportion_of_region)) +
+  scale_x_log10(labels = scales::comma) +
+  scale_y_log10(labels = scales::comma) + 
+  geom_text(aes(color = region), hjust = "right", vjust = "center")
+```
+
+
+Let's use facets so we can combine everything we've done so far.
+
+
+```{r}
+seats %>%
+  ggplot(aes(seats2016, seats2017, label = dep_city, alpha = proportion_of_region)) +
+  geom_abline(lty = 2) +
+  geom_point(aes(size = proportion_of_region), color = "darkblue") +
+  scale_x_log10(labels = scales::comma) +
+  scale_y_log10(labels = scales::comma) + 
+  geom_text(hjust = "right", vjust = "center", nudge_x = -0.3) +
+  facet_wrap(~ region)
+```

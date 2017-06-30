@@ -4,15 +4,13 @@ output:
   pdf_document: default
 ---
 
-# (PART) Topics {-} 
-
-# Anscombe's Quartet {#anscombe}
+# Anscombe's Quartet {-#anscombe}
 
 Anscombe quartet emphasizes the need to move beyond basic numerical summaries of your data.
 The `anscombe` dataset has four sets of `x` and `y` variables with very similar summaries, 
 but distinct visual patterns
 
-## Prep the data
+## Prep the data {-}
 
 ```{r}
 anscombe
@@ -41,7 +39,7 @@ tidy_anscombe
 ```
 
 
-## Numeric summary
+## Numeric summary {-}
 
 ```{r}
 tidy_anscombe %>%
@@ -57,7 +55,7 @@ tidy_anscombe %>%
 
 
 
-## Visual summary
+## Visual summary {-}
 
 While the visual summaries suggest very similar datasets, the visual summaries help identify the differences:
 
@@ -71,7 +69,7 @@ tidy_anscombe %>%
 ```
 
 
-## The Datasaurus Dozen
+## The Datasaurus Dozen {-}
 
 The Datasaurus Dozen is a set of series, like the Anscombe's quartet with similar numerical summaries and
 radically different visual summaries. See a great discussion of this dataset by the creators, Justin Matejka and
