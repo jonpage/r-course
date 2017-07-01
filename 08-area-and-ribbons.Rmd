@@ -1,0 +1,144 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# geom_area and geom_ribbon {#area-and-ribbons}
+
+## Data 
+
+The US Bureau of Labor Statistics (BLS) conducts the American Time Use Survey (ATUS). You can download
+the text form of the ATUS by going to the [BLS data page](https://www.bls.gov/data/), finding the
+section labelled Spending & Time Use, then clicking on the "Text Files" button on the row for
+the ATUS. Or by using the following link:
+
+https://download.bls.gov/pub/time.series/tu/
+
+### Downloading a file from the internet
+
+While you can manually download the files from the above URL, 
+`download.file()` lets you download files from within R.
+The first argument is the URL of the resource you want to download. 
+The second argument is the destination for the file.
+
+```
+download.file("https://download.bls.gov/pub/time.series/tu/tu.txt", "data/tu/tu.txt")
+download.file("https://download.bls.gov/pub/time.series/tu/tu.series", "data/tu/tu.series")
+download.file("https://download.bls.gov/pub/time.series/tu/tu.data.0.Current", "data/tu/tu.data.0.Current")
+```
+The file `tu.txt` contains the documentation for the time use (tu) survey data. Section 2 of 
+that file provides descriptions of each of the files in the `pub/time.series/tu` folder. From that 
+list we can see that `tu.series` will give us a list of the available series.
+
+
+```{r}
+library(readr)
+series_defn <- read_tsv("data/tu/tu.series")
+series_defn
+```
+
+There is a lot here to process. The columns we care most about for now are `series_id` and `series_title`. Using `select()` from the `dplyr` library, we can show just the columns we
+care about.
+
+```{r}
+library(dplyr)
+series_defn %>%
+  select(series_id, series_title)
+```
+
+### Pairing down the list of variables
+
+Let's look for variables on sleep, work, and leisure:
+
+```{r}
+series_defn %>%
+  select(series_title) %>%
+  filter(grepl("sleep", series_title, ignore.case = TRUE))
+```
+
+Since this simple search returns a ton of results, let's further filter by 'employed' and 'per day':
+```{r}
+series_defn %>%
+  select(series_title) %>%
+  filter(grepl("per day.*sleep.*employed", series_title, ignore.case = TRUE))
+```
+
+Now let's filter further by 'employed full time', 'nonholiday weekdays', and 'on days worked':
+
+```{r}
+series_defn %>%
+  select(series_title) %>%
+  filter(grepl("per day.*sleep.*nonholiday weekdays.*employed full time.*on days worked", series_title, ignore.case = TRUE))
+```
+
+Finally, let's filter that to exclude the 'participants only' group and only get the Men/Women
+values (not the combined totals):
+
+```{r}
+series_defn %>%
+  select(series_title) %>%
+  filter(grepl("per day -.*sleep.*nonholiday weekdays.*employed full time.*on days worked,", series_title, ignore.case = TRUE))
+```
+
+### Adding more activity categories
+
+Now let's add 'work' and 'leisure' to our search:
+
+```{r}
+activity <- series_defn %>%
+  select(series_id, series_title) %>%
+  filter(grepl("per day -.*(sleep|work|leisure).*nonholiday weekdays.*employed full time.*on days worked,", series_title, ignore.case = TRUE))
+activity
+```
+
+Now we should create a variable that codes each of these as either work, sleep, or leisure:
+
+```{r}
+activity <- activity %>%
+  mutate(
+    activity_type = case_when(
+      grepl("leisure", series_title, ignore.case = TRUE) ~ "Leisure",
+      grepl("sleep", series_title, ignore.case = TRUE) ~ "Sleep",
+      TRUE ~ "Work"
+    ), 
+    sex = ifelse(grepl("Men", series_title), "Men", "Women")
+  )
+activity
+```
+
+Now we can join the activity data.frame with the current data and create time series of
+each activity type we created.
+```{r}
+data <- read_tsv("data/tu/tu.data.0.Current")
+data <- data %>%
+  inner_join(activity) %>%
+  group_by(year, sex, activity_type) %>%
+  summarize(hours = sum(as.numeric(value), na.rm = TRUE))
+data
+```
+
+
+## geom_area
+
+`geom_area` is useful when components that naturally add to each other:
+
+```{r}
+library(ggplot2)
+ggplot(data, aes(year, hours, fill= activity_type)) + geom_area() + facet_wrap(~ sex) 
+```
+## geom_ribbon
+
+```{r}
+data %>%
+  ggplot(aes(x = year, group = sex, fill = activity_type)) + 
+  geom_ribbon(mapping = aes(ymin = -hours * (sex == "Women"), ymax = hours * (sex == "Men")), data = . %>% filter(activity_type == "work"), alpha = 0.5) +
+  geom_ribbon(mapping = aes(ymin = -hours * (sex == "Women"), ymax = hours * (sex == "Men")), data = . %>% filter(activity_type == "leisure"), alpha = 0.5) +
+  geom_ribbon(mapping = aes(ymin = -hours * (sex == "Women"), ymax = hours * (sex == "Men")), data = . %>% filter(activity_type == "sleep"), alpha = 0.5) +
+  scale_y_continuous(
+    name = "Average hours per work day (Fully Employed)",
+    breaks = c(-20, -10, 0, 10, 20),
+    labels = c("Women 20 hrs", "10 hrs", "0 hrs", "10 hrs", "Men 20 hrs"),
+    limits = c(-20, 20)
+    )
+```

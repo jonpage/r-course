@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-06-30">
+<meta name="date" content="2017-07-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="lines-and-curves.html">
-<link rel="next" href="data-sources.html">
+<link rel="next" href="area-and-ribbons.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -178,12 +178,18 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.5" data-path="lines-and-curves.html"><a href="lines-and-curves.html#hline"><i class="fa fa-check"></i><b>4.5</b> hline</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="ggplot-exts.html"><a href="ggplot-exts.html"><i class="fa fa-check"></i><b>5</b> ggplot2 Extensions and Scatterplot Matrices (GGally)</a><ul>
-<li class="chapter" data-level="5.1" data-path="ggplot-exts.html"><a href="ggplot-exts.html#data-2"><i class="fa fa-check"></i><b>5.1</b> Data</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="ggplot-exts.html"><a href="ggplot-exts.html#downloading-a-file-from-the-internet"><i class="fa fa-check"></i><b>5.1.1</b> Downloading a file from the internet</a></li>
-</ul></li>
+<li class="chapter" data-level="5.1" data-path="ggplot-exts.html"><a href="ggplot-exts.html#data-2"><i class="fa fa-check"></i><b>5.1</b> Data</a></li>
 <li class="chapter" data-level="5.2" data-path="ggplot-exts.html"><a href="ggplot-exts.html#ggplot2-extensions"><i class="fa fa-check"></i><b>5.2</b> <a href="http://www.ggplot2-exts.org/gallery">ggplot2 extensions</a></a></li>
 <li class="chapter" data-level="5.3" data-path="ggplot-exts.html"><a href="ggplot-exts.html#scatterplot-matrix-ggallyscatmat"><i class="fa fa-check"></i><b>5.3</b> scatterplot matrix (GGally::scatmat)</a></li>
 <li class="chapter" data-level="5.4" data-path="ggplot-exts.html"><a href="ggplot-exts.html#ggallyglyphs"><i class="fa fa-check"></i><b>5.4</b> GGally::glyphs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html"><i class="fa fa-check"></i><b>6</b> geom_area and geom_ribbon</a><ul>
+<li class="chapter" data-level="6.1" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#data-3"><i class="fa fa-check"></i><b>6.1</b> Data</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#downloading-a-file-from-the-internet"><i class="fa fa-check"></i><b>6.1.1</b> Downloading a file from the internet</a></li>
+<li class="chapter" data-level="6.1.2" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#pairing-down-the-list-of-variables"><i class="fa fa-check"></i><b>6.1.2</b> Pairing down the list of variables</a></li>
+<li class="chapter" data-level="6.1.3" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#adding-more-activity-categories"><i class="fa fa-check"></i><b>6.1.3</b> Adding more activity categories</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#geom_area"><i class="fa fa-check"></i><b>6.2</b> geom_area</a></li>
 </ul></li>
 <li class="part"><span><b>Topics</b></span></li>
 <li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i>Data Sources Overview</a><ul>
@@ -230,61 +236,6 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Lecture 5</span> ggplot2 Extensions and Scatterplot Matrices (GGally)</h1>
 <div id="data-2" class="section level2">
 <h2><span class="header-section-number">5.1</span> Data</h2>
-<p>The US Bureau of Labor Statistics (BLS) conducts the American Time Use Survey (ATUS). You can download the text form of the ATUS by going to the <a href="https://www.bls.gov/data/">BLS data page</a>, finding the section labelled Spending &amp; Time Use, then clicking on the “Text Files” button on the row for the ATUS. Or by using the following link:</p>
-<p><a href="https://download.bls.gov/pub/time.series/tu/" class="uri">https://download.bls.gov/pub/time.series/tu/</a></p>
-<p>The file <code>tu.txt</code> contains the documentation for the time use (tu) survey data. Section 2 of that file provides descriptions of each of the files in the <code>pub/time.series/tu</code> folder. From that list we can see that <code>tu.series</code> will give us a list of the available series.</p>
-<div id="downloading-a-file-from-the-internet" class="section level3">
-<h3><span class="header-section-number">5.1.1</span> Downloading a file from the internet</h3>
-<p>While you can manually download the files from the above URL, <code>download.file()</code> lets you download files from within R. The first argument is the URL of the resource you want to download. The second argument is the destination for the file.</p>
-<pre><code>download.file(&quot;https://download.bls.gov/pub/time.series/tu/tu.txt&quot;, &quot;data/tu/tu.txt&quot;)
-download.file(&quot;https://download.bls.gov/pub/time.series/tu/tu.series&quot;, &quot;data/tu/tu.series&quot;)
-download.file(&quot;https://download.bls.gov/pub/time.series/tu/tu.data.0.Current&quot;, &quot;data/tu/tu.data.0.Current&quot;)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
-series_defn &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&quot;data/tu/tu.series&quot;</span>)</code></pre></div>
-<pre><code>## Parsed with column specification:
-## cols(
-##   .default = col_character(),
-##   stattype_code = col_integer(),
-##   sex_code = col_integer(),
-##   nmet_code = col_integer(),
-##   sjmj_code = col_integer(),
-##   schenr_code = col_integer(),
-##   work_code = col_integer(),
-##   elfreq_code = col_integer(),
-##   ecytd_code = col_integer(),
-##   elder_code = col_integer(),
-##   begin_year = col_integer(),
-##   end_year = col_integer()
-## )</code></pre>
-<pre><code>## See spec(...) for full column specifications.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">series_defn</code></pre></div>
-<pre><code>## # A tibble: 85,277 x 43
-##             series_id seasonal stattype_code datays_code sex_code
-##                 &lt;chr&gt;    &lt;chr&gt;         &lt;int&gt;       &lt;chr&gt;    &lt;int&gt;
-##  1 TUU10100AA01000007        U         10100          01        0
-##  2 TUU10100AA01000013        U         10100          01        0
-##  3 TUU10100AA01000014        U         10100          01        0
-##  4 TUU10100AA01000015        U         10100          01        0
-##  5 TUU10100AA01000018        U         10100          01        0
-##  6 TUU10100AA01000019        U         10100          01        0
-##  7 TUU10100AA01000025        U         10100          01        0
-##  8 TUU10100AA01000035        U         10100          01        0
-##  9 TUU10100AA01000036        U         10100          01        0
-## 10 TUU10100AA01000037        U         10100          01        0
-## # ... with 85,267 more rows, and 38 more variables: region_code &lt;chr&gt;,
-## #   lfstat_code &lt;chr&gt;, educ_code &lt;chr&gt;, maritlstat_code &lt;chr&gt;,
-## #   age_code &lt;chr&gt;, orig_code &lt;chr&gt;, race_code &lt;chr&gt;, mjcow_code &lt;chr&gt;,
-## #   nmet_code &lt;int&gt;, where_code &lt;chr&gt;, sjmj_code &lt;int&gt;,
-## #   timeday_code &lt;chr&gt;, actcode_code &lt;chr&gt;, industry_code &lt;chr&gt;,
-## #   occ_code &lt;chr&gt;, prhhchild_code &lt;chr&gt;, earn_code &lt;chr&gt;,
-## #   disability_code &lt;chr&gt;, who_code &lt;chr&gt;, hhnscc03_code &lt;chr&gt;,
-## #   schenr_code &lt;int&gt;, prownhhchild_code &lt;chr&gt;, work_code &lt;int&gt;,
-## #   elnum_code &lt;chr&gt;, ecage_code &lt;chr&gt;, elfreq_code &lt;int&gt;,
-## #   eldur_code &lt;chr&gt;, elwho_code &lt;chr&gt;, ecytd_code &lt;int&gt;,
-## #   elder_code &lt;int&gt;, lfstatw_code &lt;chr&gt;, pertype_code &lt;chr&gt;,
-## #   series_title &lt;chr&gt;, footnote_codes &lt;chr&gt;, begin_year &lt;int&gt;,
-## #   begin_period &lt;chr&gt;, end_year &lt;int&gt;, end_period &lt;chr&gt;</code></pre>
-</div>
 </div>
 <div id="ggplot2-extensions" class="section level2">
 <h2><span class="header-section-number">5.2</span> <a href="http://www.ggplot2-exts.org/gallery">ggplot2 extensions</a></h2>
@@ -300,16 +251,13 @@ series_defn &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span
 
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
 <a href="lines-and-curves.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-sources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="area-and-ribbons.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

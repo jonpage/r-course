@@ -109,7 +109,7 @@ The following schedule is tentative and subject to change.
 ### Week 5 {-}
 
 * **R** [ggplot2 Extensions and Scatterplot Matrices (GGally)](#ggplot-exts)
-<!-- BLS American Time Use Survey (ATUS) -->
+<!-- ACS immigration -->
 * **Topic** [JunkCharts Trifecta Checkup](#trifecta)
 * **Project Assignment** Create 2 descriptive plots of your datasets(s)
 
@@ -123,14 +123,14 @@ The following schedule is tentative and subject to change.
 ### Week 7 {-}
 
 * **R** geom_spoke, maps
-<!-- -->
+<!-- windspeed or travel direction -->
 * **Topic** 
 * **Project Assignment** Write a description of your planned approach
 
 ### Week 8 {-}
 
-* **R** geom_area, geom_ribbon
-<!-- -->
+* **R** [geom_area, geom_ribbon](#area-and-ribbons)
+<!-- BLS American Time Use Survey (ATUS) -->
 * **Topic** Project Proposal Description
 * **Project Assignment** Work on project proposal presentation
 
@@ -150,7 +150,7 @@ The following schedule is tentative and subject to change.
 ### Week 11 {-}
 
 * **R** polar coordinates, ggradar extension
-<!-- -->
+<!-- should use monthly data for multiple years -->
 * **Topic** 
 * **Project Assignment** Work on final project (cont.)
 

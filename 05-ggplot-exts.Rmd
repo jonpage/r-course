@@ -8,33 +8,7 @@ output:
 
 ## Data 
 
-The US Bureau of Labor Statistics (BLS) conducts the American Time Use Survey (ATUS). You can download
-the text form of the ATUS by going to the [BLS data page](https://www.bls.gov/data/), finding the
-section labelled Spending & Time Use, then clicking on the "Text Files" button on the row for
-the ATUS. Or by using the following link:
 
-https://download.bls.gov/pub/time.series/tu/
-
-The file `tu.txt` contains the documentation for the time use (tu) survey data. Section 2 of that file
-provides descriptions of each of the files in the `pub/time.series/tu` folder. From that list we can 
-see that `tu.series` will give us a list of the available series.
-
-### Downloading a file from the internet
-
-While you can manually download the files from the above URL, `download.file()` lets you download files from within R.
-The first argument is the URL of the resource you want to download. The second argument is the destination for the file.
-
-```
-download.file("https://download.bls.gov/pub/time.series/tu/tu.txt", "data/tu/tu.txt")
-download.file("https://download.bls.gov/pub/time.series/tu/tu.series", "data/tu/tu.series")
-download.file("https://download.bls.gov/pub/time.series/tu/tu.data.0.Current", "data/tu/tu.data.0.Current")
-```
-
-```{r}
-library(readr)
-series_defn <- read_tsv("data/tu/tu.series")
-series_defn
-```
 
 ## [ggplot2 extensions](http://www.ggplot2-exts.org/gallery)
 
