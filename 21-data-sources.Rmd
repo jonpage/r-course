@@ -4,7 +4,7 @@ output:
   pdf_document: default
 ---
 
-# (PART\*) Topics {-} 
+# (PART) Topics {-} 
 
 # Data Sources Overview {-#data-sources}
 
