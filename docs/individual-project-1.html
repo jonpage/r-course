@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="read-data.html">
-<link rel="next" href="lines-and-curves.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="part-r-tutorials.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -239,207 +239,23 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="facets-and-bubbles" class="section level1">
-<h1><span class="header-section-number">Lecture 3</span> Facets, Bubbles, and Transparency</h1>
-<div id="data" class="section level2">
-<h2><span class="header-section-number">3.1</span> Data</h2>
-<p>For this session, we’ll explore the Hawaii Tourism Authority (HTA) <a href="http://www.hawaiitourismauthority.org/research/research/infrastructure-research/">Air Seat Projection</a>. I’ll be working with the <a href="http://www.hawaiitourismauthority.org/default/assets/File/2017%20Air%20Seat%20Forecast%20rev%200617.xls">Air Seat Projection for 2017 (revised 06/17)</a>. Feel free to download the latest available.</p>
-<div id="importing-non-standard-excel-files" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> Importing non-standard Excel files</h3>
-<p>The first steps in preparing a non-standard Excel file are (1) identify how many rows to skip and (2) provide column names if the column names are not neatly contained in a single row. You may also want to set the <code>range</code> if there is metadata at the end of the table you are importing. <code>range</code> overrides any <code>skip</code> setting, so we wont have to specify the number of rows to skip.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
-seats &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data/2017 Air Seat Forecast rev 0617.xls&quot;</span>, <span class="dt">col_names =</span> <span class="kw">c</span>(
-  <span class="st">&quot;dep_city&quot;</span>, 
-  <span class="st">&quot;seats2017Q1&quot;</span>, <span class="st">&quot;seats2017Q2&quot;</span>, <span class="st">&quot;seats2017Q3&quot;</span>, <span class="st">&quot;seats2017Q4&quot;</span>, <span class="st">&quot;seats2017&quot;</span>, 
-  <span class="st">&quot;seats2016Q1&quot;</span>, <span class="st">&quot;seats2016Q2&quot;</span>, <span class="st">&quot;seats2016Q3&quot;</span>, <span class="st">&quot;seats2016Q4&quot;</span>, <span class="st">&quot;seats2016&quot;</span>,
-  <span class="st">&quot;seatschangeQ1&quot;</span>, <span class="st">&quot;seatschangeQ2&quot;</span>, <span class="st">&quot;seatschangeQ3&quot;</span>, <span class="st">&quot;seatschangeQ4&quot;</span>, <span class="st">&quot;seatschange&quot;</span>
-), <span class="dt">range =</span> <span class="st">&quot;A5:P78&quot;</span>)
-seats</code></pre></div>
-<pre><code>## # A tibble: 74 × 16
-##     dep_city seats2017Q1 seats2017Q2 seats2017Q3 seats2017Q4 seats2017
-##        &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
-## 1      TOTAL     2987920     3016376     3168233     3050112  12222641
-## 2  SCHEDULED     2966915     2996155     3140998     3029794  12133862
-## 3   CHARTERS       21005       20221       27235       20318     88779
-## 4       &lt;NA&gt;          NA          NA          NA          NA        NA
-## 5   US TOTAL     1996549     2108969     2215424     2071513   8392455
-## 6  SCHEDULED     1978616     2091981     2200195     2055171   8325963
-## 7   CHARTERS       17933       16988       15229       16342     66492
-## 8       &lt;NA&gt;          NA          NA          NA          NA        NA
-## 9    US WEST     1717254     1837080     1943653     1817441   7315428
-## 10 Anchorage       25758       15105       13674       17013     71550
-## # ... with 64 more rows, and 10 more variables: seats2016Q1 &lt;dbl&gt;,
-## #   seats2016Q2 &lt;dbl&gt;, seats2016Q3 &lt;dbl&gt;, seats2016Q4 &lt;dbl&gt;,
-## #   seats2016 &lt;dbl&gt;, seatschangeQ1 &lt;dbl&gt;, seatschangeQ2 &lt;chr&gt;,
-## #   seatschangeQ3 &lt;chr&gt;, seatschangeQ4 &lt;dbl&gt;, seatschange &lt;dbl&gt;</code></pre>
-<p>Let’s add a region identifier</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-us_west_range &lt;-<span class="st"> </span><span class="dv">10</span>:<span class="dv">23</span>
-us_east_range &lt;-<span class="st"> </span><span class="dv">26</span>:<span class="dv">33</span>
-japan_range &lt;-<span class="st"> </span><span class="dv">40</span>:<span class="dv">45</span>
-canada_range &lt;-<span class="st"> </span><span class="dv">48</span>:<span class="dv">52</span>
-other_asia_range &lt;-<span class="dv">55</span>:<span class="dv">58</span>
-oceania_range &lt;-<span class="st"> </span><span class="dv">61</span>:<span class="dv">64</span>
-other_range &lt;-<span class="st"> </span><span class="dv">67</span>:<span class="dv">74</span>
-
-seats$region &lt;-<span class="st"> </span><span class="ot">NA</span>
-seats[us_west_range,]$region &lt;-<span class="st"> &quot;US West&quot;</span>
-seats[us_east_range,]$region &lt;-<span class="st"> &quot;US East&quot;</span>
-seats[japan_range,]$region &lt;-<span class="st"> &quot;Japan&quot;</span>
-seats[canada_range,]$region &lt;-<span class="st"> &quot;Canada&quot;</span>
-seats[other_asia_range,]$region &lt;-<span class="st"> &quot;Other Asia&quot;</span>
-seats[oceania_range,]$region &lt;-<span class="st"> &quot;Oceania&quot;</span>
-seats[other_range,]$region &lt;-<span class="st"> &quot;Other&quot;</span>
-
-seats &lt;-<span class="st"> </span>seats %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(region))
-seats</code></pre></div>
-<pre><code>## # A tibble: 49 × 17
-##          dep_city seats2017Q1 seats2017Q2 seats2017Q3 seats2017Q4
-##             &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1       Anchorage       25758       15105       13674       17013
-## 2      Bellingham       10198         318          NA        6519
-## 3          Denver       55803       51654       52585       43290
-## 4       Las Vegas       70514       74322       75839       75415
-## 5     Los Angeles      548935      647498      715338      647703
-## 6         Oakland       84571      104810      116015       90703
-## 7         Phoenix      113046      115125      125348      108863
-## 8        Portland       90207       71068       65997       81673
-## 9      Sacramento       37620       38318       38456       38456
-## 10 Salt Lake City       26370       23751       22968       28322
-## # ... with 39 more rows, and 12 more variables: seats2017 &lt;dbl&gt;,
-## #   seats2016Q1 &lt;dbl&gt;, seats2016Q2 &lt;dbl&gt;, seats2016Q3 &lt;dbl&gt;,
-## #   seats2016Q4 &lt;dbl&gt;, seats2016 &lt;dbl&gt;, seatschangeQ1 &lt;dbl&gt;,
-## #   seatschangeQ2 &lt;chr&gt;, seatschangeQ3 &lt;chr&gt;, seatschangeQ4 &lt;dbl&gt;,
-## #   seatschange &lt;dbl&gt;, region &lt;chr&gt;</code></pre>
+<div id="individual-project-1" class="section level1 unnumbered">
+<h1>Individual Project</h1>
+<div id="project-assignments" class="section level2 unnumbered">
+<h2>Project assignments</h2>
+<p>Each week, leading up to the project proposal, you will be given an assignment that is designed to provide you with an organized workflow for approaching new data science projects. Project assignments are submitted via <a href="https//classroom.google.com">classroom.google.com</a>, with the exception of the two presentations</p>
 </div>
+<div id="project-proposal-presentation" class="section level2 unnumbered">
+<h2>Project proposal presentation</h2>
+<p>This presentation should be less than 2 minutes. You simply need to communicate the core question your project seeks to answer and the dataset(s) you will be using to answer this question.</p>
 </div>
-<div id="facets" class="section level2">
-<h2><span class="header-section-number">3.2</span> Facets</h2>
-<p>Let’s do a simple plot comparing 2017 seats outlook to the 2016 seats outlook.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-seats %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(seats2016, seats2017)) +
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
-<p>The distribution of this data looks like a good candidate for using the log scale (high concentration in lower values and lower concentration in higher values).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seats %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(seats2016, seats2017)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
-<span class="st">  </span><span class="kw">scale_x_log10</span>() +
-<span class="st">  </span><span class="kw">scale_y_log10</span>() +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">lty =</span> <span class="dv">2</span>) <span class="co"># dashed line type (lty)</span></code></pre></div>
-<pre><code>## Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
-<p>Since we have region identifiers it would be nice to divide our data and see charts of each region side-by-side. Facets allow us to make multiple charts based on a variable or set of variables.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seats %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(seats2016, seats2017)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
-<span class="st">  </span><span class="kw">scale_x_log10</span>() +
-<span class="st">  </span><span class="kw">scale_y_log10</span>() +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">lty =</span> <span class="dv">2</span>) +
-<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>region) +
-<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
-<pre><code>## Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
-<p>An alternative representation is to present each region using color:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seats %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(seats2016, seats2017, <span class="dt">color =</span> region, <span class="dt">label =</span> dep_city)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
-<span class="st">  </span><span class="kw">scale_x_log10</span>() +
-<span class="st">  </span><span class="kw">scale_y_log10</span>() +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">lty =</span> <span class="dv">2</span>) +
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, <span class="dt">nudge_y =</span> <span class="fl">0.1</span>)</code></pre></div>
-<pre><code>## Warning: Transformation introduced infinite values in continuous y-axis
-
-## Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<div id="final-project-rmarkdown" class="section level2 unnumbered">
+<h2>Final project RMarkdown</h2>
+<p>The final project will be an R Markdown document which communicates your project question, the data you used, and your results.</p>
 </div>
-<div id="bubbles" class="section level2">
-<h2><span class="header-section-number">3.3</span> Bubbles</h2>
-<p>Bubble charts are scatter plots (geom_point) with points that vary in size corresponding to the value of a given variable. Let’s create a measure of the size of a city’s seats relative to its regional total.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seats &lt;-<span class="st"> </span>seats %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(region) %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">proportion_of_region =</span> seats2017/<span class="kw">sum</span>(seats2017))
-seats</code></pre></div>
-<pre><code>## Source: local data frame [49 x 18]
-## Groups: region [7]
-## 
-##          dep_city seats2017Q1 seats2017Q2 seats2017Q3 seats2017Q4
-##             &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1       Anchorage       25758       15105       13674       17013
-## 2      Bellingham       10198         318          NA        6519
-## 3          Denver       55803       51654       52585       43290
-## 4       Las Vegas       70514       74322       75839       75415
-## 5     Los Angeles      548935      647498      715338      647703
-## 6         Oakland       84571      104810      116015       90703
-## 7         Phoenix      113046      115125      125348      108863
-## 8        Portland       90207       71068       65997       81673
-## 9      Sacramento       37620       38318       38456       38456
-## 10 Salt Lake City       26370       23751       22968       28322
-## # ... with 39 more rows, and 13 more variables: seats2017 &lt;dbl&gt;,
-## #   seats2016Q1 &lt;dbl&gt;, seats2016Q2 &lt;dbl&gt;, seats2016Q3 &lt;dbl&gt;,
-## #   seats2016Q4 &lt;dbl&gt;, seats2016 &lt;dbl&gt;, seatschangeQ1 &lt;dbl&gt;,
-## #   seatschangeQ2 &lt;chr&gt;, seatschangeQ3 &lt;chr&gt;, seatschangeQ4 &lt;dbl&gt;,
-## #   seatschange &lt;dbl&gt;, region &lt;chr&gt;, proportion_of_region &lt;dbl&gt;</code></pre>
-<p>Now we can modify the chart to show the importance of each city in the context of its region.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seats %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(region %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;US West&quot;</span>, <span class="st">&quot;US East&quot;</span>)) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(seats2016, seats2017, <span class="dt">color =</span> region, <span class="dt">label =</span> dep_city)) +
-<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">lty =</span> <span class="dv">2</span>) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> proportion_of_region)) +
-<span class="st">  </span><span class="kw">scale_x_log10</span>(<span class="dt">labels =</span> scales::comma) +
-<span class="st">  </span><span class="kw">scale_y_log10</span>(<span class="dt">labels =</span> scales::comma) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, <span class="dt">nudge_y =</span> <span class="fl">0.1</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
-</div>
-<div id="transparency" class="section level2">
-<h2><span class="header-section-number">3.4</span> Transparency</h2>
-<p>We can also use transparency (or alpha) to make less important points less visible. We do this by setting the <code>alpha</code> aesthetic. Let’s try adding the alpha setting to the <code>geom_point()</code> call first.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seats %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(region %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;US West&quot;</span>, <span class="st">&quot;US East&quot;</span>)) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(seats2016, seats2017, <span class="dt">color =</span> region, <span class="dt">label =</span> dep_city)) +
-<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">lty =</span> <span class="dv">2</span>) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> proportion_of_region, <span class="dt">alpha =</span> proportion_of_region)) +
-<span class="st">  </span><span class="kw">scale_x_log10</span>(<span class="dt">labels =</span> scales::comma) +
-<span class="st">  </span><span class="kw">scale_y_log10</span>(<span class="dt">labels =</span> scales::comma) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, <span class="dt">nudge_y =</span> <span class="fl">0.1</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
-<p>Let’s add the alpha to the ggplot-level aesthetic instead, so that it also affects the text labels.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seats %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(region %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;US West&quot;</span>, <span class="st">&quot;US East&quot;</span>)) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(seats2016, seats2017, <span class="dt">color =</span> region, <span class="dt">label =</span> dep_city, <span class="dt">alpha =</span> proportion_of_region)) +
-<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">lty =</span> <span class="dv">2</span>) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> proportion_of_region)) +
-<span class="st">  </span><span class="kw">scale_x_log10</span>(<span class="dt">labels =</span> scales::comma) +
-<span class="st">  </span><span class="kw">scale_y_log10</span>(<span class="dt">labels =</span> scales::comma) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">nudge_y =</span> <span class="fl">0.1</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
-<p>We can combine all the regions now and use transparency to help us see how many cities are in the same area on the plot by how dark a region is.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seats %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(seats2016, seats2017, <span class="dt">label =</span> dep_city, <span class="dt">alpha =</span> proportion_of_region)) +
-<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">lty =</span> <span class="dv">2</span>) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> proportion_of_region)) +
-<span class="st">  </span><span class="kw">scale_x_log10</span>(<span class="dt">labels =</span> scales::comma) +
-<span class="st">  </span><span class="kw">scale_y_log10</span>(<span class="dt">labels =</span> scales::comma) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">color =</span> region), <span class="dt">hjust =</span> <span class="st">&quot;right&quot;</span>, <span class="dt">vjust =</span> <span class="st">&quot;center&quot;</span>)</code></pre></div>
-<pre><code>## Warning: Transformation introduced infinite values in continuous y-axis
-
-## Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
-<p>Let’s use facets so we can combine everything we’ve done so far.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seats %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(seats2016, seats2017, <span class="dt">label =</span> dep_city, <span class="dt">alpha =</span> proportion_of_region)) +
-<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">lty =</span> <span class="dv">2</span>) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> proportion_of_region), <span class="dt">color =</span> <span class="st">&quot;darkblue&quot;</span>) +
-<span class="st">  </span><span class="kw">scale_x_log10</span>(<span class="dt">labels =</span> scales::comma) +
-<span class="st">  </span><span class="kw">scale_y_log10</span>(<span class="dt">labels =</span> scales::comma) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">hjust =</span> <span class="st">&quot;right&quot;</span>, <span class="dt">vjust =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">nudge_x =</span> -<span class="fl">0.3</span>) +
-<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>region)</code></pre></div>
-<pre><code>## Warning: Transformation introduced infinite values in continuous y-axis
-
-## Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<div id="final-project-presentation-participation" class="section level2 unnumbered">
+<h2>Final project presentation participation</h2>
+<p>Your final project participation grade is based on a combination of your own presentation and the feedback you provide to your classmates.</p>
 
 </div>
 </div>
@@ -448,8 +264,8 @@ seats</code></pre></div>
           </div>
         </div>
       </div>
-<a href="read-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lines-and-curves.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="part-r-tutorials.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -477,7 +293,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jonpage/r-course/edit/master/03-facets-and-bubbles.Rmd",
+"link": "https://github.com/jonpage/r-course/edit/master/index.Rmd",
 "text": "Edit"
 },
 "download": ["jonpage-r-course.pdf"],

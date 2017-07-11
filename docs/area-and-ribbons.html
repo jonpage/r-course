@@ -6,8 +6,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +26,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-07-01">
+<meta name="date" content="2017-07-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +34,8 @@
   
   
 <link rel="prev" href="ggplot-exts.html">
-<link rel="next" href="data-sources.html">
+<link rel="next" href="part-topics.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -92,7 +94,6 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <body>
 
 
-
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
     <div class="book-summary">
@@ -143,7 +144,13 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#papers"><i class="fa fa-check"></i>Papers</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>R Tutorials</b></span></li>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html"><i class="fa fa-check"></i>Individual Project</a><ul>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#project-assignments"><i class="fa fa-check"></i>Project assignments</a></li>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#project-proposal-presentation"><i class="fa fa-check"></i>Project proposal presentation</a></li>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#final-project-rmarkdown"><i class="fa fa-check"></i>Final project RMarkdown</a></li>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#final-project-presentation-participation"><i class="fa fa-check"></i>Final project presentation participation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-r-tutorials.html"><a href="part-r-tutorials.html"><i class="fa fa-check"></i>(PART*) R Tutorials</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> R Basics</a><ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#r-markdown"><i class="fa fa-check"></i><b>1.1</b> R Markdown</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#working-with-data-already-loaded-into-r"><i class="fa fa-check"></i><b>1.2</b> Working with data already loaded into R</a><ul>
@@ -191,7 +198,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#geom_area"><i class="fa fa-check"></i><b>6.2</b> geom_area</a></li>
 </ul></li>
-<li class="part"><span><b>Topics</b></span></li>
+<li class="chapter" data-level="" data-path="part-topics.html"><a href="part-topics.html"><i class="fa fa-check"></i>(PART*) Topics</a></li>
 <li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i>Data Sources Overview</a><ul>
 <li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html#macro-data"><i class="fa fa-check"></i>Macro Data</a><ul>
 <li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html#us"><i class="fa fa-check"></i>US</a></li>
@@ -240,7 +247,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <p><a href="https://download.bls.gov/pub/time.series/tu/" class="uri">https://download.bls.gov/pub/time.series/tu/</a></p>
 <div id="downloading-a-file-from-the-internet" class="section level3">
 <h3><span class="header-section-number">6.1.1</span> Downloading a file from the internet</h3>
-<p>While you can manually download the files from the above URL, <code>download.file()</code> lets you download files from within R. The first argument is the URL of the resource you want to download. The second argument is the destination for the file.</p>
+<p>While you can manually download the files from the above URL, <code>download.file()</code> lets you download files from within R. The first argument is the URL of the resource you want to download. The second argument is the destination for the file. The following requests will require you to create the <code>tu</code> folder.</p>
 <pre><code>download.file(&quot;https://download.bls.gov/pub/time.series/tu/tu.txt&quot;, &quot;data/tu/tu.txt&quot;)
 download.file(&quot;https://download.bls.gov/pub/time.series/tu/tu.series&quot;, &quot;data/tu/tu.series&quot;)
 download.file(&quot;https://download.bls.gov/pub/time.series/tu/tu.data.0.Current&quot;, &quot;data/tu/tu.data.0.Current&quot;)</code></pre>
@@ -264,18 +271,18 @@ series_defn &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">series_defn</code></pre></div>
-<pre><code>## # A tibble: 85,277 x 43
+<pre><code>## # A tibble: 85,277 × 43
 ##             series_id seasonal stattype_code datays_code sex_code
 ##                 &lt;chr&gt;    &lt;chr&gt;         &lt;int&gt;       &lt;chr&gt;    &lt;int&gt;
-##  1 TUU10100AA01000007        U         10100          01        0
-##  2 TUU10100AA01000013        U         10100          01        0
-##  3 TUU10100AA01000014        U         10100          01        0
-##  4 TUU10100AA01000015        U         10100          01        0
-##  5 TUU10100AA01000018        U         10100          01        0
-##  6 TUU10100AA01000019        U         10100          01        0
-##  7 TUU10100AA01000025        U         10100          01        0
-##  8 TUU10100AA01000035        U         10100          01        0
-##  9 TUU10100AA01000036        U         10100          01        0
+## 1  TUU10100AA01000007        U         10100          01        0
+## 2  TUU10100AA01000013        U         10100          01        0
+## 3  TUU10100AA01000014        U         10100          01        0
+## 4  TUU10100AA01000015        U         10100          01        0
+## 5  TUU10100AA01000018        U         10100          01        0
+## 6  TUU10100AA01000019        U         10100          01        0
+## 7  TUU10100AA01000025        U         10100          01        0
+## 8  TUU10100AA01000035        U         10100          01        0
+## 9  TUU10100AA01000036        U         10100          01        0
 ## 10 TUU10100AA01000037        U         10100          01        0
 ## # ... with 85,267 more rows, and 38 more variables: region_code &lt;chr&gt;,
 ## #   lfstat_code &lt;chr&gt;, educ_code &lt;chr&gt;, maritlstat_code &lt;chr&gt;,
@@ -294,18 +301,18 @@ series_defn &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 series_defn %&gt;%
 <span class="st">  </span><span class="kw">select</span>(series_id, series_title)</code></pre></div>
-<pre><code>## # A tibble: 85,277 x 2
+<pre><code>## # A tibble: 85,277 × 2
 ##             series_id
 ##                 &lt;chr&gt;
-##  1 TUU10100AA01000007
-##  2 TUU10100AA01000013
-##  3 TUU10100AA01000014
-##  4 TUU10100AA01000015
-##  5 TUU10100AA01000018
-##  6 TUU10100AA01000019
-##  7 TUU10100AA01000025
-##  8 TUU10100AA01000035
-##  9 TUU10100AA01000036
+## 1  TUU10100AA01000007
+## 2  TUU10100AA01000013
+## 3  TUU10100AA01000014
+## 4  TUU10100AA01000015
+## 5  TUU10100AA01000018
+## 6  TUU10100AA01000019
+## 7  TUU10100AA01000025
+## 8  TUU10100AA01000035
+## 9  TUU10100AA01000036
 ## 10 TUU10100AA01000037
 ## # ... with 85,267 more rows, and 1 more variables: series_title &lt;chr&gt;</code></pre>
 </div>
@@ -315,43 +322,43 @@ series_defn %&gt;%
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">series_defn %&gt;%
 <span class="st">  </span><span class="kw">select</span>(series_title) %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;sleep&quot;</span>, series_title, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<pre><code>## # A tibble: 1,310 x 1
+<pre><code>## # A tibble: 1,310 × 1
 ##                                                                   series_title
 ##                                                                          &lt;chr&gt;
-##  1                                                  Avg hrs per day - Sleeping
-##  2                       Avg hrs per day - Sleeping, Weekend days and holidays
-##  3                             Avg hrs per day - Sleeping, Nonholiday weekdays
-##  4                                        Avg hrs per day - Sleeping, Employed
-##  5             Avg hrs per day - Sleeping, Weekend days and holidays, Employed
-##  6                   Avg hrs per day - Sleeping, Nonholiday weekdays, Employed
-##  7                        Avg hrs per day - Sleeping, Employed, on days worked
-##  8 Avg hrs per day - Sleeping, Weekend days and holidays, Employed, on days wo
-##  9   Avg hrs per day - Sleeping, Nonholiday weekdays, Employed, on days worked
+## 1                                                   Avg hrs per day - Sleeping
+## 2                        Avg hrs per day - Sleeping, Weekend days and holidays
+## 3                              Avg hrs per day - Sleeping, Nonholiday weekdays
+## 4                                         Avg hrs per day - Sleeping, Employed
+## 5              Avg hrs per day - Sleeping, Weekend days and holidays, Employed
+## 6                    Avg hrs per day - Sleeping, Nonholiday weekdays, Employed
+## 7                         Avg hrs per day - Sleeping, Employed, on days worked
+## 8  Avg hrs per day - Sleeping, Weekend days and holidays, Employed, on days wo
+## 9    Avg hrs per day - Sleeping, Nonholiday weekdays, Employed, on days worked
 ## 10                              Avg hrs per day - Sleeping, Employed full time
 ## # ... with 1,300 more rows</code></pre>
 <p>Since this simple search returns a ton of results, let’s further filter by ‘employed’ and ‘per day’:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">series_defn %&gt;%
 <span class="st">  </span><span class="kw">select</span>(series_title) %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;per day.*sleep.*employed&quot;</span>, series_title, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<pre><code>## # A tibble: 154 x 1
+<pre><code>## # A tibble: 154 × 1
 ##                                                                   series_title
 ##                                                                          &lt;chr&gt;
-##  1                                        Avg hrs per day - Sleeping, Employed
-##  2             Avg hrs per day - Sleeping, Weekend days and holidays, Employed
-##  3                   Avg hrs per day - Sleeping, Nonholiday weekdays, Employed
-##  4                        Avg hrs per day - Sleeping, Employed, on days worked
-##  5 Avg hrs per day - Sleeping, Weekend days and holidays, Employed, on days wo
-##  6   Avg hrs per day - Sleeping, Nonholiday weekdays, Employed, on days worked
-##  7                              Avg hrs per day - Sleeping, Employed full time
-##  8   Avg hrs per day - Sleeping, Weekend days and holidays, Employed full time
-##  9         Avg hrs per day - Sleeping, Nonholiday weekdays, Employed full time
+## 1                                         Avg hrs per day - Sleeping, Employed
+## 2              Avg hrs per day - Sleeping, Weekend days and holidays, Employed
+## 3                    Avg hrs per day - Sleeping, Nonholiday weekdays, Employed
+## 4                         Avg hrs per day - Sleeping, Employed, on days worked
+## 5  Avg hrs per day - Sleeping, Weekend days and holidays, Employed, on days wo
+## 6    Avg hrs per day - Sleeping, Nonholiday weekdays, Employed, on days worked
+## 7                               Avg hrs per day - Sleeping, Employed full time
+## 8    Avg hrs per day - Sleeping, Weekend days and holidays, Employed full time
+## 9          Avg hrs per day - Sleeping, Nonholiday weekdays, Employed full time
 ## 10              Avg hrs per day - Sleeping, Employed full time, on days worked
 ## # ... with 144 more rows</code></pre>
 <p>Now let’s filter further by ‘employed full time’, ‘nonholiday weekdays’, and ‘on days worked’:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">series_defn %&gt;%
 <span class="st">  </span><span class="kw">select</span>(series_title) %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;per day.*sleep.*nonholiday weekdays.*employed full time.*on days worked&quot;</span>, series_title, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<pre><code>## # A tibble: 6 x 1
+<pre><code>## # A tibble: 6 × 1
 ##                                                                  series_title
 ##                                                                         &lt;chr&gt;
 ## 1 Avg hrs per day - Sleeping, Nonholiday weekdays, Employed full time, on day
@@ -364,7 +371,7 @@ series_defn %&gt;%
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">series_defn %&gt;%
 <span class="st">  </span><span class="kw">select</span>(series_title) %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;per day -.*sleep.*nonholiday weekdays.*employed full time.*on days worked,&quot;</span>, series_title, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<pre><code>## # A tibble: 2 x 1
+<pre><code>## # A tibble: 2 × 1
 ##                                                                  series_title
 ##                                                                         &lt;chr&gt;
 ## 1 Avg hrs per day - Sleeping, Nonholiday weekdays, Employed full time, on day
@@ -377,43 +384,43 @@ series_defn %&gt;%
 <span class="st">  </span><span class="kw">select</span>(series_id, series_title) %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;per day -.*(sleep|work|leisure).*nonholiday weekdays.*employed full time.*on days worked,&quot;</span>, series_title, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>))
 activity</code></pre></div>
-<pre><code>## # A tibble: 26 x 2
+<pre><code>## # A tibble: 26 × 2
 ##             series_id
 ##                 &lt;chr&gt;
-##  1 TUU10101AA01000344
-##  2 TUU10101AA01000423
-##  3 TUU10101AA01000962
-##  4 TUU10101AA01001041
-##  5 TUU10101AA01003012
-##  6 TUU10101AA01003097
-##  7 TUU10101AA01003307
-##  8 TUU10101AA01003378
-##  9 TUU10101AA01003947
+## 1  TUU10101AA01000344
+## 2  TUU10101AA01000423
+## 3  TUU10101AA01000962
+## 4  TUU10101AA01001041
+## 5  TUU10101AA01003012
+## 6  TUU10101AA01003097
+## 7  TUU10101AA01003307
+## 8  TUU10101AA01003378
+## 9  TUU10101AA01003947
 ## 10 TUU10101AA01004011
 ## # ... with 16 more rows, and 1 more variables: series_title &lt;chr&gt;</code></pre>
 <p>Now we should create a variable that codes each of these as either work, sleep, or leisure:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">activity &lt;-<span class="st"> </span>activity %&gt;%
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">activity_type =</span> <span class="kw">case_when</span>(
-      <span class="kw">grepl</span>(<span class="st">&quot;leisure&quot;</span>, series_title, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>) ~<span class="st"> &quot;Leisure&quot;</span>,
-      <span class="kw">grepl</span>(<span class="st">&quot;sleep&quot;</span>, series_title, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>) ~<span class="st"> &quot;Sleep&quot;</span>,
+      <span class="kw">grepl</span>(<span class="st">&quot;leisure&quot;</span>, activity$series_title, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>) ~<span class="st"> &quot;Leisure&quot;</span>,
+      <span class="kw">grepl</span>(<span class="st">&quot;sleep&quot;</span>, activity$series_title, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>) ~<span class="st"> &quot;Sleep&quot;</span>,
       <span class="ot">TRUE</span> ~<span class="st"> &quot;Work&quot;</span>
     ), 
     <span class="dt">sex =</span> <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;Men&quot;</span>, series_title), <span class="st">&quot;Men&quot;</span>, <span class="st">&quot;Women&quot;</span>)
   )
 activity</code></pre></div>
-<pre><code>## # A tibble: 26 x 4
+<pre><code>## # A tibble: 26 × 4
 ##             series_id
 ##                 &lt;chr&gt;
-##  1 TUU10101AA01000344
-##  2 TUU10101AA01000423
-##  3 TUU10101AA01000962
-##  4 TUU10101AA01001041
-##  5 TUU10101AA01003012
-##  6 TUU10101AA01003097
-##  7 TUU10101AA01003307
-##  8 TUU10101AA01003378
-##  9 TUU10101AA01003947
+## 1  TUU10101AA01000344
+## 2  TUU10101AA01000423
+## 3  TUU10101AA01000962
+## 4  TUU10101AA01001041
+## 5  TUU10101AA01003012
+## 6  TUU10101AA01003097
+## 7  TUU10101AA01003307
+## 8  TUU10101AA01003378
+## 9  TUU10101AA01003947
 ## 10 TUU10101AA01004011
 ## # ... with 16 more rows, and 3 more variables: series_title &lt;chr&gt;,
 ## #   activity_type &lt;chr&gt;, sex &lt;chr&gt;</code></pre>
@@ -432,37 +439,38 @@ activity</code></pre></div>
 <span class="st">  </span><span class="kw">group_by</span>(year, sex, activity_type) %&gt;%
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">hours =</span> <span class="kw">sum</span>(<span class="kw">as.numeric</span>(value), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
 <pre><code>## Joining, by = &quot;series_id&quot;</code></pre>
-<pre><code>## Warning in evalq(sum(as.numeric(value), na.rm = TRUE), &lt;environment&gt;): NAs
-## introduced by coercion
+<pre><code>## Warning in evalq(sum(as.numeric(c(&quot;0.33&quot;, &quot;8.23&quot;, &quot;-&quot;, &quot;0.04&quot;, &quot;0.59&quot;,
+## &quot;8.83&quot;, : NAs introduced by coercion
 
-## Warning in evalq(sum(as.numeric(value), na.rm = TRUE), &lt;environment&gt;): NAs
-## introduced by coercion
+## Warning in evalq(sum(as.numeric(c(&quot;0.33&quot;, &quot;8.23&quot;, &quot;-&quot;, &quot;0.04&quot;, &quot;0.59&quot;,
+## &quot;8.83&quot;, : NAs introduced by coercion
 
-## Warning in evalq(sum(as.numeric(value), na.rm = TRUE), &lt;environment&gt;): NAs
-## introduced by coercion
+## Warning in evalq(sum(as.numeric(c(&quot;0.33&quot;, &quot;8.23&quot;, &quot;-&quot;, &quot;0.04&quot;, &quot;0.59&quot;,
+## &quot;8.83&quot;, : NAs introduced by coercion
 
-## Warning in evalq(sum(as.numeric(value), na.rm = TRUE), &lt;environment&gt;): NAs
-## introduced by coercion
+## Warning in evalq(sum(as.numeric(c(&quot;0.33&quot;, &quot;8.23&quot;, &quot;-&quot;, &quot;0.04&quot;, &quot;0.59&quot;,
+## &quot;8.83&quot;, : NAs introduced by coercion
 
-## Warning in evalq(sum(as.numeric(value), na.rm = TRUE), &lt;environment&gt;): NAs
-## introduced by coercion
+## Warning in evalq(sum(as.numeric(c(&quot;0.33&quot;, &quot;8.23&quot;, &quot;-&quot;, &quot;0.04&quot;, &quot;0.59&quot;,
+## &quot;8.83&quot;, : NAs introduced by coercion
 
-## Warning in evalq(sum(as.numeric(value), na.rm = TRUE), &lt;environment&gt;): NAs
-## introduced by coercion</code></pre>
+## Warning in evalq(sum(as.numeric(c(&quot;0.33&quot;, &quot;8.23&quot;, &quot;-&quot;, &quot;0.04&quot;, &quot;0.59&quot;,
+## &quot;8.83&quot;, : NAs introduced by coercion</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data</code></pre></div>
-<pre><code>## # A tibble: 84 x 4
-## # Groups:   year, sex [?]
+<pre><code>## Source: local data frame [84 x 4]
+## Groups: year, sex [?]
+## 
 ##     year   sex activity_type hours
 ##    &lt;int&gt; &lt;chr&gt;         &lt;chr&gt; &lt;dbl&gt;
-##  1  2003   Men       Leisure  8.49
-##  2  2003   Men         Sleep  7.46
-##  3  2003   Men          Work 19.26
-##  4  2003 Women       Leisure  7.02
-##  5  2003 Women         Sleep  7.65
-##  6  2003 Women          Work 17.87
-##  7  2004   Men       Leisure  8.66
-##  8  2004   Men         Sleep  7.49
-##  9  2004   Men          Work 18.92
+## 1   2003   Men       Leisure  8.49
+## 2   2003   Men         Sleep  7.46
+## 3   2003   Men          Work 19.26
+## 4   2003 Women       Leisure  7.02
+## 5   2003 Women         Sleep  7.65
+## 6   2003 Women          Work 17.87
+## 7   2004   Men       Leisure  8.66
+## 8   2004   Men         Sleep  7.49
+## 9   2004   Men          Work 18.92
 ## 10  2004 Women       Leisure  7.34
 ## # ... with 74 more rows</code></pre>
 </div>
@@ -475,9 +483,9 @@ activity</code></pre></div>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-51-1.png" width="672" /> ## geom_ribbon</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">group =</span> sex, <span class="dt">fill =</span> activity_type)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">ymin =</span> -hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Women&quot;</span>), <span class="dt">ymax =</span> hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Men&quot;</span>)), <span class="dt">data =</span> . %&gt;%<span class="st"> </span><span class="kw">filter</span>(activity_type ==<span class="st"> &quot;work&quot;</span>), <span class="dt">alpha =</span> <span class="fl">0.5</span>) +
-<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">ymin =</span> -hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Women&quot;</span>), <span class="dt">ymax =</span> hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Men&quot;</span>)), <span class="dt">data =</span> . %&gt;%<span class="st"> </span><span class="kw">filter</span>(activity_type ==<span class="st"> &quot;leisure&quot;</span>), <span class="dt">alpha =</span> <span class="fl">0.5</span>) +
-<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">ymin =</span> -hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Women&quot;</span>), <span class="dt">ymax =</span> hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Men&quot;</span>)), <span class="dt">data =</span> . %&gt;%<span class="st"> </span><span class="kw">filter</span>(activity_type ==<span class="st"> &quot;sleep&quot;</span>), <span class="dt">alpha =</span> <span class="fl">0.5</span>) +
+<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">ymin =</span> -hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Women&quot;</span>), <span class="dt">ymax =</span> hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Men&quot;</span>)), <span class="dt">data =</span> . %&gt;%<span class="st"> </span><span class="kw">filter</span>(activity_type ==<span class="st"> &quot;Work&quot;</span>), <span class="dt">alpha =</span> <span class="fl">0.5</span>) +
+<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">ymin =</span> -hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Women&quot;</span>), <span class="dt">ymax =</span> hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Men&quot;</span>)), <span class="dt">data =</span> . %&gt;%<span class="st"> </span><span class="kw">filter</span>(activity_type ==<span class="st"> &quot;Leisure&quot;</span>), <span class="dt">alpha =</span> <span class="fl">0.5</span>) +
+<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">ymin =</span> -hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Women&quot;</span>), <span class="dt">ymax =</span> hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Men&quot;</span>)), <span class="dt">data =</span> . %&gt;%<span class="st"> </span><span class="kw">filter</span>(activity_type ==<span class="st"> &quot;Sleep&quot;</span>), <span class="dt">alpha =</span> <span class="fl">0.5</span>) +
 <span class="st">  </span><span class="kw">scale_y_continuous</span>(
     <span class="dt">name =</span> <span class="st">&quot;Average hours per work day (Fully Employed)&quot;</span>,
     <span class="dt">breaks =</span> <span class="kw">c</span>(-<span class="dv">20</span>, -<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>),
@@ -488,18 +496,14 @@ activity</code></pre></div>
 
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
 <a href="ggplot-exts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-sources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
-  </div>
+<a href="part-topics.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>

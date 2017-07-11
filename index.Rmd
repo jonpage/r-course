@@ -215,3 +215,21 @@ There are many useful resources you should be aware of while going through this 
 ### Papers {-}
 
 [Embedded Plots](http://vita.had.co.nz/papers/embedded-plots.pdf)
+
+# Individual Project {-}
+
+## Project assignments {-}
+
+Each week, leading up to the project proposal, you will be given an assignment that is designed to provide you with an organized workflow for approaching new data science projects. Project assignments are submitted via [classroom.google.com](https//classroom.google.com), with the exception of the two presentations
+
+## Project proposal presentation {-}
+
+This presentation should be less than 2 minutes. You simply need to communicate the core question your project seeks to answer and the dataset(s) you will be using to answer this question.
+
+## Final project RMarkdown {-}
+
+The final project will be an R Markdown document which communicates your project question, the data you used, and your results. 
+
+## Final project presentation participation {-}
+
+Your final project participation grade is based on a combination of your own presentation and the feedback you provide to your classmates.

@@ -8,10 +8,9 @@ output:
 
 ## Data
 
-For this session, we'll explore the Hawaii Tourism Authority (HTA) [monthly
-visitor statistics](http://www.hawaiitourismauthority.org/research/research/visitor-highlights/).
+For this session, we'll explore the Hawaii Tourism Authority (HTA) [Air Seat Projection](http://www.hawaiitourismauthority.org/research/research/infrastructure-research/).
 I'll be working with the 
-[April 2017 Table(http://www.hawaiitourismauthority.org/default/assets/File/research/monthly-visitors/Apr17%20(rev).xlsx). Feel free to download the latest available.
+[Air Seat Projection for 2017 (revised 06/17)](http://www.hawaiitourismauthority.org/default/assets/File/2017%20Air%20Seat%20Forecast%20rev%200617.xls). Feel free to download the latest available.
 
 ### Importing non-standard Excel files
 
@@ -116,6 +115,7 @@ a given variable. Let's create a measure of the size of a city's seats relative 
 seats <- seats %>%
   group_by(region) %>%
   mutate(proportion_of_region = seats2017/sum(seats2017))
+seats
 ```
 
 Now we can modify the chart to show the importance of each city in the context of its region.

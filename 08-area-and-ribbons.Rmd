@@ -20,7 +20,8 @@ https://download.bls.gov/pub/time.series/tu/
 While you can manually download the files from the above URL, 
 `download.file()` lets you download files from within R.
 The first argument is the URL of the resource you want to download. 
-The second argument is the destination for the file.
+The second argument is the destination for the file. The following requests will
+require you to create the `tu` folder.
 
 ```
 download.file("https://download.bls.gov/pub/time.series/tu/tu.txt", "data/tu/tu.txt")
@@ -98,8 +99,8 @@ Now we should create a variable that codes each of these as either work, sleep, 
 activity <- activity %>%
   mutate(
     activity_type = case_when(
-      grepl("leisure", series_title, ignore.case = TRUE) ~ "Leisure",
-      grepl("sleep", series_title, ignore.case = TRUE) ~ "Sleep",
+      grepl("leisure", activity$series_title, ignore.case = TRUE) ~ "Leisure",
+      grepl("sleep", activity$series_title, ignore.case = TRUE) ~ "Sleep",
       TRUE ~ "Work"
     ), 
     sex = ifelse(grepl("Men", series_title), "Men", "Women")
@@ -132,9 +133,9 @@ ggplot(data, aes(year, hours, fill= activity_type)) + geom_area() + facet_wrap(~
 ```{r}
 data %>%
   ggplot(aes(x = year, group = sex, fill = activity_type)) + 
-  geom_ribbon(mapping = aes(ymin = -hours * (sex == "Women"), ymax = hours * (sex == "Men")), data = . %>% filter(activity_type == "work"), alpha = 0.5) +
-  geom_ribbon(mapping = aes(ymin = -hours * (sex == "Women"), ymax = hours * (sex == "Men")), data = . %>% filter(activity_type == "leisure"), alpha = 0.5) +
-  geom_ribbon(mapping = aes(ymin = -hours * (sex == "Women"), ymax = hours * (sex == "Men")), data = . %>% filter(activity_type == "sleep"), alpha = 0.5) +
+  geom_ribbon(mapping = aes(ymin = -hours * (sex == "Women"), ymax = hours * (sex == "Men")), data = . %>% filter(activity_type == "Work"), alpha = 0.5) +
+  geom_ribbon(mapping = aes(ymin = -hours * (sex == "Women"), ymax = hours * (sex == "Men")), data = . %>% filter(activity_type == "Leisure"), alpha = 0.5) +
+  geom_ribbon(mapping = aes(ymin = -hours * (sex == "Women"), ymax = hours * (sex == "Men")), data = . %>% filter(activity_type == "Sleep"), alpha = 0.5) +
   scale_y_continuous(
     name = "Average hours per work day (Fully Employed)",
     breaks = c(-20, -10, 0, 10, 20),

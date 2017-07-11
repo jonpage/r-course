@@ -6,8 +6,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +26,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-07-01">
+<meta name="date" content="2017-07-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -34,6 +35,7 @@
   
 <link rel="prev" href="facets-and-bubbles.html">
 <link rel="next" href="ggplot-exts.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -92,7 +94,6 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <body>
 
 
-
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
     <div class="book-summary">
@@ -143,7 +144,13 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#papers"><i class="fa fa-check"></i>Papers</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>R Tutorials</b></span></li>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html"><i class="fa fa-check"></i>Individual Project</a><ul>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#project-assignments"><i class="fa fa-check"></i>Project assignments</a></li>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#project-proposal-presentation"><i class="fa fa-check"></i>Project proposal presentation</a></li>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#final-project-rmarkdown"><i class="fa fa-check"></i>Final project RMarkdown</a></li>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#final-project-presentation-participation"><i class="fa fa-check"></i>Final project presentation participation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-r-tutorials.html"><a href="part-r-tutorials.html"><i class="fa fa-check"></i>(PART*) R Tutorials</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> R Basics</a><ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#r-markdown"><i class="fa fa-check"></i><b>1.1</b> R Markdown</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#working-with-data-already-loaded-into-r"><i class="fa fa-check"></i><b>1.2</b> Working with data already loaded into R</a><ul>
@@ -191,7 +198,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#geom_area"><i class="fa fa-check"></i><b>6.2</b> geom_area</a></li>
 </ul></li>
-<li class="part"><span><b>Topics</b></span></li>
+<li class="chapter" data-level="" data-path="part-topics.html"><a href="part-topics.html"><i class="fa fa-check"></i>(PART*) Topics</a></li>
 <li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i>Data Sources Overview</a><ul>
 <li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html#macro-data"><i class="fa fa-check"></i>Macro Data</a><ul>
 <li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html#us"><i class="fa fa-check"></i>US</a></li>
@@ -236,7 +243,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Lecture 4</span> Lines and Curves</h1>
 <div id="data-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Data</h2>
-<p>We will use data on the number of active duty personnel in Hawaii. The first dataset is an Excel file pulled from the State of Hawaii Department of Business, Economic Development, and Tourism (DBEDT) <a href="http://dbedt.hawaii.gov/economic/databook/2015-individual/">2015 State of Hawaii Data Book</a>. The data is originally from the <a href="www.dmdc.osd.mil/appj/dwp/stats_reports.jsp">US Defense Manpower Data Center</a></p>
+<p>We will use data on the number of active duty personnel in Hawaii. The first dataset is an Excel file pulled from the State of Hawaii Department of Business, Economic Development, and Tourism (DBEDT) <a href="http://dbedt.hawaii.gov/economic/databook/2015-individual/">2015 State of Hawaii Data Book</a>. See the line listed as, “10.03 - Active Duty Personnel, by Service: 1953 to 2015.” The data is originally from the <a href="www.dmdc.osd.mil/appj/dwp/stats_reports.jsp">US Defense Manpower Data Center</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
 <span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(magrittr)
@@ -249,25 +256,26 @@ mil_personnel &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<
 ) %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(Year))
 mil_personnel</code></pre></div>
-<pre><code>## # A tibble: 62 x 6
+<pre><code>## # A tibble: 62 × 6
 ##     Year Total  Army  Navy `Marine Corps` `Air Force`
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;       &lt;dbl&gt;
-##  1  1953 24785  5872  7657           6040        5216
-##  2  1954 23654  7957  6443           4155        5099
-##  3  1955 40258 19821  5211           9677        5549
-##  4  1956 37470 16531  5237           9490        6212
-##  5  1957 40683 17511  5466           9608        8098
-##  6  1958 35076 14672  4908           8670        6826
-##  7  1959 36310 15438  5309           8470        7093
-##  8  1960 35412 15492  5687           7756        6477
-##  9  1961 39474 16945  5774           9679        7076
+## 1   1953 24785  5872  7657           6040        5216
+## 2   1954 23654  7957  6443           4155        5099
+## 3   1955 40258 19821  5211           9677        5549
+## 4   1956 37470 16531  5237           9490        6212
+## 5   1957 40683 17511  5466           9608        8098
+## 6   1958 35076 14672  4908           8670        6826
+## 7   1959 36310 15438  5309           8470        7093
+## 8   1960 35412 15492  5687           7756        6477
+## 9   1961 39474 16945  5774           9679        7076
 ## 10  1962 41657 17645  6664           9903        7445
 ## # ... with 52 more rows</code></pre>
 </div>
 <div id="geom_smooth" class="section level2">
 <h2><span class="header-section-number">4.2</span> geom_smooth</h2>
 <p><code>geom_smooth</code> allows you to have smooth lines appear in your chart. With no argument, it will choose <code>loess</code> for series shorter than 1,000 observations. It shows a shaded confidence interval.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mil_personnel %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+mil_personnel %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, Total)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">geom_smooth</span>()</code></pre></div>
@@ -299,7 +307,7 @@ test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">xlim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +<span class="st"> </span><span class="kw">ylim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +
 <span class="st">  </span><span class="kw">coord_fixed</span>() +
 <span class="st">  </span><span class="kw">geom_abline</span>() </code></pre></div>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(x, y)) +
@@ -308,7 +316,7 @@ test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">coord_fixed</span>() +
 <span class="st">  </span><span class="kw">geom_abline</span>() +
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">2.5</span>, <span class="dt">slope =</span> <span class="fl">1.2</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) </code></pre></div>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 </div>
 <div id="geom_vline" class="section level2">
@@ -322,7 +330,7 @@ test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>() +
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">2.5</span>, <span class="dt">slope =</span> <span class="fl">1.2</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) +
 <span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 </div>
 <div id="hline" class="section level2">
@@ -337,7 +345,7 @@ test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">2.5</span>, <span class="dt">slope =</span> <span class="fl">1.2</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) +
 <span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) +
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;#4FCC53&quot;</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</code></pre></div>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 
 </div>
@@ -348,9 +356,8 @@ test_data %&gt;%<span class="st"> </span>
         </div>
       </div>
 <a href="facets-and-bubbles.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ggplot-exts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
-  </div>
+<a href="ggplot-exts.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
