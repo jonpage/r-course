@@ -188,3 +188,9 @@ seats %>%
   geom_text(hjust = "right", vjust = "center", nudge_x = -0.3) +
   facet_wrap(~ region)
 ```
+
+## Assignment
+
+Create a bubble plot highlighting the change in year-on-year growth rates for different quarters.
+Plot `seatschangeQ3` on the x axis and `seatschangeQ4` on the y axis. Use `seats2017` to determine the
+size of each bubble. Facet by region.

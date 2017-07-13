@@ -26,7 +26,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-07-11">
+<meta name="date" content="2017-07-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -168,6 +168,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.5" data-path="read-data.html"><a href="read-data.html#heatmaps"><i class="fa fa-check"></i><b>2.5</b> Heatmaps</a></li>
 <li class="chapter" data-level="2.6" data-path="read-data.html"><a href="read-data.html#hexbins"><i class="fa fa-check"></i><b>2.6</b> Hexbins</a></li>
 <li class="chapter" data-level="2.7" data-path="read-data.html"><a href="read-data.html#other-topics-from-this-dataset"><i class="fa fa-check"></i><b>2.7</b> Other topics from this dataset</a></li>
+<li class="chapter" data-level="2.8" data-path="read-data.html"><a href="read-data.html#assignment-1"><i class="fa fa-check"></i><b>2.8</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html"><i class="fa fa-check"></i><b>3</b> Facets, Bubbles, and Transparency</a><ul>
 <li class="chapter" data-level="3.1" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#data"><i class="fa fa-check"></i><b>3.1</b> Data</a><ul>
@@ -176,6 +177,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#facets"><i class="fa fa-check"></i><b>3.2</b> Facets</a></li>
 <li class="chapter" data-level="3.3" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#bubbles"><i class="fa fa-check"></i><b>3.3</b> Bubbles</a></li>
 <li class="chapter" data-level="3.4" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#transparency"><i class="fa fa-check"></i><b>3.4</b> Transparency</a></li>
+<li class="chapter" data-level="3.5" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#assignment-2"><i class="fa fa-check"></i><b>3.5</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="lines-and-curves.html"><a href="lines-and-curves.html"><i class="fa fa-check"></i><b>4</b> Lines and Curves</a><ul>
 <li class="chapter" data-level="4.1" data-path="lines-and-curves.html"><a href="lines-and-curves.html#data-1"><i class="fa fa-check"></i><b>4.1</b> Data</a></li>
@@ -217,7 +219,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html"><i class="fa fa-check"></i>How to Judge Visualizations</a><ul>
 <li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html#pre-class-assignment"><i class="fa fa-check"></i>Pre-class assignment</a></li>
 <li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html#lecture"><i class="fa fa-check"></i>Lecture</a></li>
-<li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html#assignment-1"><i class="fa fa-check"></i>Assignment</a></li>
+<li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html#assignment-3"><i class="fa fa-check"></i>Assignment</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -243,15 +245,58 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Lecture 5</span> ggplot2 Extensions and Scatterplot Matrices (GGally)</h1>
 <div id="data-2" class="section level2">
 <h2><span class="header-section-number">5.1</span> Data</h2>
+<p>For this section, we’ll look at data from the American Community Survey (ACS) on immigration. To download the data,</p>
+<ol style="list-style-type: decimal">
+<li>Go to the <a href="https://factfinder.census.gov/">American FactFinder website</a>.</li>
+<li>Click on the “Download Center” section, then click the “DOWNLOAD CENTER” button.</li>
+<li>Click the “NEXT” button, since we know the table we want to download.</li>
+<li>Select “American Community Survey” from the Program dropdown.</li>
+<li>Select “2015 ACS 5-year estimates”, click the “ADD TO YOUR SELECTIONS” button, then click “NEXT”</li>
+<li>Select “County - 050” from the geographic type dropdown, then select “All Counties within United States”, click the “ADD TO YOUR SELECTIONS” button, then click “NEXT”</li>
+<li>Type <code>income mobility</code> in the “topic or table name”&quot; search box, then select the option that reads:</li>
+</ol>
+<p>“B07011: MEDIAN INCOME IN THE PAST 12 MONTHS (IN 2015 INFLATION-ADJUSTED DOLLARS) BY GEOGRAPHICAL MOBILITY IN THE PAST YEAR FOR CURRENT RESIDENCE IN THE UNITED STATES”</p>
+<p>Click “GO”, then check the checkbox beside the table we found. Now click on the “Download” button, and uncheck the option that says, “Include descriptive data element names.” Click “Ok” to create your zip file. Once the file has been created, click “DOWNLOAD” to download the zip file.</p>
+<p>The following will assume you moved the following files within the zip to your <code>data</code> folder:</p>
+<ul>
+<li>ACS_15_5YR_B07011_with_ann.csv</li>
+<li>ACS_15_5YR_B07011_metadata.csv</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
+acs &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/ACS_15_5YR_B07011_with_ann.csv&quot;</span>)</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   GEO.id = col_character(),
+##   GEO.id2 = col_character(),
+##   `GEO.display-label` = col_character(),
+##   HD01_VD02 = col_integer(),
+##   HD02_VD02 = col_integer(),
+##   HD01_VD03 = col_integer(),
+##   HD02_VD03 = col_integer(),
+##   HD01_VD04 = col_character(),
+##   HD02_VD04 = col_character(),
+##   HD01_VD05 = col_character(),
+##   HD02_VD05 = col_character(),
+##   HD01_VD06 = col_character(),
+##   HD02_VD06 = col_character(),
+##   HD01_VD07 = col_character(),
+##   HD02_VD07 = col_character()
+## )</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meta &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/ACS_15_5YR_B07011_metadata.csv&quot;</span>)</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   GEO.id = col_character(),
+##   Id = col_character()
+## )</code></pre>
 </div>
 <div id="ggplot2-extensions" class="section level2">
 <h2><span class="header-section-number">5.2</span> <a href="http://www.ggplot2-exts.org/gallery">ggplot2 extensions</a></h2>
-<p>There are many extensions the community have made that build on ggplot. The following link provides a gallery of many of these extensions:</p>
+<p>There are many extensions the community have made that build on ggplot2. The following link provides a gallery of many of these extensions:</p>
 <p><a href="http://www.ggplot2-exts.org/gallery">ggplot2 extensions</a></p>
 </div>
 <div id="scatterplot-matrix-ggallyscatmat" class="section level2">
 <h2><span class="header-section-number">5.3</span> scatterplot matrix (GGally::scatmat)</h2>
-<p>One particular library, <a href="http://ggobi.github.io/ggally/">GGally</a>, has a great set of visualizations to extend those that come prebuilt with <code>ggplot</code>. One common visualization tool that is missing from ggplot is the scatterplot matrix. While base R provides <code>splom()</code> in the <code>lattice</code> library, <code>GGally::ggpairs</code> and <code>GGally::ggscatmat</code></p>
+<p>One particular library, <a href="http://ggobi.github.io/ggally/">GGally</a>, has a great set of visualizations to extend those that come prebuilt with <code>ggplot</code>. One common visualization tool that is missing from ggplot is the scatterplot matrix. While base R provides <code>splom()</code> in the <code>lattice</code> library, <code>GGally::ggpairs</code> and <code>GGally::ggscatmat</code> provide an easy tool to create a scatterplot matrix with ggplot2.</p>
 </div>
 <div id="ggallyglyphs" class="section level2">
 <h2><span class="header-section-number">5.4</span> GGally::glyphs</h2>

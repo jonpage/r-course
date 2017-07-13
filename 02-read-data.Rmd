@@ -4,8 +4,12 @@ The first step in analyzing data with R is reading data into it. This lesson foc
 
 ## Data Source:
 
-The US Census Bureau has a large selection of data on the population of the United States. We'll
-take a look at the 1-year American Community Survey results for the state of Hawaii.
+The US Census Bureau has a large selection of data on the population of the United States. 
+The public-use micro surveys (PUMS) are available from the following link:
+
+https://www.census.gov/programs-surveys/acs/data/pums.html
+
+We'll take a look at the 1-year American Community Survey results for the state of Hawaii.
 
 [Hawaii Population Records](https://www2.census.gov/programs-surveys/acs/data/pums/2015/1-Year/csv_phi.zip)
 
@@ -267,3 +271,9 @@ across choice of major. Because of the size of the data in the Hawaii sample, it
 of these questions at the national level.
 
 Go to the [ACS PUMS documentation page](https://www.census.gov/programs-surveys/acs/technical-documentation/pums/documentation.2015.html) for more information.
+
+
+## Assignment
+
+Choose another pair of variables from the data dictionary and visualize them with a scatterplot,
+a heatmap, and a hexbin plot.

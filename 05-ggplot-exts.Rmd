@@ -8,12 +8,37 @@ output:
 
 ## Data 
 
+For this section, we'll look at data from the American Community Survey (ACS)
+on immigration. To download the data,
 
+1. Go to the [American FactFinder website](https://factfinder.census.gov/).
+2. Click on the "Download Center" section, then click the "DOWNLOAD CENTER" button.
+3. Click the "NEXT" button, since we know the table we want to download.
+4. Select "American Community Survey" from the Program dropdown.
+5. Select "2015 ACS 5-year estimates", click the "ADD TO YOUR SELECTIONS" button, then click "NEXT"
+6. Select "County - 050" from the geographic type dropdown, then select "All Counties within United States", click the "ADD TO YOUR SELECTIONS" button, then click "NEXT"
+7. Type `income mobility` in the "topic or table name"" search box, then select the option that reads: 
+
+"B07011: MEDIAN INCOME IN THE PAST 12 MONTHS (IN 2015 INFLATION-ADJUSTED DOLLARS) BY GEOGRAPHICAL MOBILITY IN THE PAST YEAR FOR CURRENT RESIDENCE IN THE UNITED STATES"
+
+Click "GO", then check the checkbox beside the table we found. Now click on the "Download" button, and 
+uncheck the option that says, "Include descriptive data element names." Click "Ok" to create your zip file. Once the file has been created, click "DOWNLOAD" to download the zip file.
+
+The following will assume you moved the following files within the zip to your `data` folder:
+
+* ACS_15_5YR_B07011_with_ann.csv
+* ACS_15_5YR_B07011_metadata.csv
+
+```{r}
+library(readr)
+acs <- read_csv("data/ACS_15_5YR_B07011_with_ann.csv")
+meta <- read_csv("data/ACS_15_5YR_B07011_metadata.csv")
+```
 
 ## [ggplot2 extensions](http://www.ggplot2-exts.org/gallery)
 
-There are many extensions the community have made that build on ggplot. The following link
-provides a gallery of many of these extensions: 
+There are many extensions the community have made that build on ggplot2. 
+The following link provides a gallery of many of these extensions: 
 
 [ggplot2 extensions](http://www.ggplot2-exts.org/gallery)
 
@@ -21,8 +46,9 @@ provides a gallery of many of these extensions:
 
 One particular library, [GGally](http://ggobi.github.io/ggally/), has a great set of visualizations
 to extend those that come prebuilt with `ggplot`. One common visualization tool that is missing from
-ggplot is the scatterplot matrix. While base R provides `splom()` in the `lattice` library, `GGally::ggpairs`
-and `GGally::ggscatmat`
+ggplot is the scatterplot matrix. While base R provides `splom()` in the `lattice` library, 
+`GGally::ggpairs` and `GGally::ggscatmat` provide an easy tool to create a scatterplot matrix with
+ggplot2.
 
 
 ## GGally::glyphs

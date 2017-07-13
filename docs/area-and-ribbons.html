@@ -26,7 +26,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-07-11">
+<meta name="date" content="2017-07-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -168,6 +168,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.5" data-path="read-data.html"><a href="read-data.html#heatmaps"><i class="fa fa-check"></i><b>2.5</b> Heatmaps</a></li>
 <li class="chapter" data-level="2.6" data-path="read-data.html"><a href="read-data.html#hexbins"><i class="fa fa-check"></i><b>2.6</b> Hexbins</a></li>
 <li class="chapter" data-level="2.7" data-path="read-data.html"><a href="read-data.html#other-topics-from-this-dataset"><i class="fa fa-check"></i><b>2.7</b> Other topics from this dataset</a></li>
+<li class="chapter" data-level="2.8" data-path="read-data.html"><a href="read-data.html#assignment-1"><i class="fa fa-check"></i><b>2.8</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html"><i class="fa fa-check"></i><b>3</b> Facets, Bubbles, and Transparency</a><ul>
 <li class="chapter" data-level="3.1" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#data"><i class="fa fa-check"></i><b>3.1</b> Data</a><ul>
@@ -176,6 +177,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#facets"><i class="fa fa-check"></i><b>3.2</b> Facets</a></li>
 <li class="chapter" data-level="3.3" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#bubbles"><i class="fa fa-check"></i><b>3.3</b> Bubbles</a></li>
 <li class="chapter" data-level="3.4" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#transparency"><i class="fa fa-check"></i><b>3.4</b> Transparency</a></li>
+<li class="chapter" data-level="3.5" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#assignment-2"><i class="fa fa-check"></i><b>3.5</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="lines-and-curves.html"><a href="lines-and-curves.html"><i class="fa fa-check"></i><b>4</b> Lines and Curves</a><ul>
 <li class="chapter" data-level="4.1" data-path="lines-and-curves.html"><a href="lines-and-curves.html#data-1"><i class="fa fa-check"></i><b>4.1</b> Data</a></li>
@@ -217,7 +219,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html"><i class="fa fa-check"></i>How to Judge Visualizations</a><ul>
 <li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html#pre-class-assignment"><i class="fa fa-check"></i>Pre-class assignment</a></li>
 <li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html#lecture"><i class="fa fa-check"></i>Lecture</a></li>
-<li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html#assignment-1"><i class="fa fa-check"></i>Assignment</a></li>
+<li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html#assignment-3"><i class="fa fa-check"></i>Assignment</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -480,7 +482,7 @@ activity</code></pre></div>
 <p><code>geom_area</code> is useful when components that naturally add to each other:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">ggplot</span>(data, <span class="kw">aes</span>(year, hours, <span class="dt">fill=</span> activity_type)) +<span class="st"> </span><span class="kw">geom_area</span>() +<span class="st"> </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>sex) </code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-51-1.png" width="672" /> ## geom_ribbon</p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-52-1.png" width="672" /> ## geom_ribbon</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">group =</span> sex, <span class="dt">fill =</span> activity_type)) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">ymin =</span> -hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Women&quot;</span>), <span class="dt">ymax =</span> hours *<span class="st"> </span>(sex ==<span class="st"> &quot;Men&quot;</span>)), <span class="dt">data =</span> . %&gt;%<span class="st"> </span><span class="kw">filter</span>(activity_type ==<span class="st"> &quot;Work&quot;</span>), <span class="dt">alpha =</span> <span class="fl">0.5</span>) +
@@ -492,7 +494,7 @@ activity</code></pre></div>
     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Women 20 hrs&quot;</span>, <span class="st">&quot;10 hrs&quot;</span>, <span class="st">&quot;0 hrs&quot;</span>, <span class="st">&quot;10 hrs&quot;</span>, <span class="st">&quot;Men 20 hrs&quot;</span>),
     <span class="dt">limits =</span> <span class="kw">c</span>(-<span class="dv">20</span>, <span class="dv">20</span>)
     )</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 
 </div>
 </div>
