@@ -188,7 +188,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5" data-path="ggplot-exts.html"><a href="ggplot-exts.html"><i class="fa fa-check"></i><b>5</b> ggplot2 Extensions and Scatterplot Matrices (GGally)</a><ul>
 <li class="chapter" data-level="5.1" data-path="ggplot-exts.html"><a href="ggplot-exts.html#data-2"><i class="fa fa-check"></i><b>5.1</b> Data</a></li>
-<li class="chapter" data-level="5.2" data-path="ggplot-exts.html"><a href="ggplot-exts.html#ggplot2-extensions"><i class="fa fa-check"></i><b>5.2</b> <a href="http://www.ggplot2-exts.org/gallery">ggplot2 extensions</a></a></li>
+<li class="chapter" data-level="5.2" data-path="ggplot-exts.html"><a href="ggplot-exts.html#ggplot2-extensions"><i class="fa fa-check"></i><b>5.2</b> ggplot2 extensions</a></li>
 <li class="chapter" data-level="5.3" data-path="ggplot-exts.html"><a href="ggplot-exts.html#scatterplot-matrix-ggallyscatmat"><i class="fa fa-check"></i><b>5.3</b> scatterplot matrix (GGally::scatmat)</a></li>
 <li class="chapter" data-level="5.4" data-path="ggplot-exts.html"><a href="ggplot-exts.html#ggallyglyphs"><i class="fa fa-check"></i><b>5.4</b> GGally::glyphs</a></li>
 </ul></li>
@@ -538,9 +538,7 @@ pop_hi %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(age, wages)) +
 <span class="st">  </span><span class="kw">geom_hex</span>() +<span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_x_log10</span>()</code></pre></div>
-<pre><code>## Warning: Computation failed in `stat_binhex()`:
-## Package `hexbin` required for `stat_binhex`.
-## Please install and try again.</code></pre>
+<pre><code>## Warning: package &#39;hexbin&#39; was built under R version 3.4.1</code></pre>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>Here we can see that inequality in wages for workers increases with age.</p>
 </div>

@@ -35,7 +35,7 @@ acs <- read_csv("data/ACS_15_5YR_B07011_with_ann.csv")
 meta <- read_csv("data/ACS_15_5YR_B07011_metadata.csv")
 ```
 
-## [ggplot2 extensions](http://www.ggplot2-exts.org/gallery)
+## ggplot2 extensions
 
 There are many extensions the community have made that build on ggplot2. 
 The following link provides a gallery of many of these extensions: 

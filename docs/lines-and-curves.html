@@ -188,7 +188,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5" data-path="ggplot-exts.html"><a href="ggplot-exts.html"><i class="fa fa-check"></i><b>5</b> ggplot2 Extensions and Scatterplot Matrices (GGally)</a><ul>
 <li class="chapter" data-level="5.1" data-path="ggplot-exts.html"><a href="ggplot-exts.html#data-2"><i class="fa fa-check"></i><b>5.1</b> Data</a></li>
-<li class="chapter" data-level="5.2" data-path="ggplot-exts.html"><a href="ggplot-exts.html#ggplot2-extensions"><i class="fa fa-check"></i><b>5.2</b> <a href="http://www.ggplot2-exts.org/gallery">ggplot2 extensions</a></a></li>
+<li class="chapter" data-level="5.2" data-path="ggplot-exts.html"><a href="ggplot-exts.html#ggplot2-extensions"><i class="fa fa-check"></i><b>5.2</b> ggplot2 extensions</a></li>
 <li class="chapter" data-level="5.3" data-path="ggplot-exts.html"><a href="ggplot-exts.html#scatterplot-matrix-ggallyscatmat"><i class="fa fa-check"></i><b>5.3</b> scatterplot matrix (GGally::scatmat)</a></li>
 <li class="chapter" data-level="5.4" data-path="ggplot-exts.html"><a href="ggplot-exts.html#ggallyglyphs"><i class="fa fa-check"></i><b>5.4</b> GGally::glyphs</a></li>
 </ul></li>
@@ -316,7 +316,7 @@ test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">xlim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +<span class="st"> </span><span class="kw">ylim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +
 <span class="st">  </span><span class="kw">coord_fixed</span>() +
 <span class="st">  </span><span class="kw">geom_abline</span>() </code></pre></div>
-<pre><code>## Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(x, y)) +
@@ -325,7 +325,7 @@ test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">coord_fixed</span>() +
 <span class="st">  </span><span class="kw">geom_abline</span>() +
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">2.5</span>, <span class="dt">slope =</span> <span class="fl">1.2</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) </code></pre></div>
-<pre><code>## Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 </div>
 <div id="geom_vline" class="section level2">
@@ -339,7 +339,7 @@ test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>() +
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">2.5</span>, <span class="dt">slope =</span> <span class="fl">1.2</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) +
 <span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<pre><code>## Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 </div>
 <div id="hline" class="section level2">
@@ -354,7 +354,7 @@ test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">2.5</span>, <span class="dt">slope =</span> <span class="fl">1.2</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) +
 <span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) +
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;#4FCC53&quot;</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</code></pre></div>
-<pre><code>## Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 
 </div>
