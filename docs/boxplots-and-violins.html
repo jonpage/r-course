@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="intro.html">
-<link rel="next" href="facets-and-bubbles.html">
+<link rel="prev" href="ggplot-exts.html">
+<link rel="next" href="area-and-ribbons.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -248,310 +248,97 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="read-data" class="section level1">
-<h1><span class="header-section-number">Lecture 2</span> Reading data</h1>
-<p>The first step in analyzing data with R is reading data into it. This lesson focuses on reading data, manipulating it with <code>dplyr</code> and a few summary visualizations.</p>
-<div id="data-source" class="section level2">
-<h2><span class="header-section-number">2.1</span> Data Source:</h2>
-<p>The US Census Bureau has a large selection of data on the population of the United States. The public-use micro surveys (PUMS) are available from the following link:</p>
-<p><a href="https://www.census.gov/programs-surveys/acs/data/pums.html" class="uri">https://www.census.gov/programs-surveys/acs/data/pums.html</a></p>
-<p>We’ll take a look at the 1-year American Community Survey results for the state of Hawaii.</p>
-<p><a href="https://www2.census.gov/programs-surveys/acs/data/pums/2015/1-Year/csv_phi.zip">Hawaii Population Records</a></p>
-<p><a href="https://www2.census.gov/programs-surveys/acs/tech_docs/pums/data_dict/PUMSDataDict15.txt">The data dictionary</a></p>
-</div>
-<div id="read_csv" class="section level2">
-<h2><span class="header-section-number">2.2</span> <code>read_csv</code></h2>
-<p>To read in the downloaded file, we’ll use the <code>readr</code> package, which you can install by installing <code>tidyverse</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr) <span class="co"># also in library(tidyverse)</span>
-pop_hi &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/csv_phi.zip&quot;</span>)</code></pre></div>
-<pre><code>## Multiple files in zip: reading &#39;ss15phi.csv&#39;</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   .default = col_integer(),
-##   RT = col_character(),
-##   SPORDER = col_character(),
-##   PUMA = col_character(),
-##   PWGTP = col_character(),
-##   AGEP = col_character(),
-##   INTP = col_character(),
-##   JWMNP = col_character(),
-##   JWRIP = col_character(),
-##   JWTR = col_character(),
-##   OIP = col_character(),
-##   PAP = col_character(),
-##   RELP = col_character(),
-##   RETP = col_character(),
-##   SCHG = col_character(),
-##   SCHL = col_character(),
-##   SEMP = col_character(),
-##   SSIP = col_character(),
-##   SSP = col_character(),
-##   WAGP = col_character(),
-##   WKHP = col_character()
-##   # ... with 99 more columns
-## )</code></pre>
-<pre><code>## See spec(...) for full column specifications.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_hi</code></pre></div>
-<pre><code>## # A tibble: 14,124 × 284
-##       RT SERIALNO SPORDER  PUMA    ST  ADJINC PWGTP  AGEP   CIT CITWP
-##    &lt;chr&gt;    &lt;int&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt;
-## 1      P       21      01 00303    15 1001264 00078    63     1    NA
-## 2      P      158      01 00306    15 1001264 00056    54     1    NA
-## 3      P      267      01 00100    15 1001264 00059    52     5    NA
-## 4      P      267      02 00100    15 1001264 00071    56     5    NA
-## 5      P      267      03 00100    15 1001264 00102    25     5    NA
-## 6      P      267      04 00100    15 1001264 00155    22     5    NA
-## 7      P      267      05 00100    15 1001264 00074    15     5    NA
-## 8      P      351      01 00100    15 1001264 00307    32     4  2005
-## 9      P      351      02 00100    15 1001264 00578    02     1    NA
-## 10     P      470      01 00200    15 1001264 00041    79     1    NA
-## # ... with 14,114 more rows, and 274 more variables: COW &lt;int&gt;,
-## #   DDRS &lt;int&gt;, DEAR &lt;int&gt;, DEYE &lt;int&gt;, DOUT &lt;int&gt;, DPHY &lt;int&gt;,
-## #   DRAT &lt;int&gt;, DRATX &lt;int&gt;, DREM &lt;int&gt;, ENG &lt;int&gt;, FER &lt;int&gt;, GCL &lt;int&gt;,
-## #   GCM &lt;int&gt;, GCR &lt;int&gt;, HINS1 &lt;int&gt;, HINS2 &lt;int&gt;, HINS3 &lt;int&gt;,
-## #   HINS4 &lt;int&gt;, HINS5 &lt;int&gt;, HINS6 &lt;int&gt;, HINS7 &lt;int&gt;, INTP &lt;chr&gt;,
-## #   JWMNP &lt;chr&gt;, JWRIP &lt;chr&gt;, JWTR &lt;chr&gt;, LANX &lt;int&gt;, MAR &lt;int&gt;,
-## #   MARHD &lt;int&gt;, MARHM &lt;int&gt;, MARHT &lt;int&gt;, MARHW &lt;int&gt;, MARHYP &lt;int&gt;,
-## #   MIG &lt;int&gt;, MIL &lt;int&gt;, MLPA &lt;int&gt;, MLPB &lt;int&gt;, MLPCD &lt;int&gt;, MLPE &lt;int&gt;,
-## #   MLPFG &lt;int&gt;, MLPH &lt;int&gt;, MLPI &lt;int&gt;, MLPJ &lt;int&gt;, MLPK &lt;int&gt;,
-## #   NWAB &lt;int&gt;, NWAV &lt;int&gt;, NWLA &lt;int&gt;, NWLK &lt;int&gt;, NWRE &lt;int&gt;, OIP &lt;chr&gt;,
-## #   PAP &lt;chr&gt;, RELP &lt;chr&gt;, RETP &lt;chr&gt;, SCH &lt;int&gt;, SCHG &lt;chr&gt;, SCHL &lt;chr&gt;,
-## #   SEMP &lt;chr&gt;, SEX &lt;int&gt;, SSIP &lt;chr&gt;, SSP &lt;chr&gt;, WAGP &lt;chr&gt;, WKHP &lt;chr&gt;,
-## #   WKL &lt;int&gt;, WKW &lt;int&gt;, WRK &lt;int&gt;, YOEP &lt;int&gt;, ANC &lt;int&gt;, ANC1P &lt;chr&gt;,
-## #   ANC2P &lt;chr&gt;, DECADE &lt;int&gt;, DIS &lt;int&gt;, DRIVESP &lt;int&gt;, ESP &lt;int&gt;,
-## #   ESR &lt;int&gt;, FHICOVP &lt;int&gt;, FOD1P &lt;int&gt;, FOD2P &lt;int&gt;, HICOV &lt;int&gt;,
-## #   HISP &lt;chr&gt;, INDP &lt;chr&gt;, JWAP &lt;chr&gt;, JWDP &lt;chr&gt;, LANP &lt;int&gt;,
-## #   MIGPUMA &lt;chr&gt;, MIGSP &lt;chr&gt;, MSP &lt;int&gt;, NAICSP &lt;chr&gt;, NATIVITY &lt;int&gt;,
-## #   NOP &lt;int&gt;, OC &lt;int&gt;, OCCP &lt;chr&gt;, PAOC &lt;int&gt;, PERNP &lt;chr&gt;, PINCP &lt;chr&gt;,
-## #   POBP &lt;chr&gt;, POVPIP &lt;chr&gt;, POWPUMA &lt;chr&gt;, POWSP &lt;chr&gt;, PRIVCOV &lt;int&gt;,
-## #   PUBCOV &lt;int&gt;, QTRBIR &lt;int&gt;, ...</code></pre>
-</div>
-<div id="dplyr" class="section level2">
-<h2><span class="header-section-number">2.3</span> <code>dplyr</code></h2>
-<p>Using the data dictionary we can identify some interesting variables.</p>
-<pre><code>PERSON RECORD
-
-RT      1   
-    Record Type     
-        P .Person Record
-
-AGEP        2   
-    Age
-        00  .Under 1 year   
-        01..99  .1 to 99 years (Top-coded***)
-
-COW     1   
-    Class of worker
-        b .N/A (less than 16 years old/NILF who last
-          .worked more than 5 years ago or never worked)
-        1 .Employee of a private for-profit company or
-          .business, or of an individual, for wages,
-          .salary, or commissions
-        2 .Employee of a private not-for-profit,
-          .tax-exempt, or charitable organization
-        3 .Local government employee (city, county, etc.)
-        4 .State government employee
-        5 .Federal government employee
-        6 .Self-employed in own not incorporated
-          .business, professional practice, or farm
-        7 .Self-employed in own incorporated
-          .business, professional practice or farm
-        8 .Working without pay in family business or farm
-        9 .Unemployed and last worked 5 years ago or earlier or never
-                  .worked
-        
-SCHL        2   
-    Educational attainment
-        bb .N/A (less than 3 years old)
-        01 .No schooling completed
-        02 .Nursery school, preschool   
-        03 .Kindergarten
-        04 .Grade 1
-        05 .Grade 2
-        06 .Grade 3     
-        07 .Grade 4
-        08 .Grade 5
-        09 .Grade 6
-        10 .Grade 7     
-        11 .Grade 8  
-        12 .Grade 9
-        13 .Grade 10
-        14 .Grade 11        
-        15 .12th grade - no diploma   
-        16 .Regular high school diploma
-        17 .GED or alternative credential
-        18 .Some college, but less than 1 year
-        19 .1 or more years of college credit, no degree
-        20 .Associate&#39;s degree      
-        21 .Bachelor&#39;s degree
-        22 .Master&#39;s degree
-        23 .Professional degree beyond a bachelor&#39;s degree
-        24 .Doctorate degree
-        
-WAGP        6   
-    Wages or salary income past 12 months
-        bbbbbb      .N/A (less than 15 years old)
-        000000      .None
-        000001..999999  .$1 to 999999 (Rounded and top-coded)
-
-Note: Use ADJINC to adjust WAGP to constant dollars.
-
-
-WKHP        2   
-    Usual hours worked per week past 12 months
-        bb   .N/A (less than 16 years old/did not work 
-             .during the past 12 months)
-        01..98   .1 to 98 usual hours
-        99   .99 or more usual hours
-        
-WKW     1   
-    Weeks worked during past 12 months
-        b .N/A (less than 16 years old/did not work 
-          .during the past 12 months)
-        1 .50 to 52 weeks worked during past 12 months
-        2 .48 to 49 weeks worked during past 12 months
-        3 .40 to 47 weeks worked during past 12 months
-        4 .27 to 39 weeks worked during past 12 months
-        5 .14 to 26 weeks worked during past 12 months 
-        6 .less than 14 weeks worked during past 12 months
-        
-ESR     1   
-    Employment status recode
-        b .N/A (less than 16 years old)
-        1 .Civilian employed, at work
-        2 .Civilian employed, with a job but not at work
-        3 .Unemployed
-        4 .Armed forces, at work
-        5 .Armed forces, with a job but not at work
-        6 .Not in labor force
-        
-PERNP       7   
-    Total person&#39;s earnings
-        bbbbbbb         .N/A (less than 15 years old)
-        0000000         .No earnings
-        -010000         .Loss of $10000 or more (Rounded &amp; bottom-coded 
-                        .components) 
-        -000001..-009999    .Loss $1 to $9999 (Rounded components)
-        0000001         .$1 or break even
-        0000002..9999999    .$2 to $9999999 (Rounded &amp; top-coded components)
-        
-Note: Use ADJINC to adjust PERNP to constant dollars.
-
-PINCP       7   
-    Total person&#39;s income (signed)
-        bbbbbbb         .N/A (less than 15 years old)
-        0000000         .None
-        -019999         .Loss of $19999 or more (Rounded &amp; bottom-coded 
-                        .components) 
-        -000001..-019998    .Loss $1 to $19998 (Rounded components)
-        0000001         .$1 or break even
-        0000002..9999999    .$2 to $9999999 (Rounded &amp; top-coded components)
-            
-Note: Use ADJINC to adjust PINCP to constant dollars.</code></pre>
-<p>Let’s focus on employed civilians (ESR either 1 or 2) working full time (WKHP &gt; 32) for close to the entire year (WKW either 1 or 2).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr) <span class="co"># also in library(tidyverse)</span></code></pre></div>
+<div id="boxplots-and-violins" class="section level1">
+<h1><span class="header-section-number">Lecture 6</span> Boxplots and Violin Plots</h1>
+<p>Boxplots and violin plots are two important tools for visualizing the distribution of data within a dataset. The boxplot highlights the median, key percentiles, and outliers within a dataset. The violin plot takes a kernel density plot, rotates it 90 degrees, then mirrors it about the axis to create a shape that sometimes resembles a violin.</p>
+<div id="data-3" class="section level2">
+<h2><span class="header-section-number">6.1</span> Data</h2>
+<p>The Social Security Administration releases data on earnings and employment each year. We’ll take a look at the data for 2014:</p>
+<p><a href="https://www.ssa.gov/policy/docs/statcomps/eedata_sc/2014/index.html" class="uri">https://www.ssa.gov/policy/docs/statcomps/eedata_sc/2014/index.html</a></p>
+<p>We’re going to download Table 1: “Number of persons with Social Security (OASDI) taxable earnings, amount taxable, and contributions, by state or other area, sex, and type of earnings, 2014”</p>
+<p>Save that file as ‘ssa_earnings.xlsx’ in the <code>data</code> folder</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
+ssa &lt;-<span class="st"> </span><span class="kw">read_xlsx</span>(<span class="st">&quot;data/ssa_earnings.xlsx&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;A7:J159&quot;</span>, 
+                 <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">&quot;state&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;other&quot;</span>, <span class="st">&quot;other2&quot;</span>, <span class="st">&quot;number.total&quot;</span>, <span class="st">&quot;number.wage&quot;</span>, <span class="st">&quot;number.self&quot;</span>, 
+                               <span class="st">&quot;earnings.total&quot;</span>, <span class="st">&quot;earnings.wage&quot;</span>, <span class="st">&quot;earnings.self&quot;</span>))
+ssa</code></pre></div>
+<pre><code>## # A tibble: 153 × 10
+##       state gender other other2 number.total number.wage number.self
+##       &lt;chr&gt;  &lt;chr&gt; &lt;lgl&gt;  &lt;lgl&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+## 1   Alabama   &lt;NA&gt;    NA     NA      2355477     2215535      255253
+## 2      &lt;NA&gt;    Men    NA     NA      1200468     1116458      138895
+## 3      &lt;NA&gt;  Women    NA     NA      1155009     1099077      116357
+## 4    Alaska   &lt;NA&gt;    NA     NA       400007      375833       47696
+## 5      &lt;NA&gt;    Men    NA     NA       223464      209694       27884
+## 6      &lt;NA&gt;  Women    NA     NA       176543      166140       19812
+## 7   Arizona   &lt;NA&gt;    NA     NA      3189785     2997567      334292
+## 8      &lt;NA&gt;    Men    NA     NA      1660088     1551488      185753
+## 9      &lt;NA&gt;  Women    NA     NA      1529697     1446079      148539
+## 10 Arkansas   &lt;NA&gt;    NA     NA      1468898     1376249      163320
+## # ... with 143 more rows, and 3 more variables: earnings.total &lt;dbl&gt;,
+## #   earnings.wage &lt;dbl&gt;, earnings.self &lt;dbl&gt;</code></pre>
+<p>The starting format is far from ideal. Each row should represent one group, so we don’t need any of the rows with totals.</p>
+<p>It’s important to always read any footnotes and documentation that comes with the data you plan to use. Footnote <code>c</code> for this table indicates that individuals with both wage and salary employment will be counted in both groups, but only once in the total. It is important to be aware of this double counting.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)</code></pre></div>
 <pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## Attaching package: &#39;tidyr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:magrittr&#39;:
 ## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_hi &lt;-<span class="st"> </span>pop_hi %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(
-    ESR %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),
-    <span class="kw">as.numeric</span>(WKHP) &gt;<span class="st"> </span><span class="dv">32</span>,
-    WKW %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)
-  )</code></pre></div>
-<p>If you are unsure if a column that you want to treat as numeric contains letters, you can run the following command to get a list of the values containing letters:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;[[:alpha:]]&quot;</span>, pop_hi$WKHP, <span class="dt">value =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## character(0)</code></pre>
-<p>We can use two functions to add new columns (or change existing ones).</p>
-<ol style="list-style-type: decimal">
-<li><code>mutate()</code> adds columns and keeps the previous columns</li>
-<li><code>transmute()</code> adds columns and removes the previous columns</li>
-</ol>
-<p>This time we want to drop the columns we don’t mention.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_hi &lt;-<span class="st"> </span>pop_hi %&gt;%
-<span class="st">  </span><span class="kw">transmute</span>(
-    <span class="dt">age =</span> <span class="kw">as.numeric</span>(AGEP),
-    <span class="dt">worker_class =</span> <span class="kw">factor</span>(COW, <span class="dt">labels =</span> <span class="kw">c</span>(
-      <span class="st">&quot;for-profit&quot;</span>,
-      <span class="st">&quot;not-for-profit&quot;</span>,
-      <span class="st">&quot;local government&quot;</span>,
-      <span class="st">&quot;state government&quot;</span>,
-      <span class="st">&quot;federal government&quot;</span>,
-      <span class="st">&quot;self-employed not incorporated&quot;</span>,
-      <span class="st">&quot;self-employed incorporated&quot;</span>,
-      <span class="st">&quot;family business no pay&quot;</span>
-    )),
-    <span class="dt">school =</span> SCHL,
-    <span class="dt">wages =</span> <span class="kw">as.numeric</span>(WAGP),
-    <span class="dt">top_coded_wages =</span> WAGP ==<span class="st"> </span><span class="dv">999999</span>
-)</code></pre></div>
-<p>Creating a custom factor variable for educational attainment:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">education_levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;less than HS&quot;</span>, <span class="st">&quot;HS&quot;</span>, <span class="st">&quot;associates&quot;</span>, <span class="st">&quot;bachelors&quot;</span>, <span class="st">&quot;masters&quot;</span>, <span class="st">&quot;doctorate&quot;</span>)
+##     extract</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+ssa_long &lt;-<span class="st"> </span>ssa %&gt;%
+<span class="st">  </span><span class="kw">fill</span>(state) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(gender)) %&gt;%
+<span class="st">  </span><span class="kw">reshape</span>(<span class="dt">varying =</span> <span class="dv">5</span>:<span class="dv">10</span>, <span class="dt">direction =</span> <span class="st">&quot;long&quot;</span>, <span class="dt">timevar =</span> <span class="st">&quot;earnings_type&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(state, gender, earnings_type, number, earnings) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">per_capita =</span> earnings /<span class="st"> </span>number)</code></pre></div>
+<pre><code>## Warning: Setting row names on a tibble is deprecated.
 
-pop_hi$education &lt;-<span class="st"> </span><span class="ot">NA</span>
-pop_hi[pop_hi$school &lt;<span class="st"> </span><span class="dv">16</span>,]$education &lt;-<span class="st"> &quot;less than HS&quot;</span>
-pop_hi[pop_hi$school &gt;<span class="st"> </span><span class="dv">16</span> &amp;<span class="st"> </span>pop_hi$school &lt;<span class="st"> </span><span class="dv">20</span>,]$education &lt;-<span class="st"> &quot;HS&quot;</span>
-pop_hi[pop_hi$school ==<span class="st"> </span><span class="dv">20</span>,]$education &lt;-<span class="st"> &quot;associates&quot;</span>
-pop_hi[pop_hi$school ==<span class="st"> </span><span class="dv">21</span>,]$education &lt;-<span class="st"> &quot;bachelors&quot;</span>
-pop_hi[pop_hi$school %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">22</span>, <span class="dv">23</span>),]$education &lt;-<span class="st"> &quot;masters&quot;</span>
-pop_hi[pop_hi$school ==<span class="st"> </span><span class="dv">24</span>,]$education &lt;-<span class="st"> &quot;doctorate&quot;</span>
+## Warning: Setting row names on a tibble is deprecated.
 
-pop_hi &lt;-<span class="st"> </span>pop_hi %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">education =</span> <span class="kw">factor</span>(education, <span class="dt">levels =</span> education_levels))</code></pre></div>
+## Warning: Setting row names on a tibble is deprecated.</code></pre>
 </div>
-<div id="first-look-at-ggplot2" class="section level2">
-<h2><span class="header-section-number">2.4</span> First Look at <code>ggplot2</code></h2>
-<p>See the <a href="ggplot2.tidyverse.org/reference/">ggplot2 documentation</a> for details and inspiration.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2) <span class="co"># also in library(tidyverse)</span>
-<span class="kw">ggplot</span>(pop_hi, <span class="kw">aes</span>(age, wages)) +
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<p>Income has a skewed distribution, so it is often presented/analyzed in logs. Here’s how to modify the above chart to display income in logs:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_hi &lt;-<span class="st"> </span>pop_hi %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">log_safe_wages =</span> <span class="kw">ifelse</span>(wages ==<span class="st"> </span><span class="dv">0</span>, <span class="dv">1</span>, wages))
-pop_hi %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(age, log_safe_wages)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
-<span class="st">  </span><span class="kw">scale_y_log10</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div id="boxplots" class="section level2">
+<h2><span class="header-section-number">6.2</span> Boxplots</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+ssa_long %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(earnings_type !=<span class="st"> &quot;total&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita)) +
+<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ssa_long %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita, <span class="dt">fill =</span> gender)) +
+<span class="st">  </span><span class="kw">geom_boxplot</span>() +
+<span class="st">  </span><span class="kw">facet_grid</span>(~<span class="st"> </span>earnings_type)</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 </div>
-<div id="heatmaps" class="section level2">
-<h2><span class="header-section-number">2.5</span> Heatmaps</h2>
-<p>Heatmaps allow you to get a sense of the concetration of observations in regions where there are many overlapping points:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(pop_hi, <span class="kw">aes</span>(age, log_safe_wages)) +
-<span class="st">  </span><span class="kw">geom_bin2d</span>() +
-<span class="st">  </span><span class="kw">scale_y_log10</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<div id="violin-plots" class="section level2">
+<h2><span class="header-section-number">6.3</span> Violin Plots</h2>
+<p>Let’s repeat the above plots using the violin plot type.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ssa_long %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(earnings_type !=<span class="st"> &quot;total&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita)) +
+<span class="st">  </span><span class="kw">geom_violin</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ssa_long %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita, <span class="dt">color =</span> gender, <span class="dt">fill =</span> gender)) +
+<span class="st">  </span><span class="kw">geom_violin</span>() +
+<span class="st">  </span><span class="kw">facet_grid</span>(~<span class="st"> </span>earnings_type)</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 </div>
-<div id="hexbins" class="section level2">
-<h2><span class="header-section-number">2.6</span> Hexbins</h2>
-<p>Hexbins use hexagons instead of squares, which helps avoid the rectangular sections in heatmaps that may misrepresent your data.</p>
-<p>You will need to install the <code>hexbin</code> package.</p>
-<pre><code>install.packages(&quot;hexbin&quot;)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_hi %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(wages &gt;<span class="st"> </span><span class="dv">10000</span>, wages &lt;<span class="st"> </span><span class="dv">300000</span>) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(age, wages)) +
-<span class="st">  </span><span class="kw">geom_hex</span>() +<span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_x_log10</span>()</code></pre></div>
-<pre><code>## Warning: Computation failed in `stat_binhex()`:
-## Package `hexbin` required for `stat_binhex`.
-## Please install and try again.</code></pre>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<p>Here we can see that inequality in wages for workers increases with age.</p>
+<div id="dot-plots" class="section level2">
+<h2><span class="header-section-number">6.4</span> Dot Plots</h2>
+<p>Dot plots appear similar to violin plots, but dot plots may be easier to interpret:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ssa_long %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita, <span class="dt">color =</span> gender, <span class="dt">fill =</span> gender)) +
+<span class="st">  </span><span class="kw">geom_dotplot</span>(<span class="dt">binaxis =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">stackdir =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) +
+<span class="st">  </span><span class="kw">facet_grid</span>(~<span class="st"> </span>earnings_type)</code></pre></div>
+<pre><code>## `stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 </div>
-<div id="other-topics-from-this-dataset" class="section level2">
-<h2><span class="header-section-number">2.7</span> Other topics from this dataset</h2>
-<p>This dataset includes information on the majors for degree holders and the industry codes. You could use that additional information to ask how well targeted majors are to particular industries and how incomes vary across choice of major. Because of the size of the data in the Hawaii sample, it would be better to ask some of these questions at the national level.</p>
-<p>Go to the <a href="https://www.census.gov/programs-surveys/acs/technical-documentation/pums/documentation.2015.html">ACS PUMS documentation page</a> for more information.</p>
-</div>
-<div id="assignment-1" class="section level2">
-<h2><span class="header-section-number">2.8</span> Assignment</h2>
-<p>Choose another pair of variables from the data dictionary and visualize them with a scatterplot, a heatmap, and a hexbin plot.</p>
+<div id="assignment-3" class="section level2">
+<h2><span class="header-section-number">6.5</span> Assignment</h2>
+<p>Create your own visualization of the SSA data using one of the above distribution visualizations.</p>
 
 </div>
 </div>
@@ -560,8 +347,8 @@ pop_hi %&gt;%
           </div>
         </div>
       </div>
-<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="facets-and-bubbles.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="ggplot-exts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="area-and-ribbons.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -589,7 +376,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jonpage/r-course/edit/master/02-read-data.Rmd",
+"link": "https://github.com/jonpage/r-course/edit/master/06-boxplots-and-violins.Rmd",
 "text": "Edit"
 },
 "download": ["jonpage-r-course.pdf"],

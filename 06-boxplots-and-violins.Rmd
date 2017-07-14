@@ -1,0 +1,106 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# Boxplots and Violin Plots {#boxplots-and-violins}
+
+Boxplots and violin plots are two important tools for visualizing the distribution of
+data within a dataset. The boxplot highlights the median, key percentiles, and outliers
+within a dataset. The violin plot takes a kernel density plot, rotates it 90 degrees, then
+mirrors it about the axis to create a shape that sometimes resembles a violin.
+
+## Data 
+
+The Social Security Administration releases data on earnings and employment
+each year. We'll take a look at the data for 2014:
+
+https://www.ssa.gov/policy/docs/statcomps/eedata_sc/2014/index.html
+
+We're going to download Table 1: "Number of persons with Social Security 
+(OASDI) taxable earnings, amount taxable, and contributions, by state or 
+other area, sex, and type of earnings, 2014"
+
+Save that file as 'ssa_earnings.xlsx' in the `data` folder
+
+```{r}
+library(readxl)
+ssa <- read_xlsx("data/ssa_earnings.xlsx", range = "A7:J159", 
+                 col_names = c("state", "gender", "other", "other2", "number.total", "number.wage", "number.self", 
+                               "earnings.total", "earnings.wage", "earnings.self"))
+ssa
+```
+
+The starting format is far from ideal. Each row should represent one group,
+so we don't need any of the rows with totals.
+
+It's important to always read any footnotes and documentation that comes with
+the data you plan to use. Footnote `c` for this table indicates that individuals
+with both wage and salary employment will be counted in both groups, but only
+once in the total. It is important to be aware of this double counting.
+
+```{r}
+library(tidyr)
+library(dplyr)
+ssa_long <- ssa %>%
+  fill(state) %>%
+  filter(!is.na(gender)) %>%
+  reshape(varying = 5:10, direction = "long", timevar = "earnings_type") %>%
+  select(state, gender, earnings_type, number, earnings) %>%
+  mutate(per_capita = earnings / number)
+```
+
+## Boxplots
+
+```{r}
+library(ggplot2)
+ssa_long %>%
+  filter(earnings_type != "total") %>%
+  ggplot(aes(gender, per_capita)) +
+  geom_boxplot()
+```
+
+```{r}
+ssa_long %>%
+  ggplot(aes(gender, per_capita, fill = gender)) +
+  geom_boxplot() +
+  facet_grid(~ earnings_type)
+```
+
+
+## Violin Plots
+
+Let's repeat the above plots using the violin plot type.
+
+```{r}
+ssa_long %>%
+  filter(earnings_type != "total") %>%
+  ggplot(aes(gender, per_capita)) +
+  geom_violin()
+```
+
+
+```{r}
+ssa_long %>%
+  ggplot(aes(gender, per_capita, color = gender, fill = gender)) +
+  geom_violin() +
+  facet_grid(~ earnings_type)
+```
+
+
+## Dot Plots
+
+Dot plots appear similar to violin plots, but dot plots may be easier to interpret:
+
+```{r}
+ssa_long %>%
+  ggplot(aes(gender, per_capita, color = gender, fill = gender)) +
+  geom_dotplot(binaxis = "y", stackdir = "center", position = "dodge") +
+  facet_grid(~ earnings_type)
+```
+
+## Assignment
+
+Create your own visualization of the SSA data using one of the above distribution visualizations.
+

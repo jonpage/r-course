@@ -115,8 +115,8 @@ The following schedule is tentative and subject to change.
 
 ### Week 6 {-}
 
-* **R** Boxplots, violin plots
-<!-- -->
+* **R** [Boxplots, violin plots](#boxplots-and-violins)
+<!-- SSA -->
 * **Topic** 
 * **Project Assignment** Write a description of the data cleaning required for your project
 
