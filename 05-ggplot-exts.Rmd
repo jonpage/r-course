@@ -75,10 +75,39 @@ acs_mobility %>%
 Let's see what the typical bottom-coded values are:
 ```{r}
 acs_mobility %>%
-  summarize(sc_median = median(same_country[same_country_bc]))
+  filter(same_country_bc) %>%
+  select(same_country) %>%
+  table()
 ```
 
-Since this is a small number of counties given the entire range, we'll 
+```{r}
+acs_mobility %>%
+  filter(different_country_bc) %>%
+  select(different_country) %>%
+  table()
+```
+
+In both cases the bottom-coded interval is the range from zero to 2,500. Since this is a small number of counties given the entire range, let's simply
+set the bottom-coded values to equal the upper-bound of their interval (i.e., 2,500).
+```{r}
+acs_mobility <- acs_mobility %>%
+  transmute(
+    geo = geo,
+    same_house = as.integer(same_house),
+    same_county = as.integer(same_county),
+    same_state = as.integer(same_state),
+    same_country = if_else(same_country_bc, 2500L, as.integer(same_country)),
+    different_country = if_else(different_country_bc, 2500L, as.integer(different_country))
+  )
+acs_mobility
+```
+
+Let's rearrange the data into `tidy` format (one observation per row).
+```{r}
+library(tidyr)
+tidy_acs <- acs_mobility %>%
+  gather(location_last_year, median_income, -geo, factor_key = TRUE)
+```
 
 ## ggplot2 extensions
 
@@ -87,13 +116,46 @@ The following link provides a gallery of many of these extensions:
 
 [ggplot2 extensions](http://www.ggplot2-exts.org/gallery)
 
-## scatterplot matrix (GGally::scatmat)
+Some others that are usefull are `ggjoy` and `GGally`.
+
+## ggjoy
+
+Make sure `ggjoy` is installed.
+
+```
+install.packages("ggjoy")
+```
+
+`ggjoy` gives us the ability to stack kernel density plots.
+
+```{r}
+library(ggjoy)
+ggplot(tidy_acs, aes(x = median_income, y = location_last_year, group(location_last_year))) +
+  geom_joy() +
+  theme_joy()
+```
+
+This plot shows us that, on average, the distance moved in the past year is inversely related to median income.
+
+## scatterplot matrix (GGally::ggscatmat)
+
+Make sure you have `GGally` installed.
+
+```
+install.packages("GGally")
+```
 
 One particular library, [GGally](http://ggobi.github.io/ggally/), has a great set of visualizations
 to extend those that come prebuilt with `ggplot`. One common visualization tool that is missing from
 ggplot is the scatterplot matrix. While base R provides `splom()` in the `lattice` library, 
-`GGally::ggpairs` and `GGally::ggscatmat` provide an easy tool to create a scatterplot matrix with
+`GGally::ggpairs` and `GGally::ggscatmat` pr ovide an easy tool to create a scatterplot matrix with
 ggplot2.
 
+```{r}
+library(GGally)
+acs_mobility %>%
+  as.data.frame() %>%
+  ggscatmat(columns = 2:ncol(.), alpha = 0.1)
+```
 
 ## GGally::glyphs
