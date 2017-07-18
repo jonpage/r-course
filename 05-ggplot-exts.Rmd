@@ -29,11 +29,56 @@ The following will assume you moved the following files within the zip to your `
 * ACS_15_5YR_B07011_with_ann.csv
 * ACS_15_5YR_B07011_metadata.csv
 
+The file `ACS_15_5YR_B07011.txt` tells us how to interpret codes within our data. It is possible for median values to be followed by a `+` or `-` if they
+are in the upper or lower open-ended interval. In our dataset we don't have any medians in the upper open-ended interval, but we do have entries in the
+lower open-ended interval.
+
 ```{r}
 library(readr)
-acs <- read_csv("data/ACS_15_5YR_B07011_with_ann.csv")
+acs <- read_csv("data/ACS_15_5YR_B07011_with_ann.csv", col_types = strrep("c", 15), na = c("-", "(X)"))
 meta <- read_csv("data/ACS_15_5YR_B07011_metadata.csv")
+meta
 ```
+
+
+Let's keep only the variables we care about, using more informative variable names.
+```{r}
+library(dplyr)
+acs_mobility <- acs %>%
+  transmute(
+    geo = `GEO.display-label`,
+    same_house = HD01_VD03,
+    same_county = HD01_VD04,
+    same_state = HD01_VD05,
+    same_country = HD01_VD06,
+    different_country = HD01_VD07
+  )
+acs_mobility
+```
+
+Now we can add an indicator for whether the median value is in the lowest available interval. This would mean that the median value presented has been bottom-coded.
+```{r}
+acs_mobility <- acs_mobility %>%
+  mutate(
+    same_country_bc = grepl("[0-9]*-", same_country),
+    different_country_bc = grepl("[0-9]*-", different_country)
+  )
+acs_mobility
+```
+
+Let's see how many counties have observations that are bottom coded:
+```{r}
+acs_mobility %>%
+  summarize(same_country_bc = sum(same_country_bc), different_country_bc = sum(different_country_bc), counties = n())
+```
+
+Let's see what the typical bottom-coded values are:
+```{r}
+acs_mobility %>%
+  summarize(sc_median = median(same_country[same_country_bc]))
+```
+
+Since this is a small number of counties given the entire range, we'll 
 
 ## ggplot2 extensions
 

@@ -128,6 +128,7 @@ data
 library(ggplot2)
 ggplot(data, aes(year, hours, fill= activity_type)) + geom_area() + facet_wrap(~ sex) 
 ```
+
 ## geom_ribbon
 
 ```{r}
