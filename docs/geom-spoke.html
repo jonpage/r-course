@@ -26,7 +26,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-07-19">
+<meta name="date" content="2017-07-20">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -199,9 +199,12 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.4" data-path="boxplots-and-violins.html"><a href="boxplots-and-violins.html#dot-plots"><i class="fa fa-check"></i><b>6.4</b> Dot Plots</a></li>
 <li class="chapter" data-level="6.5" data-path="boxplots-and-violins.html"><a href="boxplots-and-violins.html#assignment-3"><i class="fa fa-check"></i><b>6.5</b> Assignment</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="geom-spoke.html"><a href="geom-spoke.html"><i class="fa fa-check"></i><b>7</b> geom_spoke, maps, glyphs</a><ul>
+<li class="chapter" data-level="7" data-path="geom-spoke.html"><a href="geom-spoke.html"><i class="fa fa-check"></i><b>7</b> Spatial Visualizations</a><ul>
 <li class="chapter" data-level="7.1" data-path="geom-spoke.html"><a href="geom-spoke.html#data-4"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
 <li class="chapter" data-level="7.2" data-path="geom-spoke.html"><a href="geom-spoke.html#geom_spoke"><i class="fa fa-check"></i><b>7.2</b> geom_spoke</a></li>
+<li class="chapter" data-level="7.3" data-path="geom-spoke.html"><a href="geom-spoke.html#maps"><i class="fa fa-check"></i><b>7.3</b> maps</a></li>
+<li class="chapter" data-level="7.4" data-path="geom-spoke.html"><a href="geom-spoke.html#gganimate"><i class="fa fa-check"></i><b>7.4</b> gganimate</a></li>
+<li class="chapter" data-level="7.5" data-path="geom-spoke.html"><a href="geom-spoke.html#glyphs"><i class="fa fa-check"></i><b>7.5</b> glyphs</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html"><i class="fa fa-check"></i><b>8</b> geom_area and geom_ribbon</a><ul>
 <li class="chapter" data-level="8.1" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#data-5"><i class="fa fa-check"></i><b>8.1</b> Data</a><ul>
@@ -254,7 +257,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="geom_spoke" class="section level1">
-<h1><span class="header-section-number">Lecture 7</span> geom_spoke, maps, glyphs</h1>
+<h1><span class="header-section-number">Lecture 7</span> Spatial Visualizations</h1>
 <div id="data-4" class="section level2">
 <h2><span class="header-section-number">7.1</span> Data</h2>
 <p>The data for this class will come from the National Oceanic and Atmospheric Administration (NOAA) U.S. Wind Climatology datasets (<a href="https://www.ncdc.noaa.gov/societal-impacts/wind/" class="uri">https://www.ncdc.noaa.gov/societal-impacts/wind/</a>).</p>
@@ -314,8 +317,7 @@ uwnd_nc</code></pre></div>
 ##              actual_range: 1906920
 ##         nbnds  Size:2
 ## 
-##     8 global attributes:
-##         _NCProperties: version=1|netcdflibversion=4.4.1|hdf5libversion=1.8.16
+##     7 global attributes:
 ##         Conventions: COARDS
 ##         title: mean daily NMC reanalysis (2014)
 ##         history: created 2013/12 by Hoop (netCDF2.3)
@@ -389,21 +391,98 @@ wind</code></pre></div>
 ## 9   20.0    90  2017-01-01 7.550002  0.27500039
 ## 10  22.5    90  2017-01-01 7.525002  0.60000038
 ## # ... with 2,081,366 more rows</code></pre>
-<p>Otherwise we would need to merge these data.frames to get <code>uwnd</code> and <code>vwnd</code> together with the following, which takes long time to run:</p>
+<p>Otherwise, we would need to merge these data.frames to get <code>uwnd</code> and <code>vwnd</code> together with the following, which takes long time to run:</p>
 <pre><code>wind &lt;- merge(uwnd_df, vwnd_df)</code></pre>
-<p>What’s a little smarter and a lot faster in this case is to simply</p>
 </div>
 <div id="geom_spoke" class="section level2">
 <h2><span class="header-section-number">7.2</span> geom_spoke</h2>
-<p>To represent these wind vectors we’ll use the <code>geom_spoke()</code>:</p>
+<p>To represent these wind vectors we’ll use the <code>geom_spoke()</code>. We’ll start just plotting wind patterns for January 1, 2017:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 wind &lt;-<span class="st"> </span>wind %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">angle =</span> <span class="kw">atan2</span>(vwnd, uwnd), <span class="dt">radius =</span> <span class="kw">sqrt</span>(uwnd^<span class="dv">2</span> +<span class="st"> </span>vwnd^<span class="dv">2</span>))
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">angle =</span> <span class="kw">atan2</span>(vwnd, uwnd), <span class="dt">radius =</span> <span class="kw">sqrt</span>(uwnd^<span class="dv">2</span> +<span class="st"> </span>vwnd^<span class="dv">2</span>), <span class="dt">time =</span> <span class="kw">as.POSIXct</span>(time))
 wind %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(time ==<span class="st"> </span><span class="kw">as.PCICt</span>(<span class="st">&quot;2017-01-01&quot;</span>, <span class="dt">cal=</span><span class="st">&quot;gregorian&quot;</span>, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(time ==<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="st">&quot;2017-01-01&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;GMT&quot;</span>)) %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) +
-<span class="st">  </span><span class="kw">geom_spoke</span>(<span class="kw">aes</span>(<span class="dt">angle =</span> angle, <span class="dt">radius =</span> radius, <span class="dt">alpha =</span> radius, <span class="dt">color =</span> angle))</code></pre></div>
+<span class="st">  </span><span class="kw">geom_spoke</span>(<span class="kw">aes</span>(<span class="dt">angle =</span> angle, <span class="dt">radius =</span> radius, <span class="dt">alpha =</span> radius, <span class="dt">color =</span> angle)) +
+<span class="st">  </span><span class="kw">scale_color_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;#132B43&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;#56B1F7&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;#132B43&quot;</span>)</code></pre></div>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+</div>
+<div id="maps" class="section level2">
+<h2><span class="header-section-number">7.3</span> maps</h2>
+<pre><code>install.packages(&quot;maps&quot;)</code></pre>
+<p>Map data will help to provide some context to this wind figure. We’ll use <code>geom_polygon</code> to plot the world centered on the Pacific Ocean (<code>world2</code>) using the <code>map_data()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;world2&quot;</span>)
+wind %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(time ==<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="st">&quot;2017-01-01&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;GMT&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) +
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> world, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), <span class="dt">color =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">fill =</span> <span class="ot">NA</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dv">1</span>) +
+<span class="st">  </span><span class="kw">geom_spoke</span>(<span class="kw">aes</span>(<span class="dt">angle =</span> angle, <span class="dt">radius =</span> radius, <span class="dt">alpha =</span> radius, <span class="dt">color =</span> angle)) +
+<span class="st">  </span><span class="kw">scale_color_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;#132B43&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;#56B1F7&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;#132B43&quot;</span>) +
+<span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+</div>
+<div id="gganimate" class="section level2">
+<h2><span class="header-section-number">7.4</span> gganimate</h2>
+<p>The <code>gganimate</code> package lets us animate the above chart. If you want to be able to save animations as an mp4, you will need install <code>ffmpeg</code> (<a href="https://www.ffmpeg.org/download.html" class="uri">https://www.ffmpeg.org/download.html</a>). You can install <code>gganimate</code> with <code>devtools</code>:</p>
+<pre><code>devtools::install_github(&quot;dgrtwo/gganimate&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gganimate)
+f &lt;-<span class="st"> </span>wind %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) +
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> world, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), <span class="dt">color =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">fill =</span> <span class="ot">NA</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dv">1</span>) +
+<span class="st">  </span><span class="kw">geom_spoke</span>(<span class="kw">aes</span>(<span class="dt">angle =</span> angle, <span class="dt">radius =</span> radius, <span class="dt">alpha =</span> radius, <span class="dt">color =</span> angle, <span class="dt">frame =</span> time)) +
+<span class="st">  </span><span class="kw">scale_color_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;#132B43&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;#56B1F7&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;#132B43&quot;</span>) +
+<span class="st">  </span><span class="kw">theme_minimal</span>()
+<span class="kw">gganimate</span>(f)</code></pre></div>
+<video width="672"  controls loop>
+<source src="jonpage-r-course_files/figure-html/wind-animation.webm" />
+</video>
+</div>
+<div id="glyphs" class="section level2">
+<h2><span class="header-section-number">7.5</span> glyphs</h2>
+<p><code>glyphs</code> provide another useful way of analyzing spatial data with a time dimesion. This shows a tiny line charts representing the north-south component of the wind at each longitude/latitude combination.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(GGally)
+wind$day &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">julian</span>(wind$time, <span class="kw">as.POSIXct</span>(<span class="st">&quot;2017-01-01&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;GMT&quot;</span>)))
+wind$day_flip &lt;-<span class="st"> </span>-wind$day
+vwnd_gly &lt;-<span class="st"> </span><span class="kw">glyphs</span>(wind, <span class="st">&quot;lon&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;vwnd&quot;</span>, <span class="dt">height=</span><span class="fl">2.5</span>)
+uwnd_gly &lt;-<span class="st"> </span><span class="kw">glyphs</span>(wind, <span class="st">&quot;lon&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;uwnd&quot;</span>, <span class="dt">height=</span><span class="fl">2.5</span>)
+
+<span class="kw">ggplot</span>(vwnd_gly, <span class="kw">aes</span>(gx, gy, <span class="dt">group =</span> gid)) +
+<span class="st">  </span><span class="kw">add_ref_lines</span>(vwnd_gly, <span class="dt">color =</span> <span class="st">&quot;grey90&quot;</span>) +
+<span class="st">  </span><span class="kw">add_ref_boxes</span>(vwnd_gly, <span class="dt">color =</span> <span class="st">&quot;grey90&quot;</span>) +
+<span class="st">  </span><span class="kw">geom_path</span>() +
+<span class="st">  </span><span class="kw">theme_bw</span>() +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<p>Let’s focus in on just the continental US:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">usa &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;usa&quot;</span>)
+usa_long_range &lt;-<span class="st"> </span><span class="kw">range</span>(usa$long)
+usa_lat_range &lt;-<span class="st"> </span><span class="kw">range</span>(usa$lat)
+
+usa_wind &lt;-<span class="st"> </span>wind %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(lon &gt;=<span class="st"> </span>(usa_long_range[<span class="dv">1</span>] %%<span class="st"> </span><span class="dv">360</span>) &amp;<span class="st"> </span>lon &lt;=<span class="st"> </span>(usa_long_range[<span class="dv">2</span>] %%<span class="st"> </span><span class="dv">360</span>) &amp;
+<span class="st">           </span>lat &gt;=<span class="st"> </span>usa_lat_range[<span class="dv">1</span>] &amp;<span class="st"> </span>lat &lt;=<span class="st"> </span>usa_lat_range[<span class="dv">2</span>])
+usa_wind$day &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">julian</span>(usa_wind$time, <span class="kw">as.POSIXct</span>(<span class="st">&quot;2017-01-01&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;GMT&quot;</span>)))
+usa_wind$day_flip &lt;-<span class="st"> </span>-usa_wind$day
+usa_vwnd_gly &lt;-<span class="st"> </span><span class="kw">glyphs</span>(usa_wind, <span class="st">&quot;lon&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;vwnd&quot;</span>, <span class="dt">height=</span><span class="fl">2.5</span>)
+usa_uwnd_gly &lt;-<span class="st"> </span><span class="kw">glyphs</span>(usa_wind, <span class="st">&quot;lon&quot;</span>, <span class="st">&quot;uwnd&quot;</span>, <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;day_flip&quot;</span>, <span class="dt">height=</span><span class="fl">2.5</span>)
+
+<span class="kw">ggplot</span>(usa_vwnd_gly, <span class="kw">aes</span>(gx, gy, <span class="dt">group =</span> gid)) +
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> usa, <span class="kw">aes</span>(<span class="dt">x =</span> long %%<span class="st"> </span><span class="dv">360</span>, <span class="dt">y =</span> lat %%<span class="st"> </span><span class="dv">360</span>, <span class="dt">group =</span> group), <span class="dt">fill =</span> <span class="st">&quot;grey60&quot;</span>) +
+<span class="st">  </span><span class="kw">add_ref_lines</span>(usa_vwnd_gly, <span class="dt">color =</span> <span class="st">&quot;grey90&quot;</span>) +
+<span class="st">  </span><span class="kw">add_ref_boxes</span>(usa_vwnd_gly, <span class="dt">color =</span> <span class="st">&quot;grey90&quot;</span>) +
+<span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">alpha =</span> <span class="fl">0.9</span>) +
+<span class="st">  </span><span class="kw">theme_bw</span>() +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;North-South&quot;</span>)
+<span class="kw">ggplot</span>(usa_uwnd_gly, <span class="kw">aes</span>(gx, gy, <span class="dt">group =</span> gid)) +
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> usa, <span class="kw">aes</span>(<span class="dt">x =</span> long %%<span class="st"> </span><span class="dv">360</span>, <span class="dt">y =</span> lat %%<span class="st"> </span><span class="dv">360</span>, <span class="dt">group =</span> group), <span class="dt">fill =</span> <span class="st">&quot;grey60&quot;</span>) +
+<span class="st">  </span><span class="kw">add_ref_lines</span>(usa_uwnd_gly, <span class="dt">color =</span> <span class="st">&quot;grey90&quot;</span>) +
+<span class="st">  </span><span class="kw">add_ref_boxes</span>(usa_uwnd_gly, <span class="dt">color =</span> <span class="st">&quot;grey90&quot;</span>) +
+<span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">alpha =</span> <span class="fl">0.9</span>) +
+<span class="st">  </span><span class="kw">theme_bw</span>() +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;East-West&quot;</span>)</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-73-1.png" width="672" /><img src="jonpage-r-course_files/figure-html/unnamed-chunk-73-2.png" width="672" /></p>
 
 </div>
 </div>

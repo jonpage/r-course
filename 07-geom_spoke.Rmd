@@ -4,7 +4,7 @@ output:
   pdf_document: default
 ---
 
-# geom_spoke, maps, glyphs  {#geom_spoke}
+# Spatial Visualizations {#geom_spoke}
 
 ## Data
 
@@ -71,22 +71,120 @@ wind <- vwnd %>%
 wind
 ```
 
-Otherwise we would need to merge these data.frames to get `uwnd` and `vwnd` together with the following, which takes long time to run:
+Otherwise, we would need to merge these data.frames to get `uwnd` and `vwnd` together with the following, which takes long time to run:
 ```
 wind <- merge(uwnd_df, vwnd_df)
 ```
 
-What's a little smarter and a lot faster in this case is to simply 
 
 ## geom_spoke
 
-To represent these wind vectors we'll use the `geom_spoke()`:
+To represent these wind vectors we'll use the `geom_spoke()`. We'll start just plotting wind
+patterns for January 1, 2017:
 ```{r}
 library(ggplot2)
 wind <- wind %>%
-  mutate(angle = atan2(vwnd, uwnd), radius = sqrt(uwnd^2 + vwnd^2))
+  mutate(angle = atan2(vwnd, uwnd), radius = sqrt(uwnd^2 + vwnd^2), time = as.POSIXct(time))
 wind %>%
-  filter(time == as.PCICt("2017-01-01", cal="gregorian", format = "%Y-%m-%d")) %>%
+  filter(time == as.POSIXct("2017-01-01", tz = "GMT")) %>%
   ggplot(aes(lon, lat)) +
-  geom_spoke(aes(angle = angle, radius = radius, alpha = radius, color = angle))
+  geom_spoke(aes(angle = angle, radius = radius, alpha = radius, color = angle)) +
+  scale_color_gradient2(low = "#132B43", mid = "#56B1F7", high = "#132B43")
 ```
+
+
+## maps
+
+```
+install.packages("maps")
+```
+
+Map data will help to provide some context to this wind figure. We'll use `geom_polygon` to
+plot the world centered on the Pacific Ocean (`world2`) using the `map_data()` function.
+
+
+```{r}
+world <- map_data("world2")
+wind %>%
+  filter(time == as.POSIXct("2017-01-01", tz = "GMT")) %>%
+  ggplot(aes(lon, lat)) +
+  geom_polygon(data = world, aes(x=long, y = lat, group = group), color = "green", fill = NA) + 
+  coord_fixed(1) +
+  geom_spoke(aes(angle = angle, radius = radius, alpha = radius, color = angle)) +
+  scale_color_gradient2(low = "#132B43", mid = "#56B1F7", high = "#132B43") +
+  theme_minimal()
+```
+
+
+## gganimate
+
+The `gganimate` package lets us animate the above chart.
+If you want to be able to save animations as an mp4, you will need install `ffmpeg` (https://www.ffmpeg.org/download.html). You can install `gganimate` with `devtools`:
+```
+devtools::install_github("dgrtwo/gganimate")
+```
+
+```{r wind-animation, fig.show="animate", interval=0.1, cache=TRUE}
+library(gganimate)
+f <- wind %>%
+  ggplot(aes(lon, lat)) +
+  geom_polygon(data = world, aes(x=long, y = lat, group = group), color = "green", fill = NA) + 
+  coord_fixed(1) +
+  geom_spoke(aes(angle = angle, radius = radius, alpha = radius, color = angle, frame = time)) +
+  scale_color_gradient2(low = "#132B43", mid = "#56B1F7", high = "#132B43") +
+  theme_minimal()
+gganimate(f)
+```
+
+## glyphs
+
+`glyphs` provide another useful way of analyzing spatial data with a time dimesion. This shows
+a tiny line charts representing the north-south component of the wind at each longitude/latitude
+combination.
+
+```{r}
+library(GGally)
+wind$day <- as.numeric(julian(wind$time, as.POSIXct("2017-01-01", tz = "GMT")))
+wind$day_flip <- -wind$day
+vwnd_gly <- glyphs(wind, "lon", "day", "lat", "vwnd", height=2.5)
+uwnd_gly <- glyphs(wind, "lon", "day", "lat", "uwnd", height=2.5)
+
+ggplot(vwnd_gly, aes(gx, gy, group = gid)) +
+  add_ref_lines(vwnd_gly, color = "grey90") +
+  add_ref_boxes(vwnd_gly, color = "grey90") +
+  geom_path() +
+  theme_bw() +
+  labs(x = "", y = "")
+```
+
+Let's focus in on just the continental US:
+
+```{r, fig.show="hold"}
+usa <- map_data("usa")
+usa_long_range <- range(usa$long)
+usa_lat_range <- range(usa$lat)
+
+usa_wind <- wind %>%
+  filter(lon >= (usa_long_range[1] %% 360) & lon <= (usa_long_range[2] %% 360) &
+           lat >= usa_lat_range[1] & lat <= usa_lat_range[2])
+usa_wind$day <- as.numeric(julian(usa_wind$time, as.POSIXct("2017-01-01", tz = "GMT")))
+usa_wind$day_flip <- -usa_wind$day
+usa_vwnd_gly <- glyphs(usa_wind, "lon", "day", "lat", "vwnd", height=2.5)
+usa_uwnd_gly <- glyphs(usa_wind, "lon", "uwnd", "lat", "day_flip", height=2.5)
+
+ggplot(usa_vwnd_gly, aes(gx, gy, group = gid)) +
+  geom_polygon(data = usa, aes(x = long %% 360, y = lat %% 360, group = group), fill = "grey60") +
+  add_ref_lines(usa_vwnd_gly, color = "grey90") +
+  add_ref_boxes(usa_vwnd_gly, color = "grey90") +
+  geom_path(alpha = 0.9) +
+  theme_bw() +
+  labs(x = "", y = "", title = "North-South")
+ggplot(usa_uwnd_gly, aes(gx, gy, group = gid)) +
+  geom_polygon(data = usa, aes(x = long %% 360, y = lat %% 360, group = group), fill = "grey60") +
+  add_ref_lines(usa_uwnd_gly, color = "grey90") +
+  add_ref_boxes(usa_uwnd_gly, color = "grey90") +
+  geom_path(alpha = 0.9) +
+  theme_bw() +
+  labs(x = "", y = "", title = "East-West")
+```
+

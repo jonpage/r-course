@@ -31,6 +31,46 @@
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage{natbib}
 \bibliographystyle{apalike}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\ImportTok}[1]{{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{{#1}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{{#1}}}}
+\newcommand{\BuiltInTok}[1]{{#1}}
+\newcommand{\ExtensionTok}[1]{{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
 \usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
@@ -86,7 +126,7 @@ TR 10:30-11:45, Webster Hall 112}
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2017-06-01}
+  \date{2017-07-20}
 
 \usepackage{booktabs}
 
@@ -100,364 +140,251 @@ TR 10:30-11:45, Webster Hall 112}
 \chapter*{Syllabus}\label{syllabus}
 \addcontentsline{toc}{chapter}{Syllabus}
 
-\section*{Office Hours}\label{office-hours}
-\addcontentsline{toc}{section}{Office Hours}
-
-Monday 2-3 PM and Tuesday 3-4 PM, or by appointment, Saunders 509,
-jrpage at hawaii dot edu.
-
-\section*{Student Learning
-Objectives}\label{student-learning-objectives}
-\addcontentsline{toc}{section}{Student Learning Objectives}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  To be familiar with standard techniques for visualizing data,
-  including heat maps, contour plots, (look at the list in the Data
-  Visualization book)
-\item
-  To be able to transform raw data into formats suitable for analysis
-\item
-  To be able to perform basic exploratory analysis
-\item
-  To be able to create data visualizations
-\end{enumerate}
-
-There is no prerequisite for this course.
-
-\section*{Resources}\label{resources}
-\addcontentsline{toc}{section}{Resources}
-
-\subsection*{Required}\label{required}
-\addcontentsline{toc}{subsection}{Required}
-
-Introductory Statistics with Randomization and Simulation: Available as
-a free PDF
-(\url{https://www.openintro.org/stat/textbook.php?stat_book=isrs}) or
-for \$8.49 on Amazon.
-
-R Graphics Cookbook
-
-\subsection*{Recommended:}\label{recommended}
-\addcontentsline{toc}{subsection}{Recommended:}
-
-ggplot2 Cheatsheet
-
-\section*{Course Requirements}\label{course-requirements}
-\addcontentsline{toc}{section}{Course Requirements}
-
-Grades for this course will be based on weekly assignments (30\%),
-project assignments (30\%), the project proposal (5\%), the final
-project deliverable (15\%), and final project presentation participation
-(20\%).
-
-\subsection*{Weekly assignments (30\%)}\label{weekly-assignments-30}
-\addcontentsline{toc}{subsection}{Weekly assignments (30\%)}
-
-Weekly assignments are short R excercises. Each exercise should take no
-longer than 15 minutes. You will typically be given time to complete the
-exercise in class the day the assignment is given. The assignment will
-be in the form of R Markdown file (*.Rmd). You will submit the completed
-assignments via \href{https//classroom.google.com}{classroom.google.com}
-by the following class period.
-
-\section*{Individual Project}\label{individual-project}
-\addcontentsline{toc}{section}{Individual Project}
-
-\subsection*{Project assignments (30\%)}\label{project-assignments-30}
-\addcontentsline{toc}{subsection}{Project assignments (30\%)}
-
-Each week, leading up to the project proposal, you will be given an
-assignment that is designed to provide you with an organized workflow
-for approaching new data science projects. Project assignments are
-submitted via \href{https//classroom.google.com}{classroom.google.com},
-with the exception of the two presentations
-
-\subsection*{Project proposal presentation
-(5\%)}\label{project-proposal-presentation-5}
-\addcontentsline{toc}{subsection}{Project proposal presentation (5\%)}
-
-This presentation should be less than 2 minutes. You simply need to
-communicate the core question your project seeks to answer and the
-dataset(s) you will be using to answer this question.
-
-\subsection*{Final project (15\%)}\label{final-project-15}
-\addcontentsline{toc}{subsection}{Final project (15\%)}
-
-The final project will be an R Markdown document which communicates your
-project question, the data you used, and your results.
-
-\subsection*{Final project presentation participation
-(20\%)}\label{final-project-presentation-participation-20}
-\addcontentsline{toc}{subsection}{Final project presentation
-participation (20\%)}
-
-Your final project participation grade is based on a combination of your
-own presentation and the feedback you provide to your classmates.
-
-\section*{Schedule}\label{schedule}
-\addcontentsline{toc}{section}{Schedule}
-
-The following schedule is tentative and subject to change.
-
-\subsection*{Week 1}\label{week-1}
-\addcontentsline{toc}{subsection}{Week 1}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} \protect\hyperlink{intro}{Intro to R and RStudio;
-  Histograms, scatterplots, summary statistics}
-\item
-  \textbf{Topic} Data sources overview
-\item
-  \textbf{Project Assignment} Indentify interesting datasets and
-  questions
-\end{itemize}
-
-\subsection*{Week 2}\label{week-2}
-\addcontentsline{toc}{subsection}{Week 2}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} \protect\hyperlink{read-data}{read\_csv, dplyr basics,
-  heatmaps, hexbins}
-\item
-  \textbf{Topic} Anscombe's Quartet
-\item
-  \textbf{Project Assignment} Choose question and dataset for your
-  project
-\end{itemize}
-
-\subsection*{Week 3}\label{week-3}
-\addcontentsline{toc}{subsection}{Week 3}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} ggplot facets, bubble plots, transparency
-\item
-  \textbf{Topic} Effective Data Visualization
-\item
-  \textbf{Project Assignment} Write description of your question
-\end{itemize}
-
-\subsection*{Week 4}\label{week-4}
-\addcontentsline{toc}{subsection}{Week 4}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} geom\_smooth, abline, vline, hline, ggTimeSeries
-\item
-  \textbf{Topic} Time series analysis
-\item
-  \textbf{Project Assignment} Write description of your dataset(s)
-\end{itemize}
-
-\subsection*{Week 5}\label{week-5}
-\addcontentsline{toc}{subsection}{Week 5}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} \href{http://www.ggplot2-exts.org/gallery}{ggplot2
-  extensions}, scatterplot matrix (GGally)
-\item
-  \textbf{Topic} \protect\hyperlink{trifecta}{JunkCharts Trifecta
-  Checkup}
-\item
-  \textbf{Project Assignment} Create 2 descriptive plots of your
-  datasets(s)
-\end{itemize}
-
-\subsection*{Week 6}\label{week-6}
-\addcontentsline{toc}{subsection}{Week 6}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} Boxplots, violin plots
-\item
-  \textbf{Topic}
-\item
-  \textbf{Project Assignment} Write a description of the data cleaning
-  required for your project
-\end{itemize}
-
-\subsection*{Week 7}\label{week-7}
-\addcontentsline{toc}{subsection}{Week 7}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} geom\_spoke, maps
-\item
-  \textbf{Topic}
-\item
-  \textbf{Project Assignment} Write a description of your planned
-  approach
-\end{itemize}
-
-\subsection*{Week 8}\label{week-8}
-\addcontentsline{toc}{subsection}{Week 8}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} geom\_area, geom\_ribbon
-\item
-  \textbf{Topic} Project Proposal Description
-\item
-  \textbf{Project Assignment} Work on project proposal presentation
-\end{itemize}
-
-\subsection*{Week 9}\label{week-9}
-\addcontentsline{toc}{subsection}{Week 9}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} jitter, rug, aesthetics
-\item
-  \textbf{Project Assignment} Present project proposal (\textless{}2
-  Minutes)
-\end{itemize}
-
-\subsection*{Week 10}\label{week-10}
-\addcontentsline{toc}{subsection}{Week 10}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} themes, ggthemes extension, labels, color scales
-\item
-  \textbf{Topic}
-\item
-  \textbf{Project Assignment} Work on final project
-\end{itemize}
-
-\subsection*{Week 11}\label{week-11}
-\addcontentsline{toc}{subsection}{Week 11}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} polar coordinates, ggradar extension
-\item
-  \textbf{Topic}
-\item
-  \textbf{Project Assignment} Work on final project (cont.)
-\end{itemize}
-
-\subsection*{Week 12}\label{week-12}
-\addcontentsline{toc}{subsection}{Week 12}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} word/text analysis
-\item
-  \textbf{Topic}
-\item
-  \textbf{Project Assignment} Work on final project (cont.)
-\end{itemize}
-
-\subsection*{Week 13}\label{week-13}
-\addcontentsline{toc}{subsection}{Week 13}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} gganimate
-\item
-  \textbf{Topic}
-\item
-  \textbf{Project Assignment} Work on final project (cont.)
-\end{itemize}
-
-\subsection*{Week 14}\label{week-14}
-\addcontentsline{toc}{subsection}{Week 14}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} git and GitHub for R
-\item
-  \textbf{Topic}
-\item
-  \textbf{Project Assignment}
-\end{itemize}
-
-\subsection*{Week 15}\label{week-15}
-\addcontentsline{toc}{subsection}{Week 15}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{R} networks, geomnet extension
-\item
-  \textbf{Topic} Final Project presentations
-\item
-  \textbf{Project Assignment}
-\end{itemize}
-
-\section*{Other Resources}\label{other-resources}
-\addcontentsline{toc}{section}{Other Resources}
-
-There are many useful resources you should be aware of while going
-through this course:
-
-\subsection*{Statistics}\label{statistics}
-\addcontentsline{toc}{subsection}{Statistics}
-
-\href{http://varianceexplained.org/RData/resources/}{Variance Explained}
-
-\href{http://r4ds.had.co.nz/}{R for Data Science - Grolemund and
-Wickham}
-
-\subsection*{Visualization}\label{visualization}
-\addcontentsline{toc}{subsection}{Visualization}
-
-\href{}{FlowingData}
-
-\href{http://junkcharts.typepad.com/}{Junk Charts}
-
-\subsection*{Courses}\label{courses}
-\addcontentsline{toc}{subsection}{Courses}
-
-\href{http://projects.iq.harvard.edu/gov2001/}{Gary King - Quantitative
-Research Methodology}
-
-\href{http://www.cc.gatech.edu/~stasko/7450/}{John Stasko - Information
-Visualization}
-
-\href{http://stat545.com/}{Jenny Bryan - Data wrangling, exploration,
-and analysis with R}
-
-\subsection*{Books}\label{books}
-\addcontentsline{toc}{subsection}{Books}
-
-\href{https://cran.r-project.org/doc/contrib/Farnsworth-EconometricsInR.pdf}{Econometrics
-in R}
-
-\href{ftp://cran.r-project.org/pub/R/doc/contrib/usingR.pdf}{Using R for
-Data Analysis and Graphics}
-
-\subsection*{Papers}\label{papers}
-\addcontentsline{toc}{subsection}{Papers}
-
-\href{http://vita.had.co.nz/papers/embedded-plots.pdf}{Embedded Plots}
-
 \part{R Tutorials}\label{part-r-tutorials}
 
-\hypertarget{read-data}{\chapter{Reading data}\label{read-data}}
+\chapter{Reading data}\label{read-data}
 
-\hypertarget{trifecta}{\chapter{How to Judge
-Visualizations}\label{trifecta}}
+\chapter{Facets, Bubbles, and Transparency}\label{facets-and-bubbles}
+
+\chapter{Lines and Curves}\label{lines-and-curves}
+
+\chapter{ggplot2 Extensions}\label{ggplot-exts}
+
+\chapter{Boxplots and Violin Plots}\label{boxplots-and-violins}
+
+\chapter{geom\_spoke, maps, glyphs}\label{geom_spoke}
+
+\section{Data}\label{data}
+
+The data for this class will come from the National Oceanic and
+Atmospheric Administration (NOAA) U.S. Wind Climatology datasets
+(\url{https://www.ncdc.noaa.gov/societal-impacts/wind/}).
+
+Download the files for both the u-component and the v-component of the
+wind data. To open these files in R, we'll need to install the ncdf4
+package, which provides an interface to Unidata's netCDF data file
+format:
+
+\begin{verbatim}
+install.packages(c("ncdf4", "ncdf4.helpers", "PCICt"))
+\end{verbatim}
+
+Let's load up the u-component file first:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ncdf4)}
+
+\NormalTok{uwnd_nc <-}\StringTok{ }\KeywordTok{nc_open}\NormalTok{(}\StringTok{"data/uwnd.sig995.2017.nc"}\NormalTok{)}
+\NormalTok{uwnd_nc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## File data/uwnd.sig995.2017.nc (NC_FORMAT_NETCDF4_CLASSIC):
+## 
+##      2 variables (excluding dimension variables):
+##         float uwnd[lon,lat,time]   
+##             long_name: mean Daily u-wind at sigma level 995
+##             units: m/s
+##             precision: 2
+##             least_significant_digit: 1
+##             GRIB_id: 33
+##             GRIB_name: UGRD
+##             var_desc: u-wind
+##             dataset: NCEP Reanalysis Daily Averages
+##             level_desc: Surface
+##             statistic: Mean
+##             parent_stat: Individual Obs
+##             missing_value: -9.96920996838687e+36
+##             valid_range: -102.199996948242
+##              valid_range: 102.199996948242
+##             actual_range: -26.9250011444092
+##              actual_range: 29.8999996185303
+##         double time_bnds[nbnds,time]   
+## 
+##      4 dimensions:
+##         lat  Size:73
+##             units: degrees_north
+##             actual_range: 90
+##              actual_range: -90
+##             long_name: Latitude
+##             standard_name: latitude
+##             axis: Y
+##         lon  Size:144
+##             units: degrees_east
+##             long_name: Longitude
+##             actual_range: 0
+##              actual_range: 357.5
+##             standard_name: longitude
+##             axis: X
+##         time  Size:198   *** is unlimited ***
+##             long_name: Time
+##             delta_t: 0000-00-01 00:00:00
+##             standard_name: time
+##             axis: T
+##             units: hours since 1800-01-01 00:00:0.0
+##             avg_period: 0000-00-01 00:00:00
+##             coordinate_defines: start
+##             actual_range: 1902192
+##              actual_range: 1906920
+##         nbnds  Size:2
+## 
+##     7 global attributes:
+##         Conventions: COARDS
+##         title: mean daily NMC reanalysis (2014)
+##         history: created 2013/12 by Hoop (netCDF2.3)
+##         description: Data is from NMC initialized reanalysis
+## (4x/day).  These are the 0.9950 sigma level values.
+##         platform: Model
+##         References: http://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.html
+##         dataset_title: NCEP-NCAR Reanalysis 1
+\end{verbatim}
+
+Let's store the uwnd observations in the netCDF file for the
+u-component:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## packages for getting nice time variables from the netCDF file}
+\KeywordTok{library}\NormalTok{(ncdf4.helpers)}
+\KeywordTok{library}\NormalTok{(PCICt)}
+\NormalTok{## general data munging packages}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\KeywordTok{library}\NormalTok{(tibble)}
+
+\NormalTok{uwnd <-}\StringTok{ }\KeywordTok{ncvar_get}\NormalTok{(uwnd_nc, }\StringTok{"uwnd"}\NormalTok{)}
+\NormalTok{uwnd_time <-}\StringTok{ }\KeywordTok{nc.get.time.series}\NormalTok{(uwnd_nc, }\DataTypeTok{v =} \StringTok{"uwnd"}\NormalTok{, }\DataTypeTok{time.dim.name =} \StringTok{"time"}\NormalTok{)}
+\NormalTok{uwnd_lon <-}\StringTok{ }\KeywordTok{ncvar_get}\NormalTok{(uwnd_nc, }\StringTok{"lon"}\NormalTok{)}
+\NormalTok{uwnd_lat <-}\StringTok{ }\KeywordTok{ncvar_get}\NormalTok{(uwnd_nc, }\StringTok{"lat"}\NormalTok{)}
+\KeywordTok{nc_close}\NormalTok{(uwnd_nc)}
+
+\NormalTok{uwnd_df <-}\StringTok{ }\NormalTok{uwnd %>%}
+\StringTok{  }\KeywordTok{as.data.frame.table}\NormalTok{(}\DataTypeTok{responseName =} \StringTok{"uwnd"}\NormalTok{, }\DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{) %>%}
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{a =} \NormalTok{Var1, }\DataTypeTok{b =} \NormalTok{Var2, }\DataTypeTok{c =} \NormalTok{Var3) %>%}
+\StringTok{  }\KeywordTok{cbind.data.frame}\NormalTok{(}\KeywordTok{expand.grid}\NormalTok{(uwnd_lon, uwnd_lat, uwnd_time)) %>%}
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{lon =} \NormalTok{Var1, }\DataTypeTok{lat =} \NormalTok{Var2, }\DataTypeTok{time =} \NormalTok{Var3) %>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(lon, lat, time, uwnd) %>%}
+\StringTok{  }\KeywordTok{as.tibble}\NormalTok{()}
+\NormalTok{uwnd_df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2,081,376 × 4
+##      lon   lat        time        uwnd
+##    <dbl> <dbl> <S3: PCICt>       <dbl>
+## 1    0.0    90  2017-01-01 -2.29999971
+## 2    2.5    90  2017-01-01 -1.99999964
+## 3    5.0    90  2017-01-01 -1.69999957
+## 4    7.5    90  2017-01-01 -1.34999967
+## 5   10.0    90  2017-01-01 -1.02499962
+## 6   12.5    90  2017-01-01 -0.72499961
+## 7   15.0    90  2017-01-01 -0.39999962
+## 8   17.5    90  2017-01-01 -0.04999962
+## 9   20.0    90  2017-01-01  0.27500039
+## 10  22.5    90  2017-01-01  0.60000038
+## # ... with 2,081,366 more rows
+\end{verbatim}
+
+Now we need to do the same for the v-component of the wind vectors.
+Since we know the lat, lon, and time dimensions are repeated, we can
+join directly to the previous data.frame:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vwnd_nc <-}\StringTok{ }\KeywordTok{nc_open}\NormalTok{(}\StringTok{"data/vwnd.sig995.2017.nc"}\NormalTok{)}
+\NormalTok{vwnd <-}\StringTok{ }\KeywordTok{ncvar_get}\NormalTok{(vwnd_nc, }\StringTok{"vwnd"}\NormalTok{)}
+\NormalTok{vwnd_time <-}\StringTok{ }\KeywordTok{nc.get.time.series}\NormalTok{(vwnd_nc, }\DataTypeTok{v =} \StringTok{"vwnd"}\NormalTok{, }\DataTypeTok{time.dim.name =} \StringTok{"time"}\NormalTok{)}
+\NormalTok{vwnd_lon <-}\StringTok{ }\KeywordTok{ncvar_get}\NormalTok{(vwnd_nc, }\StringTok{"lon"}\NormalTok{)}
+\NormalTok{vwnd_lat <-}\StringTok{ }\KeywordTok{ncvar_get}\NormalTok{(vwnd_nc, }\StringTok{"lat"}\NormalTok{)}
+\KeywordTok{nc_close}\NormalTok{(vwnd_nc)}
+
+\NormalTok{wind <-}\StringTok{ }\NormalTok{vwnd %>%}
+\StringTok{  }\KeywordTok{as.data.frame.table}\NormalTok{(}\DataTypeTok{responseName =} \StringTok{"vwnd"}\NormalTok{, }\DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{) %>%}
+\StringTok{  }\KeywordTok{cbind.data.frame}\NormalTok{(uwnd_df) %>%}
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{lon2 =} \NormalTok{Var1, }\DataTypeTok{lat2 =} \NormalTok{Var2, }\DataTypeTok{time2 =} \NormalTok{Var3) %>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(lon, lat, time, vwnd, uwnd) %>%}
+\StringTok{  }\KeywordTok{as.tibble}\NormalTok{()}
+\NormalTok{wind}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2,081,376 × 5
+##      lon   lat        time     vwnd        uwnd
+##    <dbl> <dbl> <S3: PCICt>    <dbl>       <dbl>
+## 1    0.0    90  2017-01-01 7.150002 -2.29999971
+## 2    2.5    90  2017-01-01 7.250002 -1.99999964
+## 3    5.0    90  2017-01-01 7.350002 -1.69999957
+## 4    7.5    90  2017-01-01 7.375001 -1.34999967
+## 5   10.0    90  2017-01-01 7.475002 -1.02499962
+## 6   12.5    90  2017-01-01 7.475002 -0.72499961
+## 7   15.0    90  2017-01-01 7.525002 -0.39999962
+## 8   17.5    90  2017-01-01 7.550002 -0.04999962
+## 9   20.0    90  2017-01-01 7.550002  0.27500039
+## 10  22.5    90  2017-01-01 7.525002  0.60000038
+## # ... with 2,081,366 more rows
+\end{verbatim}
+
+Otherwise, we would need to merge these data.frames to get \texttt{uwnd}
+and \texttt{vwnd} together with the following, which takes long time to
+run:
+
+\begin{verbatim}
+wind <- merge(uwnd_df, vwnd_df)
+\end{verbatim}
+
+\section{geom\_spoke}\label{geom_spoke}
+
+To represent these wind vectors we'll use the \texttt{geom\_spoke()}.
+We'll start just plotting wind patterns for January 1, 2017:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\NormalTok{wind <-}\StringTok{ }\NormalTok{wind %>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{angle =} \KeywordTok{atan2}\NormalTok{(vwnd, uwnd), }\DataTypeTok{radius =} \KeywordTok{sqrt}\NormalTok{(uwnd^}\DecValTok{2} \NormalTok{+}\StringTok{ }\NormalTok{vwnd^}\DecValTok{2}\NormalTok{), }\DataTypeTok{time =} \KeywordTok{as.POSIXct}\NormalTok{(time))}
+\NormalTok{wind %>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(time ==}\StringTok{ }\KeywordTok{as.POSIXct}\NormalTok{(}\StringTok{"2017-01-01"}\NormalTok{, }\DataTypeTok{tz =} \StringTok{"GMT"}\NormalTok{)) %>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(lon, lat)) +}
+\StringTok{  }\KeywordTok{geom_spoke}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{angle =} \NormalTok{angle, }\DataTypeTok{radius =} \NormalTok{radius, }\DataTypeTok{alpha =} \NormalTok{radius, }\DataTypeTok{color =} \NormalTok{angle)) +}
+\StringTok{  }\KeywordTok{scale_color_gradient2}\NormalTok{(}\DataTypeTok{low =} \StringTok{"#132B43"}\NormalTok{, }\DataTypeTok{mid =} \StringTok{"#56B1F7"}\NormalTok{, }\DataTypeTok{high =} \StringTok{"#132B43"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{jonpage-r-course_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\section{gganimate}\label{gganimate}
+
+The \texttt{gganimate} package lets us animate the above chart. If you
+want to be able to save animations as an mp4, you will need install
+\texttt{ffmpeg} (\url{https://www.ffmpeg.org/download.html}). You can
+install \texttt{gganimate} with \texttt{devtools}:
+
+\begin{verbatim}
+devtools::install_github("dgrtwo/gganimate")
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(gganimate)}
+\NormalTok{f <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(wind, }\KeywordTok{aes}\NormalTok{(lon, lat, }\DataTypeTok{angle =} \NormalTok{angle, }\DataTypeTok{radius =} \NormalTok{radius, }\DataTypeTok{alpha =} \NormalTok{radius, }\DataTypeTok{color =} \NormalTok{angle, }\DataTypeTok{frame =} \NormalTok{time)) +}
+\StringTok{  }\KeywordTok{geom_spoke}\NormalTok{() +}
+\StringTok{  }\KeywordTok{scale_color_gradient2}\NormalTok{(}\DataTypeTok{low =} \StringTok{"#132B43"}\NormalTok{, }\DataTypeTok{mid =} \StringTok{"#56B1F7"}\NormalTok{, }\DataTypeTok{high =} \StringTok{"#132B43"}\NormalTok{)}
+\KeywordTok{gganimate}\NormalTok{(f)}
+\end{Highlighting}
+\end{Shaded}
+
+\chapter{geom\_area and geom\_ribbon}\label{area-and-ribbons}
+
+\part{Topics}\label{part-topics}
+
+\chapter*{Anscombe's Quartet}\label{anscombe}
+\addcontentsline{toc}{chapter}{Anscombe's Quartet}
+
+\chapter*{How to Judge Visualizations}\label{trifecta}
+\addcontentsline{toc}{chapter}{How to Judge Visualizations}
 
 \bibliography{packages.bib,book.bib}
 

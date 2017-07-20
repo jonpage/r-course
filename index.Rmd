@@ -122,7 +122,7 @@ The following schedule is tentative and subject to change.
 
 ### Week 7 {-}
 
-* **R** [geom_spoke, maps, glyphs](#geom_spoke)
+* **R** [Spatial Visualizations with geom_spoke, gganimate, and GGally::glyphs](#geom_spoke)
 <!-- windspeed or travel direction -->
 * **Topic** 
 * **Project Assignment** Write a description of your planned approach
@@ -184,6 +184,8 @@ The following schedule is tentative and subject to change.
 ## Other Resources {-}
 
 There are many useful resources you should be aware of while going through this course:
+
+[RStudio's List of Useful R Packages](https://github.com/rstudio/RStartHere)
 
 ### Statistics {-}
 
