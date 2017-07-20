@@ -4,7 +4,7 @@ output:
   pdf_document: default
 ---
 
-# ggplot2 Extensions and Scatterplot Matrices (GGally) {#ggplot-exts}
+# ggplot2 Extensions {#ggplot-exts}
 
 ## Data 
 
@@ -33,7 +33,7 @@ The file `ACS_15_5YR_B07011.txt` tells us how to interpret codes within our data
 are in the upper or lower open-ended interval. In our dataset we don't have any medians in the upper open-ended interval, but we do have entries in the
 lower open-ended interval.
 
-```{r}
+```{r, message=FALSE}
 library(readr)
 acs <- read_csv("data/ACS_15_5YR_B07011_with_ann.csv", col_types = strrep("c", 15), na = c("-", "(X)"))
 meta <- read_csv("data/ACS_15_5YR_B07011_metadata.csv")
@@ -107,6 +107,7 @@ Let's rearrange the data into `tidy` format (one observation per row).
 library(tidyr)
 tidy_acs <- acs_mobility %>%
   gather(location_last_year, median_income, -geo, factor_key = TRUE)
+tidy_acs
 ```
 
 ## ggplot2 extensions
@@ -158,4 +159,4 @@ acs_mobility %>%
   ggscatmat(columns = 2:ncol(.), alpha = 0.1)
 ```
 
-## GGally::glyphs
+

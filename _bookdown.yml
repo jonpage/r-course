@@ -1,4 +1,5 @@
 book_filename: "jonpage-r-course"
+before_chapter_script: "beforeScript.R"
 output_dir: "docs"
 language:
   ui:

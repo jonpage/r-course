@@ -1,0 +1,92 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# geom_spoke, maps, glyphs  {#geom_spoke}
+
+## Data
+
+The data for this class will come from the National Oceanic and Atmospheric Administration (NOAA) U.S. Wind Climatology
+datasets (https://www.ncdc.noaa.gov/societal-impacts/wind/).
+
+Download the files for both the u-component and the v-component of the wind data. To open these files in R, we'll need
+to install the ncdf4 package, which provides an interface to Unidata's netCDF data file format:
+
+```
+install.packages(c("ncdf4", "ncdf4.helpers", "PCICt"))
+```
+
+Let's load up the u-component file first:
+
+```{r}
+library(ncdf4)
+
+uwnd_nc <- nc_open("data/uwnd.sig995.2017.nc")
+uwnd_nc
+```
+
+Let's store the uwnd observations in the netCDF file for the u-component:
+```{r}
+## packages for getting nice time variables from the netCDF file
+library(ncdf4.helpers)
+library(PCICt)
+## general data munging packages
+library(dplyr)
+library(tibble)
+
+uwnd <- ncvar_get(uwnd_nc, "uwnd")
+uwnd_time <- nc.get.time.series(uwnd_nc, v = "uwnd", time.dim.name = "time")
+uwnd_lon <- ncvar_get(uwnd_nc, "lon")
+uwnd_lat <- ncvar_get(uwnd_nc, "lat")
+nc_close(uwnd_nc)
+
+uwnd_df <- uwnd %>%
+  as.data.frame.table(responseName = "uwnd", stringsAsFactors = FALSE) %>%
+  rename(a = Var1, b = Var2, c = Var3) %>%
+  cbind.data.frame(expand.grid(uwnd_lon, uwnd_lat, uwnd_time)) %>%
+  rename(lon = Var1, lat = Var2, time = Var3) %>%
+  select(lon, lat, time, uwnd) %>%
+  as.tibble()
+uwnd_df
+```
+
+Now we need to do the same for the v-component of the wind vectors. Since we know the lat, lon, and time dimensions are repeated, 
+we can join directly to the previous data.frame:
+```{r}
+vwnd_nc <- nc_open("data/vwnd.sig995.2017.nc")
+vwnd <- ncvar_get(vwnd_nc, "vwnd")
+vwnd_time <- nc.get.time.series(vwnd_nc, v = "vwnd", time.dim.name = "time")
+vwnd_lon <- ncvar_get(vwnd_nc, "lon")
+vwnd_lat <- ncvar_get(vwnd_nc, "lat")
+nc_close(vwnd_nc)
+
+wind <- vwnd %>%
+  as.data.frame.table(responseName = "vwnd", stringsAsFactors = FALSE) %>%
+  cbind.data.frame(uwnd_df) %>%
+  rename(lon2 = Var1, lat2 = Var2, time2 = Var3) %>%
+  select(lon, lat, time, vwnd, uwnd) %>%
+  as.tibble()
+wind
+```
+
+Otherwise we would need to merge these data.frames to get `uwnd` and `vwnd` together with the following, which takes long time to run:
+```
+wind <- merge(uwnd_df, vwnd_df)
+```
+
+What's a little smarter and a lot faster in this case is to simply 
+
+## geom_spoke
+
+To represent these wind vectors we'll use the `geom_spoke()`:
+```{r}
+library(ggplot2)
+wind <- wind %>%
+  mutate(angle = atan2(vwnd, uwnd), radius = sqrt(uwnd^2 + vwnd^2))
+wind %>%
+  filter(time == as.PCICt("2017-01-01", cal="gregorian", format = "%Y-%m-%d")) %>%
+  ggplot(aes(lon, lat)) +
+  geom_spoke(aes(angle = angle, radius = radius, alpha = radius, color = angle))
+```

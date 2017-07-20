@@ -122,7 +122,7 @@ The following schedule is tentative and subject to change.
 
 ### Week 7 {-}
 
-* **R** geom_spoke, maps
+* **R** [geom_spoke, maps, glyphs](#geom_spoke)
 <!-- windspeed or travel direction -->
 * **Topic** 
 * **Project Assignment** Write a description of your planned approach
@@ -137,7 +137,7 @@ The following schedule is tentative and subject to change.
 ### Week 9 {-}
 
 * **R** jitter, rug, aesthetics
-<!-- -->
+<!-- PSID using PUMS -->
 * **Project Assignment** Present project proposal (<2 Minutes)
 
 ### Week 10 {-}
