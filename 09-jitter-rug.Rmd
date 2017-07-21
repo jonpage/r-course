@@ -1,0 +1,17 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# Jitter, Rug, and Aesthetics {#jitter-rug}
+
+## Data
+
+
+
+## Jitter
+
+## Rug
+
+## Aesthetics

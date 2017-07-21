@@ -1,0 +1,94 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# Themes, Labels, and Colors {#themes-labels-colors}
+
+## Data
+
+The [Panel Study of Income Dynamics (PSID)](https://psidonline.isr.umich.edu) is the 
+longest running longitudinal household survey in the world.
+
+From the [Data page](https://simba.isr.umich.edu/data/data.aspx), you can use the `Data Center`
+to create customized datasets. We'll use the 
+[Packaged Data](https://simba.isr.umich.edu/data/PackagedData.aspx) option. Click the 
+[Main and Supplemental Studies](https://simba.isr.umich.edu/Zips/ZipMain.aspx) link. Under 
+the `Supplemental Studies > Transition into Adulthood Supplement` section, select the download
+for [2015](https://simba.isr.umich.edu/Zips/GetFile.aspx?file=1184&mainurl=Y).
+
+To download the supplement you will need to sign in or register for a new account (by clicking the
+"New User?" link). Once you have logged in you should be able to download the zip file:
+
+* ta2015.zip
+
+Open the zip file and move the `TA2015.txt` and `TA2015.sps` files into the `data` folder.
+Next we need to find a line that needs to be removed from the top of the sps file for
+our import to work. The line we want to remove should look like the following line:
+
+```
+FILE HANDLE PSID / NAME = '[PATH]\TA2015.TXT' LRECL = 2173 .
+```
+
+To find this line we can output the first 20 lines of the `TA2015.sps` file:
+```{r}
+readLines("data/TA2015.sps", n = 10)
+```
+
+Now we know the line to remove is line number 9, we can write a new file to be
+used in the processing step below.
+
+```{r}
+input <- file("data/TA2015.sps")
+output <- file("data/TA2015_clean.sps")
+
+open(input, type = "r")
+open(output, open = "w")
+
+writeLines(readLines(input, n = 8), output)
+invisible(readLines(input, n = 1))
+writeLines(readLines(input), output)
+
+close(input)
+close(output)
+
+readLines("data/TA2015_clean.sps", n = 10)
+```
+
+### memisc
+
+The `memisc` package has useful tools for importing SPSS and Stata files that augment what
+already exists in `base`.
+
+```
+install.packages("memisc")
+```
+
+```{r}
+library(memisc)
+ta_importer <-spss.fixed.file("data/TA2015.txt", columns.file = "data/TA2015_clean.sps", varlab.file = "data/TA2015_clean.sps")
+ta <- as.data.set(ta_importer)
+ta_codebook <- codebook(ta_importer)
+ta_descriptions <- description(ta_importer)
+```
+
+Let's focus on a few possible variables in this dataset:
+* income
+* age
+* health
+
+```{r}
+ta_descriptions[grep("income|age|health", unlist(ta_descriptions), ignore.case = TRUE)]
+```
+
+
+## Themes
+
+Themes, ggthemes
+
+## Labels
+
+data labels, titles, and data labels (text)
+
+## Colors

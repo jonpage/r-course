@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="ggplot-exts.html">
-<link rel="next" href="geom-spoke.html">
+<link rel="prev" href="area-and-ribbons.html">
+<link rel="next" href="themes-labels-colors.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -270,86 +270,19 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="boxplots-and-violins" class="section level1">
-<h1><span class="header-section-number">Lecture 6</span> Boxplots and Violin Plots</h1>
-<p>Boxplots and violin plots are two important tools for visualizing the distribution of data within a dataset. The boxplot highlights the median, key percentiles, and outliers within a dataset. The violin plot takes a kernel density plot, rotates it 90 degrees, then mirrors it about the axis to create a shape that sometimes resembles a violin.</p>
-<div id="data-3" class="section level2">
-<h2><span class="header-section-number">6.1</span> Data</h2>
-<p>The Social Security Administration releases data on earnings and employment each year. We’ll take a look at the data for 2014:</p>
-<p><a href="https://www.ssa.gov/policy/docs/statcomps/eedata_sc/2014/index.html" class="uri">https://www.ssa.gov/policy/docs/statcomps/eedata_sc/2014/index.html</a></p>
-<p>We’re going to download Table 1: “Number of persons with Social Security (OASDI) taxable earnings, amount taxable, and contributions, by state or other area, sex, and type of earnings, 2014”</p>
-<p>Save that file as ‘ssa_earnings.xlsx’ in the <code>data</code> folder</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
-ssa &lt;-<span class="st"> </span><span class="kw">read_xlsx</span>(<span class="st">&quot;data/ssa_earnings.xlsx&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;A7:J159&quot;</span>, 
-                 <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">&quot;state&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;other&quot;</span>, <span class="st">&quot;other2&quot;</span>, <span class="st">&quot;number.total&quot;</span>, <span class="st">&quot;number.wage&quot;</span>, <span class="st">&quot;number.self&quot;</span>, 
-                               <span class="st">&quot;earnings.total&quot;</span>, <span class="st">&quot;earnings.wage&quot;</span>, <span class="st">&quot;earnings.self&quot;</span>))
-ssa</code></pre></div>
-<pre><code>## # A tibble: 153 × 10
-##       state gender other other2 number.total number.wage number.self
-##       &lt;chr&gt;  &lt;chr&gt; &lt;lgl&gt;  &lt;lgl&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1   Alabama   &lt;NA&gt;    NA     NA      2355477     2215535      255253
-## 2      &lt;NA&gt;    Men    NA     NA      1200468     1116458      138895
-## 3      &lt;NA&gt;  Women    NA     NA      1155009     1099077      116357
-## 4    Alaska   &lt;NA&gt;    NA     NA       400007      375833       47696
-## 5      &lt;NA&gt;    Men    NA     NA       223464      209694       27884
-## 6      &lt;NA&gt;  Women    NA     NA       176543      166140       19812
-## 7   Arizona   &lt;NA&gt;    NA     NA      3189785     2997567      334292
-## 8      &lt;NA&gt;    Men    NA     NA      1660088     1551488      185753
-## 9      &lt;NA&gt;  Women    NA     NA      1529697     1446079      148539
-## 10 Arkansas   &lt;NA&gt;    NA     NA      1468898     1376249      163320
-## # ... with 143 more rows, and 3 more variables: earnings.total &lt;dbl&gt;,
-## #   earnings.wage &lt;dbl&gt;, earnings.self &lt;dbl&gt;</code></pre>
-<p>The starting format is far from ideal. Each row should represent one group, so we don’t need any of the rows with totals.</p>
-<p>It’s important to always read any footnotes and documentation that comes with the data you plan to use. Footnote <code>c</code> for this table indicates that individuals with both wage and salary employment will be counted in both groups, but only once in the total. It is important to be aware of this double counting.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
-<span class="kw">library</span>(dplyr)
-ssa_long &lt;-<span class="st"> </span>ssa %&gt;%
-<span class="st">  </span><span class="kw">fill</span>(state) %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(gender)) %&gt;%
-<span class="st">  </span><span class="kw">reshape</span>(<span class="dt">varying =</span> <span class="dv">5</span>:<span class="dv">10</span>, <span class="dt">direction =</span> <span class="st">&quot;long&quot;</span>, <span class="dt">timevar =</span> <span class="st">&quot;earnings_type&quot;</span>) %&gt;%
-<span class="st">  </span><span class="kw">select</span>(state, gender, earnings_type, number, earnings) %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">per_capita =</span> earnings /<span class="st"> </span>number)</code></pre></div>
+<div id="jitter-rug" class="section level1">
+<h1><span class="header-section-number">Lecture 9</span> Jitter, Rug, and Aesthetics</h1>
+<div id="data-6" class="section level2">
+<h2><span class="header-section-number">9.1</span> Data</h2>
 </div>
-<div id="boxplots" class="section level2">
-<h2><span class="header-section-number">6.2</span> Boxplots</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-ssa_long %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(earnings_type !=<span class="st"> &quot;total&quot;</span>) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita)) +
-<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ssa_long %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita, <span class="dt">fill =</span> gender)) +
-<span class="st">  </span><span class="kw">geom_boxplot</span>() +
-<span class="st">  </span><span class="kw">facet_grid</span>(~<span class="st"> </span>earnings_type)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<div id="jitter" class="section level2">
+<h2><span class="header-section-number">9.2</span> Jitter</h2>
 </div>
-<div id="violin-plots" class="section level2">
-<h2><span class="header-section-number">6.3</span> Violin Plots</h2>
-<p>Let’s repeat the above plots using the violin plot type.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ssa_long %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(earnings_type !=<span class="st"> &quot;total&quot;</span>) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita)) +
-<span class="st">  </span><span class="kw">geom_violin</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ssa_long %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita, <span class="dt">color =</span> gender, <span class="dt">fill =</span> gender)) +
-<span class="st">  </span><span class="kw">geom_violin</span>() +
-<span class="st">  </span><span class="kw">facet_grid</span>(~<span class="st"> </span>earnings_type)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<div id="rug" class="section level2">
+<h2><span class="header-section-number">9.3</span> Rug</h2>
 </div>
-<div id="dot-plots" class="section level2">
-<h2><span class="header-section-number">6.4</span> Dot Plots</h2>
-<p>Dot plots appear similar to violin plots, but dot plots may be easier to interpret:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ssa_long %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita, <span class="dt">color =</span> gender, <span class="dt">fill =</span> gender)) +
-<span class="st">  </span><span class="kw">geom_dotplot</span>(<span class="dt">binaxis =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">stackdir =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) +
-<span class="st">  </span><span class="kw">facet_grid</span>(~<span class="st"> </span>earnings_type)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
-</div>
-<div id="assignment-3" class="section level2">
-<h2><span class="header-section-number">6.5</span> Assignment</h2>
-<p>Create your own visualization of the SSA data using one of the above distribution visualizations.</p>
+<div id="aesthetics" class="section level2">
+<h2><span class="header-section-number">9.4</span> Aesthetics</h2>
 
 </div>
 </div>
@@ -358,8 +291,8 @@ ssa_long %&gt;%
           </div>
         </div>
       </div>
-<a href="ggplot-exts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="geom-spoke.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="area-and-ribbons.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="themes-labels-colors.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -387,7 +320,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jonpage/r-course/edit/master/06-boxplots-and-violins.Rmd",
+"link": "https://github.com/jonpage/r-course/edit/master/09-jitter-rug.Rmd",
 "text": "Edit"
 },
 "download": ["jonpage-r-course.pdf"],
