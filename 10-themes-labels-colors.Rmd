@@ -16,16 +16,97 @@ to create customized datasets. We'll use the
 [Packaged Data](https://simba.isr.umich.edu/data/PackagedData.aspx) option. Click the 
 [Main and Supplemental Studies](https://simba.isr.umich.edu/Zips/ZipMain.aspx) link. Under 
 the `Supplemental Studies > Transition into Adulthood Supplement` section, select the download
-for [2015](https://simba.isr.umich.edu/Zips/GetFile.aspx?file=1184&mainurl=Y).
+for `2015`.
 
 To download the supplement you will need to sign in or register for a new account (by clicking the
 "New User?" link). Once you have logged in you should be able to download the zip file:
 
 * ta2015.zip
 
-Open the zip file and move the `TA2015.txt` and `TA2015.sps` files into the `data` folder.
-Next we need to find a line that needs to be removed from the top of the sps file for
-our import to work. The line we want to remove should look like the following line:
+The `TA2015_codebook.pdf` is the perfect place for us to identify some key variables of interest.
+The following is an excerpt listing the variables we will use:
+
+```
+TA150003  "2015 PSID FAMILY IW (ID) NUMBER"
+2015 PSID Family Interview Number
+
+TA150004  "2015 INDIVIDUAL SEQUENCE NUMBER"
+2015 PSID Sequence Number
+This variable provides a means of identifying an individual's status with regard to the
+PSID family unit at the time of the 2015 PSID interview.
+
+Value/Range   Code Value/Range Text
+1 - 20        Individuals in the family at the time of the 2015 PSID
+              interview
+51 - 59       Individuals in institutions at the time of the 2015 PSID
+              interview
+
+TA150005 "CURRENT STATE"
+Current State (FIPS state codes)
+
+TA150015 "A1_1 HOW SATISFIED W/ LIFE AS A WHOLE"
+A1_1. We'd like to start by asking you about life in general. Please think about your
+life-as-a-whole. How satisfied are you with it? Are you completely satisfied, very
+satisfied, somewhat satisfied, not very satisfied, or not at all satisfied?
+
+Value/Range   Code Value/Range Text
+1             Completely satisfied
+2             Very satisfied
+3             Somewhat satisfied
+4             Not very satisfied
+5             Not at all satisfied
+8             DK
+
+TA150092 "D28A NUMBER OF CHILDREN"
+D28a. How many (biological,) adopted, or step-children do you have?
+
+TA150128 "E1 EMPLOYMENT STATUS 1ST MENTION"
+E1. Now we have some questions about employment. We would like to know about what you do -
+- are you working now, looking for work, keeping house, a student, or what?--1ST MENTION
+
+Value/Range   Code Value/Range Text
+1             Working now, including military
+2             Only temporarily laid off; sick or maternity leave
+3             Looking for work, unemployed
+5             Disabled, permanently or temporarily
+6             Keeping house
+7             Student
+
+TA150512 "F1 HOW MUCH EARN LAST YEAR"
+F1. We try to understand how people all over the country are getting along financially, so
+now I have some questions about earnings and income. How much did you earn altogether
+from work in 2014, that is, before anything was deducted for taxes or other things,
+including any income from bonuses, overtime, tips, commissions, military pay or any other
+source?
+
+Value/Range     Code Value/Range Text
+0 - 5,000,000   Actual amount
+    9,999,998   DK
+    9,999,999   NA; refused
+```
+
+In preparation for working with these variables, we can setup functions to take the place
+of the codebook. The `tigris` package will give us the FIPS codes for each state:
+```
+install.packages(tigris)
+```
+```{r}
+library(tidyverse)
+
+state_fips <- tigris::fips_codes %>%
+  group_by(state) %>%
+  summarize(fips = as.numeric(first(state_code)))
+fips2state <- array()
+fips2state[state_fips$fips] <- state_fips$state
+
+satisfaction <- array()
+satisfaction[c(1, 2, 3, 4, 5, 8)] <- c("Completely satisfied", "Very satisfied", "Somewhat satisfied", "Not very satisfied", "Not at all satisfied", "DK")
+```
+
+
+If you don't have them already, open the zip file and move the `TA2015.txt` and `TA2015.sps` files 
+into the `data` folder. For our import to work, We need to find a line that needs to be removed 
+from the top of the sps file. The line we want to remove should look like the following line:
 
 ```
 FILE HANDLE PSID / NAME = '[PATH]\TA2015.TXT' LRECL = 2173 .
@@ -67,19 +148,20 @@ install.packages("memisc")
 
 ```{r}
 library(memisc)
-ta_importer <-spss.fixed.file("data/TA2015.txt", columns.file = "data/TA2015_clean.sps", varlab.file = "data/TA2015_clean.sps")
-ta <- as.data.set(ta_importer)
-ta_codebook <- codebook(ta_importer)
-ta_descriptions <- description(ta_importer)
-```
 
-Let's focus on a few possible variables in this dataset:
-* income
-* age
-* health
-
-```{r}
-ta_descriptions[grep("income|age|health", unlist(ta_descriptions), ignore.case = TRUE)]
+ta_importer <-spss.fixed.file("data/TA2015.txt", columns.file = "data/TA2015_clean.sps", varlab.file = "data/TA2015_clean.sps", to.lower = FALSE)
+ta <- as.data.set(ta_importer) %>%
+  as.data.frame() %>%
+  filter(TA150005 > 0) %>% # get rid of the 1 non-US response
+  transmute(
+    family_id         = TA150003, 
+    in_institution    = TA150004 > 50, 
+    state             = fips2state[TA150005], 
+    life_satisfaction = satisfaction[TA150015], 
+    children          = TA150092, 
+    employment_status = TA150128, 
+    annual_earnings   = TA150512
+  )
 ```
 
 
@@ -92,3 +174,9 @@ Themes, ggthemes
 data labels, titles, and data labels (text)
 
 ## Colors
+
+
+## Assignment
+
+Open the codebook (`data/TA2015_codebook.pdf`) and search for two new variables to visualize and create a
+plot that makes use of both jitter and rug.
