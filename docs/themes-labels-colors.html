@@ -26,7 +26,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-07-20">
+<meta name="date" content="2017-07-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -216,18 +216,22 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.3" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#geom_ribbon"><i class="fa fa-check"></i><b>8.3</b> geom_ribbon</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="jitter-rug.html"><a href="jitter-rug.html"><i class="fa fa-check"></i><b>9</b> Jitter, Rug, and Aesthetics</a><ul>
-<li class="chapter" data-level="9.1" data-path="jitter-rug.html"><a href="jitter-rug.html#data-6"><i class="fa fa-check"></i><b>9.1</b> Data</a></li>
+<li class="chapter" data-level="9.1" data-path="jitter-rug.html"><a href="jitter-rug.html#data-6"><i class="fa fa-check"></i><b>9.1</b> Data</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="jitter-rug.html"><a href="jitter-rug.html#codebook"><i class="fa fa-check"></i><b>9.1.1</b> Codebook</a></li>
+<li class="chapter" data-level="9.1.2" data-path="jitter-rug.html"><a href="jitter-rug.html#preprocessing-the-spss-file"><i class="fa fa-check"></i><b>9.1.2</b> Preprocessing the SPSS File</a></li>
+<li class="chapter" data-level="9.1.3" data-path="jitter-rug.html"><a href="jitter-rug.html#importing-with-the-spss-file-using-memisc"><i class="fa fa-check"></i><b>9.1.3</b> Importing with the SPSS file using memisc</a></li>
+<li class="chapter" data-level="9.1.4" data-path="jitter-rug.html"><a href="jitter-rug.html#transform-data"><i class="fa fa-check"></i><b>9.1.4</b> Transform Data</a></li>
+</ul></li>
 <li class="chapter" data-level="9.2" data-path="jitter-rug.html"><a href="jitter-rug.html#jitter"><i class="fa fa-check"></i><b>9.2</b> Jitter</a></li>
 <li class="chapter" data-level="9.3" data-path="jitter-rug.html"><a href="jitter-rug.html#rug"><i class="fa fa-check"></i><b>9.3</b> Rug</a></li>
 <li class="chapter" data-level="9.4" data-path="jitter-rug.html"><a href="jitter-rug.html#aesthetics"><i class="fa fa-check"></i><b>9.4</b> Aesthetics</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html"><i class="fa fa-check"></i><b>10</b> Themes, Labels, and Colors</a><ul>
-<li class="chapter" data-level="10.1" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#data-7"><i class="fa fa-check"></i><b>10.1</b> Data</a><ul>
-<li class="chapter" data-level="10.1.1" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#memisc"><i class="fa fa-check"></i><b>10.1.1</b> memisc</a></li>
-</ul></li>
+<li class="chapter" data-level="10.1" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#data-7"><i class="fa fa-check"></i><b>10.1</b> Data</a></li>
 <li class="chapter" data-level="10.2" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#themes"><i class="fa fa-check"></i><b>10.2</b> Themes</a></li>
 <li class="chapter" data-level="10.3" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#labels"><i class="fa fa-check"></i><b>10.3</b> Labels</a></li>
 <li class="chapter" data-level="10.4" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#colors"><i class="fa fa-check"></i><b>10.4</b> Colors</a></li>
+<li class="chapter" data-level="10.5" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#assignment-4"><i class="fa fa-check"></i><b>10.5</b> Assignment</a></li>
 </ul></li>
 <li class="part"><span><b>II Topics</b></span></li>
 <li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i>Data Sources Overview</a><ul>
@@ -248,7 +252,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html"><i class="fa fa-check"></i>How to Judge Visualizations</a><ul>
 <li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html#pre-class-assignment"><i class="fa fa-check"></i>Pre-class assignment</a></li>
 <li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html#lecture"><i class="fa fa-check"></i>Lecture</a></li>
-<li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html#assignment-4"><i class="fa fa-check"></i>Assignment</a></li>
+<li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html#assignment-5"><i class="fa fa-check"></i>Assignment</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -274,384 +278,6 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Lecture 10</span> Themes, Labels, and Colors</h1>
 <div id="data-7" class="section level2">
 <h2><span class="header-section-number">10.1</span> Data</h2>
-<p>The <a href="https://psidonline.isr.umich.edu">Panel Study of Income Dynamics (PSID)</a> is the longest running longitudinal household survey in the world.</p>
-<p>From the <a href="https://simba.isr.umich.edu/data/data.aspx">Data page</a>, you can use the <code>Data Center</code> to create customized datasets. We’ll use the <a href="https://simba.isr.umich.edu/data/PackagedData.aspx">Packaged Data</a> option. Click the <a href="https://simba.isr.umich.edu/Zips/ZipMain.aspx">Main and Supplemental Studies</a> link. Under the <code>Supplemental Studies &gt; Transition into Adulthood Supplement</code> section, select the download for <a href="https://simba.isr.umich.edu/Zips/GetFile.aspx?file=1184&amp;mainurl=Y">2015</a>.</p>
-<p>To download the supplement you will need to sign in or register for a new account (by clicking the “New User?” link). Once you have logged in you should be able to download the zip file:</p>
-<ul>
-<li>ta2015.zip</li>
-</ul>
-<p>Open the zip file and move the <code>TA2015.txt</code> and <code>TA2015.sps</code> files into the <code>data</code> folder. Next we need to find a line that needs to be removed from the top of the sps file for our import to work. The line we want to remove should look like the following line:</p>
-<pre><code>FILE HANDLE PSID / NAME = &#39;[PATH]\TA2015.TXT&#39; LRECL = 2173 .</code></pre>
-<p>To find this line we can output the first 20 lines of the <code>TA2015.sps</code> file:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">readLines</span>(<span class="st">&quot;data/TA2015.sps&quot;</span>, <span class="dt">n =</span> <span class="dv">10</span>)</code></pre></div>
-<pre><code>##  [1] &quot;&quot;                                                                          
-##  [2] &quot;**************************************************************************&quot;
-##  [3] &quot;   Label           : Transition to Adulthood Study 2015&quot;                   
-##  [4] &quot;   Rows            : 1641&quot;                                                 
-##  [5] &quot;   Columns         : 1304&quot;                                                 
-##  [6] &quot;   ASCII File Date : July 5, 2017&quot;                                         
-##  [7] &quot;*************************************************************************.&quot;
-##  [8] &quot;&quot;                                                                          
-##  [9] &quot;FILE HANDLE PSID / NAME = &#39;[PATH]\\TA2015.TXT&#39; LRECL = 2173 .&quot;             
-## [10] &quot;DATA LIST FILE = PSID FIXED /&quot;</code></pre>
-<p>Now we know the line to remove is line number 9, we can write a new file to be used in the processing step below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">input &lt;-<span class="st"> </span><span class="kw">file</span>(<span class="st">&quot;data/TA2015.sps&quot;</span>)
-output &lt;-<span class="st"> </span><span class="kw">file</span>(<span class="st">&quot;data/TA2015_clean.sps&quot;</span>)
-
-<span class="kw">open</span>(input, <span class="dt">type =</span> <span class="st">&quot;r&quot;</span>)
-<span class="kw">open</span>(output, <span class="dt">open =</span> <span class="st">&quot;w&quot;</span>)
-
-<span class="kw">writeLines</span>(<span class="kw">readLines</span>(input, <span class="dt">n =</span> <span class="dv">8</span>), output)
-<span class="kw">readLines</span>(input, <span class="dt">n =</span> <span class="dv">1</span>)</code></pre></div>
-<pre><code>## [1] &quot;FILE HANDLE PSID / NAME = &#39;[PATH]\\TA2015.TXT&#39; LRECL = 2173 .&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeLines</span>(<span class="kw">readLines</span>(input), output)
-
-<span class="kw">close</span>(input)
-<span class="kw">close</span>(output)
-
-<span class="kw">readLines</span>(<span class="st">&quot;data/TA2015_clean.sps&quot;</span>, <span class="dt">n =</span> <span class="dv">10</span>)</code></pre></div>
-<pre><code>##  [1] &quot;&quot;                                                                                           
-##  [2] &quot;**************************************************************************&quot;                 
-##  [3] &quot;   Label           : Transition to Adulthood Study 2015&quot;                                    
-##  [4] &quot;   Rows            : 1641&quot;                                                                  
-##  [5] &quot;   Columns         : 1304&quot;                                                                  
-##  [6] &quot;   ASCII File Date : July 5, 2017&quot;                                                          
-##  [7] &quot;*************************************************************************.&quot;                 
-##  [8] &quot;&quot;                                                                                           
-##  [9] &quot;DATA LIST FILE = PSID FIXED /&quot;                                                              
-## [10] &quot;      TA150001        1 - 1         TA150002        2 - 6         TA150003        7 - 11   &quot;</code></pre>
-<div id="memisc" class="section level3">
-<h3><span class="header-section-number">10.1.1</span> memisc</h3>
-<p>The <code>memisc</code> package has useful tools for importing SPSS and Stata files that augment what already exists in <code>base</code>.</p>
-<pre><code>install.packages(&quot;memisc&quot;)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(memisc)
-ta_importer &lt;-<span class="kw">spss.fixed.file</span>(<span class="st">&quot;data/TA2015.txt&quot;</span>, <span class="dt">columns.file =</span> <span class="st">&quot;data/TA2015_clean.sps&quot;</span>, <span class="dt">varlab.file =</span> <span class="st">&quot;data/TA2015_clean.sps&quot;</span>)
-ta &lt;-<span class="st"> </span><span class="kw">as.data.set</span>(ta_importer)
-ta_codebook &lt;-<span class="st"> </span><span class="kw">codebook</span>(ta_importer)
-ta_descriptions &lt;-<span class="st"> </span><span class="kw">description</span>(ta_importer)</code></pre></div>
-<p>Let’s focus on a few possible variables in this dataset: * income * age * health</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ta_descriptions[<span class="kw">grep</span>(<span class="st">&quot;income|age|health&quot;</span>, <span class="kw">unlist</span>(ta_descriptions), <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>)]</code></pre></div>
-<pre><code>## $ta150051
-## [1] &quot;B6C HOW GOOD AT MONEY MANAGEMENT&quot;
-## 
-## $ta150068
-## [1] &quot;C2F HOW OFTEN FEEL DISCOURAGED&quot;
-## 
-## $ta150083
-## [1] &quot;D18 LIKELIHOOD OF MARRIAGE&quot;
-## 
-## $ta150084
-## [1] &quot;D20 LIKELY AGE AT MARRIAGE&quot;
-## 
-## $ta150086
-## [1] &quot;D23 LIKELY AGE BEGIN LT RELATIONSHIP&quot;
-## 
-## $ta150093
-## [1] &quot;D28B AGE AT FIRST CHILD&quot;
-## 
-## $ta150102
-## [1] &quot;D35 LIKELY AGE AT FIRST CHILD&quot;
-## 
-## $ta150226
-## [1] &quot;E36 AVERAGE TIPS--JOB 1&quot;
-## 
-## $ta150231
-## [1] &quot;E30B WTR HAS HEALTH INS FROM MAIN JOB&quot;
-## 
-## $ta150235
-## [1] &quot;E30C WTR MAIN JOB EMPLR OFFER HEALTH INS&quot;
-## 
-## $ta150236
-## [1] &quot;E30D WTR COULD GET HEALTH INS MAIN JOB&quot;
-## 
-## $ta150237
-## [1] &quot;E30E WHY NOT IN HEALTH PLAN MAIN JOB&quot;
-## 
-## $ta150353
-## [1] &quot;BCDE65 WTR PUBLIC EMP AGENCY--HW&quot;
-## 
-## $ta150354
-## [1] &quot;BCDE65 WTR PRIVATE EMP AGENCY--HW&quot;
-## 
-## $ta150367
-## [1] &quot;E65 WTR CHECKED WITH PUBLIC AGENCY&quot;
-## 
-## $ta150368
-## [1] &quot;E65 WTR CHECKED WITH PRIVATE AGENCY&quot;
-## 
-## $ta150391
-## [1] &quot;E67F JOB THRU PUBLIC EMPLOY AGENCY--JOB1&quot;
-## 
-## $ta150392
-## [1] &quot;E67F JOB THRU PRIVATE EMP AGENCY--JOB1&quot;
-## 
-## $ta150404
-## [1] &quot;E67H WAGE OFFERED FOR THIS JOB--JOB1&quot;
-## 
-## $ta150405
-## [1] &quot;E67H WAGE OFFER UNIT--JOB1&quot;
-## 
-## $ta150408
-## [1] &quot;E67F JOB THRU PUBLIC EMPLOY AGENCY--JOB2&quot;
-## 
-## $ta150409
-## [1] &quot;E67F JOB THRU PRIVATE EMP AGENCY--JOB2&quot;
-## 
-## $ta150421
-## [1] &quot;E67H WAGE OFFERED FOR THIS JOB--JOB2&quot;
-## 
-## $ta150422
-## [1] &quot;E67H WAGE OFFER UNIT--JOB2&quot;
-## 
-## $ta150425
-## [1] &quot;E67F JOB THRU PUBLIC EMPLOY AGENCY--JOB3&quot;
-## 
-## $ta150426
-## [1] &quot;E67F JOB THRU PRIVATE EMP AGENCY--JOB3&quot;
-## 
-## $ta150438
-## [1] &quot;E67H WAGE OFFERED FOR THIS JOB--JOB3&quot;
-## 
-## $ta150439
-## [1] &quot;E67H WAGE OFFER UNIT--JOB3&quot;
-## 
-## $ta150444
-## [1] &quot;E67S WAGE OFFERED FOR THIS JOB--JOB1&quot;
-## 
-## $ta150445
-## [1] &quot;E67S WAGE OFFER UNIT--JOB1&quot;
-## 
-## $ta150446
-## [1] &quot;E67T JOB THRU PUBLIC EMPLOY AGENCY--JOB1&quot;
-## 
-## $ta150447
-## [1] &quot;E67T JOB THRU PRIVATE EMP AGENCY--JOB1&quot;
-## 
-## $ta150460
-## [1] &quot;E67S WAGE OFFERED FOR THIS JOB--JOB2&quot;
-## 
-## $ta150461
-## [1] &quot;E67S WAGE OFFER UNIT--JOB2&quot;
-## 
-## $ta150462
-## [1] &quot;E67T JOB THRU PUBLIC EMPLOY AGENCY--JOB2&quot;
-## 
-## $ta150463
-## [1] &quot;E67T JOB THRU PRIVATE EMP AGENCY--JOB2&quot;
-## 
-## $ta150476
-## [1] &quot;E67S WAGE OFFERED FOR THIS JOB--JOB3&quot;
-## 
-## $ta150477
-## [1] &quot;E67S WAGE OFFER UNIT--JOB3&quot;
-## 
-## $ta150478
-## [1] &quot;E67T JOB THRU PUBLIC EMPLOY AGENCY--JOB3&quot;
-## 
-## $ta150479
-## [1] &quot;E67T JOB THRU PRIVATE EMP AGENCY--JOB3&quot;
-## 
-## $ta150513
-## [1] &quot;F2 INCOME - JANUARY&quot;
-## 
-## $ta150514
-## [1] &quot;F2 INCOME - FEBRUARY&quot;
-## 
-## $ta150515
-## [1] &quot;F2 INCOME - MARCH&quot;
-## 
-## $ta150516
-## [1] &quot;F2 INCOME - APRIL&quot;
-## 
-## $ta150517
-## [1] &quot;F2 INCOME - MAY&quot;
-## 
-## $ta150518
-## [1] &quot;F2 INCOME - JUNE&quot;
-## 
-## $ta150519
-## [1] &quot;F2 INCOME - JULY&quot;
-## 
-## $ta150520
-## [1] &quot;F2 INCOME - AUGUST&quot;
-## 
-## $ta150521
-## [1] &quot;F2 INCOME - SEPTEMBER&quot;
-## 
-## $ta150522
-## [1] &quot;F2 INCOME - OCTOBER&quot;
-## 
-## $ta150523
-## [1] &quot;F2 INCOME - NOVEMBER&quot;
-## 
-## $ta150524
-## [1] &quot;F2 INCOME - DECEMBER&quot;
-## 
-## $ta150673
-## [1] &quot;F38_2 UNEMPLOYMENT INCOME LAST MONTH&quot;
-## 
-## $ta150681
-## [1] &quot;F56B WTR RENT OR MORTGAGE COVERED&quot;
-## 
-## $ta150682
-## [1] &quot;F56B VALUE OF RENT/MORTGAGE PYTS&quot;
-## 
-## $ta150758
-## [1] &quot;G13Y GRADE POINT AVERAGE--COLLEGE #1&quot;
-## 
-## $ta150771
-## [1] &quot;G13Y GRADE POINT AVERAGE--COLLEGE #2&quot;
-## 
-## $ta150815
-## [1] &quot;G41H IMPORTANCE OF JOB W/HEALTH BENEFITS&quot;
-## 
-## $ta150821
-## [1] &quot;H1 HEALTH LEVEL&quot;
-## 
-## $ta150822
-## [1] &quot;H1A COMPARE HEALTH YR B4 LAST&quot;
-## 
-## $ta150823
-## [1] &quot;H1B HEALTH YR B4 LAST: HOW MUCH BETTER&quot;
-## 
-## $ta150824
-## [1] &quot;H1C HEALTH YR B4 LAST: HOW MUCH WORSE&quot;
-## 
-## $ta150825
-## [1] &quot;H2 WTR HEALTH CONDITION THAT LIMITS WORK&quot;
-## 
-## $ta150828
-## [1] &quot;H4A AGE WHEN FIRST DIAGNOSED W/ASTHMA&quot;
-## 
-## $ta150836
-## [1] &quot;H7B AGE WHEN FIRST DIAGNOSED W/DIABETES&quot;
-## 
-## $ta150840
-## [1] &quot;H8A AGE FIRST DIAGNOSED W/HI BLOOD PRESS&quot;
-## 
-## $ta150844
-## [1] &quot;H9A AGE FIRST DIAGNOSED W/ LEARN DISORDR&quot;
-## 
-## $ta150848
-## [1] &quot;H11A AGE WHEN FIRST DIAGNOSED W/CANCER&quot;
-## 
-## $ta150866
-## [1] &quot;H12A AGE FIRST DIAGNOSED W/PSYCH PROBS&quot;
-## 
-## $ta150882
-## [1] &quot;H13A AGE FIRST DIAGNOSED W/OTR CONDITION&quot;
-## 
-## $ta150905
-## [1] &quot;H20B WTR COVERED BY HEALTH INSURANCE&quot;
-## 
-## $ta150926
-## [1] &quot;H20F HEALTH INSURANCE PREMIUMS&quot;
-## 
-## $ta150930
-## [1] &quot;H20F HEALTH INS PREMIUM TIME UNIT&quot;
-## 
-## $ta150931
-## [1] &quot;H20G GO WITHOUT HEALTH INSURANCE&quot;
-## 
-## $ta150956
-## [1] &quot;H31 AGE WHEN FIRST SMOKED&quot;
-## 
-## $ta150959
-## [1] &quot;H34 AGE LAST SMOKED REGULARLY&quot;
-## 
-## $ta150960
-## [1] &quot;H35 AGE FIRST SMOKED REGULARLY&quot;
-## 
-## $ta150972
-## [1] &quot;H41A AGE WHEN FIRST TOOK DIET PILLS&quot;
-## 
-## $ta150980
-## [1] &quot;H41B AGE WHEN FIRST TOOK AMPHETAMINES&quot;
-## 
-## $ta150988
-## [1] &quot;H41C AGE WHEN FIRST TOOK MARIJUANA&quot;
-## 
-## $ta150996
-## [1] &quot;H41D AGE WHEN FIRST TOOK COCAINE&quot;
-## 
-## $ta151001
-## [1] &quot;H41E AGE WHEN FIRST TOOK BARBITURATES&quot;
-## 
-## $ta151009
-## [1] &quot;H41F AGE WHEN FIRST TOOK TRANQUILIZERS&quot;
-## 
-## $ta151017
-## [1] &quot;H41G AGE WHEN FIRST TOOK STEROIDS&quot;
-## 
-## $ta151025
-## [1] &quot;H41H AGE WHEN FIRST TOOK PAIN RELIEVERS&quot;
-## 
-## $ta151033
-## [1] &quot;H41I AGE WHEN FIRST TOOK HALLUCINOGENS&quot;
-## 
-## $ta151038
-## [1] &quot;H41J AGE WHEN FIRST TOOK INHALANTS&quot;
-## 
-## $ta151045
-## [1] &quot;H51A_AGE FIRST HAD SEXUAL INTERCOURSE&quot;
-## 
-## $ta151052
-## [1] &quot;H53B_AGE STARTED BIRTH CONTROL PILLS&quot;
-## 
-## $ta151084
-## [1] &quot;K2B OTHER REASON - AGE&quot;
-## 
-## $ta151098
-## [1] &quot;K5B AGE WHEN (FIRST) ASSAULTED&quot;
-## 
-## $ta151101
-## [1] &quot;K7B AGE WHEN (FIRST) ATTACKED&quot;
-## 
-## $ta151103
-## [1] &quot;K12 HOW OFTEN DAMAGED PUBLIC PROPERTY&quot;
-## 
-## $ta151108
-## [1] &quot;K17A AGE AT ONLY ARREST&quot;
-## 
-## $ta151109
-## [1] &quot;K17B AGE AT FIRST ARREST&quot;
-## 
-## $ta151111
-## [1] &quot;K17E AGE AT LAST ARREST&quot;
-## 
-## $ta151114
-## [1] &quot;K18A AGE AT ONLY PROBATION&quot;
-## 
-## $ta151115
-## [1] &quot;K18B AGE AT FIRST PROBATION&quot;
-## 
-## $ta151117
-## [1] &quot;K18E AGE AT LAST PROBATION&quot;
-## 
-## $ta151120
-## [1] &quot;K19A AGE AT ONLY TIME IN JAIL&quot;
-## 
-## $ta151121
-## [1] &quot;K19B AGE AT FIRST TIME IN JAIL&quot;
-## 
-## $ta151123
-## [1] &quot;K19E AGE AT LAST TIME IN JAIL&quot;
-## 
-## $ta151271
-## [1] &quot;MENTAL HEALTH:  WORRY&quot;
-## 
-## $ta151272
-## [1] &quot;MENTAL HEALTH:  SOCIAL ANXIETY&quot;
-## 
-## $ta151273
-## [1] &quot;MENTAL HEALTH:  LANGUISHING/FLOURISHING&quot;
-## 
-## $ta151277
-## [1] &quot;MENTAL HEALTH:  NON-SPEC PSYCH DISTRESS&quot;
-## 
-## $ta151278
-## [1] &quot;MENTAL HEALTH:  RISKY BEHAVIORS&quot;</code></pre>
-</div>
 </div>
 <div id="themes" class="section level2">
 <h2><span class="header-section-number">10.2</span> Themes</h2>
@@ -663,6 +289,10 @@ ta_descriptions &lt;-<span class="st"> </span><span class="kw">description</span
 </div>
 <div id="colors" class="section level2">
 <h2><span class="header-section-number">10.4</span> Colors</h2>
+</div>
+<div id="assignment-4" class="section level2">
+<h2><span class="header-section-number">10.5</span> Assignment</h2>
+<p>Open the codebook (<code>data/TA2015_codebook.pdf</code>) and search for two new variables to visualize and create a plot that makes use of both jitter and rug.</p>
 
 </div>
 </div>
