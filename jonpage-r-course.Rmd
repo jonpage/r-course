@@ -82,21 +82,21 @@ The following schedule is tentative and subject to change.
 ### Week 1 {-}
 
 * **R** [Intro to R and RStudio; Histograms, scatterplots, summary statistics](#intro)
-  * **Data** R Sample Datasets
+    * **Data** R Sample Datasets
 * **Topic** [Data sources overview](#data-sources)
 * **Project Assignment** Indentify interesting datasets and questions
 
 ### Week 2 {-}
 
 * **R** [read_csv, dplyr basics, heatmaps, hexbins](#read-data)
-  * **Data** ACS PUMS *[CSV]*
+    * **Data** ACS PUMS *[CSV]*
 * **Topic** [Anscombe's Quartet](#anscombe)
 * **Project Assignment** Choose question and dataset for your project
 
 ### Week 3 {-}
 
 * **R** [ggplot facets, bubble plots, transparency](#facets-and-bubbles)
-  * **Data** Hawaii Tourism Authority *[Excel]*
+    * **Data** Hawaii Tourism Authority *[Excel]*
 * **Topic** Effective Data Visualization
 * **Project Assignment** Write description of your question
 
@@ -111,21 +111,21 @@ The following schedule is tentative and subject to change.
 ### Week 5 {-}
 
 * **R** [ggplot2 Extensions and Scatterplot Matrices (GGally)](#ggplot-exts)
-  * **Data** ACS Immigration *[CSV]*
+    * **Data** ACS Immigration *[CSV]*
 * **Topic** [JunkCharts Trifecta Checkup](#trifecta)
 * **Project Assignment** Create 2 descriptive plots of your datasets(s)
 
 ### Week 6 {-}
 
 * **R** [Boxplots, violin plots](#boxplots-and-violins)
-  * **Data** SSA *[Excel]*
+    * **Data** SSA *[Excel]*
 * **Topic** 
 * **Project Assignment** Write a description of the data cleaning required for your project
 
 ### Week 7 {-}
 
 * **R** [Spatial Visualizations with geom_spoke, gganimate, and GGally::glyphs](#geom_spoke)
-  * **Data** NOAA Wind *[netCDF]*
+    * **Data** NOAA Wind *[netCDF]*
 * **Topic** 
 * **Project Assignment** Write a description of your planned approach
 
@@ -139,13 +139,13 @@ The following schedule is tentative and subject to change.
 ### Week 9 {-}
 
 * **R** [jitter, rug, aesthetics](#jitter-rug)
-  * **Data** IPUMS
+  * **Data** PSID
 * **Project Assignment** Present project proposal (<2 Minutes)
 
 ### Week 10 {-}
 
 * **R** [Themes, Labels, and Colors](#themes-labels-colors)
-  * **Data** PSID
+    * **Data** IPUMS
 <!-- PSID -->
 * **Topic** 
 * **Project Assignment** Work on final project
@@ -189,6 +189,8 @@ The following schedule is tentative and subject to change.
 There are many useful resources you should be aware of while going through this course:
 
 [RStudio's List of Useful R Packages](https://github.com/rstudio/RStartHere)
+
+[Visual Tutorial on Histograms](http://tinlizzie.org/histograms/)
 
 ### Statistics {-}
 
@@ -1635,30 +1637,6 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, cache = T
 
 ## Data
 
-
-
-## Jitter
-
-## Rug
-
-## Aesthetics
-
-<!--chapter:end:09-jitter-rug.Rmd-->
-
----
-output:
-  html_document: default
-  pdf_document: default
----
-```{r include=FALSE, cache=FALSE}
-rm(list = ls(all = TRUE))
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, cache = TRUE)
-```
-
-# Themes, Labels, and Colors {#themes-labels-colors}
-
-## Data
-
 The [Panel Study of Income Dynamics (PSID)](https://psidonline.isr.umich.edu) is the 
 longest running longitudinal household survey in the world.
 
@@ -1673,6 +1651,8 @@ To download the supplement you will need to sign in or register for a new accoun
 "New User?" link). Once you have logged in you should be able to download the zip file:
 
 * ta2015.zip
+
+### Codebook
 
 The `TA2015_codebook.pdf` is the perfect place for us to identify some key variables of interest.
 The following is an excerpt listing the variables we will use:
@@ -1736,7 +1716,9 @@ Value/Range     Code Value/Range Text
     9,999,999   NA; refused
 ```
 
-In preparation for working with these variables, we can setup functions to take the place
+#### FIPS
+
+In preparation for working with these variables, we can setup arrays to take the place
 of the codebook. The `tigris` package will give us the FIPS codes for each state:
 ```
 install.packages(tigris)
@@ -1749,11 +1731,33 @@ state_fips <- tigris::fips_codes %>%
   summarize(fips = as.numeric(first(state_code)))
 fips2state <- array()
 fips2state[state_fips$fips] <- state_fips$state
-
-satisfaction <- array()
-satisfaction[c(1, 2, 3, 4, 5, 8)] <- c("Completely satisfied", "Very satisfied", "Somewhat satisfied", "Not very satisfied", "Not at all satisfied", "DK")
+fips2state
 ```
 
+#### Satisfaction
+
+```{r}
+satisfaction <- array()
+satisfaction_levels <- c("Completely satisfied", "Very satisfied", "Somewhat satisfied", "Not very satisfied", "Not at all satisfied", "DK")
+satisfaction[c(1, 2, 3, 4, 5, 8)] <- satisfaction_levels
+satisfaction
+```
+
+#### Employment Status
+
+We can also specify the array elements one by one:
+```{r}
+employment <- array()
+employment[1] <- "Working now, including military"
+employment[2] <- "Only temporarily laid off; sick or maternity leave"
+employment[3] <- "Looking for work, unemployed"
+employment[5] <- "Disabled, permanently or temporarily"
+employment[6] <- "Keeping house"
+employment[7] <- "Student"
+employment
+```
+
+### Preprocessing the SPSS File
 
 If you don't have them already, open the zip file and move the `TA2015.txt` and `TA2015.sps` files 
 into the `data` folder. For our import to work, We need to find a line that needs to be removed 
@@ -1788,7 +1792,7 @@ close(output)
 readLines("data/TA2015_clean.sps", n = 10)
 ```
 
-### memisc
+### Importing with the SPSS file using memisc
 
 The `memisc` package has useful tools for importing SPSS and Stata files that augment what
 already exists in `base`.
@@ -1801,19 +1805,96 @@ install.packages("memisc")
 library(memisc)
 
 ta_importer <-spss.fixed.file("data/TA2015.txt", columns.file = "data/TA2015_clean.sps", varlab.file = "data/TA2015_clean.sps", to.lower = FALSE)
-ta <- as.data.set(ta_importer) %>%
+ta_full <- as.data.set(ta_importer)
+ta_full
+```
+
+### Transform Data
+
+Take the arrays we created above to process the file down to the variables we selected.
+
+```{r}
+ta <- ta_full %>%
   as.data.frame() %>%
   filter(TA150005 > 0) %>% # get rid of the 1 non-US response
   transmute(
     family_id         = TA150003, 
     in_institution    = TA150004 > 50, 
     state             = fips2state[TA150005], 
-    life_satisfaction = satisfaction[TA150015], 
+    life_satisfaction = factor(satisfaction[TA150015], levels = satisfaction_levels, ordered = TRUE), 
     children          = TA150092, 
-    employment_status = TA150128, 
-    annual_earnings   = TA150512
+    employment_status = employment[TA150128], 
+    annual_earnings   = TA150512 %>% na_if(9999999) %>% na_if(9999999)
   )
+ta
 ```
+
+```{r}
+library(ggplot2)
+base_plot <- ggplot(ta, aes(life_satisfaction, annual_earnings)) + scale_y_log10()
+base_plot + geom_point()
+```
+
+## Jitter
+
+When many points overlap, using `geom_jitter` adjusts the position of each point to minimize overlap.
+
+```{r}
+base_plot + geom_jitter()
+```
+
+See how this compares to using `alpha` (i.e., opacity) to see how many points are in a given position:
+
+```{r}
+base_plot + geom_point(alpha = 0.1)
+```
+
+
+## Rug
+
+Often when there are many points, we want to plot a summary that presents the general shape of the data.
+
+```{r}
+base_plot + geom_violin()
+```
+
+The `geom_rug` gives us a rug plot that we can use to highlight where actual observations occured when
+we create these summary plots.
+
+```{r}
+base_plot + geom_violin() + geom_rug()
+```
+
+Both `alpha` and `jitter` can be applied to the rug as well.
+
+```{r}
+base_plot + geom_violin() + geom_rug(alpha = 0.1, position = "jitter")
+```
+
+Now we can see that rug did in fact create a line on the x-axis for each observation. We can use the `sides`
+property to only display the rug on the left and right (`"lr"`)
+
+```{r}
+base_plot + geom_violin() + geom_rug(alpha = 0.1, position = "jitter", sides = "lr")
+```
+
+## Aesthetics
+
+<!--chapter:end:09-jitter-rug.Rmd-->
+
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+```{r include=FALSE, cache=FALSE}
+rm(list = ls(all = TRUE))
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, cache = TRUE)
+```
+
+# Themes, Labels, and Colors {#themes-labels-colors}
+
+## Data
 
 
 ## Themes
