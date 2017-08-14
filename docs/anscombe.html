@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-07-27">
+<meta name="date" content="2017-08-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="data-sources.html">
 <link rel="next" href="trifecta.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -92,6 +90,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -539,7 +538,7 @@ tidy_anscombe</code></pre></div>
     <span class="dt">sd_y =</span> <span class="kw">sd</span>(y),
     <span class="dt">cor =</span> <span class="kw">cor</span>(x, y)
   )</code></pre></div>
-<pre><code>## # A tibble: 4 × 6
+<pre><code>## # A tibble: 4 x 6
 ##   series mean_x   mean_y     sd_x     sd_y       cor
 ##    &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 ## 1      1      9 7.500909 3.316625 2.031568 0.8164205
@@ -556,7 +555,7 @@ tidy_anscombe %&gt;%
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>series) +
 <span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
 </div>
 <div id="the-datasaurus-dozen" class="section level2 unnumbered">
 <h2>The Datasaurus Dozen</h2>
@@ -572,18 +571,18 @@ datasaurus %&gt;%
     <span class="dt">sd_y =</span> <span class="kw">sd</span>(y),
     <span class="dt">cor =</span> <span class="kw">cor</span>(x, y)
   )</code></pre></div>
-<pre><code>## # A tibble: 13 × 6
+<pre><code>## # A tibble: 13 x 6
 ##       dataset   mean_x   mean_y     sd_x     sd_y         cor
 ##         &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-## 1        away 54.26610 47.83472 16.76982 26.93974 -0.06412835
-## 2    bullseye 54.26873 47.83082 16.76924 26.93573 -0.06858639
-## 3      circle 54.26732 47.83772 16.76001 26.93004 -0.06834336
-## 4        dino 54.26327 47.83225 16.76514 26.93540 -0.06447185
-## 5        dots 54.26030 47.83983 16.76774 26.93019 -0.06034144
-## 6     h_lines 54.26144 47.83025 16.76590 26.93988 -0.06171484
-## 7  high_lines 54.26881 47.83545 16.76670 26.94000 -0.06850422
-## 8  slant_down 54.26785 47.83590 16.76676 26.93610 -0.06897974
-## 9    slant_up 54.26588 47.83150 16.76885 26.93861 -0.06860921
+##  1       away 54.26610 47.83472 16.76982 26.93974 -0.06412835
+##  2   bullseye 54.26873 47.83082 16.76924 26.93573 -0.06858639
+##  3     circle 54.26732 47.83772 16.76001 26.93004 -0.06834336
+##  4       dino 54.26327 47.83225 16.76514 26.93540 -0.06447185
+##  5       dots 54.26030 47.83983 16.76774 26.93019 -0.06034144
+##  6    h_lines 54.26144 47.83025 16.76590 26.93988 -0.06171484
+##  7 high_lines 54.26881 47.83545 16.76670 26.94000 -0.06850422
+##  8 slant_down 54.26785 47.83590 16.76676 26.93610 -0.06897974
+##  9   slant_up 54.26588 47.83150 16.76885 26.93861 -0.06860921
 ## 10       star 54.26734 47.83955 16.76896 26.93027 -0.06296110
 ## 11    v_lines 54.26993 47.83699 16.76996 26.93768 -0.06944557
 ## 12 wide_lines 54.26692 47.83160 16.77000 26.93790 -0.06657523
@@ -594,7 +593,7 @@ datasaurus %&gt;%
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>dataset, <span class="dt">ncol =</span> <span class="dv">6</span>) +
 <span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -604,8 +603,9 @@ datasaurus %&gt;%
         </div>
       </div>
 <a href="data-sources.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="trifecta.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="trifecta.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -635,7 +635,7 @@ gitbook.start({
 "link": "https://github.com/jonpage/r-course/edit/master/22-anscombe.Rmd",
 "text": "Edit"
 },
-"download": ["jonpage-r-course.pdf"],
+"download": null,
 "toc": {
 "collapse": "section"
 }

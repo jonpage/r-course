@@ -166,17 +166,17 @@ readLines("data/TA2015_clean.sps", n = 10)
 ### Importing with the SPSS file using memisc
 
 The `memisc` package has useful tools for importing SPSS and Stata files that augment what
-already exists in `base`.
+already exists in `base`. Unfortunately, one of its dependencies, `MASS`, will mask
+the select method from `dplyr`. To avoid this, instead of loading `memisc` with 
+`library(memisc)`, we can prefix all `memisc` functions with `memisc::`.
 
 ```
 install.packages("memisc")
 ```
 
 ```{r}
-library(memisc)
-
-ta_importer <-spss.fixed.file("data/TA2015.txt", columns.file = "data/TA2015_clean.sps", varlab.file = "data/TA2015_clean.sps", to.lower = FALSE)
-ta_full <- as.data.set(ta_importer)
+ta_importer <- memisc::spss.fixed.file("data/TA2015.txt", columns.file = "data/TA2015_clean.sps", varlab.file = "data/TA2015_clean.sps", to.lower = FALSE)
+ta_full <- memisc::as.data.set(ta_importer)
 ta_full
 ```
 
@@ -187,6 +187,7 @@ Take the arrays we created above to process the file down to the variables we se
 ```{r}
 ta <- ta_full %>%
   as.data.frame() %>%
+  as.tbl() %>%
   filter(TA150005 > 0) %>% # get rid of the 1 non-US response
   transmute(
     family_id         = TA150003, 

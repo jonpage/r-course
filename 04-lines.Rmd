@@ -16,14 +16,22 @@ The data is originally from the [US Defense Manpower Data Center](www.dmdc.osd.m
 
 ```{r}
 library(readxl)
+if("package:dplyr" %in% search()) detach("package:dplyr", unload=TRUE)
 library(dplyr)
 library(magrittr)
 mil_personnel <- read_excel("data/100315.xls", range = "A5:L38", col_types = "numeric")
 mil_personnel <- bind_rows(
-  select(mil_personnel, 1:6) %>% set_colnames(c("Year", "Total", "Army", "Navy", "Marine Corps", "Air Force")),
-  select(mil_personnel, 7:12) %>% set_colnames(c("Year", "Total", "Army", "Navy", "Marine Corps", "Air Force"))
-) %>%
-  filter(!is.na(Year))
+  mil_personnel %>% select(1:6) %>% set_colnames(c("Year", "Total", "Army", "Navy", "Marine Corps", "Air Force")),
+  mil_personnel %>% select(7:12) %>% set_colnames(c("Year", "Total", "Army", "Navy", "Marine Corps", "Air Force"))
+)
+mil_personnel
+```
+
+Notice that the `Year` 2015 was turned into `NA`. This happened because the value in the corresponding cell was '2/ 2015'. Let's remove the final row of `NA`s and replace the remaining `NA` with 2015. 
+
+```{r}
+mil_personnel <- mil_personnel %>% filter(!is.na(Total))
+mil_personnel[is.na(mil_personnel$Year),]$Year <- 2015
 mil_personnel
 ```
 

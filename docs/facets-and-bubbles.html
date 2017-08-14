@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-07-27">
+<meta name="date" content="2017-08-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="read-data.html">
 <link rel="next" href="lines-and-curves.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -92,6 +90,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -290,18 +289,18 @@ seats &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span cla
   <span class="st">&quot;seatschangeQ1&quot;</span>, <span class="st">&quot;seatschangeQ2&quot;</span>, <span class="st">&quot;seatschangeQ3&quot;</span>, <span class="st">&quot;seatschangeQ4&quot;</span>, <span class="st">&quot;seatschange&quot;</span>
 ), <span class="dt">range =</span> <span class="st">&quot;A5:P78&quot;</span>)
 seats</code></pre></div>
-<pre><code>## # A tibble: 74 × 16
+<pre><code>## # A tibble: 74 x 16
 ##     dep_city seats2017Q1 seats2017Q2 seats2017Q3 seats2017Q4 seats2017
 ##        &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
-## 1      TOTAL     2987920     3016376     3168233     3050112  12222641
-## 2  SCHEDULED     2966915     2996155     3140998     3029794  12133862
-## 3   CHARTERS       21005       20221       27235       20318     88779
-## 4       &lt;NA&gt;          NA          NA          NA          NA        NA
-## 5   US TOTAL     1996549     2108969     2215424     2071513   8392455
-## 6  SCHEDULED     1978616     2091981     2200195     2055171   8325963
-## 7   CHARTERS       17933       16988       15229       16342     66492
-## 8       &lt;NA&gt;          NA          NA          NA          NA        NA
-## 9    US WEST     1717254     1837080     1943653     1817441   7315428
+##  1     TOTAL     2987920     3016376     3168233     3050112  12222641
+##  2 SCHEDULED     2966915     2996155     3140998     3029794  12133862
+##  3  CHARTERS       21005       20221       27235       20318     88779
+##  4      &lt;NA&gt;          NA          NA          NA          NA        NA
+##  5  US TOTAL     1996549     2108969     2215424     2071513   8392455
+##  6 SCHEDULED     1978616     2091981     2200195     2055171   8325963
+##  7  CHARTERS       17933       16988       15229       16342     66492
+##  8      &lt;NA&gt;          NA          NA          NA          NA        NA
+##  9   US WEST     1717254     1837080     1943653     1817441   7315428
 ## 10 Anchorage       25758       15105       13674       17013     71550
 ## # ... with 64 more rows, and 10 more variables: seats2016Q1 &lt;dbl&gt;,
 ## #   seats2016Q2 &lt;dbl&gt;, seats2016Q3 &lt;dbl&gt;, seats2016Q4 &lt;dbl&gt;,
@@ -329,18 +328,18 @@ seats[other_range,]$region &lt;-<span class="st"> &quot;Other&quot;</span>
 seats &lt;-<span class="st"> </span>seats %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(region))
 seats</code></pre></div>
-<pre><code>## # A tibble: 49 × 17
+<pre><code>## # A tibble: 49 x 17
 ##          dep_city seats2017Q1 seats2017Q2 seats2017Q3 seats2017Q4
 ##             &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1       Anchorage       25758       15105       13674       17013
-## 2      Bellingham       10198         318          NA        6519
-## 3          Denver       55803       51654       52585       43290
-## 4       Las Vegas       70514       74322       75839       75415
-## 5     Los Angeles      548935      647498      715338      647703
-## 6         Oakland       84571      104810      116015       90703
-## 7         Phoenix      113046      115125      125348      108863
-## 8        Portland       90207       71068       65997       81673
-## 9      Sacramento       37620       38318       38456       38456
+##  1      Anchorage       25758       15105       13674       17013
+##  2     Bellingham       10198         318          NA        6519
+##  3         Denver       55803       51654       52585       43290
+##  4      Las Vegas       70514       74322       75839       75415
+##  5    Los Angeles      548935      647498      715338      647703
+##  6        Oakland       84571      104810      116015       90703
+##  7        Phoenix      113046      115125      125348      108863
+##  8       Portland       90207       71068       65997       81673
+##  9     Sacramento       37620       38318       38456       38456
 ## 10 Salt Lake City       26370       23751       22968       28322
 ## # ... with 39 more rows, and 12 more variables: seats2017 &lt;dbl&gt;,
 ## #   seats2016Q1 &lt;dbl&gt;, seats2016Q2 &lt;dbl&gt;, seats2016Q3 &lt;dbl&gt;,
@@ -392,20 +391,19 @@ seats %&gt;%
 <span class="st">  </span><span class="kw">group_by</span>(region) %&gt;%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">proportion_of_region =</span> seats2017/<span class="kw">sum</span>(seats2017))
 seats</code></pre></div>
-<pre><code>## Source: local data frame [49 x 18]
-## Groups: region [7]
-## 
+<pre><code>## # A tibble: 49 x 18
+## # Groups:   region [7]
 ##          dep_city seats2017Q1 seats2017Q2 seats2017Q3 seats2017Q4
 ##             &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1       Anchorage       25758       15105       13674       17013
-## 2      Bellingham       10198         318          NA        6519
-## 3          Denver       55803       51654       52585       43290
-## 4       Las Vegas       70514       74322       75839       75415
-## 5     Los Angeles      548935      647498      715338      647703
-## 6         Oakland       84571      104810      116015       90703
-## 7         Phoenix      113046      115125      125348      108863
-## 8        Portland       90207       71068       65997       81673
-## 9      Sacramento       37620       38318       38456       38456
+##  1      Anchorage       25758       15105       13674       17013
+##  2     Bellingham       10198         318          NA        6519
+##  3         Denver       55803       51654       52585       43290
+##  4      Las Vegas       70514       74322       75839       75415
+##  5    Los Angeles      548935      647498      715338      647703
+##  6        Oakland       84571      104810      116015       90703
+##  7        Phoenix      113046      115125      125348      108863
+##  8       Portland       90207       71068       65997       81673
+##  9     Sacramento       37620       38318       38456       38456
 ## 10 Salt Lake City       26370       23751       22968       28322
 ## # ... with 39 more rows, and 13 more variables: seats2017 &lt;dbl&gt;,
 ## #   seats2016Q1 &lt;dbl&gt;, seats2016Q2 &lt;dbl&gt;, seats2016Q3 &lt;dbl&gt;,
@@ -477,8 +475,9 @@ seats</code></pre></div>
         </div>
       </div>
 <a href="read-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lines-and-curves.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="lines-and-curves.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -508,7 +507,7 @@ gitbook.start({
 "link": "https://github.com/jonpage/r-course/edit/master/03-facets-and-bubbles.Rmd",
 "text": "Edit"
 },
-"download": ["jonpage-r-course.pdf"],
+"download": null,
 "toc": {
 "collapse": "section"
 }

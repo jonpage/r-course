@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-07-27">
+<meta name="date" content="2017-08-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="ggplot-exts.html">
 <link rel="next" href="geom-spoke.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -92,6 +90,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -288,18 +287,18 @@ ssa &lt;-<span class="st"> </span><span class="kw">read_xlsx</span>(<span class=
                  <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">&quot;state&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;other&quot;</span>, <span class="st">&quot;other2&quot;</span>, <span class="st">&quot;number.total&quot;</span>, <span class="st">&quot;number.wage&quot;</span>, <span class="st">&quot;number.self&quot;</span>, 
                                <span class="st">&quot;earnings.total&quot;</span>, <span class="st">&quot;earnings.wage&quot;</span>, <span class="st">&quot;earnings.self&quot;</span>))
 ssa</code></pre></div>
-<pre><code>## # A tibble: 153 × 10
+<pre><code>## # A tibble: 153 x 10
 ##       state gender other other2 number.total number.wage number.self
 ##       &lt;chr&gt;  &lt;chr&gt; &lt;lgl&gt;  &lt;lgl&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1   Alabama   &lt;NA&gt;    NA     NA      2355477     2215535      255253
-## 2      &lt;NA&gt;    Men    NA     NA      1200468     1116458      138895
-## 3      &lt;NA&gt;  Women    NA     NA      1155009     1099077      116357
-## 4    Alaska   &lt;NA&gt;    NA     NA       400007      375833       47696
-## 5      &lt;NA&gt;    Men    NA     NA       223464      209694       27884
-## 6      &lt;NA&gt;  Women    NA     NA       176543      166140       19812
-## 7   Arizona   &lt;NA&gt;    NA     NA      3189785     2997567      334292
-## 8      &lt;NA&gt;    Men    NA     NA      1660088     1551488      185753
-## 9      &lt;NA&gt;  Women    NA     NA      1529697     1446079      148539
+##  1  Alabama   &lt;NA&gt;    NA     NA      2355477     2215535      255253
+##  2     &lt;NA&gt;    Men    NA     NA      1200468     1116458      138895
+##  3     &lt;NA&gt;  Women    NA     NA      1155009     1099077      116357
+##  4   Alaska   &lt;NA&gt;    NA     NA       400007      375833       47696
+##  5     &lt;NA&gt;    Men    NA     NA       223464      209694       27884
+##  6     &lt;NA&gt;  Women    NA     NA       176543      166140       19812
+##  7  Arizona   &lt;NA&gt;    NA     NA      3189785     2997567      334292
+##  8     &lt;NA&gt;    Men    NA     NA      1660088     1551488      185753
+##  9     &lt;NA&gt;  Women    NA     NA      1529697     1446079      148539
 ## 10 Arkansas   &lt;NA&gt;    NA     NA      1468898     1376249      163320
 ## # ... with 143 more rows, and 3 more variables: earnings.total &lt;dbl&gt;,
 ## #   earnings.wage &lt;dbl&gt;, earnings.self &lt;dbl&gt;</code></pre>
@@ -321,12 +320,12 @@ ssa_long %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(earnings_type !=<span class="st"> &quot;total&quot;</span>) %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita)) +
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ssa_long %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita, <span class="dt">fill =</span> gender)) +
 <span class="st">  </span><span class="kw">geom_boxplot</span>() +
 <span class="st">  </span><span class="kw">facet_grid</span>(~<span class="st"> </span>earnings_type)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
 </div>
 <div id="violin-plots" class="section level2">
 <h2><span class="header-section-number">6.3</span> Violin Plots</h2>
@@ -335,12 +334,12 @@ ssa_long %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(earnings_type !=<span class="st"> &quot;total&quot;</span>) %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita)) +
 <span class="st">  </span><span class="kw">geom_violin</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ssa_long %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita, <span class="dt">color =</span> gender, <span class="dt">fill =</span> gender)) +
 <span class="st">  </span><span class="kw">geom_violin</span>() +
 <span class="st">  </span><span class="kw">facet_grid</span>(~<span class="st"> </span>earnings_type)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
 </div>
 <div id="dot-plots" class="section level2">
 <h2><span class="header-section-number">6.4</span> Dot Plots</h2>
@@ -349,7 +348,7 @@ ssa_long %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita, <span class="dt">color =</span> gender, <span class="dt">fill =</span> gender)) +
 <span class="st">  </span><span class="kw">geom_dotplot</span>(<span class="dt">binaxis =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">stackdir =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) +
 <span class="st">  </span><span class="kw">facet_grid</span>(~<span class="st"> </span>earnings_type)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
 </div>
 <div id="assignment-3" class="section level2">
 <h2><span class="header-section-number">6.5</span> Assignment</h2>
@@ -363,8 +362,9 @@ ssa_long %&gt;%
         </div>
       </div>
 <a href="ggplot-exts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="geom-spoke.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="geom-spoke.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -394,7 +394,7 @@ gitbook.start({
 "link": "https://github.com/jonpage/r-course/edit/master/06-boxplots-and-violins.Rmd",
 "text": "Edit"
 },
-"download": ["jonpage-r-course.pdf"],
+"download": null,
 "toc": {
 "collapse": "section"
 }

@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-07-27">
+<meta name="date" content="2017-08-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="boxplots-and-violins.html">
 <link rel="next" href="area-and-ribbons.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -92,6 +90,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -366,18 +365,18 @@ uwnd_df &lt;-<span class="st"> </span>uwnd %&gt;%
 <span class="st">  </span><span class="kw">select</span>(lon, lat, time, uwnd) %&gt;%
 <span class="st">  </span><span class="kw">as.tibble</span>()
 uwnd_df</code></pre></div>
-<pre><code>## # A tibble: 2,081,376 × 4
+<pre><code>## # A tibble: 2,081,376 x 4
 ##      lon   lat        time        uwnd
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;S3: PCICt&gt;       &lt;dbl&gt;
-## 1    0.0    90  2017-01-01 -2.29999971
-## 2    2.5    90  2017-01-01 -1.99999964
-## 3    5.0    90  2017-01-01 -1.69999957
-## 4    7.5    90  2017-01-01 -1.34999967
-## 5   10.0    90  2017-01-01 -1.02499962
-## 6   12.5    90  2017-01-01 -0.72499961
-## 7   15.0    90  2017-01-01 -0.39999962
-## 8   17.5    90  2017-01-01 -0.04999962
-## 9   20.0    90  2017-01-01  0.27500039
+##  1   0.0    90  2017-01-01 -2.29999971
+##  2   2.5    90  2017-01-01 -1.99999964
+##  3   5.0    90  2017-01-01 -1.69999957
+##  4   7.5    90  2017-01-01 -1.34999967
+##  5  10.0    90  2017-01-01 -1.02499962
+##  6  12.5    90  2017-01-01 -0.72499961
+##  7  15.0    90  2017-01-01 -0.39999962
+##  8  17.5    90  2017-01-01 -0.04999962
+##  9  20.0    90  2017-01-01  0.27500039
 ## 10  22.5    90  2017-01-01  0.60000038
 ## # ... with 2,081,366 more rows</code></pre>
 <p>Now we need to do the same for the v-component of the wind vectors. Since we know the lat, lon, and time dimensions are repeated, we can join directly to the previous data.frame:</p>
@@ -395,18 +394,18 @@ wind &lt;-<span class="st"> </span>vwnd %&gt;%
 <span class="st">  </span><span class="kw">select</span>(lon, lat, time, vwnd, uwnd) %&gt;%
 <span class="st">  </span><span class="kw">as.tibble</span>()
 wind</code></pre></div>
-<pre><code>## # A tibble: 2,081,376 × 5
+<pre><code>## # A tibble: 2,081,376 x 5
 ##      lon   lat        time     vwnd        uwnd
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;S3: PCICt&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-## 1    0.0    90  2017-01-01 7.150002 -2.29999971
-## 2    2.5    90  2017-01-01 7.250002 -1.99999964
-## 3    5.0    90  2017-01-01 7.350002 -1.69999957
-## 4    7.5    90  2017-01-01 7.375001 -1.34999967
-## 5   10.0    90  2017-01-01 7.475002 -1.02499962
-## 6   12.5    90  2017-01-01 7.475002 -0.72499961
-## 7   15.0    90  2017-01-01 7.525002 -0.39999962
-## 8   17.5    90  2017-01-01 7.550002 -0.04999962
-## 9   20.0    90  2017-01-01 7.550002  0.27500039
+##  1   0.0    90  2017-01-01 7.150002 -2.29999971
+##  2   2.5    90  2017-01-01 7.250002 -1.99999964
+##  3   5.0    90  2017-01-01 7.350002 -1.69999957
+##  4   7.5    90  2017-01-01 7.375001 -1.34999967
+##  5  10.0    90  2017-01-01 7.475002 -1.02499962
+##  6  12.5    90  2017-01-01 7.475002 -0.72499961
+##  7  15.0    90  2017-01-01 7.525002 -0.39999962
+##  8  17.5    90  2017-01-01 7.550002 -0.04999962
+##  9  20.0    90  2017-01-01 7.550002  0.27500039
 ## 10  22.5    90  2017-01-01 7.525002  0.60000038
 ## # ... with 2,081,366 more rows</code></pre>
 <p>Otherwise, we would need to merge these data.frames to get <code>uwnd</code> and <code>vwnd</code> together with the following, which takes long time to run:</p>
@@ -423,7 +422,7 @@ wind %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) +
 <span class="st">  </span><span class="kw">geom_spoke</span>(<span class="kw">aes</span>(<span class="dt">angle =</span> angle, <span class="dt">radius =</span> radius, <span class="dt">alpha =</span> radius, <span class="dt">color =</span> angle)) +
 <span class="st">  </span><span class="kw">scale_color_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;#132B43&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;#56B1F7&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;#132B43&quot;</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
 </div>
 <div id="maps" class="section level2">
 <h2><span class="header-section-number">7.3</span> maps</h2>
@@ -438,11 +437,12 @@ wind %&gt;%
 <span class="st">  </span><span class="kw">geom_spoke</span>(<span class="kw">aes</span>(<span class="dt">angle =</span> angle, <span class="dt">radius =</span> radius, <span class="dt">alpha =</span> radius, <span class="dt">color =</span> angle)) +
 <span class="st">  </span><span class="kw">scale_color_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;#132B43&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;#56B1F7&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;#132B43&quot;</span>) +
 <span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
 </div>
 <div id="gganimate" class="section level2">
 <h2><span class="header-section-number">7.4</span> gganimate</h2>
-<p>The <code>gganimate</code> package lets us animate the above chart. If you want to be able to save animations as an mp4, you will need install <code>ffmpeg</code> (<a href="https://www.ffmpeg.org/download.html" class="uri">https://www.ffmpeg.org/download.html</a>). You can install <code>gganimate</code> with <code>devtools</code>:</p>
+<p>The <code>gganimate</code> package lets us animate the above chart. If you want to be able to save animations as an mp4, you will need install <code>ffmpeg</code> (<a href="https://www.ffmpeg.org/download.html" class="uri">https://www.ffmpeg.org/download.html</a>). If you are running macOS, you will need also need ImageMagick (<a href="http://www.imagemagick.org/script/binary-releases.php#macosx" class="uri">http://www.imagemagick.org/script/binary-releases.php#macosx</a>).</p>
+<p>You can install <code>gganimate</code> with <code>devtools</code>:</p>
 <pre><code>devtools::install_github(&quot;dgrtwo/gganimate&quot;)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gganimate)
 f &lt;-<span class="st"> </span>wind %&gt;%
@@ -472,7 +472,7 @@ uwnd_gly &lt;-<span class="st"> </span><span class="kw">glyphs</span>(wind, <spa
 <span class="st">  </span><span class="kw">geom_path</span>() +
 <span class="st">  </span><span class="kw">theme_bw</span>() +
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
 <p>Let’s focus in on just the continental US:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">usa &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;usa&quot;</span>)
 usa_long_range &lt;-<span class="st"> </span><span class="kw">range</span>(usa$long)
@@ -500,7 +500,7 @@ usa_uwnd_gly &lt;-<span class="st"> </span><span class="kw">glyphs</span>(usa_wi
 <span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">alpha =</span> <span class="fl">0.9</span>) +
 <span class="st">  </span><span class="kw">theme_bw</span>() +
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;East-West&quot;</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-73-1.png" width="672" /><img src="jonpage-r-course_files/figure-html/unnamed-chunk-73-2.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-74-1.png" width="672" /><img src="jonpage-r-course_files/figure-html/unnamed-chunk-74-2.png" width="672" /></p>
 
 </div>
 </div>
@@ -510,8 +510,9 @@ usa_uwnd_gly &lt;-<span class="st"> </span><span class="kw">glyphs</span>(usa_wi
         </div>
       </div>
 <a href="boxplots-and-violins.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="area-and-ribbons.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="area-and-ribbons.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -541,7 +542,7 @@ gitbook.start({
 "link": "https://github.com/jonpage/r-course/edit/master/07-geom_spoke.Rmd",
 "text": "Edit"
 },
-"download": ["jonpage-r-course.pdf"],
+"download": null,
 "toc": {
 "collapse": "section"
 }

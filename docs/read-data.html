@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-07-27">
+<meta name="date" content="2017-08-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="intro.html">
 <link rel="next" href="facets-and-bubbles.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -92,6 +90,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -291,18 +290,18 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr) <span class="co"># also in library(tidyverse)</span>
 pop_hi &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/csv_phi.zip&quot;</span>)
 pop_hi</code></pre></div>
-<pre><code>## # A tibble: 14,124 × 284
+<pre><code>## # A tibble: 14,124 x 284
 ##       RT SERIALNO SPORDER  PUMA    ST  ADJINC PWGTP  AGEP   CIT CITWP
 ##    &lt;chr&gt;    &lt;int&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt;
-## 1      P       21      01 00303    15 1001264 00078    63     1    NA
-## 2      P      158      01 00306    15 1001264 00056    54     1    NA
-## 3      P      267      01 00100    15 1001264 00059    52     5    NA
-## 4      P      267      02 00100    15 1001264 00071    56     5    NA
-## 5      P      267      03 00100    15 1001264 00102    25     5    NA
-## 6      P      267      04 00100    15 1001264 00155    22     5    NA
-## 7      P      267      05 00100    15 1001264 00074    15     5    NA
-## 8      P      351      01 00100    15 1001264 00307    32     4  2005
-## 9      P      351      02 00100    15 1001264 00578    02     1    NA
+##  1     P       21      01 00303    15 1001264 00078    63     1    NA
+##  2     P      158      01 00306    15 1001264 00056    54     1    NA
+##  3     P      267      01 00100    15 1001264 00059    52     5    NA
+##  4     P      267      02 00100    15 1001264 00071    56     5    NA
+##  5     P      267      03 00100    15 1001264 00102    25     5    NA
+##  6     P      267      04 00100    15 1001264 00155    22     5    NA
+##  7     P      267      05 00100    15 1001264 00074    15     5    NA
+##  8     P      351      01 00100    15 1001264 00307    32     4  2005
+##  9     P      351      02 00100    15 1001264 00578    02     1    NA
 ## 10     P      470      01 00200    15 1001264 00041    79     1    NA
 ## # ... with 14,114 more rows, and 274 more variables: COW &lt;int&gt;,
 ## #   DDRS &lt;int&gt;, DEAR &lt;int&gt;, DEYE &lt;int&gt;, DOUT &lt;int&gt;, DPHY &lt;int&gt;,
@@ -549,8 +548,9 @@ pop_hi %&gt;%
         </div>
       </div>
 <a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="facets-and-bubbles.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="facets-and-bubbles.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -580,7 +580,7 @@ gitbook.start({
 "link": "https://github.com/jonpage/r-course/edit/master/02-read-data.Rmd",
 "text": "Edit"
 },
-"download": ["jonpage-r-course.pdf"],
+"download": null,
 "toc": {
 "collapse": "section"
 }
