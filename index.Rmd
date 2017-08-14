@@ -219,6 +219,29 @@ There are many useful resources you should be aware of while going through this 
 
 [Embedded Plots](http://vita.had.co.nz/papers/embedded-plots.pdf)
 
+
+# Weekly Assignments {-}
+
+## Creating the R Markdown files
+
+Weekly assignments are R Markdown files. To begin each assignment, create a new 
+R Markdown file. By either
+
+* Use the `File` menu, under the `New File` selection, click on `R Markdown...`, or
+* Click on the new file button, then click on `R Markdown...`
+
+In the dialog box, set the title to match the heading for the assignment. For example,
+
+"Assignment 1.3"
+
+Remember to use your name in the space for an author.
+
+## Submitting your assignment
+
+After you have completed the assignment and before the start of the next class period,
+submit your R Markdown file on [classroom.google.com](https//classroom.google.com).
+
+
 # Individual Project {-}
 
 ## Project assignments {-}
