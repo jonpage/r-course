@@ -39,15 +39,15 @@ There is no prerequisite for this course.
 
 Introductory Statistics with Randomization and Simulation: Available as a free PDF (https://www.openintro.org/stat/textbook.php?stat_book=isrs) or for $8.49 on Amazon.
 
-R Graphics Cookbook
-
 ### Recommended: {-}
+
+[R Graphics Cookbook](https://www.cookbook-r.com/Graphs)
 
 [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
 
 ## Course Requirements {-}
 
-Grades for this course will be based on weekly assignments (30%), project assignments (30%), the project proposal (5%), the final project deliverable (15%), and final project presentation participation (20%).
+Grades for this course will be based on weekly assignments (30%), project assignments (30%), the project proposal (5%), the final project deliverable (20%), and final project presentation participation (15%).
 
 ### Weekly assignments (30%) {-}
 
@@ -63,11 +63,11 @@ Each week, leading up to the project proposal, you will be given an assignment t
 
 This presentation should be less than 2 minutes. You simply need to communicate the core question your project seeks to answer and the dataset(s) you will be using to answer this question.
 
-### Final project (15%) {-}
+### Final project (20%) {-}
 
 The final project will be an R Markdown document which communicates your project question, the data you used, and your results. 
 
-### Final project presentation participation (20%) {-}
+### Final project presentation participation (15%) {-}
 
 Your final project participation grade is based on a combination of your own presentation and the feedback you provide to your classmates.
 
@@ -99,7 +99,7 @@ The following schedule is tentative and subject to change.
 ### Week 4 {-}
 
 * **R** [geom_smooth, abline, vline, hline](#lines)
-  * **Data** State of Hawaii Department of Business, Economic Development (DBEDT) *[Excel]*
+    * **Data** State of Hawaii Department of Business, Economic Development (DBEDT) *[Excel]*
 * **Topic** Time series analysis
 <!-- -->
 * **Project Assignment** Write description of your dataset(s)
@@ -128,7 +128,7 @@ The following schedule is tentative and subject to change.
 ### Week 8 {-}
 
 * **R** [geom_area, geom_ribbon](#area-and-ribbons)
-  * **Data** BLS American Time Use Survey (ATUS) *[TSV]*
+    * **Data** BLS American Time Use Survey (ATUS) *[TSV]*
 * **Topic** Project Proposal Description
 * **Project Assignment** Work on project proposal presentation
 
@@ -182,7 +182,8 @@ The following schedule is tentative and subject to change.
 
 ## Other Resources {-}
 
-There are many useful resources you should be aware of while going through this course:
+There are many useful resources you should be aware of while going through this course.
+I will attempt to keep this list updated as I become aware of more useful links:
 
 [RStudio's List of Useful R Packages](https://github.com/rstudio/RStartHere)
 
@@ -196,7 +197,7 @@ There are many useful resources you should be aware of while going through this 
 
 ### Visualization {-}
 
-[FlowingData]()
+[FlowingData](http://flowingdata.com/)
 
 [Junk Charts](http://junkcharts.typepad.com/)
 
@@ -222,7 +223,7 @@ There are many useful resources you should be aware of while going through this 
 
 # Weekly Assignments {-}
 
-## Creating the R Markdown files
+## Creating the R Markdown files {-}
 
 Weekly assignments are R Markdown files. To begin each assignment, create a new 
 R Markdown file. By either
@@ -234,9 +235,11 @@ In the dialog box, set the title to match the heading for the assignment. For ex
 
 "Assignment 1.3"
 
-Remember to use your name in the space for an author.
+Remember to use your name in the space for an author. When saving set the filename to the 
+assignment followed by your first and last name, using dashes as separators. For example, if your 
+name is John Snow, you would save Assignment 1.3 as `assignment-1-3-John-Snow`
 
-## Submitting your assignment
+## Submitting your assignment {-}
 
 After you have completed the assignment and before the start of the next class period,
 submit your R Markdown file on [classroom.google.com](https//classroom.google.com).

@@ -19,7 +19,9 @@ Throughout this course, [R Markdown](http://rmarkdown.rstudio.com/lesson-1.html)
 install.packages("rmarkdown")
 ```
 
-For each assignment, you will create an R Markdown file (*.Rmd) and submit that file by the following class session using [classroom.google.com](https://classroom.google.com)
+For each assignment, you will create an R Markdown file (*.Rmd) and submit that file by the following class session using [classroom.google.com](https://classroom.google.com). Each class
+has been made using R Markdown, so you can find many examples by going to the GitHub repository
+for this course [github.com/jonpage/r-course](https://github.com/jonpage/r-course)
 
 ## Working with data already loaded into R
 
@@ -118,6 +120,8 @@ stars(swiss, key.loc = c(15,1), flip.labels = FALSE, full = FALSE)
 ```
 
 ## Assignment
+
+Create a new R Markdown file. 
 
 Choose a dataset from `datasets` (`library(help = "datasets")` will show you a list) and create 5 charts in an R Markdown file from the example charts above. Run the following command to see what else is available in the base R graphics package:
 

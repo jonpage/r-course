@@ -1,9 +1,3 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
-
 # Themes, Labels, and Colors {#themes-labels-colors}
 
 ## Data
