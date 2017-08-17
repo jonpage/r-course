@@ -10,7 +10,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Jonathan Page R-Course</a></li>
+        <li><a href="./">Jonathan Page | R for Data Analysis and Visualization</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     edit: https://github.com/jonpage/r-course/edit/master/%s

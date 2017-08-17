@@ -2,6 +2,7 @@
 
 ## Data
 
+IPUMS
 
 ## Themes
 
@@ -13,8 +14,4 @@ data labels, titles, and data labels (text)
 
 ## Colors
 
-
-## Assignment
-
-Open the codebook (`data/TA2015_codebook.pdf`) and search for two new variables to visualize and create a
-plot that makes use of both jitter and rug.
+color scales and color brewer

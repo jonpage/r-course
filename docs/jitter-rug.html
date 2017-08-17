@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-08-16">
+<meta name="date" content="2017-08-17">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -115,8 +115,8 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#individual-project"><i class="fa fa-check"></i>Individual Project</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#project-assignments-30"><i class="fa fa-check"></i>Project assignments (30%)</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#project-proposal-presentation-5"><i class="fa fa-check"></i>Project proposal presentation (5%)</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#final-project-15"><i class="fa fa-check"></i>Final project (15%)</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#final-project-presentation-participation-20"><i class="fa fa-check"></i>Final project presentation participation (20%)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#final-project-20"><i class="fa fa-check"></i>Final project (20%)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#final-project-presentation-participation-15"><i class="fa fa-check"></i>Final project presentation participation (15%)</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#schedule"><i class="fa fa-check"></i>Schedule</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-1"><i class="fa fa-check"></i>Week 1</a></li>
@@ -144,8 +144,8 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="weekly-assignments.html"><a href="weekly-assignments.html"><i class="fa fa-check"></i>Weekly Assignments</a><ul>
-<li class="chapter" data-level="0.1" data-path="weekly-assignments.html"><a href="weekly-assignments.html#creating-the-r-markdown-files"><i class="fa fa-check"></i><b>0.1</b> Creating the R Markdown files</a></li>
-<li class="chapter" data-level="0.2" data-path="weekly-assignments.html"><a href="weekly-assignments.html#submitting-your-assignment"><i class="fa fa-check"></i><b>0.2</b> Submitting your assignment</a></li>
+<li class="chapter" data-level="" data-path="weekly-assignments.html"><a href="weekly-assignments.html#creating-the-r-markdown-files"><i class="fa fa-check"></i>Creating the R Markdown files</a></li>
+<li class="chapter" data-level="" data-path="weekly-assignments.html"><a href="weekly-assignments.html#submitting-your-assignment"><i class="fa fa-check"></i>Submitting your assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html"><i class="fa fa-check"></i>Individual Project</a><ul>
 <li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#project-assignments"><i class="fa fa-check"></i>Project assignments</a></li>
@@ -228,13 +228,13 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.2" data-path="jitter-rug.html"><a href="jitter-rug.html#jitter"><i class="fa fa-check"></i><b>9.2</b> Jitter</a></li>
 <li class="chapter" data-level="9.3" data-path="jitter-rug.html"><a href="jitter-rug.html#rug"><i class="fa fa-check"></i><b>9.3</b> Rug</a></li>
 <li class="chapter" data-level="9.4" data-path="jitter-rug.html"><a href="jitter-rug.html#aesthetics"><i class="fa fa-check"></i><b>9.4</b> Aesthetics</a></li>
+<li class="chapter" data-level="9.5" data-path="jitter-rug.html"><a href="jitter-rug.html#assignment-4"><i class="fa fa-check"></i><b>9.5</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html"><i class="fa fa-check"></i><b>10</b> Themes, Labels, and Colors</a><ul>
 <li class="chapter" data-level="10.1" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#data-7"><i class="fa fa-check"></i><b>10.1</b> Data</a></li>
 <li class="chapter" data-level="10.2" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#themes"><i class="fa fa-check"></i><b>10.2</b> Themes</a></li>
 <li class="chapter" data-level="10.3" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#labels"><i class="fa fa-check"></i><b>10.3</b> Labels</a></li>
 <li class="chapter" data-level="10.4" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#colors"><i class="fa fa-check"></i><b>10.4</b> Colors</a></li>
-<li class="chapter" data-level="10.5" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#assignment-4"><i class="fa fa-check"></i><b>10.5</b> Assignment</a></li>
 </ul></li>
 <li class="part"><span><b>II Topics</b></span></li>
 <li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i>Data Sources Overview</a><ul>
@@ -540,6 +540,29 @@ base_plot +<span class="st"> </span><span class="kw">geom_point</span>()</code><
 </div>
 <div id="aesthetics" class="section level2">
 <h2><span class="header-section-number">9.4</span> Aesthetics</h2>
+<p>Aesthetics are the visual properties that define each graph. In ggplot, the <code>aes()</code> function is used to create a mapping from your data to these visual properties. We most often use <code>aes()</code> to map our variables to the <code>x</code> and <code>y</code> dimension. Above, we used the fact that the first two arguments to <code>aes()</code> are <code>x</code> and <code>y</code>. That is,</p>
+<pre><code>aes(x = life_satisfaction, y = annual_earnings)</code></pre>
+<p>gives the same result as</p>
+<pre><code>aes(life_satisfaction, annual_earnings)</code></pre>
+<p>Anytime we want more than two dimensions of our data displayed, it’s useful to map the extra variables to other features of our graph (e.g., size, color, alpha, etc.). Let’s add number of children to our graph assigning children to color. (In ggplot both American and British spellings are supported, so you can use <code>color</code> or <code>colour</code>.)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ta, <span class="kw">aes</span>(life_satisfaction, annual_earnings, <span class="dt">color =</span> children)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_y_log10</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_jitter</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<p>If the <code>children</code> variable was a factor, more distinct colors would have been chosen. We can see this by coloring by <code>employment_status</code> instead.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ta, <span class="kw">aes</span>(life_satisfaction, annual_earnings, <span class="dt">color =</span> employment_status)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_y_log10</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_jitter</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<p>You can emphasize a variable by encoding in more than one visual aesthetic. Let’s map <code>children</code> to <code>color</code>, <code>size</code>, and <code>alpha</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ta, <span class="kw">aes</span>(life_satisfaction, annual_earnings, <span class="dt">color =</span> children, <span class="dt">size =</span> children, <span class="dt">alpha =</span> children)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_y_log10</span>(<span class="st">&quot;Annual Earnings&quot;</span>, <span class="dt">labels =</span> scales::dollar) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_jitter</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+</div>
+<div id="assignment-4" class="section level2">
+<h2><span class="header-section-number">9.5</span> Assignment</h2>
+<p>Open the codebook (<code>data/TA2015_codebook.pdf</code>) and search for two new variables to visualize and create a plot that makes use of both jitter and rug.</p>
 
 </div>
 </div>

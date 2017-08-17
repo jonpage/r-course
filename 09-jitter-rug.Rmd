@@ -244,4 +244,54 @@ property to only display the rug on the left and right (`"lr"`)
 base_plot + geom_violin() + geom_rug(alpha = 0.1, position = "jitter", sides = "lr")
 ```
 
+
 ## Aesthetics
+Aesthetics are the visual properties that define each graph. In ggplot, the `aes()` function 
+is used to create a mapping from your data to these visual properties. We most often use
+`aes()` to map our variables to the `x` and `y` dimension. Above, we used the fact that the
+first two arguments to `aes()` are `x` and `y`. That is, 
+
+```
+aes(x = life_satisfaction, y = annual_earnings)
+```
+
+gives the same result as
+
+```
+aes(life_satisfaction, annual_earnings)
+```
+
+Anytime we want more than two dimensions of our data displayed, it's useful to map the extra
+variables to other features of our graph (e.g., size, color, alpha, etc.). Let's add number of
+children to our graph assigning children to color. (In ggplot both American and British 
+spellings are supported, so you can use `color` or `colour`.)
+
+
+```{r}
+ggplot(ta, aes(life_satisfaction, annual_earnings, color = children)) + 
+  scale_y_log10() + 
+  geom_jitter()
+```
+
+If the `children` variable was a factor, more distinct colors would have been chosen. 
+We can see this by coloring by `employment_status` instead. 
+
+```{r}
+ggplot(ta, aes(life_satisfaction, annual_earnings, color = employment_status)) + 
+  scale_y_log10() + 
+  geom_jitter()
+```
+
+You can emphasize a variable by encoding in more than one visual aesthetic. Let's map `children` to 
+`color`, `size`, and `alpha`.
+
+```{r}
+ggplot(ta, aes(life_satisfaction, annual_earnings, color = children, size = children, alpha = children)) + 
+  scale_y_log10("Annual Earnings", labels = scales::dollar) + 
+  geom_jitter()
+```
+
+## Assignment
+
+Open the codebook (`data/TA2015_codebook.pdf`) and search for two new variables to visualize and create a
+plot that makes use of both jitter and rug.

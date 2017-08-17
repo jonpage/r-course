@@ -26,10 +26,10 @@ Monday 2-3 PM and Tuesday 3-4 PM, or by appointment, Saunders 509, jrpage at haw
 
 ## Student Learning Objectives {-}
 
-1. To be familiar with standard techniques for visualizing data, including heat maps, contour plots, (look at the list in the Data Visualization book)
+1. To be familiar with standard techniques for visualizing data, including heat maps, contour plots, etc.
 2. To be able to transform raw data into formats suitable for analysis
 3. To be able to perform basic exploratory analysis
-4. To be able to create data visualizations
+4. To be able to create data visualizations in R
 
 There is no prerequisite for this course.
 
@@ -135,14 +135,13 @@ The following schedule is tentative and subject to change.
 ### Week 9 {-}
 
 * **R** [jitter, rug, aesthetics](#jitter-rug)
-  * **Data** PSID
+    * **Data** PSID *[SPS, TXT (Fixed-Width)]*
 * **Project Assignment** Present project proposal (<2 Minutes)
 
 ### Week 10 {-}
 
 * **R** [Themes, Labels, and Colors](#themes-labels-colors)
     * **Data** IPUMS
-<!-- PSID -->
 * **Topic** 
 * **Project Assignment** Work on final project
 
