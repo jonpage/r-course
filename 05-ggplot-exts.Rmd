@@ -1,10 +1,4 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
-
-# ggplot2 Extensions {#ggplot-exts}
+# Scatter Plot Matrices and Extensions {#ggplot-exts}
 
 ## Data 
 
@@ -159,4 +153,10 @@ acs_mobility %>%
   ggscatmat(columns = 2:ncol(.), alpha = 0.1)
 ```
 
+## Assignment
 
+Go to [American FactFinder](https://factfinder.census.gov/). Follow the steps above up until the point where
+we typed out "income mobility". This time pick another keyword to search for and select a different table to
+analyze (make sure this will give you more than two columns of data you would like to compare). 
+Use `ggscatmat()` to visualize the variables that interest you. Keep the filenames as they are provided by the
+Census, so I can run your R Markdown file.

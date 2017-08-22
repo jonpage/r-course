@@ -1,0 +1,24 @@
+# Themes, Labels, and Colors {#polar-ggradar}
+
+## Data
+
+### IPUMS
+
+IPUMS is the University of Minnesota's Repository of Census and Survey data.
+
+We'll be using the [IPUMS Time Use](https://www.ipums.org/timeuse.shtml) data.
+
+Click on "GET DATA" beneath the section for ATUS (American Time-Use Survey) 
+Extract Builder. Under "Create Extract", click again on "GET DATA".
+
+## Themes
+
+Themes, ggthemes
+
+## Labels
+
+data labels, titles, and data labels (text)
+
+## Colors
+
+color scales and color brewer

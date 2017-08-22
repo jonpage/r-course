@@ -125,3 +125,7 @@ test_data %>%
   geom_vline(xintercept = 2, color = "blue") +
   geom_hline(yintercept = 1, color = "#4FCC53", lty = 2)
 ```
+
+## Assignment
+
+Create a visualization of the military data by branch (i.e., `Army`, `Navy`, etc.) using `facet_wrap()`. Plot both the points and a smooth line.

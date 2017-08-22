@@ -2,8 +2,6 @@
 
 ## Data
 
-IPUMS
-
 ## Themes
 
 Themes, ggthemes

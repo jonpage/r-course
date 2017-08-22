@@ -19,6 +19,7 @@ link-citations: yes
 github-repo: jonpage/r-course
 description: "This is a course on using R focused on data analysis and visualization through case studies."
 ---
+
 # Syllabus {-}
 
 ## Office Hours {-}
@@ -65,7 +66,7 @@ This presentation should be less than 2 minutes. You simply need to communicate 
 
 ### Final project (20%) {-}
 
-The final project will be an R Markdown document which communicates your project question, the data you used, and your results. 
+The final project will be an R Markdown document which communicates your project question, the data you used, and your results. You will need to deliver both your R Markdown file and any necessary data for running the file.
 
 ### Final project presentation participation (15%) {-}
 
@@ -73,7 +74,11 @@ Your final project participation grade is based on a combination of your own pre
 
 ## Schedule {-}
 
-The following schedule is tentative and subject to change.
+The following schedule is tentative and subject to change. Typically, the Tuesday class will consist of the week's
+R lecture. Depending on how quickly we get through the material, you will have time to work on your assignment that
+will be due before the following class period. On Thursdays, we will discuss a relevant topic, but you should have
+time to work on your project assignment for the week. That assignment will generally be due before the following class
+period, except for the last several weeks when you are completing your final project.
 
 ### Week 1 {-}
 
@@ -93,15 +98,14 @@ The following schedule is tentative and subject to change.
 
 * **R** [ggplot facets, bubble plots, transparency](#facets-and-bubbles)
     * **Data** Hawaii Tourism Authority *[Excel]*
-* **Topic** Effective Data Visualization
+* **Topic** [Probability](#probability)
 * **Project Assignment** Write description of your question
 
 ### Week 4 {-}
 
 * **R** [geom_smooth, abline, vline, hline](#lines)
     * **Data** State of Hawaii Department of Business, Economic Development (DBEDT) *[Excel]*
-* **Topic** Time series analysis
-<!-- -->
+* **Topic** [Distributions](#distributions)
 * **Project Assignment** Write description of your dataset(s)
 
 ### Week 5 {-}
@@ -115,7 +119,7 @@ The following schedule is tentative and subject to change.
 
 * **R** [Boxplots, violin plots](#boxplots-and-violins)
     * **Data** SSA *[Excel]*
-* **Topic** 
+* **Topic** [Intro to Inference](#inference)
 * **Project Assignment** Write a description of the data cleaning required for your project
 
 ### Week 7 {-}
@@ -141,13 +145,14 @@ The following schedule is tentative and subject to change.
 ### Week 10 {-}
 
 * **R** [Themes, Labels, and Colors](#themes-labels-colors)
-    * **Data** IPUMS
+    * **Data** 
 * **Topic** 
 * **Project Assignment** Work on final project
 
 ### Week 11 {-}
 
-* **R** polar coordinates, ggradar extension
+* **R** [polar coordinates, ggradar extension](#polar-ggradar)
+    * **Data** IPUMS Time of Use
 <!-- should use monthly data for multiple years -->
 * **Topic** 
 * **Project Assignment** Work on final project (cont.)
@@ -200,6 +205,7 @@ I will attempt to keep this list updated as I become aware of more useful links:
 
 [Junk Charts](http://junkcharts.typepad.com/)
 
+[Catalog of Visualization Types by Ferdio](http://datavizproject.com/)
 
 ### Courses {-}
 
