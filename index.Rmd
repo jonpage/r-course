@@ -145,14 +145,14 @@ period, except for the last several weeks when you are completing your final pro
 ### Week 10 {-}
 
 * **R** [Themes, Labels, and Colors](#themes-labels-colors)
-    * **Data** 
+    * **Data** Zillow Real Estate Data *[CSV]*
 * **Topic** 
 * **Project Assignment** Work on final project
 
 ### Week 11 {-}
 
 * **R** [polar coordinates, ggradar extension](#polar-ggradar)
-    * **Data** IPUMS Time of Use
+    * **Data** BLS Current Population Survey (CPS)
 <!-- should use monthly data for multiple years -->
 * **Topic** 
 * **Project Assignment** Work on final project (cont.)
@@ -160,7 +160,7 @@ period, except for the last several weeks when you are completing your final pro
 ### Week 12 {-}
 
 * **R** word/text analysis
-<!-- -->
+<!-- twitter api - JSON -->
 * **Topic** 
 * **Project Assignment** Work on final project (cont.)
 

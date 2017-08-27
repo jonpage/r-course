@@ -2,6 +2,35 @@
 
 ## Data
 
+### Zillow Real Estate Data
+
+[Zillow](https://www.zillow.com/) is an online marketplace for real estate. 
+It facilitates connection between buyers and sellers,
+and in the process collects a large amount of useful economic statistics.
+
+From [Zillow's research data page](https://www.zillow.com/research/data/#other-metrics),
+we will download the [Age of Inventory (Days)](http://files.zillowstatic.com/research/public/Metro/AgeOfInventory_Metro_Public.csv)
+CSV. Their list of data definitions at the bottom of the page includes the following entry:
+
+*Age of Inventory*: Each Wednesday, age of inventory is calculated as the median number of days all active listings as of that Wednesday have been current. These medians are then aggregated into the number reported by taking the median across weekly values.
+
+```{r}
+library(tidyverse)
+inventory <- read_csv("data/AgeOfInventory_Metro_Public.csv")
+head(inventory)[,1:6]
+```
+
+Since this data set uses a separate column for each time period, the data is not yet 
+[tidy](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html). Let's fix that. We'll use
+the `gather()` function from the `tidyr` package (http://tidyr.tidyverse.org/reference/gather.html).
+
+```{r}
+inventory <- select(inventory, RegionName, matches("[[:digit:]]")) %>%
+  gather(month, age, matches("[[:digit:]]"))
+inventory
+```
+
+
 ## Themes
 
 Themes, ggthemes
@@ -13,3 +42,8 @@ data labels, titles, and data labels (text)
 ## Colors
 
 color scales and color brewer
+
+## Assignment
+
+Using the same file pick a different time series to emphasize (with a different color) 
+and choose a different theme.

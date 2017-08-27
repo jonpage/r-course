@@ -293,5 +293,4 @@ ggplot(ta, aes(life_satisfaction, annual_earnings, color = children, size = chil
 
 ## Assignment
 
-Open the codebook (`data/TA2015_codebook.pdf`) and search for two new variables to visualize and create a
-plot that makes use of both jitter and rug.
+Open the codebook (`data/TA2015_codebook.pdf`) and search for two new variables to visualize.  Create a plot that makes use of both jitter and rug.

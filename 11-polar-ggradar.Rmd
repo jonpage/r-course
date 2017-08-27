@@ -1,24 +1,24 @@
-# Themes, Labels, and Colors {#polar-ggradar}
+# Polar Coordinates and ggradar {#polar-ggradar}
 
 ## Data
 
-### IPUMS
+### CPS
 
-IPUMS is the University of Minnesota's Repository of Census and Survey data.
+The US Bureau of Labor Statistics and the US Census Bureau conduct the Current Population Survey (CPS)
+to collect a variety of data on the labor force. The surveys are conducted monthly and allow us
+to explore means of visualizing periodic data.
 
-We'll be using the [IPUMS Time Use](https://www.ipums.org/timeuse.shtml) data.
+From the main CPS page (https://www.census.gov/programs-surveys/cps.html),
+click on the link for CPS Data Web Tools (https://www.census.gov/programs-surveys/cps/data-detail.html).
 
-Click on "GET DATA" beneath the section for ATUS (American Time-Use Survey) 
-Extract Builder. Under "Create Extract", click again on "GET DATA".
+## Polar Coordinates
 
-## Themes
 
-Themes, ggthemes
 
-## Labels
+## ggradar
 
-data labels, titles, and data labels (text)
 
-## Colors
 
-color scales and color brewer
+## Assignment
+
+
