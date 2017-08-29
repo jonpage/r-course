@@ -4,7 +4,7 @@ output:
   pdf_document: default
 ---
 
-# Lines and Curves
+# Lines and Curves {#lines}
 
 ## Data
 

@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="weekly-assignments.html">
+<link rel="prev" href="facets-and-bubbles.html">
+<link rel="next" href="ggplot-exts.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -322,255 +322,130 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R for Data Analysis and Visualization</h1>
-<h3 class="subtitle"><em><p>ECON 396 (Fall 2017)<br />
-TR 10:30-11:45, Webster Hall 112</p></em></h3>
-<h4 class="author"><em>Jonathan Page</em></h4>
-<h4 class="date"><em>2017-08-28</em></h4>
+<div id="lines" class="section level1">
+<h1><span class="header-section-number">Lecture 4</span> Lines and Curves</h1>
+<div id="data-1" class="section level2">
+<h2><span class="header-section-number">4.1</span> Data</h2>
+<p>We will use data on the number of active duty personnel in Hawaii. The first dataset is an Excel file pulled from the State of Hawaii Department of Business, Economic Development, and Tourism (DBEDT) <a href="http://dbedt.hawaii.gov/economic/databook/2015-individual/">2015 State of Hawaii Data Book</a>. See the line listed as, “10.03 - Active Duty Personnel, by Service: 1953 to 2015.” The data is originally from the <a href="www.dmdc.osd.mil/appj/dwp/stats_reports.jsp">US Defense Manpower Data Center</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
+if(<span class="st">&quot;package:dplyr&quot;</span> %in%<span class="st"> </span><span class="kw">search</span>()) <span class="kw">detach</span>(<span class="st">&quot;package:dplyr&quot;</span>, <span class="dt">unload=</span><span class="ot">TRUE</span>)
+<span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(magrittr)
+mil_personnel &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data/100315.xls&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;A5:L38&quot;</span>, <span class="dt">col_types =</span> <span class="st">&quot;numeric&quot;</span>)
+mil_personnel &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(
+  mil_personnel %&gt;%<span class="st"> </span><span class="kw">select</span>(<span class="dv">1</span>:<span class="dv">6</span>) %&gt;%<span class="st"> </span><span class="kw">set_colnames</span>(<span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Total&quot;</span>, <span class="st">&quot;Army&quot;</span>, <span class="st">&quot;Navy&quot;</span>, <span class="st">&quot;Marine Corps&quot;</span>, <span class="st">&quot;Air Force&quot;</span>)),
+  mil_personnel %&gt;%<span class="st"> </span><span class="kw">select</span>(<span class="dv">7</span>:<span class="dv">12</span>) %&gt;%<span class="st"> </span><span class="kw">set_colnames</span>(<span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Total&quot;</span>, <span class="st">&quot;Army&quot;</span>, <span class="st">&quot;Navy&quot;</span>, <span class="st">&quot;Marine Corps&quot;</span>, <span class="st">&quot;Air Force&quot;</span>))
+)
+mil_personnel</code></pre></div>
+<pre><code>## # A tibble: 66 x 6
+##     Year Total  Army  Navy `Marine Corps` `Air Force`
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;       &lt;dbl&gt;
+##  1    NA    NA    NA    NA             NA          NA
+##  2  1953 24785  5872  7657           6040        5216
+##  3  1954 23654  7957  6443           4155        5099
+##  4  1955 40258 19821  5211           9677        5549
+##  5  1956 37470 16531  5237           9490        6212
+##  6  1957 40683 17511  5466           9608        8098
+##  7  1958 35076 14672  4908           8670        6826
+##  8  1959 36310 15438  5309           8470        7093
+##  9  1960 35412 15492  5687           7756        6477
+## 10  1961 39474 16945  5774           9679        7076
+## # ... with 56 more rows</code></pre>
+<p>Notice that the <code>Year</code> 2015 was turned into <code>NA</code>. This happened because the value in the corresponding cell was ‘2/ 2015’. Let’s remove the final row of <code>NA</code>s and replace the remaining <code>NA</code> with 2015.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mil_personnel &lt;-<span class="st"> </span>mil_personnel %&gt;%<span class="st"> </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(Total))
+mil_personnel[<span class="kw">is.na</span>(mil_personnel$Year),]$Year &lt;-<span class="st"> </span><span class="dv">2015</span>
+mil_personnel</code></pre></div>
+<pre><code>## # A tibble: 63 x 6
+##     Year Total  Army  Navy `Marine Corps` `Air Force`
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;       &lt;dbl&gt;
+##  1  1953 24785  5872  7657           6040        5216
+##  2  1954 23654  7957  6443           4155        5099
+##  3  1955 40258 19821  5211           9677        5549
+##  4  1956 37470 16531  5237           9490        6212
+##  5  1957 40683 17511  5466           9608        8098
+##  6  1958 35076 14672  4908           8670        6826
+##  7  1959 36310 15438  5309           8470        7093
+##  8  1960 35412 15492  5687           7756        6477
+##  9  1961 39474 16945  5774           9679        7076
+## 10  1962 41657 17645  6664           9903        7445
+## # ... with 53 more rows</code></pre>
 </div>
-<div id="syllabus" class="section level1 unnumbered">
-<h1>Syllabus</h1>
-<div id="office-hours" class="section level2 unnumbered">
-<h2>Office Hours</h2>
-<p>Monday 2-3 PM and Tuesday 3-4 PM, or by appointment, Saunders 509, jrpage at hawaii dot edu.</p>
+<div id="geom_smooth" class="section level2">
+<h2><span class="header-section-number">4.2</span> geom_smooth</h2>
+<p><code>geom_smooth</code> allows you to have smooth lines appear in your chart. With no argument, it will choose <code>loess</code> for series shorter than 1,000 observations. It shows a shaded confidence interval.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+mil_personnel %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, Total)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">geom_smooth</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>Here’s what it looks like if we fit a linear model instead:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mil_personnel %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, Total)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p>We can also just have a line chart that connects the points:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mil_personnel %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, Total)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 </div>
-<div id="student-learning-objectives" class="section level2 unnumbered">
-<h2>Student Learning Objectives</h2>
-<ol style="list-style-type: decimal">
-<li>To be familiar with standard techniques for visualizing data, including heat maps, contour plots, etc.</li>
-<li>To be able to transform raw data into formats suitable for analysis</li>
-<li>To be able to perform basic exploratory analysis</li>
-<li>To be able to create data visualizations in R</li>
-</ol>
-<p>There is no prerequisite for this course.</p>
+<div id="geom_abline" class="section level2">
+<h2><span class="header-section-number">4.3</span> geom_abline</h2>
+<p><code>geom_abline</code> allows you to display lines with a specific intercept and slope. If no intercept or slope is provided, a 45-degree line will be shown.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)
+y =<span class="st"> </span><span class="fl">2.5</span> +<span class="st"> </span><span class="fl">1.2</span> *<span class="st"> </span>x +<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)
+test_data &lt;-<span class="st"> </span><span class="kw">data_frame</span>(x, y)
+
+test_data %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(x, y)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">xlim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +<span class="st"> </span><span class="kw">ylim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +
+<span class="st">  </span><span class="kw">coord_fixed</span>() +
+<span class="st">  </span><span class="kw">geom_abline</span>() </code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_data %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(x, y)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">xlim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +<span class="st"> </span><span class="kw">ylim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +
+<span class="st">  </span><span class="kw">coord_fixed</span>() +
+<span class="st">  </span><span class="kw">geom_abline</span>() +
+<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">2.5</span>, <span class="dt">slope =</span> <span class="fl">1.2</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) </code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 </div>
-<div id="resources" class="section level2 unnumbered">
-<h2>Resources</h2>
-<div id="required" class="section level3 unnumbered">
-<h3>Required</h3>
-<p>Introductory Statistics with Randomization and Simulation: Available as a free PDF (<a href="https://www.openintro.org/stat/textbook.php?stat_book=isrs" class="uri">https://www.openintro.org/stat/textbook.php?stat_book=isrs</a>) or for $8.49 on Amazon.</p>
+<div id="geom_vline" class="section level2">
+<h2><span class="header-section-number">4.4</span> geom_vline</h2>
+<p><code>geom_vline</code> allows you to draw vertical lines by specifying an x intercept.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_data %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(x, y)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">xlim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +<span class="st"> </span><span class="kw">ylim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +
+<span class="st">  </span><span class="kw">coord_fixed</span>() +
+<span class="st">  </span><span class="kw">geom_abline</span>() +
+<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">2.5</span>, <span class="dt">slope =</span> <span class="fl">1.2</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) +
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 </div>
-<div id="recommended" class="section level3 unnumbered">
-<h3>Recommended:</h3>
-<p><a href="https://www.cookbook-r.com/Graphs">R Graphics Cookbook</a></p>
-<p><a href="https://www.rstudio.com/resources/cheatsheets/">RStudio Cheat Sheets</a></p>
+<div id="hline" class="section level2">
+<h2><span class="header-section-number">4.5</span> hline</h2>
+<p><code>geom_vline</code> allows you to draw vertical lines by specifying an x intercept.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_data %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(x, y)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">xlim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +<span class="st"> </span><span class="kw">ylim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +
+<span class="st">  </span><span class="kw">coord_fixed</span>() +
+<span class="st">  </span><span class="kw">geom_abline</span>() +
+<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">2.5</span>, <span class="dt">slope =</span> <span class="fl">1.2</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) +
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) +
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;#4FCC53&quot;</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 </div>
-</div>
-<div id="course-requirements" class="section level2 unnumbered">
-<h2>Course Requirements</h2>
-<p>Grades for this course will be based on weekly assignments (30%), project assignments (30%), the project proposal (5%), the final project deliverable (20%), and final project presentation participation (15%).</p>
-<div id="weekly-assignments-30" class="section level3 unnumbered">
-<h3>Weekly assignments (30%)</h3>
-<p>Weekly assignments are short R excercises. Each exercise should take no longer than 15 minutes. You will typically be given time to complete the exercise in class the day the assignment is given. The assignment will be in the form of R Markdown file (*.Rmd). You will submit the completed assignments via <a href="https//classroom.google.com">classroom.google.com</a> by the following class period.</p>
-</div>
-</div>
-<div id="individual-project" class="section level2 unnumbered">
-<h2>Individual Project</h2>
-<div id="project-assignments-30" class="section level3 unnumbered">
-<h3>Project assignments (30%)</h3>
-<p>Each week, leading up to the project proposal, you will be given an assignment that is designed to provide you with an organized workflow for approaching new data science projects. Project assignments are submitted via <a href="https//classroom.google.com">classroom.google.com</a>, with the exception of the two presentations</p>
-</div>
-<div id="project-proposal-presentation-5" class="section level3 unnumbered">
-<h3>Project proposal presentation (5%)</h3>
-<p>This presentation should be less than 2 minutes. You simply need to communicate the core question your project seeks to answer and the dataset(s) you will be using to answer this question.</p>
-</div>
-<div id="final-project-20" class="section level3 unnumbered">
-<h3>Final project (20%)</h3>
-<p>The final project will be an R Markdown document which communicates your project question, the data you used, and your results. You will need to deliver both your R Markdown file and any necessary data for running the file.</p>
-</div>
-<div id="final-project-presentation-participation-15" class="section level3 unnumbered">
-<h3>Final project presentation participation (15%)</h3>
-<p>Your final project participation grade is based on a combination of your own presentation and the feedback you provide to your classmates.</p>
-</div>
-</div>
-<div id="schedule" class="section level2 unnumbered">
-<h2>Schedule</h2>
-<p>The following schedule is tentative and subject to change. Typically, the Tuesday class will consist of the week’s R lecture. Depending on how quickly we get through the material, you will have time to work on your assignment that will be due before the following class period. On Thursdays, we will discuss a relevant topic, but you should have time to work on your project assignment for the week. That assignment will generally be due before the following class period, except for the last several weeks when you are completing your final project.</p>
-<div id="week-1" class="section level3 unnumbered">
-<h3>Week 1</h3>
-<ul>
-<li><strong>R</strong> <a href="intro.html#intro">Intro to R and RStudio; Histograms, scatterplots, summary statistics</a>
-<ul>
-<li><strong>Data</strong> R Sample Datasets</li>
-</ul></li>
-<li><strong>Topic</strong> <a href="data-sources.html#data-sources">Data sources overview</a></li>
-<li><strong>Project Assignment</strong> Indentify interesting datasets and questions</li>
-</ul>
-</div>
-<div id="week-2" class="section level3 unnumbered">
-<h3>Week 2</h3>
-<ul>
-<li><strong>R</strong> <a href="read-data.html#read-data">read_csv, dplyr basics, heatmaps, hexbins</a>
-<ul>
-<li><strong>Data</strong> ACS PUMS <em>[CSV]</em></li>
-</ul></li>
-<li><strong>Topic</strong> <a href="anscombe.html#anscombe">Anscombe’s Quartet</a></li>
-<li><strong>Project Assignment</strong> Choose question and dataset for your project</li>
-</ul>
-</div>
-<div id="week-3" class="section level3 unnumbered">
-<h3>Week 3</h3>
-<ul>
-<li><strong>R</strong> <a href="facets-and-bubbles.html#facets-and-bubbles">ggplot facets, bubble plots, transparency</a>
-<ul>
-<li><strong>Data</strong> Hawaii Tourism Authority <em>[Excel]</em></li>
-</ul></li>
-<li><strong>Topic</strong> <a href="probability.html#probability">Probability</a></li>
-<li><strong>Project Assignment</strong> Write description of your question</li>
-</ul>
-</div>
-<div id="week-4" class="section level3 unnumbered">
-<h3>Week 4</h3>
-<ul>
-<li><strong>R</strong> <a href="lines.html#lines">geom_smooth, abline, vline, hline</a>
-<ul>
-<li><strong>Data</strong> State of Hawaii Department of Business, Economic Development (DBEDT) <em>[Excel]</em></li>
-</ul></li>
-<li><strong>Topic</strong> <a href="distributions.html#distributions">Distributions</a></li>
-<li><strong>Project Assignment</strong> Write description of your dataset(s)</li>
-</ul>
-</div>
-<div id="week-5" class="section level3 unnumbered">
-<h3>Week 5</h3>
-<ul>
-<li><strong>R</strong> <a href="ggplot-exts.html#ggplot-exts">ggplot2 Extensions and Scatterplot Matrices (GGally)</a>
-<ul>
-<li><strong>Data</strong> ACS Immigration <em>[CSV]</em></li>
-</ul></li>
-<li><strong>Topic</strong> <a href="trifecta.html#trifecta">JunkCharts Trifecta Checkup</a></li>
-<li><strong>Project Assignment</strong> Create 2 descriptive plots of your datasets(s)</li>
-</ul>
-</div>
-<div id="week-6" class="section level3 unnumbered">
-<h3>Week 6</h3>
-<ul>
-<li><strong>R</strong> <a href="boxplots-and-violins.html#boxplots-and-violins">Boxplots, violin plots</a>
-<ul>
-<li><strong>Data</strong> SSA <em>[Excel]</em></li>
-</ul></li>
-<li><strong>Topic</strong> <a href="inference.html#inference">Intro to Inference</a></li>
-<li><strong>Project Assignment</strong> Write a description of the data cleaning required for your project</li>
-</ul>
-</div>
-<div id="week-7" class="section level3 unnumbered">
-<h3>Week 7</h3>
-<ul>
-<li><strong>R</strong> <a href="geom-spoke.html#geom_spoke">Spatial Visualizations with geom_spoke, gganimate, and GGally::glyphs</a>
-<ul>
-<li><strong>Data</strong> NOAA Wind <em>[netCDF]</em></li>
-</ul></li>
-<li><strong>Topic</strong></li>
-<li><strong>Project Assignment</strong> Write a description of your planned approach</li>
-</ul>
-</div>
-<div id="week-8" class="section level3 unnumbered">
-<h3>Week 8</h3>
-<ul>
-<li><strong>R</strong> <a href="area-and-ribbons.html#area-and-ribbons">geom_area, geom_ribbon</a>
-<ul>
-<li><strong>Data</strong> BLS American Time Use Survey (ATUS) <em>[TSV]</em></li>
-</ul></li>
-<li><strong>Topic</strong> Project Proposal Description</li>
-<li><strong>Project Assignment</strong> Work on project proposal presentation</li>
-</ul>
-</div>
-<div id="week-9" class="section level3 unnumbered">
-<h3>Week 9</h3>
-<ul>
-<li><strong>R</strong> <a href="jitter-rug.html#jitter-rug">jitter, rug, aesthetics</a>
-<ul>
-<li><strong>Data</strong> PSID <em>[SPS, TXT (Fixed-Width)]</em></li>
-</ul></li>
-<li><strong>Project Assignment</strong> Present project proposal (&lt;2 Minutes)</li>
-</ul>
-</div>
-<div id="week-10" class="section level3 unnumbered">
-<h3>Week 10</h3>
-<ul>
-<li><strong>R</strong> <a href="themes-labels-colors.html#themes-labels-colors">Themes, Labels, and Colors</a>
-<ul>
-<li><strong>Data</strong> Zillow Real Estate Data <em>[CSV]</em></li>
-</ul></li>
-<li><strong>Topic</strong></li>
-<li><strong>Project Assignment</strong> Work on final project</li>
-</ul>
-</div>
-<div id="week-11" class="section level3 unnumbered">
-<h3>Week 11</h3>
-<ul>
-<li><strong>R</strong> <a href="polar-ggradar.html#polar-ggradar">polar coordinates, ggradar extension</a>
-<ul>
-<li><strong>Data</strong> BLS Current Population Survey (CPS) <!-- should use monthly data for multiple years --></li>
-</ul></li>
-<li><strong>Topic</strong></li>
-<li><strong>Project Assignment</strong> Work on final project (cont.)</li>
-</ul>
-</div>
-<div id="week-12" class="section level3 unnumbered">
-<h3>Week 12</h3>
-<ul>
-<li><strong>R</strong> word/text analysis <!-- twitter api - JSON --></li>
-<li><strong>Topic</strong></li>
-<li><strong>Project Assignment</strong> Work on final project (cont.)</li>
-</ul>
-</div>
-<div id="week-13" class="section level3 unnumbered">
-<h3>Week 13</h3>
-<ul>
-<li><strong>R</strong> gganimate <!-- --></li>
-<li><strong>Topic</strong></li>
-<li><strong>Project Assignment</strong> Work on final project (cont.)</li>
-</ul>
-</div>
-<div id="week-14" class="section level3 unnumbered">
-<h3>Week 14</h3>
-<ul>
-<li><strong>R</strong> git and GitHub for R</li>
-<li><strong>Topic</strong></li>
-<li><strong>Project Assignment</strong></li>
-</ul>
-</div>
-<div id="week-15" class="section level3 unnumbered">
-<h3>Week 15</h3>
-<ul>
-<li><strong>R</strong> networks, geomnet extension <!-- --></li>
-<li><strong>Topic</strong> Final Project presentations</li>
-<li><strong>Project Assignment</strong></li>
-</ul>
-</div>
-</div>
-<div id="other-resources" class="section level2 unnumbered">
-<h2>Other Resources</h2>
-<p>There are many useful resources you should be aware of while going through this course. I will attempt to keep this list updated as I become aware of more useful links:</p>
-<p><a href="https://github.com/rstudio/RStartHere">RStudio’s List of Useful R Packages</a></p>
-<p><a href="http://tinlizzie.org/histograms/">Visual Tutorial on Histograms</a></p>
-<div id="statistics" class="section level3 unnumbered">
-<h3>Statistics</h3>
-<p><a href="http://varianceexplained.org/RData/resources/">Variance Explained</a></p>
-<p><a href="http://r4ds.had.co.nz/">R for Data Science - Grolemund and Wickham</a></p>
-</div>
-<div id="visualization" class="section level3 unnumbered">
-<h3>Visualization</h3>
-<p><a href="http://flowingdata.com/">FlowingData</a></p>
-<p><a href="http://junkcharts.typepad.com/">Junk Charts</a></p>
-<p><a href="http://datavizproject.com/">Catalog of Visualization Types by Ferdio</a></p>
-</div>
-<div id="courses" class="section level3 unnumbered">
-<h3>Courses</h3>
-<p><a href="http://projects.iq.harvard.edu/gov2001/">Gary King - Quantitative Research Methodology</a></p>
-<p><a href="http://www.cc.gatech.edu/~stasko/7450/">John Stasko - Information Visualization</a></p>
-<p><a href="http://stat545.com/">Jenny Bryan - Data wrangling, exploration, and analysis with R</a></p>
-</div>
-<div id="books" class="section level3 unnumbered">
-<h3>Books</h3>
-<p><a href="https://cran.r-project.org/doc/contrib/Farnsworth-EconometricsInR.pdf">Econometrics in R</a></p>
-<p><a href="ftp://cran.r-project.org/pub/R/doc/contrib/usingR.pdf">Using R for Data Analysis and Graphics</a></p>
-</div>
-<div id="papers" class="section level3 unnumbered">
-<h3>Papers</h3>
-<p><a href="http://vita.had.co.nz/papers/embedded-plots.pdf">Embedded Plots</a></p>
-</div>
+<div id="assignment-3" class="section level2">
+<h2><span class="header-section-number">4.6</span> Assignment</h2>
+<p>Create a visualization of the military data by branch (i.e., <code>Army</code>, <code>Navy</code>, etc.) using <code>facet_wrap()</code>. Plot both the points and a smooth line.</p>
+
 </div>
 </div>
             </section>
@@ -578,8 +453,8 @@ TR 10:30-11:45, Webster Hall 112</p></em></h3>
           </div>
         </div>
       </div>
-
-<a href="weekly-assignments.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="facets-and-bubbles.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ggplot-exts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -608,7 +483,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jonpage/r-course/edit/master/index.Rmd",
+"link": "https://github.com/jonpage/r-course/edit/master/04-lines.Rmd",
 "text": "Edit"
 },
 "download": null,
