@@ -304,11 +304,11 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#on-your-own-2"><i class="fa fa-check"></i>On your own</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html"><i class="fa fa-check"></i>Confidence Intervals</a><ul>
-<li class="chapter" data-level="11.5" data-path="confidence-intervals.html"><a href="confidence-intervals.html#sampling-from-ames-iowa"><i class="fa fa-check"></i><b>11.5</b> Sampling from Ames, Iowa</a></li>
-<li class="chapter" data-level="11.6" data-path="confidence-intervals.html"><a href="confidence-intervals.html#the-data-2"><i class="fa fa-check"></i><b>11.6</b> The data</a></li>
-<li class="chapter" data-level="11.7" data-path="confidence-intervals.html"><a href="confidence-intervals.html#confidence-intervals"><i class="fa fa-check"></i><b>11.7</b> Confidence intervals</a></li>
-<li class="chapter" data-level="11.8" data-path="confidence-intervals.html"><a href="confidence-intervals.html#confidence-levels"><i class="fa fa-check"></i><b>11.8</b> Confidence levels</a></li>
-<li class="chapter" data-level="11.9" data-path="confidence-intervals.html"><a href="confidence-intervals.html#on-your-own-3"><i class="fa fa-check"></i><b>11.9</b> On your own</a></li>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html#sampling-from-ames-iowa"><i class="fa fa-check"></i>Sampling from Ames, Iowa</a></li>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html#the-data-2"><i class="fa fa-check"></i>The data</a></li>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html#confidence-intervals"><i class="fa fa-check"></i>Confidence intervals</a></li>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html#confidence-levels"><i class="fa fa-check"></i>Confidence levels</a></li>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html#on-your-own-3"><i class="fa fa-check"></i>On your own</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -335,12 +335,12 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <blockquote>
 <p>The source for this topic is the Open Intro labs <a href="https://www.openintro.org/stat/labs.php" class="uri">https://www.openintro.org/stat/labs.php</a></p>
 </blockquote>
-<div id="sampling-from-ames-iowa" class="section level2">
-<h2><span class="header-section-number">11.5</span> Sampling from Ames, Iowa</h2>
+<div id="sampling-from-ames-iowa" class="section level2 unnumbered">
+<h2>Sampling from Ames, Iowa</h2>
 <p>If you have access to data on an entire population, say the size of every house in Ames, Iowa, it’s straight forward to answer questions like, “How big is the typical house in Ames?” and “How much variation is there in sizes of houses?”. If you have access to only a sample of the population, as is often the case, the task becomes more complicated. What is your best guess for the typical size if you only know the sizes of several dozen houses? This sort of situation requires that you use your sample to make inference on what your population looks like.</p>
 </div>
-<div id="the-data-2" class="section level2">
-<h2><span class="header-section-number">11.6</span> The data</h2>
+<div id="the-data-2" class="section level2 unnumbered">
+<h2>The data</h2>
 <p>In the previous lab, ``Sampling Distributions’’, we looked at the population data of houses from Ames, Iowa. Let’s start by loading that data set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;ames.RData&quot;</span>)</code></pre></div>
 <p>In this lab we’ll start with a simple random sample of size 60 from the population. Specifically, this is a simple random sample of size 60. Note that the data set has information on many housing variables, but for the first portion of the lab we’ll focus on the size of the house, represented by the variable <code>Gr.Liv.Area</code>.</p>
@@ -359,8 +359,8 @@ samp</code></pre></div>
 <li><p>Would you expect another student’s distribution to be identical to yours? Would you expect it to be similar? Why or why not?</p></li>
 </ol>
 </div>
-<div id="confidence-intervals" class="section level2">
-<h2><span class="header-section-number">11.7</span> Confidence intervals</h2>
+<div id="confidence-intervals" class="section level2 unnumbered">
+<h2>Confidence intervals</h2>
 <p>One of the most common ways to describe the typical or central value of a distribution is to use the mean. In this case we can calculate the mean of the sample using,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_mean &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)
 sample_mean</code></pre></div>
@@ -379,8 +379,8 @@ upper &lt;-<span class="st"> </span>sample_mean +<span class="st"> </span><span 
 <li>For the confidence interval to be valid, the sample mean must be normally distributed and have standard error <span class="math inline">\(s / \sqrt{n}\)</span>. What conditions must be met for this to be true?</li>
 </ol>
 </div>
-<div id="confidence-levels" class="section level2">
-<h2><span class="header-section-number">11.8</span> Confidence levels</h2>
+<div id="confidence-levels" class="section level2 unnumbered">
+<h2>Confidence levels</h2>
 <ol start="4" style="list-style-type: decimal">
 <li>What does “95% confidence” mean? If you’re not sure, see Section 4.2.2.</li>
 </ol>
@@ -417,8 +417,8 @@ upper_vector &lt;-<span class="st"> </span>samp_mean +<span class="st"> </span><
 <pre><code>## [1] 1389.029 1621.904</code></pre>
 <hr />
 </div>
-<div id="on-your-own-3" class="section level2">
-<h2><span class="header-section-number">11.9</span> On your own</h2>
+<div id="on-your-own-3" class="section level2 unnumbered">
+<h2>On your own</h2>
 <!-- Page deletion START
 -   Using the following function (which was downloaded with the data set), 
     plot all intervals. What proportion of your confidence intervals include 

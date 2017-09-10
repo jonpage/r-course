@@ -2,7 +2,7 @@
 
 > The source for this topic is the Open Intro labs https://www.openintro.org/stat/labs.php
 
-## Sampling from Ames, Iowa
+## Sampling from Ames, Iowa {-}
 
 If you have access to data on an entire population, say the size of every 
 house in Ames, Iowa, it's straight forward to answer questions like, "How big 
@@ -13,7 +13,7 @@ typical size if you only know the sizes of several dozen houses? This sort of
 situation requires that you use your sample to make inference on what your 
 population looks like.
 
-## The data
+## The data {-}
 
 In the previous lab, ``Sampling Distributions'', we looked at the population data
 of houses from Ames, Iowa. Let's start by loading that data set.
@@ -45,7 +45,7 @@ samp
 2.  Would you expect another student's distribution to be identical to yours? 
 Would you expect it to be similar? Why or why not?
 
-## Confidence intervals
+## Confidence intervals {-}
 
 One of the most common ways to describe the typical or central value of a 
 distribution is to use the mean. In this case we can calculate the mean of the 
@@ -88,7 +88,7 @@ There are a few conditions that must be met for this interval to be valid.
 distributed and have standard error $s / \sqrt{n}$. What conditions must be 
 met for this to be true?
 
-## Confidence levels
+## Confidence levels {-}
 
 4.  What does "95% confidence" mean? If you're not sure, see Section 4.2.2.
 
@@ -159,7 +159,7 @@ c(lower_vector[1], upper_vector[1])
 
 * * *
 
-## On your own
+## On your own {-}
 
 <!-- Page deletion START
 -   Using the following function (which was downloaded with the data set), 
