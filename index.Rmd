@@ -85,14 +85,14 @@ period, except for the last several weeks when you are completing your final pro
 * **R** [Intro to R and RStudio; Histograms, scatterplots, summary statistics](#intro)
     * **Data** R Sample Datasets
 * **Topic** [Data sources overview](#data-sources)
-* **Project Assignment** Indentify interesting datasets and questions
+* **Project Assignment** Indentify interesting datasets (include links to datasets) and questions
 
 ### Week 2 {-}
 
 * **R** [read_csv, dplyr basics, heatmaps, hexbins](#read-data)
     * **Data** ACS PUMS *[CSV]*
 * **Topic** [Anscombe's Quartet](#anscombe)
-* **Project Assignment** Choose question and dataset for your project
+* **Project Assignment** Choose question and dataset (with link to your source) for your project
 
 ### Week 3 {-}
 
@@ -126,7 +126,7 @@ period, except for the last several weeks when you are completing your final pro
 
 * **R** [Spatial Visualizations with geom_spoke, gganimate, and GGally::glyphs](#geom_spoke)
     * **Data** NOAA Wind *[netCDF]*
-* **Topic** 
+* **Topic** [Confidence Interval](#confidence-intervals)
 * **Project Assignment** Write a description of your planned approach
 
 ### Week 8 {-}
@@ -214,6 +214,8 @@ I will attempt to keep this list updated as I become aware of more useful links:
 [John Stasko - Information Visualization](http://www.cc.gatech.edu/~stasko/7450/)
 
 [Jenny Bryan - Data wrangling, exploration, and analysis with R](http://stat545.com/)
+
+[HarvardX Biomedical Data Science Open Online Training](https://rafalab.github.io/pages/harvardx.html)
 
 ### Books {-}
 

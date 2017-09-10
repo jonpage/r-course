@@ -175,6 +175,8 @@ seats %>%
 ```
 
 
+## Facets
+
 Let's use facets so we can combine everything we've done so far.
 
 

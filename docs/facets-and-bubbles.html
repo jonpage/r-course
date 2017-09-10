@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-08-28">
+<meta name="date" content="2017-09-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -180,7 +180,8 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#facets"><i class="fa fa-check"></i><b>3.2</b> Facets</a></li>
 <li class="chapter" data-level="3.3" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#bubbles"><i class="fa fa-check"></i><b>3.3</b> Bubbles</a></li>
 <li class="chapter" data-level="3.4" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#transparency"><i class="fa fa-check"></i><b>3.4</b> Transparency</a></li>
-<li class="chapter" data-level="3.5" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#assignment-2"><i class="fa fa-check"></i><b>3.5</b> Assignment</a></li>
+<li class="chapter" data-level="3.5" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#facets-1"><i class="fa fa-check"></i><b>3.5</b> Facets</a></li>
+<li class="chapter" data-level="3.6" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#assignment-2"><i class="fa fa-check"></i><b>3.6</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="lines.html"><a href="lines.html"><i class="fa fa-check"></i><b>4</b> Lines and Curves</a><ul>
 <li class="chapter" data-level="4.1" data-path="lines.html"><a href="lines.html#data-1"><i class="fa fa-check"></i><b>4.1</b> Data</a></li>
@@ -301,6 +302,13 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="inference.html#interlude-the-for-loop">Interlude: The <code>for</code> loop</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#sample-size-and-the-sampling-distribution"><i class="fa fa-check"></i>Sample size and the sampling distribution</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#on-your-own-2"><i class="fa fa-check"></i>On your own</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html"><i class="fa fa-check"></i>Confidence Intervals</a><ul>
+<li class="chapter" data-level="11.5" data-path="confidence-intervals.html"><a href="confidence-intervals.html#sampling-from-ames-iowa"><i class="fa fa-check"></i><b>11.5</b> Sampling from Ames, Iowa</a></li>
+<li class="chapter" data-level="11.6" data-path="confidence-intervals.html"><a href="confidence-intervals.html#the-data-2"><i class="fa fa-check"></i><b>11.6</b> The data</a></li>
+<li class="chapter" data-level="11.7" data-path="confidence-intervals.html"><a href="confidence-intervals.html#confidence-intervals"><i class="fa fa-check"></i><b>11.7</b> Confidence intervals</a></li>
+<li class="chapter" data-level="11.8" data-path="confidence-intervals.html"><a href="confidence-intervals.html#confidence-levels"><i class="fa fa-check"></i><b>11.8</b> Confidence levels</a></li>
+<li class="chapter" data-level="11.9" data-path="confidence-intervals.html"><a href="confidence-intervals.html#on-your-own-3"><i class="fa fa-check"></i><b>11.9</b> On your own</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -501,6 +509,9 @@ seats</code></pre></div>
 <span class="st">  </span><span class="kw">scale_y_log10</span>(<span class="dt">labels =</span> scales::comma) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">color =</span> region), <span class="dt">hjust =</span> <span class="st">&quot;right&quot;</span>, <span class="dt">vjust =</span> <span class="st">&quot;center&quot;</span>)</code></pre></div>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+</div>
+<div id="facets-1" class="section level2">
+<h2><span class="header-section-number">3.5</span> Facets</h2>
 <p>Let’s use facets so we can combine everything we’ve done so far.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seats %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(seats2016, seats2017, <span class="dt">label =</span> dep_city, <span class="dt">alpha =</span> proportion_of_region)) +
@@ -513,7 +524,7 @@ seats</code></pre></div>
 <p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 </div>
 <div id="assignment-2" class="section level2">
-<h2><span class="header-section-number">3.5</span> Assignment</h2>
+<h2><span class="header-section-number">3.6</span> Assignment</h2>
 <p>Create a bubble plot highlighting the change in year-on-year growth rates for different quarters. Plot <code>seatschangeQ3</code> on the x axis and <code>seatschangeQ4</code> on the y axis. Use <code>seats2017</code> to determine the size of each bubble. Facet by region.</p>
 
 </div>
