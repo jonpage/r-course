@@ -24,8 +24,15 @@ other area, sex, and type of earnings, 2014"
 
 Save that file as 'ssa_earnings.xlsx' in the `data` folder
 
+```{r, eval=FALSE}
+library(tidyverse)
+```
+
+```{r, echo=FALSE}
+select <- dplyr::select
+```
+
 ```{r}
-library(readxl)
 ssa <- read_xlsx("data/ssa_earnings.xlsx", range = "A7:J159", 
                  col_names = c("state", "gender", "other", "other2", "number.total", "number.wage", "number.self", 
                                "earnings.total", "earnings.wage", "earnings.self"))
@@ -41,8 +48,6 @@ with both wage and salary employment will be counted in both groups, but only
 once in the total. It is important to be aware of this double counting.
 
 ```{r}
-library(tidyr)
-library(dplyr)
 ssa_long <- ssa %>%
   fill(state) %>%
   filter(!is.na(gender)) %>%
@@ -54,7 +59,6 @@ ssa_long <- ssa %>%
 ## Boxplots
 
 ```{r}
-library(ggplot2)
 ssa_long %>%
   filter(earnings_type != "total") %>%
   ggplot(aes(gender, per_capita)) +

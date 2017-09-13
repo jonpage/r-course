@@ -19,8 +19,11 @@ and (2) provide column names if the column names are not neatly contained in a s
 also want to set the `range` if there is metadata at the end of the table you are importing. `range`
 overrides any `skip` setting, so we wont have to specify the number of rows to skip.
 
+```{r, eval=FALSE}
+library(tidyverse)
+```
+
 ```{r}
-library(readxl)
 seats <- read_excel("data/2017 Air Seat Forecast rev 0617.xls", col_names = c(
   "dep_city", 
   "seats2017Q1", "seats2017Q2", "seats2017Q3", "seats2017Q4", "seats2017", 
@@ -32,7 +35,6 @@ seats
 
 Let's add a region identifier
 ```{r}
-library(dplyr)
 us_west_range <- 10:23
 us_east_range <- 26:33
 japan_range <- 40:45
@@ -60,7 +62,6 @@ seats
 Let's do a simple plot comparing 2017 seats outlook to the 2016 seats outlook.
 
 ```{r}
-library(ggplot2)
 seats %>%
   ggplot(aes(seats2016, seats2017)) +
   geom_point()

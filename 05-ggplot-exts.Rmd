@@ -27,8 +27,16 @@ The file `ACS_15_5YR_B07011.txt` tells us how to interpret codes within our data
 are in the upper or lower open-ended interval. In our dataset we don't have any medians in the upper open-ended interval, but we do have entries in the
 lower open-ended interval.
 
-```{r, message=FALSE}
-library(readr)
+```{r, eval=FALSE}
+library(tidyverse)
+```
+
+```{r, echo=FALSE}
+select <- dplyr::select
+```
+
+
+```{r exts-setup}
 acs <- read_csv("data/ACS_15_5YR_B07011_with_ann.csv", col_types = strrep("c", 15), na = c("-", "(X)"))
 meta <- read_csv("data/ACS_15_5YR_B07011_metadata.csv")
 meta
@@ -37,7 +45,6 @@ meta
 
 Let's keep only the variables we care about, using more informative variable names.
 ```{r}
-library(dplyr)
 acs_mobility <- acs %>%
   transmute(
     geo = `GEO.display-label`,
@@ -98,7 +105,6 @@ acs_mobility
 
 Let's rearrange the data into `tidy` format (one observation per row).
 ```{r}
-library(tidyr)
 tidy_acs <- acs_mobility %>%
   gather(location_last_year, median_income, -geo, factor_key = TRUE)
 tidy_acs
@@ -124,10 +130,9 @@ install.packages("ggjoy")
 `ggjoy` gives us the ability to stack kernel density plots.
 
 ```{r}
-library(ggjoy)
 ggplot(tidy_acs, aes(x = median_income, y = location_last_year, group(location_last_year))) +
-  geom_joy() +
-  theme_joy()
+  ggjoy::geom_joy() +
+  ggjoy::theme_joy()
 ```
 
 This plot shows us that, on average, the distance moved in the past year is inversely related to median income.
@@ -147,10 +152,9 @@ ggplot is the scatterplot matrix. While base R provides `splom()` in the `lattic
 ggplot2.
 
 ```{r}
-library(GGally)
 acs_mobility %>%
   as.data.frame() %>%
-  ggscatmat(columns = 2:ncol(.), alpha = 0.1)
+  GGally::ggscatmat(columns = 2:ncol(.), alpha = 0.1)
 ```
 
 ## Assignment

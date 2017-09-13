@@ -14,13 +14,17 @@ datasets (https://www.ncdc.noaa.gov/societal-impacts/wind/).
 Download the files for both the u-component and the v-component of the wind data. To open these files in R, we'll need
 to install the ncdf4 package, which provides an interface to Unidata's netCDF data file format:
 
-```
+```{r, eval=FALSE}
 install.packages(c("ncdf4", "ncdf4.helpers", "PCICt"))
+```
+
+```{r, eval=FALSE}
+library(tidyverse)
 ```
 
 Let's load up the u-component file first:
 
-```{r}
+```{r spoke-data}
 library(ncdf4)
 
 uwnd_nc <- nc_open("data/uwnd.sig995.2017.nc")
@@ -28,13 +32,10 @@ uwnd_nc
 ```
 
 Let's store the uwnd observations in the netCDF file for the u-component:
-```{r}
+```{r spoke-clean}
 ## packages for getting nice time variables from the netCDF file
 library(ncdf4.helpers)
 library(PCICt)
-## general data munging packages
-library(dplyr)
-library(tibble)
 
 uwnd <- ncvar_get(uwnd_nc, "uwnd")
 uwnd_time <- nc.get.time.series(uwnd_nc, v = "uwnd", time.dim.name = "time")
@@ -47,14 +48,13 @@ uwnd_df <- uwnd %>%
   rename(a = Var1, b = Var2, c = Var3) %>%
   cbind.data.frame(expand.grid(uwnd_lon, uwnd_lat, uwnd_time)) %>%
   rename(lon = Var1, lat = Var2, time = Var3) %>%
-  select(lon, lat, time, uwnd) %>%
-  as.tibble()
-uwnd_df
+  select(lon, lat, time, uwnd)
+uwnd_df %>% as.tibble()
 ```
 
 Now we need to do the same for the v-component of the wind vectors. Since we know the lat, lon, and time dimensions are repeated, 
 we can join directly to the previous data.frame:
-```{r}
+```{r spoke-join}
 vwnd_nc <- nc_open("data/vwnd.sig995.2017.nc")
 vwnd <- ncvar_get(vwnd_nc, "vwnd")
 vwnd_time <- nc.get.time.series(vwnd_nc, v = "vwnd", time.dim.name = "time")
@@ -66,9 +66,8 @@ wind <- vwnd %>%
   as.data.frame.table(responseName = "vwnd", stringsAsFactors = FALSE) %>%
   cbind.data.frame(uwnd_df) %>%
   rename(lon2 = Var1, lat2 = Var2, time2 = Var3) %>%
-  select(lon, lat, time, vwnd, uwnd) %>%
-  as.tibble()
-wind
+  select(lon, lat, time, vwnd, uwnd) 
+wind %>% as.tibble()
 ```
 
 Otherwise, we would need to merge these data.frames to get `uwnd` and `vwnd` together with the following, which takes long time to run:
@@ -81,7 +80,7 @@ wind <- merge(uwnd_df, vwnd_df)
 
 To represent these wind vectors we'll use the `geom_spoke()`. We'll start just plotting wind
 patterns for January 1, 2017:
-```{r}
+```{r spoke-plot}
 library(ggplot2)
 wind <- wind %>%
   mutate(angle = atan2(vwnd, uwnd), radius = sqrt(uwnd^2 + vwnd^2), time = as.POSIXct(time))
@@ -103,7 +102,7 @@ Map data will help to provide some context to this wind figure. We'll use `geom_
 plot the world centered on the Pacific Ocean (`world2`) using the `map_data()` function.
 
 
-```{r}
+```{r spoke-map}
 world <- map_data("world2")
 wind %>%
   filter(time == as.POSIXct("2017-01-01", tz = "GMT")) %>%
@@ -128,7 +127,7 @@ You can install `gganimate` with `devtools`:
 devtools::install_github("dgrtwo/gganimate")
 ```
 
-```{r wind-animation, fig.show="animate", interval=0.1, cache=TRUE}
+```
 library(gganimate)
 f <- wind %>%
   ggplot(aes(lon, lat)) +
@@ -140,13 +139,15 @@ f <- wind %>%
 gganimate(f)
 ```
 
+![](fig/wind.mp4)
+
 ## glyphs
 
 `glyphs` provide another useful way of analyzing spatial data with a time dimesion. This shows
 a tiny line charts representing the north-south component of the wind at each longitude/latitude
 combination.
 
-```{r}
+```{r spoke-glyphs}
 library(GGally)
 wind$day <- as.numeric(julian(wind$time, as.POSIXct("2017-01-01", tz = "GMT")))
 wind$day_flip <- -wind$day
@@ -163,7 +164,7 @@ ggplot(vwnd_gly, aes(gx, gy, group = gid)) +
 
 Let's focus in on just the continental US:
 
-```{r, fig.show="hold"}
+```{r spoke-glyphs-zoom, fig.show="hold"}
 usa <- map_data("usa")
 usa_long_range <- range(usa$long)
 usa_lat_range <- range(usa$lat)

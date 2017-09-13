@@ -22,7 +22,10 @@ The specific file we are working with is the person record, so not every variabl
 To read in the downloaded file, we'll use the `readr` package, which you can install by installing `tidyverse`.
 
 ```{r}
-library(readr) # also in library(tidyverse)
+library(tidyverse)
+```
+
+```{r}
 pop_hi <- read_csv("data/csv_phi.zip")
 pop_hi
 ```
@@ -155,7 +158,6 @@ Note: Use ADJINC to adjust PINCP to constant dollars.
 
 Let's focus on employed civilians (ESR either 1 or 2) working full time (WKHP > 32) for close to the entire year (WKW either 1 or 2).
 ```{r}
-library(dplyr) # also in library(tidyverse)
 pop_hi <- pop_hi %>%
   filter(
     ESR %in% c(1, 2),
@@ -217,7 +219,6 @@ pop_hi <- pop_hi %>%
 See the [ggplot2 documentation](ggplot2.tidyverse.org/reference/) for details and inspiration.
 
 ```{r}
-library(ggplot2) # also in library(tidyverse)
 ggplot(pop_hi, aes(age, wages)) +
   geom_point()
 ```
