@@ -19,8 +19,9 @@ and (2) provide column names if the column names are not neatly contained in a s
 also want to set the `range` if there is metadata at the end of the table you are importing. `range`
 overrides any `skip` setting, so we wont have to specify the number of rows to skip.
 
-```{r, eval=FALSE}
+```{r}
 library(tidyverse)
+library(readxl)
 ```
 
 ```{r}

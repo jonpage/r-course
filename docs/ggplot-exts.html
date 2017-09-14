@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-09-10">
+<meta name="date" content="2017-09-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -352,8 +352,8 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <li>ACS_15_5YR_B07011_metadata.csv</li>
 </ul>
 <p>The file <code>ACS_15_5YR_B07011.txt</code> tells us how to interpret codes within our data. It is possible for median values to be followed by a <code>+</code> or <code>-</code> if they are in the upper or lower open-ended interval. In our dataset we don’t have any medians in the upper open-ended interval, but we do have entries in the lower open-ended interval.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
-acs &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/ACS_15_5YR_B07011_with_ann.csv&quot;</span>, <span class="dt">col_types =</span> <span class="kw">strrep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">15</span>), <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>, <span class="st">&quot;(X)&quot;</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">acs &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/ACS_15_5YR_B07011_with_ann.csv&quot;</span>, <span class="dt">col_types =</span> <span class="kw">strrep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">15</span>), <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>, <span class="st">&quot;(X)&quot;</span>))
 meta &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/ACS_15_5YR_B07011_metadata.csv&quot;</span>)
 meta</code></pre></div>
 <pre><code>## # A tibble: 14 x 2
@@ -375,8 +375,7 @@ meta</code></pre></div>
 ## 14         HD02_VD07
 ## # ... with 1 more variables: Id &lt;chr&gt;</code></pre>
 <p>Let’s keep only the variables we care about, using more informative variable names.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-acs_mobility &lt;-<span class="st"> </span>acs %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">acs_mobility &lt;-<span class="st"> </span>acs %&gt;%
 <span class="st">  </span><span class="kw">transmute</span>(
     <span class="dt">geo =</span> <span class="st">`</span><span class="dt">GEO.display-label</span><span class="st">`</span>,
     <span class="dt">same_house =</span> HD01_VD03,
@@ -470,8 +469,7 @@ acs_mobility</code></pre></div>
 ## 10  Colbert County, Alabama      22419       18389      17330        20093
 ## # ... with 1,939 more rows, and 1 more variables: different_country &lt;int&gt;</code></pre>
 <p>Let’s rearrange the data into <code>tidy</code> format (one observation per row).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
-tidy_acs &lt;-<span class="st"> </span>acs_mobility %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_acs &lt;-<span class="st"> </span>acs_mobility %&gt;%
 <span class="st">  </span><span class="kw">gather</span>(location_last_year, median_income, -geo, <span class="dt">factor_key =</span> <span class="ot">TRUE</span>)
 tidy_acs</code></pre></div>
 <pre><code>## # A tibble: 9,745 x 3
@@ -500,11 +498,10 @@ tidy_acs</code></pre></div>
 <p>Make sure <code>ggjoy</code> is installed.</p>
 <pre><code>install.packages(&quot;ggjoy&quot;)</code></pre>
 <p><code>ggjoy</code> gives us the ability to stack kernel density plots.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggjoy)
-<span class="kw">ggplot</span>(tidy_acs, <span class="kw">aes</span>(<span class="dt">x =</span> median_income, <span class="dt">y =</span> location_last_year, <span class="kw">group</span>(location_last_year))) +
-<span class="st">  </span><span class="kw">geom_joy</span>() +
-<span class="st">  </span><span class="kw">theme_joy</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(tidy_acs, <span class="kw">aes</span>(<span class="dt">x =</span> median_income, <span class="dt">y =</span> location_last_year, <span class="kw">group</span>(location_last_year))) +
+<span class="st">  </span>ggjoy::<span class="kw">geom_joy</span>() +
+<span class="st">  </span>ggjoy::<span class="kw">theme_joy</span>()</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>This plot shows us that, on average, the distance moved in the past year is inversely related to median income.</p>
 </div>
 <div id="scatterplot-matrix-ggallyggscatmat" class="section level2">
@@ -512,11 +509,10 @@ tidy_acs</code></pre></div>
 <p>Make sure you have <code>GGally</code> installed.</p>
 <pre><code>install.packages(&quot;GGally&quot;)</code></pre>
 <p>One particular library, <a href="http://ggobi.github.io/ggally/">GGally</a>, has a great set of visualizations to extend those that come prebuilt with <code>ggplot</code>. One common visualization tool that is missing from ggplot is the scatterplot matrix. While base R provides <code>splom()</code> in the <code>lattice</code> library, <code>GGally::ggpairs</code> and <code>GGally::ggscatmat</code> pr ovide an easy tool to create a scatterplot matrix with ggplot2.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(GGally)
-acs_mobility %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">acs_mobility %&gt;%
 <span class="st">  </span><span class="kw">as.data.frame</span>() %&gt;%
-<span class="st">  </span><span class="kw">ggscatmat</span>(<span class="dt">columns =</span> <span class="dv">2</span>:<span class="kw">ncol</span>(.), <span class="dt">alpha =</span> <span class="fl">0.1</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<span class="st">  </span>GGally::<span class="kw">ggscatmat</span>(<span class="dt">columns =</span> <span class="dv">2</span>:<span class="kw">ncol</span>(.), <span class="dt">alpha =</span> <span class="fl">0.1</span>)</code></pre></div>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 </div>
 <div id="assignment-4" class="section level2">
 <h2><span class="header-section-number">5.5</span> Assignment</h2>
@@ -541,7 +537,7 @@ acs_mobility %&gt;%
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

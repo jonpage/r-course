@@ -39,12 +39,12 @@ These datasets are accessible automatically. We'll start with the Swiss Fertilit
 Here are a few ways we can summarize a dataset:
 
 `head()` shows us the first six rows of a `data.frame`.
-```{r}
+```{r into-head}
 head(swiss)
 ```
 
 `summary()` provides summary statistics for each column in a `data.frame`.
-```{r}
+```{r intro-summary}
 summary(swiss)
 ```
 
@@ -56,7 +56,7 @@ plot(swiss)
 # or
 pairs(swiss)
 ```
-```{r, echo=FALSE}
+```{r intro-plot, echo=FALSE}
 plot(swiss)
 ```
 
@@ -70,52 +70,52 @@ plot(swiss$Education, swiss$Fertility)
 # or
 plot(swiss$Fertility ~ swiss$Education)
 ```
-```{r, echo=FALSE}
+```{r intro-cross-plot, echo=FALSE}
 plot(swiss$Fertility ~ swiss$Education)
 ```
 
 Smoothed Scatterplot of two dimensions
-```{r}
+```{r intro-smooth-scatter}
 smoothScatter(swiss$Fertility ~ swiss$Examination)
 ```
 
 Scatterplot with a `loess` (locally weighted polynomial regression)
-```{r}
+```{r intro-smooth}
 scatter.smooth(swiss$Fertility ~ swiss$Agriculture)
 ```
 
 ### Distribution plots
 
 Histograms:
-```{r}
+```{r intro-hist}
 hist(swiss$Catholic)
 ```
 
 Stem-and-Leaf Plots:
-```{r}
+```{r intro-stem}
 stem(swiss$Fertility)
 ```
 
 Kernel density plot (and add a rug showing where observation occur):
-```{r}
+```{r intro-rug}
 plot(density(swiss$Fertility))
 rug(swiss$Fertility)
 ```
 
 Boxplots:
-```{r}
+```{r intro-boxplot}
 boxplot(swiss)
 ```
 
 
 #### More complicated charts
 Conditioning plots:
-```{r}
+```{r intro-coplot}
 coplot(swiss$Fertility ~ swiss$Examination | as.factor(swiss$Catholic > 50))
 ```
 
 Star plots (half-star plots here):
-```{r}
+```{r intro-star}
 stars(swiss, key.loc = c(15,1), flip.labels = FALSE, full = FALSE)
 ```
 

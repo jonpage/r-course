@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-09-10">
+<meta name="date" content="2017-09-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -528,7 +528,7 @@ data</code></pre></div>
 <p><code>geom_area</code> is useful when components that naturally add to each other:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">ggplot</span>(data, <span class="kw">aes</span>(year, hours, <span class="dt">fill=</span> activity_type)) +<span class="st"> </span><span class="kw">geom_area</span>() +<span class="st"> </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>sex) </code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
 </div>
 <div id="geom_ribbon" class="section level2">
 <h2><span class="header-section-number">8.3</span> geom_ribbon</h2>
@@ -543,7 +543,7 @@ data</code></pre></div>
     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Women 20 hrs&quot;</span>, <span class="st">&quot;10 hrs&quot;</span>, <span class="st">&quot;0 hrs&quot;</span>, <span class="st">&quot;10 hrs&quot;</span>, <span class="st">&quot;Men 20 hrs&quot;</span>),
     <span class="dt">limits =</span> <span class="kw">c</span>(-<span class="dv">20</span>, <span class="dv">20</span>)
     )</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -564,7 +564,7 @@ data</code></pre></div>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

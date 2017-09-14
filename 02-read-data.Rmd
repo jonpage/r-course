@@ -21,14 +21,12 @@ The specific file we are working with is the person record, so not every variabl
 
 To read in the downloaded file, we'll use the `readr` package, which you can install by installing `tidyverse`.
 
-```{r}
+```{r read-data}
 library(tidyverse)
-```
-
-```{r}
 pop_hi <- read_csv("data/csv_phi.zip")
 pop_hi
 ```
+
 
 ## `dplyr`
 
@@ -157,7 +155,7 @@ Note: Use ADJINC to adjust PINCP to constant dollars.
 ```
 
 Let's focus on employed civilians (ESR either 1 or 2) working full time (WKHP > 32) for close to the entire year (WKW either 1 or 2).
-```{r}
+```{r read-filter, dependson="read-data"}
 pop_hi <- pop_hi %>%
   filter(
     ESR %in% c(1, 2),
@@ -168,7 +166,7 @@ pop_hi <- pop_hi %>%
 
 If you are unsure if a column that you want to treat as numeric contains letters, you can run the following
 command to get a list of the values containing letters:
-```{r}
+```{r read-alpha, dependson="read-filter"}
 grep("[[:alpha:]]", pop_hi$WKHP, value = TRUE)
 ```
 
@@ -178,7 +176,7 @@ We can use two functions to add new columns (or change existing ones).
 2. `transmute()` adds columns and removes the previous columns
 
 This time we want to drop the columns we don't mention.
-```{r}
+```{r read-factor, dependson="read-filter"}
 pop_hi <- pop_hi %>%
   transmute(
     age = as.numeric(AGEP),
@@ -199,7 +197,7 @@ pop_hi <- pop_hi %>%
 ```
 
 Creating a custom factor variable for educational attainment: 
-```{r}
+```{r read-education, dependson="read-factor"}
 education_levels <- c("less than HS", "HS", "associates", "bachelors", "masters", "doctorate")
 
 pop_hi$education <- NA
@@ -218,7 +216,7 @@ pop_hi <- pop_hi %>%
 
 See the [ggplot2 documentation](ggplot2.tidyverse.org/reference/) for details and inspiration.
 
-```{r}
+```{r read-point, dependson="read-education"}
 ggplot(pop_hi, aes(age, wages)) +
   geom_point()
 ```
@@ -226,7 +224,7 @@ ggplot(pop_hi, aes(age, wages)) +
 Income has a skewed distribution, so it is often presented/analyzed in logs. Here's how to modify the above 
 chart to display income in logs:
 
-```{r}
+```{r read-scale, dependson="read-education"}
 pop_hi <- pop_hi %>%
   mutate(log_safe_wages = ifelse(wages == 0, 1, wages))
 pop_hi %>%
@@ -240,7 +238,7 @@ pop_hi %>%
 Heatmaps allow you to get a sense of the concetration of observations in regions where there are many
 overlapping points:
 
-```{r}
+```{r read-bin2d, dependson="read-scale"}
 ggplot(pop_hi, aes(age, log_safe_wages)) +
   geom_bin2d() +
   scale_y_log10()
@@ -256,7 +254,7 @@ You will need to install the `hexbin` package.
 install.packages("hexbin")
 ```
 
-```{r}
+```{r read-hex, dependson="read-scale"}
 pop_hi %>%
   filter(wages > 10000, wages < 300000) %>%
   ggplot(aes(age, wages)) +

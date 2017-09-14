@@ -27,7 +27,7 @@ The file `ACS_15_5YR_B07011.txt` tells us how to interpret codes within our data
 are in the upper or lower open-ended interval. In our dataset we don't have any medians in the upper open-ended interval, but we do have entries in the
 lower open-ended interval.
 
-```{r, eval=FALSE}
+```{r}
 library(tidyverse)
 ```
 

@@ -18,7 +18,7 @@ to install the ncdf4 package, which provides an interface to Unidata's netCDF da
 install.packages(c("ncdf4", "ncdf4.helpers", "PCICt"))
 ```
 
-```{r, eval=FALSE}
+```{r}
 library(tidyverse)
 ```
 
@@ -48,7 +48,7 @@ uwnd_df <- uwnd %>%
   rename(a = Var1, b = Var2, c = Var3) %>%
   cbind.data.frame(expand.grid(uwnd_lon, uwnd_lat, uwnd_time)) %>%
   rename(lon = Var1, lat = Var2, time = Var3) %>%
-  select(lon, lat, time, uwnd)
+  dplyr::select(lon, lat, time, uwnd)
 uwnd_df %>% as.tibble()
 ```
 
@@ -81,7 +81,6 @@ wind <- merge(uwnd_df, vwnd_df)
 To represent these wind vectors we'll use the `geom_spoke()`. We'll start just plotting wind
 patterns for January 1, 2017:
 ```{r spoke-plot}
-library(ggplot2)
 wind <- wind %>%
   mutate(angle = atan2(vwnd, uwnd), radius = sqrt(uwnd^2 + vwnd^2), time = as.POSIXct(time))
 wind %>%

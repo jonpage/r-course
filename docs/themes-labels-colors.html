@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-09-10">
+<meta name="date" content="2017-09-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -390,18 +390,18 @@ inventory</code></pre></div>
 <h2><span class="header-section-number">10.2</span> Starting Plot</h2>
 <p>Let’s start with a simple line plot of all these series. Let’s show what happens if we leave out the group and color aesthetic.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inventory %&gt;%<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(month, age)) +<span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
 <p>Now, let’s add in the <code>group</code> <code>aes</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inventory %&gt;%<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(month, age, <span class="dt">group =</span> RegionName)) +<span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
 <p>It’s hard to see what is happening in this tangled mess. Setting <code>alpha</code> to 0.1 will make this easier to untangle.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">basic_plot &lt;-<span class="st"> </span>inventory %&gt;%<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(month, age, <span class="dt">group =</span> RegionName)) +<span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">alpha =</span> <span class="fl">0.1</span>)
 basic_plot</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
 <p>Let’s emphasize the line for Honolulu.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">basic_plot +
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> inventory %&gt;%<span class="st"> </span><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;Honolulu&quot;</span>, RegionName)), <span class="kw">aes</span>(month, age), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
 </div>
 <div id="themes" class="section level2">
 <h2><span class="header-section-number">10.3</span> Themes</h2>
@@ -409,13 +409,13 @@ basic_plot</code></pre></div>
 <h3><span class="header-section-number">10.3.1</span> Complete Themes</h3>
 <p>There are a variety of pre-made themes that can make our figures look cleaner (<a href="http://ggplot2.tidyverse.org/reference/ggtheme.html" class="uri">http://ggplot2.tidyverse.org/reference/ggtheme.html</a>). <code>theme_bw()</code> is good if you don’t want to print all the grey from the default, but you still want the same basic structure.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">basic_plot +<span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
 <p><code>theme_minimal()</code> removes some of the visual clutter, removing the plot border and the axis ticks.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">basic_plot +<span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
 <p><code>theme_void()</code> goes the whole way and removes everything, but the data. It even removes the axis labels.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">basic_plot +<span class="st"> </span><span class="kw">theme_void</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
 </div>
 <div id="modifying-a-theme" class="section level3">
 <h3><span class="header-section-number">10.3.2</span> Modifying a theme</h3>
@@ -428,7 +428,7 @@ basic_plot</code></pre></div>
   <span class="dt">axis.ticks =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;grey&quot;</span>),
   <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">0</span>)
 )</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
 </div>
 <div id="ggthemes" class="section level3">
 <h3><span class="header-section-number">10.3.3</span> <code>ggthemes</code></h3>
@@ -444,7 +444,7 @@ inventory %&gt;%<span class="st"> </span><span class="kw">ggplot</span>(<span cl
             <span class="kw">aes</span>(month, age), 
             <span class="dt">color =</span> theme_colors[<span class="dv">2</span>]) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">theme_economist</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
 <p>Now let’s try out the theme named for <a href="http://fivethirtyeight.com/" class="uri">http://fivethirtyeight.com/</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">theme_colors &lt;-<span class="st"> </span><span class="kw">fivethirtyeight_pal</span>()(<span class="dv">2</span>)
 five38 &lt;-<span class="st"> </span>inventory %&gt;%<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(month, age, <span class="dt">group =</span> RegionName)) +<span class="st"> </span>
@@ -454,7 +454,7 @@ five38 &lt;-<span class="st"> </span>inventory %&gt;%<span class="st"> </span><s
             <span class="dt">color =</span> theme_colors[<span class="dv">2</span>]) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">theme_fivethirtyeight</span>()
 five38</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
 </div>
 </div>
 <div id="labels" class="section level2">
@@ -468,7 +468,7 @@ five38</code></pre></div>
 <span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">date_breaks =</span> <span class="st">&quot;1 year&quot;</span>, <span class="dt">date_labels =</span> <span class="st">&quot;%Y&quot;</span>) +
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid.major.y =</span> <span class="kw">element_blank</span>())
 five38_with_title</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
 <p>Since we used our title wisely we don’t need to add a y-axis title. The x-axis is time and this is fairly obvious, so we can also leave off the x-axis title. What we should do is label the highlighted series.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">last_hnl &lt;-<span class="st"> </span>inventory %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;Honolulu&quot;</span>, RegionName)) %&gt;%
@@ -477,7 +477,7 @@ gg &lt;-<span class="st"> </span>five38_with_title +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> last_hnl, <span class="dt">label =</span> last_hnl$RegionName,
             <span class="dt">hjust =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">nudge_x =</span> <span class="dv">70</span>)
 gg</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
 <p>To adjust the margins, we have to drill deeper than ggplot. I found the following approach through searching for <code>ggplot clipping</code> (<a href="https://rud.is/b/2015/08/27/coloring-and-drawing-outside-the-lines-in-ggplot/" class="uri">https://rud.is/b/2015/08/27/coloring-and-drawing-outside-the-lines-in-ggplot/</a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gridExtra)
 <span class="kw">library</span>(grid)
@@ -487,7 +487,7 @@ gt &lt;-<span class="st"> </span><span class="kw">ggplot_gtable</span>(gb)
 gt$layout$clip[gt$layout$name==<span class="st">&quot;panel&quot;</span>] &lt;-<span class="st"> &quot;off&quot;</span>
 
 <span class="kw">grid.draw</span>(gt)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
 </div>
 </div>
 <div id="colors" class="section level2">
@@ -498,12 +498,12 @@ gt$layout$clip[gt$layout$name==<span class="st">&quot;panel&quot;</span>] &lt;-<
 <p>An easy way to see the colors within a given color scheme is by using the <code>show_col()</code> function in the <code>scales</code> package. We can use it to show the colors in the <code>theme_colors</code> variable we created above.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scales)
 <span class="kw">show_col</span>(theme_colors)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
 <p>The combinations of letters and numbers in the color squares is the hex representation of the red, green, and blue color values that make up the given color (e.g., <code>#008FD5</code>). Adobe has a fun color chooser where you can paste these hex values and create your own color scheme:</p>
 <p><a href="https://color.adobe.com/" class="uri">https://color.adobe.com/</a></p>
 <p>There are not many colors in the <code>fivethirtyeight_pal()</code> color palette (only 3). The <code>economist_pal()</code> palette has 11, which is a bit better for categorical data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">show_col</span>(<span class="kw">economist_pal</span>()(<span class="dv">11</span>))</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
 </div>
 <div id="color-brewer" class="section level3">
 <h3><span class="header-section-number">10.5.2</span> Color Brewer</h3>
@@ -546,7 +546,7 @@ gt$layout$clip[gt$layout$name==<span class="st">&quot;panel&quot;</span>] &lt;-<
 ## YlOrBr           9      seq       TRUE
 ## YlOrRd           9      seq       TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">show_col</span>(<span class="kw">brewer_pal</span>(<span class="dt">palette =</span> <span class="st">&quot;Accent&quot;</span>)(<span class="dv">8</span>))</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
 <p>Here’s how to take this color palette and apply it to our previous chart:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">theme_colors &lt;-<span class="st"> </span><span class="kw">brewer_pal</span>(<span class="dt">palette =</span> <span class="st">&quot;Accent&quot;</span>)(<span class="dv">8</span>)
 inventory %&gt;%<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(month, age, <span class="dt">group =</span> RegionName)) +<span class="st"> </span>
@@ -555,7 +555,7 @@ inventory %&gt;%<span class="st"> </span><span class="kw">ggplot</span>(<span cl
             <span class="kw">aes</span>(month, age), 
             <span class="dt">color =</span> theme_colors[<span class="dv">2</span>]) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">theme_fivethirtyeight</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
 </div>
 </div>
 <div id="assignment-7" class="section level2">
@@ -581,7 +581,7 @@ inventory %&gt;%<span class="st"> </span><span class="kw">ggplot</span>(<span cl
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

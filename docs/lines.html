@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-09-10">
+<meta name="date" content="2017-09-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -335,14 +335,12 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <div id="data-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Data</h2>
 <p>We will use data on the number of active duty personnel in Hawaii. The first dataset is an Excel file pulled from the State of Hawaii Department of Business, Economic Development, and Tourism (DBEDT) <a href="http://dbedt.hawaii.gov/economic/databook/2015-individual/">2015 State of Hawaii Data Book</a>. See the line listed as, “10.03 - Active Duty Personnel, by Service: 1953 to 2015.” The data is originally from the <a href="www.dmdc.osd.mil/appj/dwp/stats_reports.jsp">US Defense Manpower Data Center</a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
-if(<span class="st">&quot;package:dplyr&quot;</span> %in%<span class="st"> </span><span class="kw">search</span>()) <span class="kw">detach</span>(<span class="st">&quot;package:dplyr&quot;</span>, <span class="dt">unload=</span><span class="ot">TRUE</span>)
-<span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(magrittr)
-mil_personnel &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data/100315.xls&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;A5:L38&quot;</span>, <span class="dt">col_types =</span> <span class="st">&quot;numeric&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(readxl)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mil_personnel &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data/100315.xls&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;A5:L38&quot;</span>, <span class="dt">col_types =</span> <span class="st">&quot;numeric&quot;</span>)
 mil_personnel &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(
-  mil_personnel %&gt;%<span class="st"> </span><span class="kw">select</span>(<span class="dv">1</span>:<span class="dv">6</span>) %&gt;%<span class="st"> </span><span class="kw">set_colnames</span>(<span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Total&quot;</span>, <span class="st">&quot;Army&quot;</span>, <span class="st">&quot;Navy&quot;</span>, <span class="st">&quot;Marine Corps&quot;</span>, <span class="st">&quot;Air Force&quot;</span>)),
-  mil_personnel %&gt;%<span class="st"> </span><span class="kw">select</span>(<span class="dv">7</span>:<span class="dv">12</span>) %&gt;%<span class="st"> </span><span class="kw">set_colnames</span>(<span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Total&quot;</span>, <span class="st">&quot;Army&quot;</span>, <span class="st">&quot;Navy&quot;</span>, <span class="st">&quot;Marine Corps&quot;</span>, <span class="st">&quot;Air Force&quot;</span>))
+  mil_personnel %&gt;%<span class="st"> </span><span class="kw">select</span>(<span class="dv">1</span>:<span class="dv">6</span>) %&gt;%<span class="st"> </span>magrittr::<span class="kw">set_colnames</span>(<span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Total&quot;</span>, <span class="st">&quot;Army&quot;</span>, <span class="st">&quot;Navy&quot;</span>, <span class="st">&quot;Marine Corps&quot;</span>, <span class="st">&quot;Air Force&quot;</span>)),
+  mil_personnel %&gt;%<span class="st"> </span><span class="kw">select</span>(<span class="dv">7</span>:<span class="dv">12</span>) %&gt;%<span class="st"> </span>magrittr::<span class="kw">set_colnames</span>(<span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Total&quot;</span>, <span class="st">&quot;Army&quot;</span>, <span class="st">&quot;Navy&quot;</span>, <span class="st">&quot;Marine Corps&quot;</span>, <span class="st">&quot;Air Force&quot;</span>))
 )
 mil_personnel</code></pre></div>
 <pre><code>## # A tibble: 66 x 6
@@ -381,24 +379,23 @@ mil_personnel</code></pre></div>
 <div id="geom_smooth" class="section level2">
 <h2><span class="header-section-number">4.2</span> geom_smooth</h2>
 <p><code>geom_smooth</code> allows you to have smooth lines appear in your chart. With no argument, it will choose <code>loess</code> for series shorter than 1,000 observations. It shows a shaded confidence interval.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-mil_personnel %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mil_personnel %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, Total)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">geom_smooth</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>Here’s what it looks like if we fit a linear model instead:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mil_personnel %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, Total)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>We can also just have a line chart that connects the points:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mil_personnel %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, Total)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 </div>
 <div id="geom_abline" class="section level2">
 <h2><span class="header-section-number">4.3</span> geom_abline</h2>
@@ -413,7 +410,7 @@ test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">xlim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +<span class="st"> </span><span class="kw">ylim</span>(-<span class="dv">2</span>, <span class="dv">6</span>) +
 <span class="st">  </span><span class="kw">coord_fixed</span>() +
 <span class="st">  </span><span class="kw">geom_abline</span>() </code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(x, y)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
@@ -421,7 +418,7 @@ test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">coord_fixed</span>() +
 <span class="st">  </span><span class="kw">geom_abline</span>() +
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">2.5</span>, <span class="dt">slope =</span> <span class="fl">1.2</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) </code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 </div>
 <div id="geom_vline" class="section level2">
 <h2><span class="header-section-number">4.4</span> geom_vline</h2>
@@ -434,7 +431,7 @@ test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>() +
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">2.5</span>, <span class="dt">slope =</span> <span class="fl">1.2</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) +
 <span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 </div>
 <div id="hline" class="section level2">
 <h2><span class="header-section-number">4.5</span> hline</h2>
@@ -448,11 +445,29 @@ test_data %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">2.5</span>, <span class="dt">slope =</span> <span class="fl">1.2</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) +
 <span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) +
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;#4FCC53&quot;</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/lines-vline-1.png" width="672" /></p>
 </div>
 <div id="assignment-3" class="section level2">
 <h2><span class="header-section-number">4.6</span> Assignment</h2>
 <p>Create a visualization of the military data by branch (i.e., <code>Army</code>, <code>Navy</code>, etc.) using <code>facet_wrap()</code>. Plot both the points and a smooth line.</p>
+<p>The data we have been working with is not yet <a href="http://tidyr.tidyverse.org/">tidy</a>. Each row contains multiple observations (observations for Army, Navy, etc.). To make this tidy we should have one column with the personnel counts and one column that indicates the branch.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_mil &lt;-<span class="st"> </span>mil_personnel %&gt;%
+<span class="st">  </span><span class="kw">gather</span>(branch, personnel, -Year)
+tidy_mil</code></pre></div>
+<pre><code>## # A tibble: 315 x 3
+##     Year branch personnel
+##    &lt;dbl&gt;  &lt;chr&gt;     &lt;dbl&gt;
+##  1  1953  Total     24785
+##  2  1954  Total     23654
+##  3  1955  Total     40258
+##  4  1956  Total     37470
+##  5  1957  Total     40683
+##  6  1958  Total     35076
+##  7  1959  Total     36310
+##  8  1960  Total     35412
+##  9  1961  Total     39474
+## 10  1962  Total     41657
+## # ... with 305 more rows</code></pre>
 
 </div>
 </div>
@@ -473,7 +488,7 @@ test_data %&gt;%<span class="st"> </span>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

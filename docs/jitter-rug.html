@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-09-10">
+<meta name="date" content="2017-09-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -564,32 +564,32 @@ ta</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 base_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(ta, <span class="kw">aes</span>(life_satisfaction, annual_earnings)) +<span class="st"> </span><span class="kw">scale_y_log10</span>()
 base_plot +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
 </div>
 </div>
 <div id="jitter" class="section level2">
 <h2><span class="header-section-number">9.2</span> Jitter</h2>
 <p>When many points overlap, using <code>geom_jitter</code> adjusts the position of each point to minimize overlap.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_plot +<span class="st"> </span><span class="kw">geom_jitter</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
 <p>See how this compares to using <code>alpha</code> (i.e., opacity) to see how many points are in a given position:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_plot +<span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.1</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
 </div>
 <div id="rug" class="section level2">
 <h2><span class="header-section-number">9.3</span> Rug</h2>
 <p>Often when there are many points, we want to plot a summary that presents the general shape of the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_plot +<span class="st"> </span><span class="kw">geom_violin</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
 <p>The <code>geom_rug</code> gives us a rug plot that we can use to highlight where actual observations occured when we create these summary plots.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_plot +<span class="st"> </span><span class="kw">geom_violin</span>() +<span class="st"> </span><span class="kw">geom_rug</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
 <p>Both <code>alpha</code> and <code>jitter</code> can be applied to the rug as well.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_plot +<span class="st"> </span><span class="kw">geom_violin</span>() +<span class="st"> </span><span class="kw">geom_rug</span>(<span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">position =</span> <span class="st">&quot;jitter&quot;</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
 <p>Now we can see that rug did in fact create a line on the x-axis for each observation. We can use the <code>sides</code> property to only display the rug on the left and right (<code>&quot;lr&quot;</code>)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_plot +<span class="st"> </span><span class="kw">geom_violin</span>() +<span class="st"> </span><span class="kw">geom_rug</span>(<span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">position =</span> <span class="st">&quot;jitter&quot;</span>, <span class="dt">sides =</span> <span class="st">&quot;lr&quot;</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
 </div>
 <div id="aesthetics" class="section level2">
 <h2><span class="header-section-number">9.4</span> Aesthetics</h2>
@@ -601,17 +601,17 @@ base_plot +<span class="st"> </span><span class="kw">geom_point</span>()</code><
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ta, <span class="kw">aes</span>(life_satisfaction, annual_earnings, <span class="dt">color =</span> children)) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_y_log10</span>() +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_jitter</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
 <p>If the <code>children</code> variable was a factor, more distinct colors would have been chosen. We can see this by coloring by <code>employment_status</code> instead.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ta, <span class="kw">aes</span>(life_satisfaction, annual_earnings, <span class="dt">color =</span> employment_status)) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_y_log10</span>() +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_jitter</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
 <p>You can emphasize a variable by encoding in more than one visual aesthetic. Let’s map <code>children</code> to <code>color</code>, <code>size</code>, and <code>alpha</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ta, <span class="kw">aes</span>(life_satisfaction, annual_earnings, <span class="dt">color =</span> children, <span class="dt">size =</span> children, <span class="dt">alpha =</span> children)) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_y_log10</span>(<span class="st">&quot;Annual Earnings&quot;</span>, <span class="dt">labels =</span> scales::dollar) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_jitter</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
 </div>
 <div id="assignment-6" class="section level2">
 <h2><span class="header-section-number">9.5</span> Assignment</h2>
@@ -636,7 +636,7 @@ base_plot +<span class="st"> </span><span class="kw">geom_point</span>()</code><
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

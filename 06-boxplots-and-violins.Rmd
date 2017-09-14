@@ -24,8 +24,9 @@ other area, sex, and type of earnings, 2014"
 
 Save that file as 'ssa_earnings.xlsx' in the `data` folder
 
-```{r, eval=FALSE}
+```{r}
 library(tidyverse)
+library(readxl)
 ```
 
 ```{r, echo=FALSE}

@@ -19,7 +19,7 @@ In the previous lab, ``Sampling Distributions'', we looked at the population dat
 of houses from Ames, Iowa. Let's start by loading that data set.
 
 ```{r ci-load-data}
-load("ames.RData")
+load("data/ames.RData")
 ```
 
 In this lab we'll start with a simple random sample of size 60 from the 
