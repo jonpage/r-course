@@ -140,13 +140,13 @@ period, except for the last several weeks when you are completing your final pro
 
 * **R** [jitter, rug, aesthetics](#jitter-rug)
     * **Data** PSID *[SPS, TXT (Fixed-Width)]*
-* **Project Assignment** Present project proposal (<2 Minutes)
+* **Topic** Present project proposal (<2 Minutes)
 
 ### Week 10 {-}
 
 * **R** [Themes, Labels, and Colors](#themes-labels-colors)
     * **Data** Zillow Real Estate Data *[CSV]*
-* **Topic** 
+* **Topic** [Inference for Numerical Data](#inference-numerical)
 * **Project Assignment** Work on final project
 
 ### Week 11 {-}
@@ -154,28 +154,28 @@ period, except for the last several weeks when you are completing your final pro
 * **R** [polar coordinates, ggradar extension](#polar-ggradar)
     * **Data** BLS Current Population Survey (CPS)
 <!-- should use monthly data for multiple years -->
-* **Topic** 
+* **Topic** [Inference for Categorical Data](#inference-categorical)
 * **Project Assignment** Work on final project (cont.)
 
 ### Week 12 {-}
 
 * **R** word/text analysis
 <!-- twitter api - JSON -->
-* **Topic** 
+* **Topic** [Linear Regression](#linear-regression)
 * **Project Assignment** Work on final project (cont.)
 
 ### Week 13 {-}
 
 * **R** gganimate
 <!-- -->
-* **Topic** 
+* **Topic** [Multiple Regression](#multiple-regression)
 * **Project Assignment** Work on final project (cont.)
 
 ### Week 14 {-}
 
 * **R** git and GitHub for R
-* **Topic** 
-* **Project Assignment** 
+* **Topic** [Putting your work online]()
+* **Project Assignment** Work on final project (cont.)
 
 ### Week 15 {-}
 
