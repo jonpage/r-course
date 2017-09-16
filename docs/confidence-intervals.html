@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-09-15">
+<meta name="date" content="2017-09-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -355,11 +355,11 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## [1] 1656  896 1329 2110 1629 1604</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samp &lt;-<span class="st"> </span><span class="kw">sample</span>(population, <span class="dv">60</span>)
 samp</code></pre></div>
-<pre><code>##  [1]  882 2787 2152 1780 2462 1672 1378 1096  988 1651 1320 1358 1411 1988
-## [15] 1004  924 1200 1437 2728 1177 1092 2332 1728 1520 1008 1797  950 2331
-## [29] 1092 1138  894 1980 1820 1151 1826 1995 1440 2069 2439 1433 1720 1080
-## [43]  900  930 1876  932 1851 2794 1113 1595 1100 2690  796 1306 1969 1661
-## [57] 1142 1520 1721 1141</code></pre>
+<pre><code>##  [1] 1752 1050 2018 1436  864 1050 1131 1306 1509  498 1588 1850 1641 1344
+## [15] 1232 1142  833 1632 1524 2127 1733  612  841 1022 2153 1588 1787 1548
+## [29] 2624 1323 2452 1636 2748 1671 1820 1368 2376 1268 1456  856  892 2411
+## [43] 1935 1488 1086 1797 1475 1204 1759 1488 1133 1013 1158  951  848 1641
+## [57] 1884 1142  907 1626</code></pre>
 <ol style="list-style-type: decimal">
 <li><p>Describe the distribution of your sample. What would you say is the “typical” size within your sample? Also state precisely what you interpreted “typical” to mean.</p></li>
 <li><p>Would you expect another student’s distribution to be identical to yours? Would you expect it to be similar? Why or why not?</p></li>
@@ -370,16 +370,16 @@ samp</code></pre></div>
 <p>One of the most common ways to describe the typical or central value of a distribution is to use the mean. In this case we can calculate the mean of the sample using,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_mean &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)
 sample_mean</code></pre></div>
-<pre><code>## [1] 1554.45</code></pre>
+<pre><code>## [1] 1470.783</code></pre>
 <p>Return for a moment to the question that first motivated this lab: based on this sample, what can we infer about the population? Based only on this single sample, the best estimate of the average living area of houses sold in Ames would be the sample mean, usually denoted as <span class="math inline">\(\bar{x}\)</span> (here we’re calling it <code>sample_mean</code>). That serves as a good <em>point estimate</em> but it would be useful to also communicate how uncertain we are of that estimate. This can be captured by using a <em>confidence interval</em>.</p>
 <p>We can calculate a 95% confidence interval for a sample mean by adding and subtracting 1.96 standard errors to the point estimate (See Section 4.2.3 if you are unfamiliar with this formula).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">se &lt;-<span class="st"> </span><span class="kw">sd</span>(samp) /<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">60</span>)
 se</code></pre></div>
-<pre><code>## [1] 69.85651</code></pre>
+<pre><code>## [1] 63.72012</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lower &lt;-<span class="st"> </span>sample_mean -<span class="st"> </span><span class="fl">1.96</span> *<span class="st"> </span>se
 upper &lt;-<span class="st"> </span>sample_mean +<span class="st"> </span><span class="fl">1.96</span> *<span class="st"> </span>se
 <span class="kw">c</span>(lower, upper)</code></pre></div>
-<pre><code>## [1] 1417.531 1691.369</code></pre>
+<pre><code>## [1] 1345.892 1595.675</code></pre>
 <p>This is an important inference that we’ve just made: even though we don’t know what the full population looks like, we’re 95% confident that the true average size of houses in Ames lies between the values <em>lower</em> and <em>upper</em>. There are a few conditions that must be met for this interval to be valid.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>For the confidence interval to be valid, the sample mean must be normally distributed and have standard error <span class="math inline">\(s / \sqrt{n}\)</span>. What conditions must be met for this to be true?</li>
@@ -420,7 +420,7 @@ n &lt;-<span class="st"> </span><span class="dv">60</span></code></pre></div>
 upper_vector &lt;-<span class="st"> </span>samp_mean +<span class="st"> </span><span class="fl">1.96</span> *<span class="st"> </span>samp_sd /<span class="st"> </span><span class="kw">sqrt</span>(n)</code></pre></div>
 <p>Lower bounds of these 50 confidence intervals are stored in <code>lower_vector</code>, and the upper bounds are in <code>upper_vector</code>. Let’s view the first interval.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(lower_vector[<span class="dv">1</span>], upper_vector[<span class="dv">1</span>])</code></pre></div>
-<pre><code>## [1] 1353.761 1623.472</code></pre>
+<pre><code>## [1] 1408.176 1728.557</code></pre>
 <hr />
 </div>
 <div id="on-your-own-3" class="section level2 unnumbered">
@@ -445,7 +445,7 @@ df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class=
 <span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> sample, <span class="dt">y =</span> lower, <span class="dt">xend =</span> sample, <span class="dt">yend =</span> upper)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="kw">mean</span>(population))</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
+<p><img src="27-confidence-intervals_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <!-- Page Additions END -->
 <ul>
 <li><p>Pick a confidence level of your choosing, provided it is not 95%. What is the appropriate critical value?</p></li>
@@ -474,7 +474,7 @@ df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class=
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
+require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

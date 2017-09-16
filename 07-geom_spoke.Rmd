@@ -18,10 +18,6 @@ to install the ncdf4 package, which provides an interface to Unidata's netCDF da
 install.packages(c("ncdf4", "ncdf4.helpers", "PCICt"))
 ```
 
-```{r}
-library(tidyverse)
-```
-
 Let's load up the u-component file first:
 
 ```{r spoke-data}
@@ -32,8 +28,7 @@ uwnd_nc
 ```
 
 Let's store the uwnd observations in the netCDF file for the u-component:
-```{r spoke-clean}
-## packages for getting nice time variables from the netCDF file
+```{r spoke-clean, message = TRUE, warning = TRUE, error = TRUE, dependson="spoke-data"}
 library(ncdf4.helpers)
 library(PCICt)
 
@@ -43,6 +38,7 @@ uwnd_lon <- ncvar_get(uwnd_nc, "lon")
 uwnd_lat <- ncvar_get(uwnd_nc, "lat")
 nc_close(uwnd_nc)
 
+library(tidyverse)
 uwnd_df <- uwnd %>%
   as.data.frame.table(responseName = "uwnd", stringsAsFactors = FALSE) %>%
   rename(a = Var1, b = Var2, c = Var3) %>%
@@ -54,7 +50,7 @@ uwnd_df %>% as.tibble()
 
 Now we need to do the same for the v-component of the wind vectors. Since we know the lat, lon, and time dimensions are repeated, 
 we can join directly to the previous data.frame:
-```{r spoke-join}
+```{r spoke-join, dependson="spoke-clean"}
 vwnd_nc <- nc_open("data/vwnd.sig995.2017.nc")
 vwnd <- ncvar_get(vwnd_nc, "vwnd")
 vwnd_time <- nc.get.time.series(vwnd_nc, v = "vwnd", time.dim.name = "time")
@@ -80,7 +76,7 @@ wind <- merge(uwnd_df, vwnd_df)
 
 To represent these wind vectors we'll use the `geom_spoke()`. We'll start just plotting wind
 patterns for January 1, 2017:
-```{r spoke-plot}
+```{r spoke-plot, dependson="spoke-join"}
 wind <- wind %>%
   mutate(angle = atan2(vwnd, uwnd), radius = sqrt(uwnd^2 + vwnd^2), time = as.POSIXct(time))
 wind %>%
@@ -101,7 +97,7 @@ Map data will help to provide some context to this wind figure. We'll use `geom_
 plot the world centered on the Pacific Ocean (`world2`) using the `map_data()` function.
 
 
-```{r spoke-map}
+```{r spoke-map, dependson="spoke-plot"}
 world <- map_data("world2")
 wind %>%
   filter(time == as.POSIXct("2017-01-01", tz = "GMT")) %>%
@@ -146,7 +142,7 @@ gganimate(f)
 a tiny line charts representing the north-south component of the wind at each longitude/latitude
 combination.
 
-```{r spoke-glyphs}
+```
 library(GGally)
 wind$day <- as.numeric(julian(wind$time, as.POSIXct("2017-01-01", tz = "GMT")))
 wind$day_flip <- -wind$day
@@ -161,9 +157,11 @@ ggplot(vwnd_gly, aes(gx, gy, group = gid)) +
   labs(x = "", y = "")
 ```
 
+![](fig/spoke-glyphs-1.png)
+
 Let's focus in on just the continental US:
 
-```{r spoke-glyphs-zoom, fig.show="hold"}
+```{r spoke-glyphs-zoom, fig.show="hold", dependson="spoke-map"}
 usa <- map_data("usa")
 usa_long_range <- range(usa$long)
 usa_lat_range <- range(usa$lat)

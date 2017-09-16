@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-09-15">
+<meta name="date" content="2017-09-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -562,7 +562,7 @@ pop_hi &lt;-<span class="st"> </span>pop_hi %&gt;%
 <p>See the <a href="ggplot2.tidyverse.org/reference/">ggplot2 documentation</a> for details and inspiration.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(pop_hi, <span class="kw">aes</span>(age, wages)) +
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/read-point-1.png" width="672" /></p>
+<p><img src="02-read-data_files/figure-html/read-point-1.png" width="672" /></p>
 <p>Income has a skewed distribution, so it is often presented/analyzed in logs. Here’s how to modify the above chart to display income in logs:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_hi &lt;-<span class="st"> </span>pop_hi %&gt;%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">log_safe_wages =</span> <span class="kw">ifelse</span>(wages ==<span class="st"> </span><span class="dv">0</span>, <span class="dv">1</span>, wages))
@@ -570,7 +570,7 @@ pop_hi %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(age, log_safe_wages)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">scale_y_log10</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/read-scale-1.png" width="672" /></p>
+<p><img src="02-read-data_files/figure-html/read-scale-1.png" width="672" /></p>
 </div>
 <div id="heatmaps" class="section level2">
 <h2><span class="header-section-number">2.5</span> Heatmaps</h2>
@@ -578,7 +578,7 @@ pop_hi %&gt;%
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(pop_hi, <span class="kw">aes</span>(age, log_safe_wages)) +
 <span class="st">  </span><span class="kw">geom_bin2d</span>() +
 <span class="st">  </span><span class="kw">scale_y_log10</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/read-bin2d-1.png" width="672" /></p>
+<p><img src="02-read-data_files/figure-html/read-bin2d-1.png" width="672" /></p>
 </div>
 <div id="hexbins" class="section level2">
 <h2><span class="header-section-number">2.6</span> Hexbins</h2>
@@ -590,7 +590,7 @@ pop_hi %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(age, wages)) +
 <span class="st">  </span><span class="kw">geom_hex</span>() +<span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_x_log10</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/read-hex-1.png" width="672" /></p>
+<p><img src="02-read-data_files/figure-html/read-hex-1.png" width="672" /></p>
 <p>Here we can see that inequality in wages for workers increases with age.</p>
 </div>
 <div id="other-topics-from-this-dataset" class="section level2">
@@ -621,7 +621,7 @@ pop_hi %&gt;%
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
+require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

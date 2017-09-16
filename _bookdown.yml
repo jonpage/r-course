@@ -1,6 +1,7 @@
 book_filename: "jonpage-r-course"
 before_chapter_script: "beforeScript.R"
-output_dir: "docs"
+new_session: yes
+output_dir: docs
 language:
   ui:
     chapter_name: "Lecture "

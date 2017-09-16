@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-09-15">
+<meta name="date" content="2017-09-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -381,12 +381,12 @@ ssa</code></pre></div>
 <span class="st">  </span><span class="kw">filter</span>(earnings_type !=<span class="st"> &quot;total&quot;</span>) %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita)) +
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><img src="06-boxplots-and-violins_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ssa_long %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita, <span class="dt">fill =</span> gender)) +
 <span class="st">  </span><span class="kw">geom_boxplot</span>() +
 <span class="st">  </span><span class="kw">facet_grid</span>(~<span class="st"> </span>earnings_type)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p><img src="06-boxplots-and-violins_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 <div id="violin-plots" class="section level2">
 <h2><span class="header-section-number">6.3</span> Violin Plots</h2>
@@ -395,12 +395,12 @@ ssa</code></pre></div>
 <span class="st">  </span><span class="kw">filter</span>(earnings_type !=<span class="st"> &quot;total&quot;</span>) %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita)) +
 <span class="st">  </span><span class="kw">geom_violin</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><img src="06-boxplots-and-violins_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ssa_long %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita, <span class="dt">color =</span> gender, <span class="dt">fill =</span> gender)) +
 <span class="st">  </span><span class="kw">geom_violin</span>() +
 <span class="st">  </span><span class="kw">facet_grid</span>(~<span class="st"> </span>earnings_type)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p><img src="06-boxplots-and-violins_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="dot-plots" class="section level2">
 <h2><span class="header-section-number">6.4</span> Dot Plots</h2>
@@ -409,7 +409,7 @@ ssa</code></pre></div>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(gender, per_capita, <span class="dt">color =</span> gender, <span class="dt">fill =</span> gender)) +
 <span class="st">  </span><span class="kw">geom_dotplot</span>(<span class="dt">binaxis =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">stackdir =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) +
 <span class="st">  </span><span class="kw">facet_grid</span>(~<span class="st"> </span>earnings_type)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p><img src="06-boxplots-and-violins_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 <div id="assignment-5" class="section level2">
 <h2><span class="header-section-number">6.5</span> Assignment</h2>
@@ -434,7 +434,7 @@ ssa</code></pre></div>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
+require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-09-15">
+<meta name="date" content="2017-09-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -355,7 +355,7 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 ## 10  7  7  7  8  4.82 7.26  6.42  7.91
 ## 11  5  5  5  8  5.68 4.74  5.73  6.89</code></pre>
 <p>First we’ll use <code>tidyr</code> to reshape the anscombe dataset to make it easier to work with. We want a column to identify each point, <code>id</code>, a column for the series (<code>x1</code> is the <code>x</code> value in series <code>1</code>), and columns for <code>x</code> and <code>y</code>. In the case of the <code>anscombe</code> dataset, rows group <code>x</code> and <code>y</code> vaules, but are not important across series.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
 tidy_anscombe &lt;-<span class="st"> </span>anscombe %&gt;%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) %&gt;%
 <span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> key, <span class="dt">value =</span> value, <span class="kw">everything</span>(), -id)
@@ -439,7 +439,7 @@ tidy_anscombe %&gt;%
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>series) +
 <span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
+<p><img src="22-anscombe_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 <div id="the-datasaurus-dozen" class="section level2 unnumbered">
 <h2>The Datasaurus Dozen</h2>
@@ -477,7 +477,7 @@ datasaurus %&gt;%
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>dataset, <span class="dt">ncol =</span> <span class="dv">6</span>) +
 <span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+<p><img src="22-anscombe_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -498,7 +498,7 @@ datasaurus %&gt;%
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
+require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

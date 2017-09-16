@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-09-15">
+<meta name="date" content="2017-09-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -507,7 +507,7 @@ tidy_acs</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(tidy_acs, <span class="kw">aes</span>(<span class="dt">x =</span> median_income, <span class="dt">y =</span> location_last_year, <span class="kw">group</span>(location_last_year))) +
 <span class="st">  </span>ggjoy::<span class="kw">geom_joy</span>() +
 <span class="st">  </span>ggjoy::<span class="kw">theme_joy</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="05-ggplot-exts_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>This plot shows us that, on average, the distance moved in the past year is inversely related to median income.</p>
 </div>
 <div id="scatterplot-matrix-ggallyggscatmat" class="section level2">
@@ -518,7 +518,7 @@ tidy_acs</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">acs_mobility %&gt;%
 <span class="st">  </span><span class="kw">as.data.frame</span>() %&gt;%
 <span class="st">  </span>GGally::<span class="kw">ggscatmat</span>(<span class="dt">columns =</span> <span class="dv">2</span>:<span class="kw">ncol</span>(.), <span class="dt">alpha =</span> <span class="fl">0.1</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="05-ggplot-exts_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 <div id="assignment-4" class="section level2">
 <h2><span class="header-section-number">5.5</span> Assignment</h2>
@@ -543,7 +543,7 @@ tidy_acs</code></pre></div>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
+require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

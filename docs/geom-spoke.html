@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Analysis and Visualization</title>
   <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Analysis and Visualization" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-09-15">
+<meta name="date" content="2017-09-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -343,7 +343,6 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <p>The data for this class will come from the National Oceanic and Atmospheric Administration (NOAA) U.S. Wind Climatology datasets (<a href="https://www.ncdc.noaa.gov/societal-impacts/wind/" class="uri">https://www.ncdc.noaa.gov/societal-impacts/wind/</a>).</p>
 <p>Download the files for both the u-component and the v-component of the wind data. To open these files in R, we’ll need to install the ncdf4 package, which provides an interface to Unidata’s netCDF data file format:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;ncdf4&quot;</span>, <span class="st">&quot;ncdf4.helpers&quot;</span>, <span class="st">&quot;PCICt&quot;</span>))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
 <p>Let’s load up the u-component file first:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ncdf4)
 
@@ -398,8 +397,7 @@ uwnd_nc</code></pre></div>
 ##              actual_range: 1906920
 ##         nbnds  Size:2
 ## 
-##     8 global attributes:
-##         _NCProperties: version=1|netcdflibversion=4.4.1|hdf5libversion=1.8.16
+##     7 global attributes:
 ##         Conventions: COARDS
 ##         title: mean daily NMC reanalysis (2014)
 ##         history: created 2013/12 by Hoop (netCDF2.3)
@@ -409,17 +407,26 @@ uwnd_nc</code></pre></div>
 ##         References: http://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.html
 ##         dataset_title: NCEP-NCAR Reanalysis 1</code></pre>
 <p>Let’s store the uwnd observations in the netCDF file for the u-component:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## packages for getting nice time variables from the netCDF file
-<span class="kw">library</span>(ncdf4.helpers)
-<span class="kw">library</span>(PCICt)
-
-uwnd &lt;-<span class="st"> </span><span class="kw">ncvar_get</span>(uwnd_nc, <span class="st">&quot;uwnd&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ncdf4.helpers)
+<span class="kw">library</span>(PCICt)</code></pre></div>
+<pre><code>## Loading required package: methods</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">uwnd &lt;-<span class="st"> </span><span class="kw">ncvar_get</span>(uwnd_nc, <span class="st">&quot;uwnd&quot;</span>)
 uwnd_time &lt;-<span class="st"> </span><span class="kw">nc.get.time.series</span>(uwnd_nc, <span class="dt">v =</span> <span class="st">&quot;uwnd&quot;</span>, <span class="dt">time.dim.name =</span> <span class="st">&quot;time&quot;</span>)
 uwnd_lon &lt;-<span class="st"> </span><span class="kw">ncvar_get</span>(uwnd_nc, <span class="st">&quot;lon&quot;</span>)
 uwnd_lat &lt;-<span class="st"> </span><span class="kw">ncvar_get</span>(uwnd_nc, <span class="st">&quot;lat&quot;</span>)
 <span class="kw">nc_close</span>(uwnd_nc)
 
-uwnd_df &lt;-<span class="st"> </span>uwnd %&gt;%
+<span class="kw">library</span>(tidyverse)</code></pre></div>
+<pre><code>## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+## Loading tidyverse: dplyr</code></pre>
+<pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
+<pre><code>## filter(): dplyr, stats
+## lag():    dplyr, stats</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">uwnd_df &lt;-<span class="st"> </span>uwnd %&gt;%
 <span class="st">  </span><span class="kw">as.data.frame.table</span>(<span class="dt">responseName =</span> <span class="st">&quot;uwnd&quot;</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>) %&gt;%
 <span class="st">  </span><span class="kw">rename</span>(<span class="dt">a =</span> Var1, <span class="dt">b =</span> Var2, <span class="dt">c =</span> Var3) %&gt;%
 <span class="st">  </span><span class="kw">cbind.data.frame</span>(<span class="kw">expand.grid</span>(uwnd_lon, uwnd_lat, uwnd_time)) %&gt;%
@@ -481,7 +488,7 @@ wind %&gt;%
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) +
 <span class="st">  </span><span class="kw">geom_spoke</span>(<span class="kw">aes</span>(<span class="dt">angle =</span> angle, <span class="dt">radius =</span> radius, <span class="dt">alpha =</span> radius, <span class="dt">color =</span> angle)) +
 <span class="st">  </span><span class="kw">scale_color_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;#132B43&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;#56B1F7&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;#132B43&quot;</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/spoke-plot-1.png" width="672" /></p>
+<p><img src="07-geom_spoke_files/figure-html/spoke-plot-1.png" width="672" /></p>
 </div>
 <div id="maps" class="section level2">
 <h2><span class="header-section-number">7.3</span> maps</h2>
@@ -496,7 +503,7 @@ wind %&gt;%
 <span class="st">  </span><span class="kw">geom_spoke</span>(<span class="kw">aes</span>(<span class="dt">angle =</span> angle, <span class="dt">radius =</span> radius, <span class="dt">alpha =</span> radius, <span class="dt">color =</span> angle)) +
 <span class="st">  </span><span class="kw">scale_color_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;#132B43&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;#56B1F7&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;#132B43&quot;</span>) +
 <span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/spoke-map-1.png" width="672" /></p>
+<p><img src="07-geom_spoke_files/figure-html/spoke-map-1.png" width="672" /></p>
 </div>
 <div id="gganimate" class="section level2">
 <h2><span class="header-section-number">7.4</span> gganimate</h2>
@@ -520,19 +527,22 @@ gganimate(f)</code></pre>
 <div id="glyphs" class="section level2">
 <h2><span class="header-section-number">7.5</span> glyphs</h2>
 <p><code>glyphs</code> provide another useful way of analyzing spatial data with a time dimesion. This shows a tiny line charts representing the north-south component of the wind at each longitude/latitude combination.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(GGally)
-wind$day &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">julian</span>(wind$time, <span class="kw">as.POSIXct</span>(<span class="st">&quot;2017-01-01&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;GMT&quot;</span>)))
-wind$day_flip &lt;-<span class="st"> </span>-wind$day
-vwnd_gly &lt;-<span class="st"> </span><span class="kw">glyphs</span>(wind, <span class="st">&quot;lon&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;vwnd&quot;</span>, <span class="dt">height=</span><span class="fl">2.5</span>)
-uwnd_gly &lt;-<span class="st"> </span><span class="kw">glyphs</span>(wind, <span class="st">&quot;lon&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;uwnd&quot;</span>, <span class="dt">height=</span><span class="fl">2.5</span>)
+<pre><code>library(GGally)
+wind$day &lt;- as.numeric(julian(wind$time, as.POSIXct(&quot;2017-01-01&quot;, tz = &quot;GMT&quot;)))
+wind$day_flip &lt;- -wind$day
+vwnd_gly &lt;- glyphs(wind, &quot;lon&quot;, &quot;day&quot;, &quot;lat&quot;, &quot;vwnd&quot;, height=2.5)
+uwnd_gly &lt;- glyphs(wind, &quot;lon&quot;, &quot;day&quot;, &quot;lat&quot;, &quot;uwnd&quot;, height=2.5)
 
-<span class="kw">ggplot</span>(vwnd_gly, <span class="kw">aes</span>(gx, gy, <span class="dt">group =</span> gid)) +
-<span class="st">  </span><span class="kw">add_ref_lines</span>(vwnd_gly, <span class="dt">color =</span> <span class="st">&quot;grey90&quot;</span>) +
-<span class="st">  </span><span class="kw">add_ref_boxes</span>(vwnd_gly, <span class="dt">color =</span> <span class="st">&quot;grey90&quot;</span>) +
-<span class="st">  </span><span class="kw">geom_path</span>() +
-<span class="st">  </span><span class="kw">theme_bw</span>() +
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/spoke-glyphs-1.png" width="672" /></p>
+ggplot(vwnd_gly, aes(gx, gy, group = gid)) +
+  add_ref_lines(vwnd_gly, color = &quot;grey90&quot;) +
+  add_ref_boxes(vwnd_gly, color = &quot;grey90&quot;) +
+  geom_path() +
+  theme_bw() +
+  labs(x = &quot;&quot;, y = &quot;&quot;)</code></pre>
+<div class="figure">
+<img src="fig/spoke-glyphs-1.png" />
+
+</div>
 <p>Let’s focus in on just the continental US:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">usa &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;usa&quot;</span>)
 usa_long_range &lt;-<span class="st"> </span><span class="kw">range</span>(usa$long)
@@ -560,7 +570,7 @@ usa_uwnd_gly &lt;-<span class="st"> </span><span class="kw">glyphs</span>(usa_wi
 <span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">alpha =</span> <span class="fl">0.9</span>) +
 <span class="st">  </span><span class="kw">theme_bw</span>() +
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;East-West&quot;</span>)</code></pre></div>
-<p><img src="jonpage-r-course_files/figure-html/spoke-glyphs-zoom-1.png" width="672" /><img src="jonpage-r-course_files/figure-html/spoke-glyphs-zoom-2.png" width="672" /></p>
+<p><img src="07-geom_spoke_files/figure-html/spoke-glyphs-zoom-1.png" width="672" /><img src="07-geom_spoke_files/figure-html/spoke-glyphs-zoom-2.png" width="672" /></p>
 
 </div>
 </div>
@@ -581,7 +591,7 @@ usa_uwnd_gly &lt;-<span class="st"> </span><span class="kw">glyphs</span>(usa_wi
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
+require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

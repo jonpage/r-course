@@ -58,6 +58,7 @@ Let's start with a simple line plot of all these series. Let's show what happens
 group and color aesthetic.
 
 ```{r}
+library(ggplot2)
 inventory %>% ggplot(aes(month, age)) + geom_line()
 ```
 

@@ -21,7 +21,7 @@ each point, `id`, a column for the series (`x1` is the `x` value in series `1`),
 case of the `anscombe` dataset, rows group `x` and `y` vaules, but are not important across series.
 
 ```{r}
-library(tidyr)
+library(tidyverse)
 tidy_anscombe <- anscombe %>%
   mutate(id = row_number()) %>%
   gather(key = key, value = value, everything(), -id)
