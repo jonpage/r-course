@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="trifecta.html">
-<link rel="next" href="confidence-intervals.html">
+<link rel="prev" href="linear-regression.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -364,140 +364,194 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="inference" class="section level1 unnumbered">
-<h1>Intro to Inference</h1>
+<div id="multiple-regression" class="section level1 unnumbered">
+<h1>Multiple Linear Regression</h1>
 <blockquote>
 <p>The source for this topic is the Open Intro labs <a href="https://www.openintro.org/stat/labs.php" class="uri">https://www.openintro.org/stat/labs.php</a></p>
 </blockquote>
-<p>In this lab, we investigate the ways in which the statistics from a random sample of data can serve as point estimates for population parameters. We’re interested in formulating a <em>sampling distribution</em> of our estimate in order to learn about the properties of the estimate, such as its distribution.</p>
-<div id="the-data-1" class="section level2 unnumbered">
+<div id="grading-the-professor" class="section level2 unnumbered">
+<h2>Grading the professor</h2>
+<p>Many college courses conclude by giving students the opportunity to evaluate the course and the instructor anonymously. However, the use of these student evaluations as an indicator of course quality and teaching effectiveness is often criticized because these measures may reflect the influence of non-teaching related characteristics, such as the physical appearance of the instructor. The article titled, “Beauty in the classroom: instructors’ pulchritude and putative pedagogical productivity” (Hamermesh and Parker, 2005) found that instructors who are viewed to be better looking receive higher instructional ratings. (Daniel S. Hamermesh, Amy Parker, Beauty in the classroom: instructors pulchritude and putative pedagogical productivity, <em>Economics of Education Review</em>, Volume 24, Issue 4, August 2005, Pages 369-376, ISSN 0272-7757, 10.1016/j.econedurev.2004.07.013. <a href="http://www.sciencedirect.com/science/article/pii/S0272775704001165" class="uri">http://www.sciencedirect.com/science/article/pii/S0272775704001165</a>.)</p>
+<p>In this lab we will analyze the data from this study in order to learn what goes into a positive professor evaluation.</p>
+</div>
+<div id="the-data-5" class="section level2 unnumbered">
 <h2>The data</h2>
-<p>We consider real estate data from the city of Ames, Iowa. The details of every real estate transaction in Ames is recorded by the City Assessor’s office. Our particular focus for this lab will be all residential home sales in Ames between 2006 and 2010. This collection represents our population of interest. In this lab we would like to learn about these home sales by taking smaller samples from the full population. Let’s load the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;data/ames.RData&quot;</span>)</code></pre></div>
-<p>We see that there are quite a few variables in the data set, enough to do a very in-depth analysis. For this lab, we’ll restrict our attention to just two of the variables: the above ground living area of the house in square feet (<code>Gr.Liv.Area</code>) and the sale price (<code>SalePrice</code>). To save some effort throughout the lab, create two variables with short names that represent these two variables.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">area &lt;-<span class="st"> </span>ames$Gr.Liv.Area
-price &lt;-<span class="st"> </span>ames$SalePrice</code></pre></div>
-<p>Let’s look at the distribution of area in our population of home sales by calculating a few summary statistics and making a histogram.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(area)</code></pre></div>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##     334    1126    1442    1500    1743    5642</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(area)</code></pre></div>
-<p><img src="26-inference_files/figure-html/inference-area-hist-1.png" width="672" /></p>
+<p>The data were gathered from end of semester student evaluations for a large sample of professors from the University of Texas at Austin. In addition, six students rated the professors’ physical appearance. (This is aslightly modified version of the original data set that was released as part of the replication data for <em>Data Analysis Using Regression and Multilevel/Hierarchical Models</em> (Gelman and Hill, 2007).) The result is a data frame where each row contains a different course and columns represent variables about the courses and professors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;data/evals.RData&quot;</span>)</code></pre></div>
+<table style="width:40%;">
+<colgroup>
+<col width="23%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>variable</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>score</code></td>
+<td>average professor evaluation score: (1) very unsatisfactory - (5) excellent.</td>
+</tr>
+<tr class="even">
+<td><code>rank</code></td>
+<td>rank of professor: teaching, tenure track, tenured.</td>
+</tr>
+<tr class="odd">
+<td><code>ethnicity</code></td>
+<td>ethnicity of professor: not minority, minority.</td>
+</tr>
+<tr class="even">
+<td><code>gender</code></td>
+<td>gender of professor: female, male.</td>
+</tr>
+<tr class="odd">
+<td><code>language</code></td>
+<td>language of school where professor received education: english or non-english.</td>
+</tr>
+<tr class="even">
+<td><code>age</code></td>
+<td>age of professor.</td>
+</tr>
+<tr class="odd">
+<td><code>cls_perc_eval</code></td>
+<td>percent of students in class who completed evaluation.</td>
+</tr>
+<tr class="even">
+<td><code>cls_did_eval</code></td>
+<td>number of students in class who completed evaluation.</td>
+</tr>
+<tr class="odd">
+<td><code>cls_students</code></td>
+<td>total number of students in class.</td>
+</tr>
+<tr class="even">
+<td><code>cls_level</code></td>
+<td>class level: lower, upper.</td>
+</tr>
+<tr class="odd">
+<td><code>cls_profs</code></td>
+<td>number of professors teaching sections in course in sample: single, multiple.</td>
+</tr>
+<tr class="even">
+<td><code>cls_credits</code></td>
+<td>number of credits of class: one credit (lab, PE, etc.), multi credit.</td>
+</tr>
+<tr class="odd">
+<td><code>bty_f1lower</code></td>
+<td>beauty rating of professor from lower level female: (1) lowest - (10) highest.</td>
+</tr>
+<tr class="even">
+<td><code>bty_f1upper</code></td>
+<td>beauty rating of professor from upper level female: (1) lowest - (10) highest.</td>
+</tr>
+<tr class="odd">
+<td><code>bty_f2upper</code></td>
+<td>beauty rating of professor from second upper level female: (1) lowest - (10) highest.</td>
+</tr>
+<tr class="even">
+<td><code>bty_m1lower</code></td>
+<td>beauty rating of professor from lower level male: (1) lowest - (10) highest.</td>
+</tr>
+<tr class="odd">
+<td><code>bty_m1upper</code></td>
+<td>beauty rating of professor from upper level male: (1) lowest - (10) highest.</td>
+</tr>
+<tr class="even">
+<td><code>bty_m2upper</code></td>
+<td>beauty rating of professor from second upper level male: (1) lowest - (10) highest.</td>
+</tr>
+<tr class="odd">
+<td><code>bty_avg</code></td>
+<td>average beauty rating of professor.</td>
+</tr>
+<tr class="even">
+<td><code>pic_outfit</code></td>
+<td>outfit of professor in picture: not formal, formal.</td>
+</tr>
+<tr class="odd">
+<td><code>pic_color</code></td>
+<td>color of professor’s picture: color, black &amp; white.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="exploring-the-data" class="section level2 unnumbered">
+<h2>Exploring the data</h2>
 <ol style="list-style-type: decimal">
-<li>Describe this population distribution.</li>
+<li><p>Is this an observational study or an experiment? The original research question posed in the paper is whether beauty leads directly to the differences in course evaluations. Given the study design, is it possible to answer this question as it is phrased? If not, rephrase the question.</p></li>
+<li><p>Describe the distribution of <code>score</code>. Is the distribution skewed? What does that tell you about how students rate courses? Is this what you expected to see? Why, or why not?</p></li>
+<li><p>Excluding <code>score</code>, select two other variables and describe their relationship using an appropriate visualization (scatterplot, side-by-side boxplots, or mosaic plot).</p></li>
 </ol>
 </div>
-<div id="the-unknown-sampling-distribution" class="section level2 unnumbered">
-<h2>The unknown sampling distribution</h2>
-<p>In this lab we have access to the entire population, but this is rarely the case in real life. Gathering information on an entire population is often extremely costly or impossible. Because of this, we often take a sample of the population and use that to understand the properties of the population.</p>
-<p>If we were interested in estimating the mean living area in Ames based on a sample, we can use the following command to survey the population.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samp1 &lt;-<span class="st"> </span><span class="kw">sample</span>(area, <span class="dv">50</span>)</code></pre></div>
-<p>This command collects a simple random sample of size 50 from the vector <code>area</code>, which is assigned to <code>samp1</code>. This is like going into the City Assessor’s database and pulling up the files on 50 random home sales. Working with these 50 files would be considerably simpler than working with all 2930 home sales.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Describe the distribution of this sample. How does it compare to the distribution of the population?</li>
-</ol>
-<p>If we’re interested in estimating the average living area in homes in Ames using the sample, our best single guess is the sample mean.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(samp1)</code></pre></div>
-<pre><code>## [1] 1594.74</code></pre>
-<p>Depending on which 50 homes you selected, your estimate could be a bit above or a bit below the true population mean of 1499.69 square feet. In general, though, the sample mean turns out to be a pretty good estimate of the average living area, and we were able to get it by sampling less than 3% of the population.</p>
-<ol start="3" style="list-style-type: decimal">
-<li>Take a second sample, also of size 50, and call it <code>samp2</code>. How does the mean of <code>samp2</code> compare with the mean of <code>samp1</code>? Suppose we took two more samples, one of size 100 and one of size 1000. Which would you think would provide a more accurate estimate of the population mean?</li>
-</ol>
-<p>Not surprisingly, every time we take another random sample, we get a different sample mean. It’s useful to get a sense of just how much variability we should expect when estimating the population mean this way. The distribution of sample means, called the <em>sampling distribution</em>, can help us understand this variability. In this lab, because we have access to the population, we can build up the sampling distribution for the sample mean by repeating the above steps many times. Here we will generate 5000 samples and compute the sample mean of each.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_means50 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">5000</span>)
-
-for(i in <span class="dv">1</span>:<span class="dv">5000</span>){
-   samp &lt;-<span class="st"> </span><span class="kw">sample</span>(area, <span class="dv">50</span>)
-   sample_means50[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)
-   }
-
-<span class="kw">hist</span>(sample_means50)</code></pre></div>
-<p><img src="26-inference_files/figure-html/inference-loop-1.png" width="672" /></p>
-<p>If you would like to adjust the bin width of your histogram to show a little more detail, you can do so by changing the <code>breaks</code> argument.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(sample_means50, <span class="dt">breaks =</span> <span class="dv">25</span>)</code></pre></div>
-<p><img src="26-inference_files/figure-html/inference-hist-breaks-1.png" width="672" /></p>
-<p>Here we use R to take 5000 samples of size 50 from the population, calculate the mean of each sample, and store each result in a vector called <code>sample_means50</code>. On the next page, we’ll review how this set of code works.</p>
+<div id="simple-linear-regression" class="section level2 unnumbered">
+<h2>Simple linear regression</h2>
+<p>The fundamental phenomenon suggested by the study is that better looking teachers are evaluated more favorably. Let’s create a scatterplot to see if this appears to be the case:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(evals$score ~<span class="st"> </span>evals$bty_avg)</code></pre></div>
+<p>Before we draw conclusions about the trend, compare the number of observations in the data frame with the approximate number of points on the scatterplot. Is anything awry?</p>
 <ol start="4" style="list-style-type: decimal">
-<li>How many elements are there in <code>sample_means50</code>? Describe the sampling distribution, and be sure to specifically note its center. Would you expect the distribution to change if we instead collected 50,000 sample means?</li>
+<li><p>Replot the scatterplot, but this time use the function <code>jitter()</code> on the <span class="math inline">\(y\)</span>- or the <span class="math inline">\(x\)</span>-coordinate. (Use <code>?jitter</code> to learn more.) What was misleading about the initial scatterplot?</p></li>
+<li><p>Let’s see if the apparent trend in the plot is something more than natural variation. Fit a linear model called <code>m_bty</code> to predict average professor score by average beauty rating and add the line to your plot using <code>abline(m_bty)</code>. Write out the equation for the linear model and interpret the slope. Is average beauty score a statistically significant predictor? Does it appear to be a practically significant predictor?</p></li>
+<li><p>Use residual plots to evaluate whether the conditions of least squares regression are reasonable. Provide plots and comments for each one (see the Simple Regression Lab for a reminder of how to make these).</p></li>
 </ol>
 </div>
-<div id="interlude-the-for-loop" class="section level2 unnumbered">
-<h2>Interlude: The <code>for</code> loop</h2>
-<p>Let’s take a break from the statistics for a moment to let that last block of code sink in. You have just run your first <code>for</code> loop, a cornerstone of computer programming. The idea behind the for loop is <em>iteration</em>: it allows you to execute code as many times as you want without having to type out every iteration. In the case above, we wanted to iterate the two lines of code inside the curly braces that take a random sample of size 50 from <code>area</code> then save the mean of that sample into the <code>sample_means50</code> vector. Without the <code>for</code> loop, this would be painful:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_means50 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">5000</span>)
-
-samp &lt;-<span class="st"> </span><span class="kw">sample</span>(area, <span class="dv">50</span>)
-sample_means50[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)
-
-samp &lt;-<span class="st"> </span><span class="kw">sample</span>(area, <span class="dv">50</span>)
-sample_means50[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)
-
-samp &lt;-<span class="st"> </span><span class="kw">sample</span>(area, <span class="dv">50</span>)
-sample_means50[<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)
-
-samp &lt;-<span class="st"> </span><span class="kw">sample</span>(area, <span class="dv">50</span>)
-sample_means50[<span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)</code></pre></div>
-<p>and so on…</p>
-<p>With the for loop, these thousands of lines of code are compressed into a handful of lines. We’ve added one extra line to the code below, which prints the variable <code>i</code> during each iteration of the <code>for</code> loop. Run this code.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_means50 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">5000</span>)
-
-for(i in <span class="dv">1</span>:<span class="dv">5000</span>) {
-   samp &lt;-<span class="st"> </span><span class="kw">sample</span>(area, <span class="dv">50</span>)
-   sample_means50[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)
-   <span class="co">#print(i)</span>
-}</code></pre></div>
-<p>Let’s consider this code line by line to figure out what it does. In the first line we <em>initialized a vector</em>. In this case, we created a vector of 5000 zeros called <code>sample_means50</code>. This vector will will store values generated within the <code>for</code> loop.</p>
-<p>The second line calls the <code>for</code> loop itself. The syntax can be loosely read as, “for every element <code>i</code> from 1 to 5000, run the following lines of code”. You can think of <code>i</code> as the counter that keeps track of which loop you’re on. Therefore, more precisely, the loop will run once when <code>i = 1</code>, then once when <code>i = 2</code>, and so on up to <code>i = 5000</code>.</p>
-<p>The body of the <code>for</code> loop is the part inside the curly braces, and this set of code is run for each value of <code>i</code>. Here, on every loop, we take a random sample of size 50 from <code>area</code>, take its mean, and store it as the <span class="math inline">\(i\)</span><sup>th</sup> element of <code>sample_means50</code>.</p>
-<p>In order to display that this is really happening, we asked R to print <code>i</code> at each iteration. This line of code is optional and is only used for displaying what’s going on while the <code>for</code> loop is running.</p>
-<p>The <code>for</code> loop allows us to not just run the code 5000 times, but to neatly package the results, element by element, into the empty vector that we initialized at the outset.</p>
-<ol start="5" style="list-style-type: decimal">
-<li>To make sure you understand what you’ve done in this loop, try running a smaller version. Initialize a vector of 100 zeros called <code>sample_means_small</code>. Run a loop that takes a sample of size 50 from <code>area</code> and stores the sample mean in <code>sample_means_small</code>, but only iterate from 1 to 100. Print the output to your screen (type <code>sample_means_small</code> into the console and press enter). How many elements are there in this object called <code>sample_means_small</code>? What does each element represent?</li>
+<div id="multiple-linear-regression" class="section level2 unnumbered">
+<h2>Multiple linear regression</h2>
+<p>The data set contains several variables on the beauty score of the professor: individual ratings from each of the six students who were asked to score the physical appearance of the professors and the average of these six scores. Let’s take a look at the relationship between one of these scores and the average beauty score.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(evals$bty_avg ~<span class="st"> </span>evals$bty_f1lower)
+<span class="kw">cor</span>(evals$bty_avg, evals$bty_f1lower)</code></pre></div>
+<p>As expected the relationship is quite strong - after all, the average score is calculated using the individual scores. We can actually take a look at the relationships between all beauty variables (columns 13 through 19) using the following command:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(evals[,<span class="dv">13</span>:<span class="dv">19</span>])</code></pre></div>
+<p>These variables are collinear (correlated), and adding more than one of these variables to the model would not add much value to the model. In this application and with these highly-correlated predictors, it is reasonable to use the average beauty score as the single representative of these variables.</p>
+<p>In order to see if beauty is still a significant predictor of professor score after we’ve accounted for the gender of the professor, we can add the gender term into the model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_bty_gen &lt;-<span class="st"> </span><span class="kw">lm</span>(score ~<span class="st"> </span>bty_avg +<span class="st"> </span>gender, <span class="dt">data =</span> evals)
+<span class="kw">summary</span>(m_bty_gen)</code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li><p>P-values and parameter estimates should only be trusted if the conditions for the regression are reasonable. Verify that the conditions for this model are reasonable using diagnostic plots.</p></li>
+<li><p>Is <code>bty_avg</code> still a significant predictor of <code>score</code>? Has the addition of <code>gender</code> to the model changed the parameter estimate for <code>bty_avg</code>?</p></li>
 </ol>
-</div>
-<div id="sample-size-and-the-sampling-distribution" class="section level2 unnumbered">
-<h2>Sample size and the sampling distribution</h2>
-<p>Mechanics aside, let’s return to the reason we used a <code>for</code> loop: to compute a sampling distribution, specifically, this one.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(sample_means50)</code></pre></div>
-<p><img src="26-inference_files/figure-html/inference-hist-1.png" width="672" /></p>
-<p>The sampling distribution that we computed tells us much about estimating the average living area in homes in Ames. Because the sample mean is an unbiased estimator, the sampling distribution is centered at the true average living area of the the population, and the spread of the distribution indicates how much variability is induced by sampling only 50 home sales.</p>
-<p>To get a sense of the effect that sample size has on our distribution, let’s build up two more sampling distributions: one based on a sample size of 10 and another based on a sample size of 100.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_means10 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">5000</span>)
-sample_means100 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">5000</span>)
-
-for(i in <span class="dv">1</span>:<span class="dv">5000</span>){
-  samp &lt;-<span class="st"> </span><span class="kw">sample</span>(area, <span class="dv">10</span>)
-  sample_means10[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)
-  samp &lt;-<span class="st"> </span><span class="kw">sample</span>(area, <span class="dv">100</span>)
-  sample_means100[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(samp)
-}</code></pre></div>
-<p>Here we’re able to use a single <code>for</code> loop to build two distributions by adding additional lines inside the curly braces. Don’t worry about the fact that <code>samp</code> is used for the name of two different objects. In the second command of the <code>for</code> loop, the mean of <code>samp</code> is saved to the relevant place in the vector <code>sample_means10</code>. With the mean saved, we’re now free to overwrite the object <code>samp</code> with a new sample, this time of size 100. In general, anytime you create an object using a name that is already in use, the old object will get replaced with the new one.</p>
-<p>To see the effect that different sample sizes have on the sampling distribution, plot the three distributions on top of one another.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))
-
-xlimits &lt;-<span class="st"> </span><span class="kw">range</span>(sample_means10)
-
-<span class="kw">hist</span>(sample_means10, <span class="dt">breaks =</span> <span class="dv">20</span>, <span class="dt">xlim =</span> xlimits)
-<span class="kw">hist</span>(sample_means50, <span class="dt">breaks =</span> <span class="dv">20</span>, <span class="dt">xlim =</span> xlimits)
-<span class="kw">hist</span>(sample_means100, <span class="dt">breaks =</span> <span class="dv">20</span>, <span class="dt">xlim =</span> xlimits)</code></pre></div>
-<p><img src="26-inference_files/figure-html/inference-plot-samps-1.png" width="672" /></p>
-<p>The first command specifies that you’d like to divide the plotting area into 3 rows and 1 column of plots (to return to the default setting of plotting one at a time, use <code>par(mfrow = c(1, 1))</code>). The <code>breaks</code> argument specifies the number of bins used in constructing the histogram. The <code>xlim</code> argument specifies the range of the x-axis of the histogram, and by setting it equal to <code>xlimits</code> for each histogram, we ensure that all three histograms will be plotted with the same limits on the x-axis.</p>
-<ol start="6" style="list-style-type: decimal">
-<li>When the sample size is larger, what happens to the center? What about the spread?</li>
+<p>Note that the estimate for <code>gender</code> is now called <code>gendermale</code>. You’ll see this name change whenever you introduce a categorical variable. The reason is that R recodes <code>gender</code> from having the values of <code>female</code> and <code>male</code> to being an indicator variable called <code>gendermale</code> that takes a value of <span class="math inline">\(0\)</span> for females and a value of <span class="math inline">\(1\)</span> for males. (Such variables are often referred to as “dummy” variables.)</p>
+<p>As a result, for females, the parameter estimate is multiplied by zero, leaving the intercept and slope form familiar from simple regression.</p>
+<p><span class="math display">\[
+  \begin{aligned}
+\widehat{score} &amp;= \hat{\beta}_0 + \hat{\beta}_1 \times bty\_avg + \hat{\beta}_2 \times (0) \\
+&amp;= \hat{\beta}_0 + \hat{\beta}_1 \times bty\_avg\end{aligned}
+\]</span></p>
+<p>We can plot this line and the line corresponding to males with the following custom function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">multiLines</span>(m_bty_gen)</code></pre></div>
+<ol start="9" style="list-style-type: decimal">
+<li>What is the equation of the line corresponding to males? (<em>Hint:</em> For males, the parameter estimate is multiplied by 1.) For two professors who received the same beauty rating, which gender tends to have the higher course evaluation score?</li>
 </ol>
-<hr />
+<p>The decision to call the indicator variable <code>gendermale</code> instead of<code>genderfemale</code> has no deeper meaning. R simply codes the category that comes first alphabetically as a <span class="math inline">\(0\)</span>. (You can change the reference level of a categorical variable, which is the level that is coded as a 0, using the<code>relevel</code> function. Use <code>?relevel</code> to learn more.)</p>
+<ol start="10" style="list-style-type: decimal">
+<li>Create a new model called <code>m_bty_rank</code> with <code>gender</code> removed and <code>rank</code> added in. How does R appear to handle categorical variables that have more than two levels? Note that the rank variable has three levels: <code>teaching</code>, <code>tenure track</code>, <code>tenured</code>.</li>
+</ol>
+<p>The interpretation of the coefficients in multiple regression is slightly different from that of simple regression. The estimate for <code>bty_avg</code> reflects how much higher a group of professors is expected to score if they have a beauty rating that is one point higher <em>while holding all other variables constant</em>. In this case, that translates into considering only professors of the same rank with <code>bty_avg</code> scores that are one point apart.</p>
 </div>
-<div id="on-your-own-2" class="section level2 unnumbered">
-<h2>On your own</h2>
-<p>So far, we have only focused on estimating the mean living area in homes in Ames. Now you’ll try to estimate the mean home price.</p>
-<ul>
-<li><p>Take a random sample of size 50 from <code>price</code>. Using this sample, what is your best point estimate of the population mean?</p></li>
-<li><p>Since you have access to the population, simulate the sampling distribution for <span class="math inline">\(\bar{x}_{price}\)</span> by taking 5000 samples from the population of size 50 and computing 5000 sample means. Store these means in a vector called <code>sample_means50</code>. Plot the data, then describe the shape of this sampling distribution. Based on this sampling distribution, what would you guess the mean home price of the population to be? Finally, calculate and report the population mean.</p></li>
-<li><p>Change your sample size from 50 to 150, then compute the sampling distribution using the same method as above, and store these means in a new vector called <code>sample_means150</code>. Describe the shape of this sampling distribution, and compare it to the sampling distribution for a sample size of 50. Based on this sampling distribution, what would you guess to be the mean sale price of homes in Ames?</p></li>
-<li><p>Of the sampling distributions from 2 and 3, which has a smaller spread? If we’re concerned with making estimates that are more often close to the true value, would we prefer a distribution with a large or small spread?</p></li>
-</ul>
+<div id="the-search-for-the-best-model" class="section level2 unnumbered">
+<h2>The search for the best model</h2>
+<p>We will start with a full model that predicts professor score based on rank, ethnicity, gender, language of the university where they got their degree, age, proportion of students that filled out evaluations, class size, course level, number of professors, number of credits, average beauty rating, outfit, and picture color.</p>
+<ol start="11" style="list-style-type: decimal">
+<li>Which variable would you expect to have the highest p-value in this model? Why? <em>Hint:</em> Think about which variable would you expect to not have any association with the professor score.</li>
+</ol>
+<p>Let’s run the model…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_full &lt;-<span class="st"> </span><span class="kw">lm</span>(score ~<span class="st"> </span>rank +<span class="st"> </span>ethnicity +<span class="st"> </span>gender +<span class="st"> </span>language +<span class="st"> </span>age +<span class="st"> </span>cls_perc_eval 
+             +<span class="st"> </span>cls_students +<span class="st"> </span>cls_level +<span class="st"> </span>cls_profs +<span class="st"> </span>cls_credits +<span class="st"> </span>bty_avg 
+             +<span class="st"> </span>pic_outfit +<span class="st"> </span>pic_color, <span class="dt">data =</span> evals)
+<span class="kw">summary</span>(m_full)</code></pre></div>
+<ol start="12" style="list-style-type: decimal">
+<li><p>Check your suspicions from the previous exercise. Include the model output in your response.</p></li>
+<li><p>Interpret the coefficient associated with the ethnicity variable.</p></li>
+<li><p>Drop the variable with the highest p-value and re-fit the model. Did the coefficients and significance of the other explanatory variables change? (One of the things that makes multiple regression interesting is that coefficient estimates depend on the other variables that are included in the model.) If not, what does this say about whether or not the dropped variable was collinear with the other explanatory variables?</p></li>
+<li><p>Using backward-selection and p-value as the selection criterion, determine the best model. You do not need to show all steps in your answer, just the output for the final model. Also, write out the linear model for predicting score based on the final model you settle on.</p></li>
+<li><p>Verify that the conditions for this model are reasonable using diagnostic plots.</p></li>
+<li><p>The original paper describes how these data were gathered by taking a sample of professors from the University of Texas at Austin and including all courses that they have taught. Considering that each row represents a course, could this new information have an impact on any of the conditions of linear regression?</p></li>
+<li><p>Based on your final model, describe the characteristics of a professor and course at University of Texas at Austin that would be associated with a high evaluation score.</p></li>
+<li><p>Would you be comfortable generalizing your conclusions to apply to professors generally (at any university)? Why or why not?</p></li>
+</ol>
 <div id="license">
-<p>This is a product of OpenIntro that is released under a <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-ShareAlike 3.0 Unported</a>. This lab was written for OpenIntro by Andrew Bray and Mine Çetinkaya-Rundel.</p>
+<p>This is a product of OpenIntro that is released under a <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-ShareAlike 3.0 Unported</a>. This lab was written by Mine Çetinkaya-Rundel and Andrew Bray.</p>
 </div>
 
 </div>
@@ -507,8 +561,8 @@ xlimits &lt;-<span class="st"> </span><span class="kw">range</span>(sample_means
           </div>
         </div>
       </div>
-<a href="trifecta.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="confidence-intervals.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="linear-regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -537,7 +591,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jonpage/r-course/edit/master/26-inference.Rmd",
+"link": "https://github.com/jonpage/r-course/edit/master/33-multiple-regression.Rmd",
 "text": "Edit"
 },
 "download": null,

@@ -255,7 +255,8 @@ You can install `gganimate` with `devtools`:
 devtools::install_github("dgrtwo/gganimate")
 ```
 
-```
+
+```r
 library(gganimate)
 f <- wind %>%
   ggplot(aes(lon, lat)) +
@@ -267,7 +268,7 @@ f <- wind %>%
 gganimate(f)
 ```
 
-![](fig/wind.mp4)
+<video width="672"  controls loop><source src="07-geom_spoke_files/figure-html/wind-animation.webm" /></video>
 
 ## glyphs
 

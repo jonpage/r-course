@@ -5,7 +5,7 @@ subtitle: |
   | ECON 396 (Fall 2017)
   | TR 10:30-11:45, DURP Computer Lab (first floor Saunders)
 author: "Jonathan Page"
-date: "2017-09-16"
+date: "2017-09-24"
 site: bookdown::bookdown_site
 output: 
   bookdown::gitbook:
@@ -152,22 +152,21 @@ period, except for the last several weeks when you are completing your final pro
 
 ### Week 11 {-}
 
-* **R** [polar coordinates, ggradar extension](#polar-ggradar)
-    * **Data** BLS Current Population Survey (CPS)
-<!-- should use monthly data for multiple years -->
+* **R** [Polar Coordinates](#polar)
+    * **Data** University of Michigan - Survey of Consumers *[CSV]*
 * **Topic** [Inference for Categorical Data](#inference-categorical)
 * **Project Assignment** Work on final project (cont.)
 
 ### Week 12 {-}
 
-* **R** word/text analysis
+* **R** Text Analysis (Natural Language Processing)
 <!-- twitter api - JSON -->
 * **Topic** [Linear Regression](#linear-regression)
 * **Project Assignment** Work on final project (cont.)
 
 ### Week 13 {-}
 
-* **R** gganimate
+* **R** networks, geomnet extension
 <!-- -->
 * **Topic** [Multiple Regression](#multiple-regression)
 * **Project Assignment** Work on final project (cont.)
@@ -180,10 +179,7 @@ period, except for the last several weeks when you are completing your final pro
 
 ### Week 15 {-}
 
-* **R** networks, geomnet extension
-<!-- -->
-* **Topic** Final Project presentations
-* **Project Assignment** 
+* Final Project presentations
 
 ## Other Resources {-}
 

@@ -142,5 +142,5 @@ ssa_long %>%
 
 ## Assignment
 
-Create your own visualization of the SSA data using one of the above distribution visualizations.
+Create your own visualizations of the distribution of the `earnings` and `number` variables.
 

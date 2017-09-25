@@ -143,6 +143,16 @@ difference + (qnorm(a/2) * std_err)
 difference + (qnorm(1 - a/2) * std_err)
 ```
 
+## `stats` package
+
+The `stats` library is loaded by default in R and includes functions for performing the above
+calculations.
+
+
+```r
+t.test(nc[nc$habit == "smoker",]$weight, nc[nc$habit == "nonsmoker",]$weight)
+```
+
 
 * * *
 

@@ -88,15 +88,16 @@ acs_mobility %>%
   table()
 ```
 
-In both cases the bottom-coded interval is the range from zero to 2,500. Since this is a small number of counties given the entire range, let's simply
+In both cases the bottom-coded interval is the range from zero to 2,500. 
+Since this is a small number of counties given the entire range, let's simply
 set the bottom-coded values to equal the upper-bound of their interval (i.e., 2,500).
 ```{r}
 acs_mobility <- acs_mobility %>%
   transmute(
     geo = geo,
-    same_house = as.integer(same_house),
-    same_county = as.integer(same_county),
-    same_state = as.integer(same_state),
+    same_house = if_else(grepl("[0-9]*-", same_house), 2500L, as.integer(same_house)),
+    same_county = if_else(grepl("[0-9]*-", same_county), 2500L, as.integer(same_county)),
+    same_state = if_else(grepl("[0-9]*-", same_state), 2500L, as.integer(same_state)),
     same_country = if_else(same_country_bc, 2500L, as.integer(same_country)),
     different_country = if_else(different_country_bc, 2500L, as.integer(different_country))
   )
