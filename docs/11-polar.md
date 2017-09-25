@@ -62,12 +62,9 @@ Each variable is calculated from the survey as follows:
 
 Code  | Survey Question     | Calculation
 ------|---------------------|---------------
-PEXP  | "Now looking ahead -- do you think that a year from now you (and your family living there)
-will be better off financially, worse off, or just about the same as now?" | Better - Worse + 100
-PJOB  | "During the next 5 years, what do you think the chances are that you (or your husband/wife)
-will lose a job you wanted to keep?" | Mean
-UMEX  | "How about people out of work during the coming 12 months ‐‐ do you think that there will
-be more unemployment than now, about the same, or less?" | Less - More + 100
+PEXP  | "Now looking ahead -- do you think that a year from now you (and your family living there) will be better off financially, worse off, or just about the same as now?" | Better - Worse + 100
+PJOB  | "During the next 5 years, what do you think the chances are that you (or your husband/wife) will lose a job you wanted to keep?" | Mean
+UMEX  | "How about people out of work during the coming 12 months ‐‐ do you think that there will be more unemployment than now, about the same, or less?" | Less - More + 100
 
 To make our dataset tidy, we want each variable to have it's own row. Since we added the income demographic option,
 we have multiple columns for each variable. Let's fix that with the `gather()` -> `separate()` -> `spread()` pattern.
