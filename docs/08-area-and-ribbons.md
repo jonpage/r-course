@@ -1,9 +1,4 @@
 
----
-output:
-  html_document: default
-  pdf_document: default
----
 
 # geom_area and geom_ribbon {#area-and-ribbons}
 
@@ -313,3 +308,11 @@ data %>%
 ```
 
 <img src="08-area-and-ribbons_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+
+## Assignment
+
+Plot leisure computer use over time using separate lines for men and women. The y axis should display
+the amount of use in minutes. The plot should look like the following image (the aspect ratio can be different).
+
+![](fig/computer_use_example.png)
+

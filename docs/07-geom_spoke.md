@@ -1,9 +1,4 @@
 
----
-output:
-  html_document: default
-  pdf_document: default
----
 
 # Spatial Visualizations {#geom_spoke}
 
@@ -270,6 +265,8 @@ gganimate(f)
 
 <video width="672"  controls loop><source src="07-geom_spoke_files/figure-html/wind-animation.webm" /></video>
 
+![](fig/wind.mp4)
+
 ## glyphs
 
 `glyphs` provide another useful way of analyzing spatial data with a time dimesion. This shows
@@ -327,3 +324,8 @@ ggplot(usa_uwnd_gly, aes(gx, gy, group = gid)) +
 
 <img src="07-geom_spoke_files/figure-html/spoke-glyphs-zoom-1.png" width="672" /><img src="07-geom_spoke_files/figure-html/spoke-glyphs-zoom-2.png" width="672" />
 
+## Assignment
+
+Create heatmaps of `uwnd` and `vwnd` values on March 31, 2017. Each heatmap should be 90 degrees longitude by 
+90 degrees lattitude. Hint: Use `facet_grid` and create two new variables to help with faceting. The plot
+should end up being 5 facets wide by 3 facets tall.
