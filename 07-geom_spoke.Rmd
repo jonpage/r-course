@@ -129,8 +129,6 @@ f <- wind %>%
 gganimate(f)
 ```
 
-![](fig/wind.mp4)
-
 ## glyphs
 
 `glyphs` provide another useful way of analyzing spatial data with a time dimesion. This shows

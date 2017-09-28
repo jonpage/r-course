@@ -265,8 +265,6 @@ gganimate(f)
 
 <video width="672"  controls loop><source src="07-geom_spoke_files/figure-html/wind-animation.webm" /></video>
 
-![](fig/wind.mp4)
-
 ## glyphs
 
 `glyphs` provide another useful way of analyzing spatial data with a time dimesion. This shows
