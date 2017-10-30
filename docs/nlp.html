@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R for Data Analysis and Visualization</title>
+  <meta name="description" content="This is a course on using R focused on data analysis and visualization through case studies.">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R for Data Analysis and Visualization" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a course on using R focused on data analysis and visualization through case studies." />
+  <meta name="github-repo" content="jonpage/r-course" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R for Data Analysis and Visualization" />
+  
+  <meta name="twitter:description" content="This is a course on using R focused on data analysis and visualization through case studies." />
+  
+
+<meta name="author" content="Jonathan Page">
+
+
+<meta name="date" content="2017-10-29">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="polar.html">
+<link rel="next" href="data-sources.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; background-color: #dddddd; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { font-weight: bold; } /* Keyword */
+code > span.dt { color: #800000; } /* DataType */
+code > span.dv { color: #0000ff; } /* DecVal */
+code > span.bn { color: #0000ff; } /* BaseN */
+code > span.fl { color: #800080; } /* Float */
+code > span.ch { color: #ff00ff; } /* Char */
+code > span.st { color: #dd0000; } /* String */
+code > span.co { color: #808080; font-style: italic; } /* Comment */
+code > span.al { color: #00ff00; font-weight: bold; } /* Alert */
+code > span.fu { color: #000080; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #ff0000; font-weight: bold; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #ff00ff; } /* SpecialChar */
+code > span.vs { color: #dd0000; } /* VerbatimString */
+code > span.ss { color: #dd0000; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #808080; font-style: italic; } /* Documentation */
+code > span.an { color: #808080; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #808080; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R for Data Analysis and Visualization</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#office-hours"><i class="fa fa-check"></i>Office Hours</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#student-learning-objectives"><i class="fa fa-check"></i>Student Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#resources"><i class="fa fa-check"></i>Resources</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#required"><i class="fa fa-check"></i>Required</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recommended"><i class="fa fa-check"></i>Recommended:</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-requirements"><i class="fa fa-check"></i>Course Requirements</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#weekly-assignments-30"><i class="fa fa-check"></i>Weekly assignments (30%)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#individual-project"><i class="fa fa-check"></i>Individual Project</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#project-assignments-30"><i class="fa fa-check"></i>Project assignments (30%)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#project-proposal-presentation-5"><i class="fa fa-check"></i>Project proposal presentation (5%)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#final-project-20"><i class="fa fa-check"></i>Final project (20%)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#final-project-presentation-participation-15"><i class="fa fa-check"></i>Final project presentation participation (15%)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#schedule"><i class="fa fa-check"></i>Schedule</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-1"><i class="fa fa-check"></i>Week 1</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-2"><i class="fa fa-check"></i>Week 2</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-3"><i class="fa fa-check"></i>Week 3</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-4"><i class="fa fa-check"></i>Week 4</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-5"><i class="fa fa-check"></i>Week 5</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-6"><i class="fa fa-check"></i>Week 6</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-7"><i class="fa fa-check"></i>Week 7</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-8"><i class="fa fa-check"></i>Week 8</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-9"><i class="fa fa-check"></i>Week 9</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-10"><i class="fa fa-check"></i>Week 10</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-11"><i class="fa fa-check"></i>Week 11</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-12"><i class="fa fa-check"></i>Week 12</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-13"><i class="fa fa-check"></i>Week 13</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-14"><i class="fa fa-check"></i>Week 14</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#week-15"><i class="fa fa-check"></i>Week 15</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#other-resources"><i class="fa fa-check"></i>Other Resources</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#statistics"><i class="fa fa-check"></i>Statistics</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#visualization"><i class="fa fa-check"></i>Visualization</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#courses"><i class="fa fa-check"></i>Courses</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#books"><i class="fa fa-check"></i>Books</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#papers"><i class="fa fa-check"></i>Papers</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="weekly-assignments.html"><a href="weekly-assignments.html"><i class="fa fa-check"></i>Weekly Assignments</a><ul>
+<li class="chapter" data-level="" data-path="weekly-assignments.html"><a href="weekly-assignments.html#creating-the-r-markdown-files"><i class="fa fa-check"></i>Creating the R Markdown files</a></li>
+<li class="chapter" data-level="" data-path="weekly-assignments.html"><a href="weekly-assignments.html#submitting-your-assignment"><i class="fa fa-check"></i>Submitting your assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html"><i class="fa fa-check"></i>Individual Project</a><ul>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#project-assignments"><i class="fa fa-check"></i>Project assignments</a></li>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#project-proposal-presentation"><i class="fa fa-check"></i>Project proposal presentation</a></li>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#final-project-rmarkdown"><i class="fa fa-check"></i>Final project RMarkdown</a></li>
+<li class="chapter" data-level="" data-path="individual-project-1.html"><a href="individual-project-1.html#final-project-presentation-participation"><i class="fa fa-check"></i>Final project presentation participation</a></li>
+</ul></li>
+<li class="part"><span><b>I R Tutorials</b></span></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> R Basics</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#r-markdown"><i class="fa fa-check"></i><b>1.1</b> R Markdown</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#working-with-data-already-loaded-into-r"><i class="fa fa-check"></i><b>1.2</b> Working with data already loaded into R</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="intro.html"><a href="intro.html#numeric-summaries"><i class="fa fa-check"></i><b>1.2.1</b> Numeric summaries</a></li>
+<li class="chapter" data-level="1.2.2" data-path="intro.html"><a href="intro.html#visual-summaries"><i class="fa fa-check"></i><b>1.2.2</b> Visual summaries</a></li>
+<li class="chapter" data-level="1.2.3" data-path="intro.html"><a href="intro.html#distribution-plots"><i class="fa fa-check"></i><b>1.2.3</b> Distribution plots</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#assignment"><i class="fa fa-check"></i><b>1.3</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="read-data.html"><a href="read-data.html"><i class="fa fa-check"></i><b>2</b> Reading data</a><ul>
+<li class="chapter" data-level="2.1" data-path="read-data.html"><a href="read-data.html#data-source"><i class="fa fa-check"></i><b>2.1</b> Data Source:</a></li>
+<li class="chapter" data-level="2.2" data-path="read-data.html"><a href="read-data.html#read_csv"><i class="fa fa-check"></i><b>2.2</b> <code>read_csv</code></a></li>
+<li class="chapter" data-level="2.3" data-path="read-data.html"><a href="read-data.html#dplyr"><i class="fa fa-check"></i><b>2.3</b> <code>dplyr</code></a></li>
+<li class="chapter" data-level="2.4" data-path="read-data.html"><a href="read-data.html#first-look-at-ggplot2"><i class="fa fa-check"></i><b>2.4</b> First Look at <code>ggplot2</code></a></li>
+<li class="chapter" data-level="2.5" data-path="read-data.html"><a href="read-data.html#heatmaps"><i class="fa fa-check"></i><b>2.5</b> Heatmaps</a></li>
+<li class="chapter" data-level="2.6" data-path="read-data.html"><a href="read-data.html#hexbins"><i class="fa fa-check"></i><b>2.6</b> Hexbins</a></li>
+<li class="chapter" data-level="2.7" data-path="read-data.html"><a href="read-data.html#other-topics-from-this-dataset"><i class="fa fa-check"></i><b>2.7</b> Other topics from this dataset</a></li>
+<li class="chapter" data-level="2.8" data-path="read-data.html"><a href="read-data.html#assignment-1"><i class="fa fa-check"></i><b>2.8</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html"><i class="fa fa-check"></i><b>3</b> Facets, Bubbles, and Transparency</a><ul>
+<li class="chapter" data-level="3.1" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#data"><i class="fa fa-check"></i><b>3.1</b> Data</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#importing-non-standard-excel-files"><i class="fa fa-check"></i><b>3.1.1</b> Importing non-standard Excel files</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#facets"><i class="fa fa-check"></i><b>3.2</b> Facets</a></li>
+<li class="chapter" data-level="3.3" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#bubbles"><i class="fa fa-check"></i><b>3.3</b> Bubbles</a></li>
+<li class="chapter" data-level="3.4" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#transparency"><i class="fa fa-check"></i><b>3.4</b> Transparency</a></li>
+<li class="chapter" data-level="3.5" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#facets-1"><i class="fa fa-check"></i><b>3.5</b> Facets</a></li>
+<li class="chapter" data-level="3.6" data-path="facets-and-bubbles.html"><a href="facets-and-bubbles.html#assignment-2"><i class="fa fa-check"></i><b>3.6</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lines.html"><a href="lines.html"><i class="fa fa-check"></i><b>4</b> Lines and Curves</a><ul>
+<li class="chapter" data-level="4.1" data-path="lines.html"><a href="lines.html#data-1"><i class="fa fa-check"></i><b>4.1</b> Data</a></li>
+<li class="chapter" data-level="4.2" data-path="lines.html"><a href="lines.html#geom_smooth"><i class="fa fa-check"></i><b>4.2</b> geom_smooth</a></li>
+<li class="chapter" data-level="4.3" data-path="lines.html"><a href="lines.html#geom_abline"><i class="fa fa-check"></i><b>4.3</b> geom_abline</a></li>
+<li class="chapter" data-level="4.4" data-path="lines.html"><a href="lines.html#geom_vline"><i class="fa fa-check"></i><b>4.4</b> geom_vline</a></li>
+<li class="chapter" data-level="4.5" data-path="lines.html"><a href="lines.html#hline"><i class="fa fa-check"></i><b>4.5</b> hline</a></li>
+<li class="chapter" data-level="4.6" data-path="lines.html"><a href="lines.html#assignment-3"><i class="fa fa-check"></i><b>4.6</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ggplot-exts.html"><a href="ggplot-exts.html"><i class="fa fa-check"></i><b>5</b> Scatter Plot Matrices and Extensions</a><ul>
+<li class="chapter" data-level="5.1" data-path="ggplot-exts.html"><a href="ggplot-exts.html#data-2"><i class="fa fa-check"></i><b>5.1</b> Data</a></li>
+<li class="chapter" data-level="5.2" data-path="ggplot-exts.html"><a href="ggplot-exts.html#ggplot2-extensions"><i class="fa fa-check"></i><b>5.2</b> ggplot2 extensions</a></li>
+<li class="chapter" data-level="5.3" data-path="ggplot-exts.html"><a href="ggplot-exts.html#ggjoy"><i class="fa fa-check"></i><b>5.3</b> ggjoy</a></li>
+<li class="chapter" data-level="5.4" data-path="ggplot-exts.html"><a href="ggplot-exts.html#scatterplot-matrix-ggallyggscatmat"><i class="fa fa-check"></i><b>5.4</b> scatterplot matrix (GGally::ggscatmat)</a></li>
+<li class="chapter" data-level="5.5" data-path="ggplot-exts.html"><a href="ggplot-exts.html#assignment-4"><i class="fa fa-check"></i><b>5.5</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="boxplots-and-violins.html"><a href="boxplots-and-violins.html"><i class="fa fa-check"></i><b>6</b> Boxplots and Violin Plots</a><ul>
+<li class="chapter" data-level="6.1" data-path="boxplots-and-violins.html"><a href="boxplots-and-violins.html#data-3"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
+<li class="chapter" data-level="6.2" data-path="boxplots-and-violins.html"><a href="boxplots-and-violins.html#boxplots"><i class="fa fa-check"></i><b>6.2</b> Boxplots</a></li>
+<li class="chapter" data-level="6.3" data-path="boxplots-and-violins.html"><a href="boxplots-and-violins.html#violin-plots"><i class="fa fa-check"></i><b>6.3</b> Violin Plots</a></li>
+<li class="chapter" data-level="6.4" data-path="boxplots-and-violins.html"><a href="boxplots-and-violins.html#dot-plots"><i class="fa fa-check"></i><b>6.4</b> Dot Plots</a></li>
+<li class="chapter" data-level="6.5" data-path="boxplots-and-violins.html"><a href="boxplots-and-violins.html#assignment-5"><i class="fa fa-check"></i><b>6.5</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="geom-spoke.html"><a href="geom-spoke.html"><i class="fa fa-check"></i><b>7</b> Spatial Visualizations</a><ul>
+<li class="chapter" data-level="7.1" data-path="geom-spoke.html"><a href="geom-spoke.html#data-4"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
+<li class="chapter" data-level="7.2" data-path="geom-spoke.html"><a href="geom-spoke.html#geom_spoke"><i class="fa fa-check"></i><b>7.2</b> geom_spoke</a></li>
+<li class="chapter" data-level="7.3" data-path="geom-spoke.html"><a href="geom-spoke.html#maps"><i class="fa fa-check"></i><b>7.3</b> maps</a></li>
+<li class="chapter" data-level="7.4" data-path="geom-spoke.html"><a href="geom-spoke.html#gganimate"><i class="fa fa-check"></i><b>7.4</b> gganimate</a></li>
+<li class="chapter" data-level="7.5" data-path="geom-spoke.html"><a href="geom-spoke.html#glyphs"><i class="fa fa-check"></i><b>7.5</b> glyphs</a></li>
+<li class="chapter" data-level="7.6" data-path="geom-spoke.html"><a href="geom-spoke.html#assignment-6"><i class="fa fa-check"></i><b>7.6</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html"><i class="fa fa-check"></i><b>8</b> geom_area and geom_ribbon</a><ul>
+<li class="chapter" data-level="8.1" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#data-5"><i class="fa fa-check"></i><b>8.1</b> Data</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#downloading-a-file-from-the-internet"><i class="fa fa-check"></i><b>8.1.1</b> Downloading a file from the internet</a></li>
+<li class="chapter" data-level="8.1.2" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#pairing-down-the-list-of-variables"><i class="fa fa-check"></i><b>8.1.2</b> Pairing down the list of variables</a></li>
+<li class="chapter" data-level="8.1.3" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#adding-more-activity-categories"><i class="fa fa-check"></i><b>8.1.3</b> Adding more activity categories</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#geom_area"><i class="fa fa-check"></i><b>8.2</b> geom_area</a></li>
+<li class="chapter" data-level="8.3" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#geom_ribbon"><i class="fa fa-check"></i><b>8.3</b> geom_ribbon</a></li>
+<li class="chapter" data-level="8.4" data-path="area-and-ribbons.html"><a href="area-and-ribbons.html#assignment-7"><i class="fa fa-check"></i><b>8.4</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="jitter-rug.html"><a href="jitter-rug.html"><i class="fa fa-check"></i><b>9</b> Jitter, Rug, and Aesthetics</a><ul>
+<li class="chapter" data-level="9.1" data-path="jitter-rug.html"><a href="jitter-rug.html#data-6"><i class="fa fa-check"></i><b>9.1</b> Data</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="jitter-rug.html"><a href="jitter-rug.html#codebook"><i class="fa fa-check"></i><b>9.1.1</b> Codebook</a></li>
+<li class="chapter" data-level="9.1.2" data-path="jitter-rug.html"><a href="jitter-rug.html#preprocessing-the-spss-file"><i class="fa fa-check"></i><b>9.1.2</b> Preprocessing the SPSS File</a></li>
+<li class="chapter" data-level="9.1.3" data-path="jitter-rug.html"><a href="jitter-rug.html#importing-with-the-spss-file-using-memisc"><i class="fa fa-check"></i><b>9.1.3</b> Importing with the SPSS file using memisc</a></li>
+<li class="chapter" data-level="9.1.4" data-path="jitter-rug.html"><a href="jitter-rug.html#transform-data"><i class="fa fa-check"></i><b>9.1.4</b> Transform Data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="jitter-rug.html"><a href="jitter-rug.html#jitter"><i class="fa fa-check"></i><b>9.2</b> Jitter</a></li>
+<li class="chapter" data-level="9.3" data-path="jitter-rug.html"><a href="jitter-rug.html#rug"><i class="fa fa-check"></i><b>9.3</b> Rug</a></li>
+<li class="chapter" data-level="9.4" data-path="jitter-rug.html"><a href="jitter-rug.html#aesthetics"><i class="fa fa-check"></i><b>9.4</b> Aesthetics</a></li>
+<li class="chapter" data-level="9.5" data-path="jitter-rug.html"><a href="jitter-rug.html#assignment-8"><i class="fa fa-check"></i><b>9.5</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html"><i class="fa fa-check"></i><b>10</b> Themes, Labels, and Colors</a><ul>
+<li class="chapter" data-level="10.1" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#data-7"><i class="fa fa-check"></i><b>10.1</b> Data</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#zillow-real-estate-data"><i class="fa fa-check"></i><b>10.1.1</b> Zillow Real Estate Data</a></li>
+<li class="chapter" data-level="10.1.2" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>10.1.2</b> Reshaping data with <code>tidyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#starting-plot"><i class="fa fa-check"></i><b>10.2</b> Starting Plot</a></li>
+<li class="chapter" data-level="10.3" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#themes"><i class="fa fa-check"></i><b>10.3</b> Themes</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#complete-themes"><i class="fa fa-check"></i><b>10.3.1</b> Complete Themes</a></li>
+<li class="chapter" data-level="10.3.2" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#modifying-a-theme"><i class="fa fa-check"></i><b>10.3.2</b> Modifying a theme</a></li>
+<li class="chapter" data-level="10.3.3" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#ggthemes"><i class="fa fa-check"></i><b>10.3.3</b> <code>ggthemes</code></a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#labels"><i class="fa fa-check"></i><b>10.4</b> Labels</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#title"><i class="fa fa-check"></i><b>10.4.1</b> Title</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#colors"><i class="fa fa-check"></i><b>10.5</b> Colors</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#color-scales"><i class="fa fa-check"></i><b>10.5.1</b> Color Scales</a></li>
+<li class="chapter" data-level="10.5.2" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#color-brewer"><i class="fa fa-check"></i><b>10.5.2</b> Color Brewer</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="themes-labels-colors.html"><a href="themes-labels-colors.html#assignment-9"><i class="fa fa-check"></i><b>10.6</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="polar.html"><a href="polar.html"><i class="fa fa-check"></i><b>11</b> Polar Coordinates</a><ul>
+<li class="chapter" data-level="11.1" data-path="polar.html"><a href="polar.html#data-8"><i class="fa fa-check"></i><b>11.1</b> Data</a><ul>
+<li class="chapter" data-level="" data-path="polar.html"><a href="polar.html#survey-of-consumers"><i class="fa fa-check"></i>Survey of Consumers</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="polar.html"><a href="polar.html#simple-time-series"><i class="fa fa-check"></i><b>11.2</b> Simple Time Series</a></li>
+<li class="chapter" data-level="11.3" data-path="polar.html"><a href="polar.html#stacked-periods"><i class="fa fa-check"></i><b>11.3</b> Stacked Periods</a></li>
+<li class="chapter" data-level="11.4" data-path="polar.html"><a href="polar.html#polar-coordinates"><i class="fa fa-check"></i><b>11.4</b> Polar Coordinates</a></li>
+<li class="chapter" data-level="11.5" data-path="polar.html"><a href="polar.html#assignment-10"><i class="fa fa-check"></i><b>11.5</b> Assignment</a></li>
+<li class="chapter" data-level="11.6" data-path="polar.html"><a href="polar.html#data-attribution"><i class="fa fa-check"></i><b>11.6</b> Data Attribution</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="nlp.html"><a href="nlp.html"><i class="fa fa-check"></i><b>12</b> Text Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="nlp.html"><a href="nlp.html#data-9"><i class="fa fa-check"></i><b>12.1</b> Data</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="nlp.html"><a href="nlp.html#twitter"><i class="fa fa-check"></i><b>12.1.1</b> Twitter</a></li>
+<li class="chapter" data-level="12.1.2" data-path="nlp.html"><a href="nlp.html#setting-up-twitter"><i class="fa fa-check"></i><b>12.1.2</b> Setting up twitteR</a></li>
+<li class="chapter" data-level="12.1.3" data-path="nlp.html"><a href="nlp.html#finding-tweets"><i class="fa fa-check"></i><b>12.1.3</b> Finding tweets</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="nlp.html"><a href="nlp.html#tidytext"><i class="fa fa-check"></i><b>12.2</b> Tidytext</a></li>
+<li class="chapter" data-level="12.3" data-path="nlp.html"><a href="nlp.html#n-grams"><i class="fa fa-check"></i><b>12.3</b> N-grams</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="nlp.html"><a href="nlp.html#skip-n-grams"><i class="fa fa-check"></i><b>12.3.1</b> Skip N-grams</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="nlp.html"><a href="nlp.html#assignment-11"><i class="fa fa-check"></i><b>12.4</b> Assignment</a></li>
+</ul></li>
+<li class="part"><span><b>II Topics</b></span></li>
+<li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i>Data Sources Overview</a><ul>
+<li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html#macro-data"><i class="fa fa-check"></i>Macro Data</a><ul>
+<li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html#us"><i class="fa fa-check"></i>US</a></li>
+<li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html#other-us"><i class="fa fa-check"></i>Other US</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html#micro-data"><i class="fa fa-check"></i>Micro Data</a></li>
+<li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html#hawaii-data"><i class="fa fa-check"></i>Hawaii Data</a></li>
+<li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html#collections-of-data-lists"><i class="fa fa-check"></i>Collections of data lists</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="anscombe.html"><a href="anscombe.html"><i class="fa fa-check"></i>Anscombe’s Quartet</a><ul>
+<li class="chapter" data-level="" data-path="anscombe.html"><a href="anscombe.html#prep-the-data"><i class="fa fa-check"></i>Prep the data</a></li>
+<li class="chapter" data-level="" data-path="anscombe.html"><a href="anscombe.html#numeric-summary"><i class="fa fa-check"></i>Numeric summary</a></li>
+<li class="chapter" data-level="" data-path="anscombe.html"><a href="anscombe.html#visual-summary"><i class="fa fa-check"></i>Visual summary</a></li>
+<li class="chapter" data-level="" data-path="anscombe.html"><a href="anscombe.html#the-datasaurus-dozen"><i class="fa fa-check"></i>The Datasaurus Dozen</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i>Probability</a><ul>
+<li class="chapter" data-level="" data-path="probability.html"><a href="probability.html#hot-hands"><i class="fa fa-check"></i>Hot Hands</a></li>
+<li class="chapter" data-level="" data-path="probability.html"><a href="probability.html#saving-your-code"><i class="fa fa-check"></i>Saving your code</a></li>
+<li class="chapter" data-level="" data-path="probability.html"><a href="probability.html#getting-started"><i class="fa fa-check"></i>Getting Started</a></li>
+<li class="chapter" data-level="" data-path="probability.html"><a href="probability.html#compared-to-what"><i class="fa fa-check"></i>Compared to What?</a></li>
+<li class="chapter" data-level="" data-path="probability.html"><a href="probability.html#simulations-in-r"><i class="fa fa-check"></i>Simulations in R</a></li>
+<li class="chapter" data-level="" data-path="probability.html"><a href="probability.html#simulating-the-independent-shooter"><i class="fa fa-check"></i>Simulating the Independent Shooter</a></li>
+<li class="chapter" data-level="" data-path="probability.html"><a href="probability.html#on-your-own"><i class="fa fa-check"></i>On your own</a><ul>
+<li class="chapter" data-level="" data-path="probability.html"><a href="probability.html#comparing-kobe-bryant-to-the-independent-shooter"><i class="fa fa-check"></i>Comparing Kobe Bryant to the Independent Shooter</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i>Distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#the-data"><i class="fa fa-check"></i>The Data</a></li>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#the-normal-distribution"><i class="fa fa-check"></i>The normal distribution</a></li>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#evaluating-the-normal-distribution"><i class="fa fa-check"></i>Evaluating the normal distribution</a></li>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#normal-probabilities"><i class="fa fa-check"></i>Normal probabilities</a></li>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#on-your-own-1"><i class="fa fa-check"></i>On Your Own</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="trifecta.html"><a href="trifecta.html"><i class="fa fa-check"></i>How to Judge Visualizations</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i>Intro to Inference</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#the-data-1"><i class="fa fa-check"></i>The data</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#the-unknown-sampling-distribution"><i class="fa fa-check"></i>The unknown sampling distribution</a></li>
+<li><a href="inference.html#interlude-the-for-loop">Interlude: The <code>for</code> loop</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#sample-size-and-the-sampling-distribution"><i class="fa fa-check"></i>Sample size and the sampling distribution</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#on-your-own-2"><i class="fa fa-check"></i>On your own</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html"><i class="fa fa-check"></i>Confidence Intervals</a><ul>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html#sampling-from-ames-iowa"><i class="fa fa-check"></i>Sampling from Ames, Iowa</a></li>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html#the-data-2"><i class="fa fa-check"></i>The data</a></li>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html#confidence-intervals"><i class="fa fa-check"></i>Confidence intervals</a></li>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html#confidence-levels"><i class="fa fa-check"></i>Confidence levels</a></li>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html#on-your-own-3"><i class="fa fa-check"></i>On your own</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference-numerical.html"><a href="inference-numerical.html"><i class="fa fa-check"></i>Inference for Numerical Data</a><ul>
+<li class="chapter" data-level="" data-path="inference-numerical.html"><a href="inference-numerical.html#north-carolina-births"><i class="fa fa-check"></i>North Carolina births</a></li>
+<li class="chapter" data-level="" data-path="inference-numerical.html"><a href="inference-numerical.html#exploratory-analysis"><i class="fa fa-check"></i>Exploratory analysis</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#inference"><i class="fa fa-check"></i>Inference</a></li>
+<li><a href="inference-numerical.html#stats-package"><code>stats</code> package</a></li>
+<li class="chapter" data-level="" data-path="inference-numerical.html"><a href="inference-numerical.html#on-your-own-4"><i class="fa fa-check"></i>On your own</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference-categorical.html"><a href="inference-categorical.html"><i class="fa fa-check"></i>Inference for Categorical Data</a><ul>
+<li class="chapter" data-level="" data-path="inference-categorical.html"><a href="inference-categorical.html#the-survey"><i class="fa fa-check"></i>The survey</a></li>
+<li class="chapter" data-level="" data-path="inference-categorical.html"><a href="inference-categorical.html#the-data-3"><i class="fa fa-check"></i>The data</a></li>
+<li class="chapter" data-level="" data-path="inference-categorical.html"><a href="inference-categorical.html#inference-on-proportions"><i class="fa fa-check"></i>Inference on proportions</a></li>
+<li class="chapter" data-level="" data-path="inference-categorical.html"><a href="inference-categorical.html#how-does-the-proportion-affect-the-margin-of-error"><i class="fa fa-check"></i>How does the proportion affect the margin of error?</a></li>
+<li class="chapter" data-level="" data-path="inference-categorical.html"><a href="inference-categorical.html#success-failure-condition"><i class="fa fa-check"></i>Success-failure condition</a></li>
+<li class="chapter" data-level="" data-path="inference-categorical.html"><a href="inference-categorical.html#on-your-own-5"><i class="fa fa-check"></i>On your own</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i>Introduction to Linear Regression</a><ul>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#batter-up"><i class="fa fa-check"></i>Batter up</a></li>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#the-data-4"><i class="fa fa-check"></i>The data</a></li>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#sum-of-squared-residuals"><i class="fa fa-check"></i>Sum of squared residuals</a></li>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#the-linear-model"><i class="fa fa-check"></i>The linear model</a></li>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#prediction-and-prediction-errors"><i class="fa fa-check"></i>Prediction and prediction errors</a></li>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#model-diagnostics"><i class="fa fa-check"></i>Model diagnostics</a></li>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#on-your-own-6"><i class="fa fa-check"></i>On Your Own</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i>Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html#grading-the-professor"><i class="fa fa-check"></i>Grading the professor</a></li>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html#the-data-5"><i class="fa fa-check"></i>The data</a></li>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-data"><i class="fa fa-check"></i>Exploring the data</a></li>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html#simple-linear-regression"><i class="fa fa-check"></i>Simple linear regression</a></li>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-linear-regression"><i class="fa fa-check"></i>Multiple linear regression</a></li>
+<li class="chapter" data-level="" data-path="multiple-regression.html"><a href="multiple-regression.html#the-search-for-the-best-model"><i class="fa fa-check"></i>The search for the best model</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Data Analysis and Visualization</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="nlp" class="section level1">
+<h1><span class="header-section-number">Lecture 12</span> Text Analysis</h1>
+<p>This lecture uses the following packages:</p>
+<pre><code>tidyverse
+tidytext
+twitteR
+scales</code></pre>
+<div id="data-9" class="section level2">
+<h2><span class="header-section-number">12.1</span> Data</h2>
+<div id="twitter" class="section level3">
+<h3><span class="header-section-number">12.1.1</span> Twitter</h3>
+<p>The content of recent Tweets can be downloaded using Twitter’s Application Pragramming Interface (API). We will make use of a package, <code>twitteR</code>, that is designed to make working with this API easier.</p>
+<p>In class I will provide you with an API Key and API Secret that you can use. Outside of class, you will need to set up your own Twitter application at <a href="https://apps.twitter.com" class="uri">https://apps.twitter.com</a>.</p>
+</div>
+<div id="setting-up-twitter" class="section level3">
+<h3><span class="header-section-number">12.1.2</span> Setting up twitteR</h3>
+<p>Install the <code>twitteR</code> package:</p>
+<pre><code>install.packages(&quot;twitteR&quot;)</code></pre>
+<p>Load the package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(twitteR)</code></pre></div>
+<p>Finally, authenticate with twitter using the <code>API Key</code>, <code>API Secret</code>, <code>Access Token</code>, and <code>Access Secret</code> from the application for this course or your own. <code>setup_twitter_oauth(&quot;API key&quot;, &quot;API secret&quot;, &quot;Access token&quot;, &quot;Access secret&quot;)</code></p>
+</div>
+<div id="finding-tweets" class="section level3">
+<h3><span class="header-section-number">12.1.3</span> Finding tweets</h3>
+<p>We’ll store 1000 tweets that contain <code>income</code> in <code>rstatTweets</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">income_tweets &lt;-<span class="st"> </span><span class="kw">searchTwitter</span>(<span class="st">&#39;income&#39;</span>, <span class="dt">n=</span><span class="dv">10000</span>)</code></pre></div>
+<p>Each tweet is stored as a <code>twitteR::status</code> object. To make it easy to gather the data we want to analyze let’s create a function that will return all the columns in our soon to be created data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simple_status &lt;-<span class="st"> </span>function(status) {
+  status$<span class="kw">toDataFrame</span>()
+}</code></pre></div>
+<p>There are three ways we can use <code>map_df</code> to get the columns:</p>
+<pre><code>map_df(simple_status) # named function
+map_df(function(x) x$toDataFrame()) # anonymous function
+map_df(~ .$toDataFrame()) # formula</code></pre>
+<p>All of those options do the same thing. They all return a data frame with one row representing a tweet. Let’s make use of the formula version to create our data frame:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+income_df &lt;-<span class="st"> </span>income_tweets %&gt;%
+<span class="st">  </span><span class="kw">map_df</span>(~<span class="st"> </span>.$<span class="kw">toDataFrame</span>())
+<span class="kw">head</span>(income_df)</code></pre></div>
+<pre><code>##                                                                                                                                                text
+## 1    RT @theamwu: &quot;I&#39;m hugely nervous... I wouldn&#39;t be able to manage on a reduced income.&quot; Michelle, Streets worker of 17 years\n\nhttps://t.co/z…
+## 2      RT @DMR4USSenateCA: @RobertBentley76 @beinlibertarian @ToddHagopian @LarrySharpe @Liberty_Thunder @LPNational @adamkokesh @haydentiff @just…
+## 3    Not excited about your #job? I&#39;m looking for ppl who #dreambig. Join my #team &amp;amp; keep your job until your income is replaced. #entrepreneur
+## 4 RT @3yeAmHe: Income is not wealth.\nIncome is not wealth.\nIncome is not wealth.\nIncome is not wealth.\nIncome is not wealth.\nIncome is not we…
+## 5                                                6 способов получать пассивный доход от криптовалют https://t.co/MlPZxr6JRu https://t.co/Gi1V1NpW4R
+## 6      RT @MazMHussain: 2032: Millions of Americans rendered superfluous by automation are pacified by President Zuckerberg basic income + VR head…
+##   favorited favoriteCount replyToSN             created truncated
+## 1     FALSE             0      &lt;NA&gt; 2017-10-30 03:00:42     FALSE
+## 2     FALSE             0      &lt;NA&gt; 2017-10-30 03:00:41     FALSE
+## 3     FALSE             0      &lt;NA&gt; 2017-10-30 03:00:37     FALSE
+## 4     FALSE             0      &lt;NA&gt; 2017-10-30 03:00:31     FALSE
+## 5     FALSE             0      &lt;NA&gt; 2017-10-30 03:00:29     FALSE
+## 6     FALSE             0      &lt;NA&gt; 2017-10-30 03:00:25     FALSE
+##   replyToSID                 id replyToUID
+## 1       &lt;NA&gt; 924833413231546368       &lt;NA&gt;
+## 2       &lt;NA&gt; 924833408924217345       &lt;NA&gt;
+## 3       &lt;NA&gt; 924833388971872256       &lt;NA&gt;
+## 4       &lt;NA&gt; 924833365521551366       &lt;NA&gt;
+## 5       &lt;NA&gt; 924833358835802112       &lt;NA&gt;
+## 6       &lt;NA&gt; 924833340221480960       &lt;NA&gt;
+##                                                                                            statusSource
+## 1                     &lt;a href=&quot;http://twitter.com/#!/download/ipad&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPad&lt;/a&gt;
+## 2 &lt;a href=&quot;https://www.reddit.com/user/alllibertynews/m/libertynews&quot; rel=&quot;nofollow&quot;&gt;AllLibertyNews3&lt;/a&gt;
+## 3                                                  &lt;a href=&quot;https://ifttt.com&quot; rel=&quot;nofollow&quot;&gt;IFTTT&lt;/a&gt;
+## 4                    &lt;a href=&quot;http://twitter.com/download/iphone&quot; rel=&quot;nofollow&quot;&gt;Twitter for iPhone&lt;/a&gt;
+## 5                                   &lt;a href=&quot;http://publicize.wp.com/&quot; rel=&quot;nofollow&quot;&gt;WordPress.com&lt;/a&gt;
+## 6                  &lt;a href=&quot;http://twitter.com/download/android&quot; rel=&quot;nofollow&quot;&gt;Twitter for Android&lt;/a&gt;
+##        screenName retweetCount isRetweet retweeted longitude latitude
+## 1       bsadams25          142      TRUE     FALSE      &lt;NA&gt;     &lt;NA&gt;
+## 2  alllibertynews            1      TRUE     FALSE      &lt;NA&gt;     &lt;NA&gt;
+## 3 LifeLeadership4            0     FALSE     FALSE      &lt;NA&gt;     &lt;NA&gt;
+## 4   pardonmeimrae           18      TRUE     FALSE      &lt;NA&gt;     &lt;NA&gt;
+## 5       EthereumC            0     FALSE     FALSE      &lt;NA&gt;     &lt;NA&gt;
+## 6   SnigdhChandra           52      TRUE     FALSE      &lt;NA&gt;     &lt;NA&gt;</code></pre>
+</div>
+</div>
+<div id="tidytext" class="section level2">
+<h2><span class="header-section-number">12.2</span> Tidytext</h2>
+<p>The <a href="http://tidytextmining.com/"><code>tidytext</code></a> package helps us use all the tools in the tidyverse alongside text data. The key tool we’ll use here is <code>unnest_tokens()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidytext)
+income_words &lt;-<span class="st"> </span>income_df %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">text =</span> <span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">|[[:digit:][:punct:]]+&quot;</span>, <span class="st">&quot;&quot;</span>, text)) %&gt;%
+<span class="st">  </span><span class="kw">unnest_tokens</span>(word, text) %&gt;%
+<span class="st">  </span><span class="kw">anti_join</span>(stop_words)
+income_words %&gt;%
+<span class="st">  </span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) %&gt;%
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # A tibble: 6 x 2
+##         word     n
+##        &lt;chr&gt; &lt;int&gt;
+## 1     income  8523
+## 2         rt  6237
+## 3    httpstc  1751
+## 4    service  1746
+## 5       true  1746
+## 6 benshapiro  1741</code></pre>
+<p>Let’s compare the words in original tweets (ot) to those found in retweets (rt).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scales)
+type_proportions &lt;-<span class="st"> </span>income_words %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">is_retweet =</span> <span class="kw">ifelse</span>(isRetweet, <span class="st">&quot;rt&quot;</span>, <span class="st">&quot;ot&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(is_retweet) %&gt;%
+<span class="st">  </span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">proportion =</span> n /<span class="st"> </span><span class="kw">sum</span>(n)) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(n &gt;<span class="st"> </span><span class="dv">10</span>) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(is_retweet, word, proportion) %&gt;%
+<span class="st">  </span><span class="kw">spread</span>(is_retweet, proportion) 
+<span class="kw">head</span>(type_proportions)</code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##         word           ot           rt
+##        &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+## 1    aboogle           NA 0.0004901068
+## 2        aca           NA 0.0003080672
+## 3     access 0.0004209227 0.0004060885
+## 4 accessible           NA 0.0001960427
+## 5   accident           NA 0.0001820397
+## 6     actual           NA 0.0002660580</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">type_proportions %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(ot, rt, <span class="dt">color =</span> <span class="kw">abs</span>(rt -<span class="st"> </span>ot))) +
+<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">color =</span> <span class="st">&quot;gray40&quot;</span>, <span class="dt">lty =</span> <span class="dv">2</span>) +
+<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="fl">0.4</span>, <span class="dt">size =</span> <span class="fl">2.5</span>, <span class="dt">height =</span> <span class="fl">0.1</span>, <span class="dt">width =</span> <span class="fl">0.1</span>) +
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> word), <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, <span class="dt">vjust =</span> <span class="fl">1.5</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_x_log10</span>(<span class="dt">labels =</span> <span class="kw">percent_format</span>()) +
+<span class="st">  </span><span class="kw">scale_y_log10</span>(<span class="dt">labels =</span> <span class="kw">percent_format</span>()) +
+<span class="st">  </span><span class="kw">scale_color_gradient</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.001</span>), <span class="dt">low =</span> <span class="st">&quot;darkslategray4&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;gray75&quot;</span>)</code></pre></div>
+<p><img src="12-nlp_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="n-grams" class="section level2">
+<h2><span class="header-section-number">12.3</span> N-grams</h2>
+<p>An n-gram is a sequence of <span class="math inline">\(n\)</span> tokens. For fun with n-grams, check out <a href="https://books.google.com/ngrams">Google’s Ngram Viewer</a>.</p>
+<p>Let’s compare bigrams (two-word n-grams) in our tweets across retweets (rt) and original tweets (ot).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bigrams &lt;-<span class="st"> </span>income_df %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">text =</span> <span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">|[[:digit:][:punct:]]+&quot;</span>, <span class="st">&quot;&quot;</span>, text)) %&gt;%
+<span class="st">  </span><span class="kw">unnest_tokens</span>(word, text, <span class="dt">token =</span> <span class="st">&quot;ngrams&quot;</span>, <span class="dt">n =</span> <span class="dv">2</span>) %&gt;%
+<span class="st">  </span><span class="kw">separate</span>(word, <span class="kw">c</span>(<span class="st">&quot;word1&quot;</span>, <span class="st">&quot;word2&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!word1 %in%<span class="st"> </span>stop_words$word &amp;<span class="st"> </span>!word2 %in%<span class="st"> </span>stop_words$word) %&gt;%
+<span class="st">  </span><span class="kw">unite</span>(word, word1, word2, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)
+
+bigram_proportions &lt;-<span class="st"> </span>bigrams %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">is_retweet =</span> <span class="kw">ifelse</span>(isRetweet, <span class="st">&quot;rt&quot;</span>, <span class="st">&quot;ot&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(is_retweet) %&gt;%
+<span class="st">  </span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">proportion =</span> n /<span class="st"> </span><span class="kw">sum</span>(n)) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(n &gt;<span class="st"> </span><span class="dv">10</span>) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(is_retweet, word, proportion) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(is_retweet !=<span class="st"> &#39;&#39;</span>) %&gt;%
+<span class="st">  </span><span class="kw">spread</span>(is_retweet, proportion)
+
+bigram_proportions %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(ot, rt, <span class="dt">color =</span> <span class="kw">abs</span>(rt -<span class="st"> </span>ot))) +
+<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">color =</span> <span class="st">&quot;gray40&quot;</span>, <span class="dt">lty =</span> <span class="dv">2</span>) +
+<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">size =</span> <span class="fl">2.5</span>, <span class="dt">height =</span> <span class="fl">0.1</span>, <span class="dt">width =</span> <span class="fl">0.1</span>) +
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> word), <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, <span class="dt">vjust =</span> <span class="fl">1.5</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_x_log10</span>(<span class="dt">labels =</span> <span class="kw">percent_format</span>()) +
+<span class="st">  </span><span class="kw">scale_y_log10</span>(<span class="dt">labels =</span> <span class="kw">percent_format</span>()) +
+<span class="st">  </span><span class="kw">scale_color_gradient</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="fl">0.0001</span>, <span class="fl">0.001</span>), <span class="dt">low =</span> <span class="st">&quot;darkslategray4&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;gray75&quot;</span>) +
+<span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="12-nlp_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div id="skip-n-grams" class="section level3">
+<h3><span class="header-section-number">12.3.1</span> Skip N-grams</h3>
+<p>Skip n-grams are phrases of <span class="math inline">\(n\)</span> kept words with at most <span class="math inline">\(k\)</span> words that are skipped between each word that is kept. Suppose <span class="math inline">\(n=3\)</span> and <span class="math inline">\(k=2\)</span>, with the input phrase “the rain in Spain falls mainly in the plain,” the output will be.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tokenizers::<span class="kw">tokenize_skip_ngrams</span>(<span class="st">&quot;the rain in Spain falls mainly in the plain&quot;</span>, <span class="dt">n =</span> <span class="dv">3</span>, <span class="dt">k =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## [[1]]
+##  [1] &quot;the spain in&quot;       &quot;rain falls the&quot;     &quot;in mainly plain&quot;   
+##  [4] &quot;the in falls&quot;       &quot;rain spain mainly&quot;  &quot;in falls in&quot;       
+##  [7] &quot;spain mainly the&quot;   &quot;falls in plain&quot;     &quot;the rain in&quot;       
+## [10] &quot;rain in spain&quot;      &quot;in spain falls&quot;     &quot;spain falls mainly&quot;
+## [13] &quot;falls mainly in&quot;    &quot;mainly in the&quot;      &quot;in the plain&quot;</code></pre>
+<p>Let’s gather simple two-word skip ngrams with up to two skipped words between each kept word.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">skipgrams &lt;-<span class="st"> </span>income_df %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">text =</span> <span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">|[[:digit:][:punct:]]+&quot;</span>, <span class="st">&quot;&quot;</span>, text)) %&gt;%
+<span class="st">  </span><span class="kw">unnest_tokens</span>(word, text, <span class="dt">token =</span> <span class="st">&quot;skip_ngrams&quot;</span>, <span class="dt">n =</span> <span class="dv">2</span>, <span class="dt">k =</span> <span class="dv">2</span>) %&gt;%
+<span class="st">  </span><span class="kw">separate</span>(word, <span class="kw">c</span>(<span class="st">&quot;word1&quot;</span>, <span class="st">&quot;word2&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!word1 %in%<span class="st"> </span>stop_words$word &amp;<span class="st"> </span>!word2 %in%<span class="st"> </span>stop_words$word) %&gt;%
+<span class="st">  </span><span class="kw">unite</span>(word, word1, word2, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">retweet_counts &lt;-<span class="st"> </span>skipgrams %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(word) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">retweets =</span> <span class="kw">sum</span>(retweetCount), <span class="dt">count =</span> <span class="kw">n</span>())
+
+type_proportions &lt;-<span class="st"> </span>skipgrams %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">is_retweet =</span> <span class="kw">ifelse</span>(isRetweet, <span class="st">&quot;rt&quot;</span>, <span class="st">&quot;ot&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(is_retweet) %&gt;%
+<span class="st">  </span><span class="kw">count</span>(word) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">proportion =</span> n /<span class="st"> </span><span class="kw">sum</span>(n)) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(n &gt;<span class="st"> </span><span class="dv">10</span>) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(is_retweet, word, proportion) %&gt;%
+<span class="st">  </span><span class="kw">spread</span>(is_retweet, proportion) %&gt;%
+<span class="st">  </span><span class="kw">merge</span>(retweet_counts)
+
+type_proportions %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(count, retweets)) +
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> rt, <span class="dt">alpha =</span> rt)) +
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> word), <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>, <span class="dt">vjust =</span> <span class="fl">1.5</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_x_log10</span>(<span class="dt">labels =</span> <span class="kw">comma_format</span>()) +
+<span class="st">  </span><span class="kw">scale_y_log10</span>(<span class="dt">labels =</span> <span class="kw">comma_format</span>()) </code></pre></div>
+<p><img src="12-nlp_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+</div>
+<div id="assignment-11" class="section level2">
+<h2><span class="header-section-number">12.4</span> Assignment</h2>
+<ol style="list-style-type: decimal">
+<li>Use searchTwitter to download tweets about another topic.</li>
+<li>Create a plot that compares word choice across android and iPhone devices using the following <code>mutate()</code> expression.</li>
+</ol>
+<pre><code>mutate(type = case_when(
+  grepl(&quot;android&quot;, statusSource) ~ &quot;android&quot;,
+  grepl(&quot;iPhone&quot;, statusSource) ~ &quot;iPhone&quot;,
+  TRUE ~ &quot;other&quot;
+))</code></pre>
+
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="polar.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-sources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jonpage/r-course/edit/master/12-nlp.Rmd",
+"text": "Edit"
+},
+"download": ["jonpage-r-course.pdf", "jonpage-r-course.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

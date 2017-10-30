@@ -1,0 +1,217 @@
+```{r include=FALSE, cache=FALSE}
+rm(list = ls(all = TRUE))
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, cache = TRUE)
+```
+# Text Analysis {#nlp}
+
+This lecture uses the following packages:
+```
+tidyverse
+tidytext
+twitteR
+scales
+```
+
+## Data
+
+### Twitter
+
+The content of recent Tweets can be downloaded using Twitter's Application Pragramming Interface (API).
+We will make use of a package, `twitteR`, that is designed to make working with this API easier.
+
+In class I will provide you with an API Key and API Secret that you can use. Outside of class, you
+will need to set up your own Twitter application at https://apps.twitter.com.
+
+### Setting up twitteR
+
+Install the `twitteR` package:
+```
+install.packages("twitteR")
+```
+
+Load the package:
+```{r}
+library(twitteR)
+```
+
+Finally, authenticate with twitter using the `API Key`, `API Secret`, `Access Token`, and `Access Secret` 
+from the application for this course or your own.
+```
+setup_twitter_oauth("API key", "API secret", "Access token", "Access secret")
+ ```
+
+### Grabbing a few tweets
+
+We'll store 1000 tweets that contain `income` in `rstatTweets`:
+```{r, eval=FALSE}
+income_tweets <- searchTwitter('income', n=10000)
+```
+
+```{r, echo=FALSE}
+load("data/income_tweets.RData")
+```
+
+
+Each tweet is stored as a `twitteR::status` object. To make it easy to gather
+the data we want to analyze let's create a function that will return all
+the columns in our soon to be created data frame.
+
+```{r}
+simple_status <- function(status) {
+  status$toDataFrame()
+}
+```
+
+There are three ways we can use `map_df` to get the columns:
+
+```
+map_df(simple_status) # named function
+map_df(function(x) x$toDataFrame()) # anonymous function
+map_df(~ .$toDataFrame()) # formula
+```
+
+All of those options do the same thing. They all return a data frame with one
+row representing a tweet. Let's make use of the formula version to create our data frame:
+```{r}
+library(tidyverse)
+income_df <- income_tweets %>%
+  map_df(~ .$toDataFrame())
+head(income_df)
+```
+
+
+## Tidytext
+
+The [`tidytext`](http://tidytextmining.com/) package helps us use all the tools in
+the tidyverse alongside text data. The key tool we'll use here is `unnest_tokens()`
+
+```{r}
+library(tidytext)
+income_words <- income_df %>%
+  mutate(text = gsub("\n|[[:digit:][:punct:]]+", "", text)) %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+income_words %>%
+  count(word, sort = TRUE)
+```
+
+
+Let's compare the words in original tweets (ot) to those found in retweets (rt).
+
+```{r}
+library(scales)
+type_proportions <- income_words %>%
+  mutate(is_retweet = ifelse(isRetweet, "rt", "ot")) %>%
+  group_by(is_retweet) %>%
+  count(word, sort = TRUE) %>%
+  mutate(proportion = n / sum(n)) %>%
+  filter(n > 10) %>%
+  select(is_retweet, word, proportion) %>%
+  spread(is_retweet, proportion) 
+type_proportions
+```
+
+```{r}
+type_proportions %>%
+  ggplot(aes(ot, rt, color = abs(rt - ot))) +
+  geom_abline(color = "gray40", lty = 2) +
+  geom_jitter(alpha = 0.4, size = 2.5, height = 0.1, width = 0.1) +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) + 
+  scale_x_log10(labels = percent_format()) +
+  scale_y_log10(labels = percent_format()) +
+  scale_color_gradient(limits = c(0, 0.001), low = "darkslategray4", high = "gray75")
+```
+
+
+## N-grams
+
+An n-gram is a sequence of $n$ tokens. For fun with n-grams, check out [Google's Ngram Viewer](https://books.google.com/ngrams). 
+
+Let's compare bigrams (two-word n-grams) in our tweets across retweets (rt) and original tweets (ot).
+
+```{r}
+bigrams <- income_df %>%
+  mutate(text = gsub("\n|[[:digit:][:punct:]]+", "", text)) %>%
+  unnest_tokens(word, text, token = "ngrams", n = 2) %>%
+  separate(word, c("word1", "word2"), sep = " ") %>%
+  filter(!word1 %in% stop_words$word & !word2 %in% stop_words$word) %>%
+  unite(word, word1, word2, sep = " ")
+
+bigram_proportions <- bigrams %>%
+  mutate(is_retweet = ifelse(isRetweet, "rt", "ot")) %>%
+  group_by(is_retweet) %>%
+  count(word, sort = TRUE) %>%
+  mutate(proportion = n / sum(n)) %>%
+  filter(n > 10) %>%
+  select(is_retweet, word, proportion) %>%
+  filter(is_retweet != '') %>%
+  spread(is_retweet, proportion)
+
+bigram_proportions %>%
+  ggplot(aes(ot, rt, color = abs(rt - ot))) +
+  geom_abline(color = "gray40", lty = 2) +
+  geom_jitter(alpha = 0.5, size = 2.5, height = 0.1, width = 0.1) +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) + 
+  scale_x_log10(labels = percent_format()) +
+  scale_y_log10(labels = percent_format()) +
+  scale_color_gradient(limits = c(0.0001, 0.001), low = "darkslategray4", high = "gray75") +
+  theme_minimal()
+```
+
+
+### Skip N-grams
+
+Skip n-grams are phrases of $n$ kept words with at most $k$ words that are skipped between each 
+word that is kept.
+Suppose $n=3$ and $k=2$, with the input phrase "the rain in Spain falls mainly in the plain," the output will be.
+```{r}
+tokenizers::tokenize_skip_ngrams("the rain in Spain falls mainly in the plain", n = 3, k = 2)
+```
+
+Let's gather simple two-word skip ngrams with up to two skipped words between each kept word.
+
+```{r}
+skipgrams <- income_df %>%
+  mutate(text = gsub("\n|[[:digit:][:punct:]]+", "", text)) %>%
+  unnest_tokens(word, text, token = "skip_ngrams", n = 2, k = 2) %>%
+  separate(word, c("word1", "word2"), sep = " ") %>%
+  filter(!word1 %in% stop_words$word & !word2 %in% stop_words$word) %>%
+  unite(word, word1, word2, sep = " ")
+```
+
+```{r}
+retweet_counts <- skipgrams %>%
+  group_by(word) %>%
+  summarise(retweets = sum(retweetCount), count = n())
+
+type_proportions <- skipgrams %>%
+  mutate(is_retweet = ifelse(isRetweet, "rt", "ot")) %>%
+  group_by(is_retweet) %>%
+  count(word) %>%
+  mutate(proportion = n / sum(n)) %>%
+  filter(n > 10) %>%
+  select(is_retweet, word, proportion) %>%
+  spread(is_retweet, proportion) %>%
+  merge(retweet_counts)
+
+type_proportions %>%
+  ggplot(aes(count, retweets)) +
+  geom_point(aes(size = rt, alpha = rt)) +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) + 
+  scale_x_log10(labels = comma_format()) +
+  scale_y_log10(labels = comma_format()) 
+```
+
+
+## Assignment
+
+(1) Use searchTwitter to download tweets about another topic. (2) Create a plot that compares 
+word choice across android and iPhone devices using the following `mutate()` expression. 
+
+```
+mutate(type = case_when(
+  grepl("android", statusSource) ~ "android",
+  grepl("iPhone", statusSource) ~ "iPhone",
+  TRUE ~ "other"
+))
+```

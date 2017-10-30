@@ -105,7 +105,7 @@ intercept of your line as well as the sum of squares.
     squares. Run the function several times. What was the smallest sum of 
     squares that you got? How does it compare to your neighbors?
 
-## The linear model
+## The linear model {-}
 
 It is rather cumbersome to try to get the correct least squares line, i.e. the 
 line that minimizes the sum of squared residuals, through trial and error. 

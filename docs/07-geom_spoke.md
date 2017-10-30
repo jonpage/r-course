@@ -292,6 +292,8 @@ Let's focus in on just the continental US:
 
 
 ```r
+library(GGally)
+
 usa <- map_data("usa")
 usa_long_range <- range(usa$long)
 usa_lat_range <- range(usa$lat)

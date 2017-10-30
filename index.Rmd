@@ -158,7 +158,7 @@ period, except for the last several weeks when you are completing your final pro
 
 ### Week 12 {-}
 
-* **R** Text Analysis (Natural Language Processing)
+* **R** [Text Analysis (Natural Language Processing)](#nlp)
 <!-- twitter api - JSON -->
 * **Topic** [Linear Regression](#linear-regression)
 * **Project Assignment** Work on final project (cont.)

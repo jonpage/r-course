@@ -5,7 +5,7 @@ subtitle: |
   | ECON 396 (Fall 2017)
   | TR 10:30-11:45, DURP Computer Lab (first floor Saunders)
 author: "Jonathan Page"
-date: "2017-09-27"
+date: "2017-10-29"
 site: bookdown::bookdown_site
 output: 
   bookdown::gitbook:
@@ -159,7 +159,7 @@ period, except for the last several weeks when you are completing your final pro
 
 ### Week 12 {-}
 
-* **R** Text Analysis (Natural Language Processing)
+* **R** [Text Analysis (Natural Language Processing)](#nlp)
 <!-- twitter api - JSON -->
 * **Topic** [Linear Regression](#linear-regression)
 * **Project Assignment** Work on final project (cont.)

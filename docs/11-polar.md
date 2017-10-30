@@ -1,6 +1,13 @@
 
 # Polar Coordinates {#polar}
 
+This lecture uses the following packages:
+```
+tidyverse
+lubridate
+forcats
+```
+
 ## Data
 
 ### Survey of Consumers {-}
