@@ -159,13 +159,14 @@ period, except for the last several weeks when you are completing your final pro
 ### Week 12 {-}
 
 * **R** [Text Analysis (Natural Language Processing)](#nlp)
-<!-- twitter api - JSON -->
+  * **Data** Twitter *[twitteR API]*
 * **Topic** [Linear Regression](#linear-regression)
 * **Project Assignment** Work on final project (cont.)
 
 ### Week 13 {-}
 
-* **R** networks, geomnet extension
+* **R** [networks, geomnet extension](#networks)
+  * **Data** UN Comtrade 
 <!-- -->
 * **Topic** [Multiple Regression](#multiple-regression)
 * **Project Assignment** Work on final project (cont.)
@@ -265,3 +266,45 @@ The final project will be an R Markdown document which communicates your project
 ## Final project presentation participation {-}
 
 Your final project participation grade is based on a combination of your own presentation and the feedback you provide to your classmates.
+
+# Final Project Rubric {-}
+
+The final project deliverable is worth 20% of your final grade. The following is a break down of
+how your final project will be graded.
+
+## Section: Introduction (10%) {-}
+
+Your introduction should clearly state the research question(s) addressed by your 
+project. The goal for this section is to make your reader interested in the topic
+of your project.
+
+## Section: Data (10%) {-}
+
+The data section should clearly indicate where/how to access the data you used in
+your project so that any reader could replicate your analysis. 
+
+## Section: Analysis and Results (30%) {-}
+
+This section should present the main figures/tables that answer your research question.
+
+## Section: Conclusion (10%) {-}
+
+The conclusion should provide a summary of your findings and a discussion of the next
+steps that you (or someone else interest in your topic) could take to explore your
+question further.
+
+## General: Organization (10%) {-}
+
+You should use headings (begin a line with `#` in R Markdown) to indicate separate sections.
+The narrative of your project should be easy to follow.
+
+## General: Grammar (10%) {-}
+
+Your project should be free from spelling and grammatical mistakes. Place your text in Word if 
+you need assistance, or have someone else proofread your project.
+
+## General: Code (20%) {-}
+
+All of your R chunks should be well organized and easy to follow. The key here is that all your
+code should work. With the data you described in your data section, I should be able to run your
+R Markdown without getting any errors.

@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="themes-labels-colors.html">
-<link rel="next" href="nlp.html">
+<link rel="prev" href="nlp.html">
+<link rel="next" href="data-sources.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -394,155 +394,92 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="polar" class="section level1">
-<h1><span class="header-section-number">Lecture 11</span> Polar Coordinates</h1>
+<div id="networks" class="section level1">
+<h1><span class="header-section-number">Lecture 13</span> Networks</h1>
 <p>This lecture uses the following packages:</p>
 <pre><code>tidyverse
-lubridate
-forcats</code></pre>
-<div id="data-8" class="section level2">
-<h2><span class="header-section-number">11.1</span> Data</h2>
-<div id="survey-of-consumers" class="section level3 unnumbered">
-<h3>Survey of Consumers</h3>
-<p>The University of Michigan conducts the Survey of Consumers. This monthly survey takes the pulse of consumers to help predict the state of the economy in the near future. We will be using a few responses from this monthly survey to highlight how you can visualize periodic data. For full definitions of the variables we will work with take a look at the online codebook: <a href="https://data.sca.isr.umich.edu/subset/codebook.php" class="uri">https://data.sca.isr.umich.edu/subset/codebook.php</a></p>
-<p>To download the data</p>
+geomnet</code></pre>
+<div id="data-10" class="section level2">
+<h2><span class="header-section-number">13.1</span> Data</h2>
+<p>The basic data requirements for creating a network diagram is a listing of the edges. Each edge observation should designate the two vertices it connects. In this lecture we will look at international trade flows. Each edge will represent the amount of trade flowing between two countries.</p>
+<div id="un-comtrade-database" class="section level3">
+<h3><span class="header-section-number">13.1.1</span> UN Comtrade Database</h3>
+<p>The <a href="https://comtrade.un.org/">UN Comtrade Database</a> houses detailed global trade data.</p>
 <ol style="list-style-type: decimal">
-<li>Go to the Survey of Consumers’ data page: <a href="https://data.sca.isr.umich.edu/subset/subset.php" class="uri">https://data.sca.isr.umich.edu/subset/subset.php</a></li>
-<li>In the <strong>Frequency and Range</strong> section, set the <strong>Starting year</strong> to 1998, since that is the first year with complete data on “Probability of Losing a Job During the Next 5 Years” (PJOB)</li>
-<li>In the <strong>Demographics</strong> section, check all Income groups (y13 = <em>Bottom 33%</em>, y23 = <em>Middle 33%</em>, and y33 = <em>Top 33%</em>)</li>
-<li>In the <strong>Variables</strong> section, check <em>PEXP</em> and <em>PJOB</em> in the <strong>Personal Finances</strong> subsection, and check <em>UMEX</em> in the <strong>Unemployment, Interest Rates, Prices, Government Expectations</strong> subsection</li>
-<li>Click on the “Download CSV” button.</li>
+<li>Under “Type of product &amp; Frequency” select <strong>Goods</strong> and <strong>Annual</strong></li>
+<li>Under “Classification” select <strong>HS 12</strong></li>
+<li>Under “Select desired data” change <em>Trade flows</em> to <strong>Import</strong>, <em>Partners</em> to <strong>All</strong> and change the <em>HS2012 commodity codes</em> list to include the following</li>
 </ol>
-<p>Load the downloaded dataset.</p>
+<ul>
+<li>1006 - Rice</li>
+<li>1005 - Maize (corn)</li>
+<li>0201 - Meat of bovine animals; fresh or chilled</li>
+<li>0302 - Fish; fresh or chilled, excluding fish fillets and other fish meat of heading 0304</li>
+</ul>
+<p>Next click on “Download CSV”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-survey &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/scaum-814.csv&quot;</span>)</code></pre></div>
-<p>Divide the date column into year and month columns.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
-survey &lt;-<span class="st"> </span>survey %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">parse_date</span>(yyyymm, <span class="dt">format =</span> <span class="st">&quot;%Y%m&quot;</span>),
-         <span class="dt">year =</span> <span class="kw">year</span>(date),
-         <span class="dt">month =</span> <span class="kw">month</span>(date)
-  ) %&gt;%
-<span class="st">  </span><span class="kw">select</span>(-yyyymm)
-survey</code></pre></div>
-<pre><code>## # A tibble: 235 x 12
-##    pexp_r_y13 pexp_r_y23 pexp_r_y33 pjob_mean_y13 pjob_mean_y23
-##         &lt;int&gt;      &lt;int&gt;      &lt;int&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1        128        153        148          15.3          16.6
-##  2        147        143        149          18.9          19.8
-##  3        125        141        137          14.4          16.4
-##  4        133        134        149          14.2          18.5
-##  5        126        129        150          15.8          16.8
-##  6        128        139        137          14.4          14.8
-##  7        132        142        146          17.0          18.6
-##  8        131        143        145          15.8          19.3
-##  9        126        135        135          18.1          17.2
-## 10        132        134        136          19.4          16.6
-## # ... with 225 more rows, and 7 more variables: pjob_mean_y33 &lt;dbl&gt;,
-## #   umex_r_y13 &lt;int&gt;, umex_r_y23 &lt;int&gt;, umex_r_y33 &lt;int&gt;, date &lt;date&gt;,
-## #   year &lt;dbl&gt;, month &lt;dbl&gt;</code></pre>
-<p>Each variable is calculated from the survey as follows:</p>
-<table style="width:62%;">
-<colgroup>
-<col width="9%" />
-<col width="30%" />
-<col width="22%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Code</th>
-<th>Survey Question</th>
-<th>Calculation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>PEXP</td>
-<td>“Now looking ahead – do you think that a year from now you (and your family living there) will be better off financially, worse off, or just about the same as now?”</td>
-<td>Better - Worse + 100</td>
-</tr>
-<tr class="even">
-<td>PJOB</td>
-<td>“During the next 5 years, what do you think the chances are that you (or your husband/wife) will lose a job you wanted to keep?”</td>
-<td>Mean</td>
-</tr>
-<tr class="odd">
-<td>UMEX</td>
-<td>“How about people out of work during the coming 12 months ‐‐ do you think that there will be more unemployment than now, about the same, or less?”</td>
-<td>Less - More + 100</td>
-</tr>
-</tbody>
-</table>
-<p>To make our dataset tidy, we want each variable to have it’s own row. Since we added the income demographic option, we have multiple columns for each variable. Let’s fix that with the <code>gather()</code> -&gt; <code>separate()</code> -&gt; <code>spread()</code> pattern.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(forcats)
-survey &lt;-<span class="st"> </span>survey %&gt;%
-<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, -year, -month, -date) %&gt;%
-<span class="st">  </span><span class="kw">separate</span>(key, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;income&quot;</span>)) %&gt;%
-<span class="st">  </span><span class="kw">select</span>(-type) %&gt;%
-<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> <span class="st">&quot;variable&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>) %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">income =</span> <span class="kw">fct_recode</span>(<span class="kw">as_factor</span>(income), <span class="st">`</span><span class="dt">Bottom 3rd</span><span class="st">`</span> =<span class="st"> &quot;y13&quot;</span>, <span class="st">`</span><span class="dt">Middle 3rd</span><span class="st">`</span> =<span class="st"> &quot;y23&quot;</span>, <span class="st">`</span><span class="dt">Top 3rd</span><span class="st">`</span> =<span class="st"> &quot;y33&quot;</span>))
-survey</code></pre></div>
-<pre><code>## # A tibble: 705 x 7
-##          date  year month     income  pexp  pjob  umex
-##        &lt;date&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;fctr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 1998-01-01  1998     1 Bottom 3rd   128  15.3    90
-##  2 1998-01-01  1998     1 Middle 3rd   153  16.6    94
-##  3 1998-01-01  1998     1    Top 3rd   148  15.8    99
-##  4 1998-02-01  1998     2 Bottom 3rd   147  18.9   103
-##  5 1998-02-01  1998     2 Middle 3rd   143  19.8   103
-##  6 1998-02-01  1998     2    Top 3rd   149  14.7   100
-##  7 1998-03-01  1998     3 Bottom 3rd   125  14.4    90
-##  8 1998-03-01  1998     3 Middle 3rd   141  16.4   106
-##  9 1998-03-01  1998     3    Top 3rd   137  17.8   104
-## 10 1998-04-01  1998     4 Bottom 3rd   133  14.2   101
-## # ... with 695 more rows</code></pre>
+comtrade &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/comtrade.csv&quot;</span>)
+comtrade</code></pre></div>
+<pre><code>## # A tibble: 57 x 35
+##    Classification  Year Period `Period Desc.` `Aggregate Level`
+##             &lt;chr&gt; &lt;int&gt;  &lt;int&gt;          &lt;int&gt;             &lt;int&gt;
+##  1             H4  2016   2016           2016                 4
+##  2             H4  2016   2016           2016                 4
+##  3             H4  2016   2016           2016                 4
+##  4             H4  2016   2016           2016                 4
+##  5             H4  2016   2016           2016                 4
+##  6             H4  2016   2016           2016                 4
+##  7             H4  2016   2016           2016                 4
+##  8             H4  2016   2016           2016                 4
+##  9             H4  2016   2016           2016                 4
+## 10             H4  2016   2016           2016                 4
+## # ... with 47 more rows, and 30 more variables: `Is Leaf Code` &lt;int&gt;,
+## #   `Trade Flow Code` &lt;int&gt;, `Trade Flow` &lt;chr&gt;, `Reporter Code` &lt;int&gt;,
+## #   Reporter &lt;chr&gt;, `Reporter ISO` &lt;chr&gt;, `Partner Code` &lt;int&gt;,
+## #   Partner &lt;chr&gt;, `Partner ISO` &lt;chr&gt;, `2nd Partner Code` &lt;chr&gt;, `2nd
+## #   Partner` &lt;chr&gt;, `2nd Partner ISO` &lt;chr&gt;, `Customs Proc. Code` &lt;chr&gt;,
+## #   Customs &lt;chr&gt;, `Mode of Transport Code` &lt;chr&gt;, `Mode of
+## #   Transport` &lt;chr&gt;, `Commodity Code` &lt;chr&gt;, Commodity &lt;chr&gt;, `Qty Unit
+## #   Code` &lt;int&gt;, `Qty Unit` &lt;chr&gt;, Qty &lt;chr&gt;, `Alt Qty Unit Code` &lt;chr&gt;,
+## #   `Alt Qty Unit` &lt;dbl&gt;, `Alt Qty` &lt;chr&gt;, `Netweight (kg)` &lt;dbl&gt;, `Gross
+## #   weight (kg)` &lt;chr&gt;, `Trade Value (US$)` &lt;dbl&gt;, `CIF Trade Value
+## #   (US$)` &lt;chr&gt;, `FOB Trade Value (US$)` &lt;chr&gt;, Flag &lt;int&gt;</code></pre>
 </div>
 </div>
-<div id="simple-time-series" class="section level2">
-<h2><span class="header-section-number">11.2</span> Simple Time Series</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(survey, <span class="kw">aes</span>(date, pexp, <span class="dt">color =</span> income)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_line</span>() +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">100</span>) +
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Better or Worse?&quot;</span>)</code></pre></div>
-<p><img src="11-polar_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div id="geomnet" class="section level2">
+<h2><span class="header-section-number">13.2</span> Geomnet</h2>
+<pre><code>install.packages(&#39;geomnet&#39;)</code></pre>
+<p>The basic requirements for using <code>geom_net()</code> are to identify the vertex columns labelled <code>from_id</code> and <code>to_id</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(geomnet)
+trade_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(comtrade, <span class="kw">aes</span>(<span class="dt">from_id =</span> <span class="st">`</span><span class="dt">Partner ISO</span><span class="st">`</span>, <span class="dt">to_id =</span> <span class="st">`</span><span class="dt">Reporter ISO</span><span class="st">`</span>))
+trade_plot +
+<span class="st">  </span><span class="kw">geom_net</span>()</code></pre></div>
+<p><img src="13-networks_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trade_plot +
+<span class="st">  </span><span class="kw">geom_net</span>(<span class="dt">colour =</span> <span class="st">&quot;darkred&quot;</span>, <span class="dt">layout.alg =</span> <span class="st">&quot;circle&quot;</span>, <span class="dt">labelon =</span> <span class="ot">TRUE</span>, 
+           <span class="dt">size =</span> <span class="dv">15</span>, <span class="dt">directed =</span> <span class="ot">TRUE</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">labelcolour =</span> <span class="st">&quot;white&quot;</span>,
+           <span class="dt">arrowsize =</span> <span class="fl">1.5</span>, <span class="dt">linewidth =</span> <span class="fl">0.5</span>, <span class="dt">arrowgap =</span> <span class="fl">0.05</span>,
+           <span class="dt">selfloops =</span> <span class="ot">TRUE</span>, <span class="dt">ecolour =</span> <span class="st">&quot;green&quot;</span>) +
+<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> `</span><span class="dt">Commodity</span><span class="st">`</span>)</code></pre></div>
+<p><img src="13-networks_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
-<div id="stacked-periods" class="section level2">
-<h2><span class="header-section-number">11.3</span> Stacked Periods</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">better &lt;-<span class="st"> </span><span class="kw">ggplot</span>(survey, <span class="kw">aes</span>(month, pexp, <span class="dt">group =</span> year, <span class="dt">color =</span> year)) +
-<span class="st">  </span><span class="kw">geom_line</span>() +<span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>income) +
-<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">100</span>) +
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Better or Worse?&quot;</span>)
-better</code></pre></div>
-<p><img src="11-polar_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-</div>
-<div id="polar-coordinates" class="section level2">
-<h2><span class="header-section-number">11.4</span> Polar Coordinates</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">better +<span class="st"> </span>
-<span class="st">  </span><span class="kw">coord_polar</span>(<span class="dt">theta =</span> <span class="st">&quot;x&quot;</span>) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">7</span>), <span class="dt">labels =</span> month.name[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">7</span>)]) +
-<span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
-<p><img src="11-polar_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-</div>
-<div id="assignment-10" class="section level2">
-<h2><span class="header-section-number">11.5</span> Assignment</h2>
-<p>Plot the other two variables (<code>pjob</code> and <code>umex</code>) in polar coordinates giving each plot a title that helps communicate the meaning of their respective variable.</p>
-</div>
-<div id="data-attribution" class="section level2">
-<h2><span class="header-section-number">11.6</span> Data Attribution</h2>
-<blockquote>
-<p>Source: Survey of Consumer Expectations, © 2013-2017 Federal Reserve Bank of New York (FRBNY). The SCE data are available without charge at /microeconomics/sce and may be used subject to license terms posted below. FRBNY disclaims any responsibility or legal liability for this analysis and interpretation of Survey of Consumer Expectations data.</p>
-</blockquote>
+<div id="ggnetwork" class="section level2">
+<h2><span class="header-section-number">13.3</span> ggnetwork</h2>
+<pre><code>install.packages(&quot;ggnetwork&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggnetwork)</code></pre></div>
 
 </div>
 </div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="themes-labels-colors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="nlp.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="nlp.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-sources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -571,7 +508,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jonpage/r-course/edit/master/11-polar.Rmd",
+"link": "https://github.com/jonpage/r-course/edit/master/13-networks.Rmd",
 "text": "Edit"
 },
 "download": ["jonpage-r-course.pdf", "jonpage-r-course.epub"],
