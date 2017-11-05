@@ -5,7 +5,7 @@ subtitle: |
   | ECON 396 (Fall 2017)
   | TR 10:30-11:45, DURP Computer Lab (first floor Saunders)
 author: "Jonathan Page"
-date: "2017-10-31"
+date: "2017-11-04"
 site: bookdown::bookdown_site
 output: 
   bookdown::gitbook:

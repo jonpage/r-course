@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan Page">
 
 
-<meta name="date" content="2017-10-31">
+<meta name="date" content="2017-11-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -292,6 +292,11 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="13.2" data-path="networks.html"><a href="networks.html#geomnet"><i class="fa fa-check"></i><b>13.2</b> Geomnet</a></li>
 <li class="chapter" data-level="13.3" data-path="networks.html"><a href="networks.html#ggnetwork"><i class="fa fa-check"></i><b>13.3</b> ggnetwork</a></li>
+<li class="chapter" data-level="13.4" data-path="networks.html"><a href="networks.html#nodevertex-summary"><i class="fa fa-check"></i><b>13.4</b> Node/Vertex Summary</a></li>
+<li class="chapter" data-level="13.5" data-path="networks.html"><a href="networks.html#assignment-12"><i class="fa fa-check"></i><b>13.5</b> Assignment</a><ul>
+<li class="chapter" data-level="13.5.1" data-path="networks.html"><a href="networks.html#download-a-new-dataset"><i class="fa fa-check"></i><b>13.5.1</b> Download a new dataset</a></li>
+<li class="chapter" data-level="13.5.2" data-path="networks.html"><a href="networks.html#create-a-visualization"><i class="fa fa-check"></i><b>13.5.2</b> Create a visualization</a></li>
+</ul></li>
 </ul></li>
 <li class="part"><span><b>II Topics</b></span></li>
 <li class="chapter" data-level="" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i>Data Sources Overview</a><ul>
@@ -398,7 +403,9 @@ code > span.in { color: #808080; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Lecture 13</span> Networks</h1>
 <p>This lecture uses the following packages:</p>
 <pre><code>tidyverse
-geomnet</code></pre>
+geomnet
+ggnetwork
+network</code></pre>
 <div id="data-10" class="section level2">
 <h2><span class="header-section-number">13.1</span> Data</h2>
 <p>The basic data requirements for creating a network diagram is a listing of the edges. Each edge observation should designate the two vertices it connects. In this lecture we will look at international trade flows. Each edge will represent the amount of trade flowing between two countries.</p>
@@ -408,8 +415,16 @@ geomnet</code></pre>
 <ol style="list-style-type: decimal">
 <li>Under “Type of product &amp; Frequency” select <strong>Goods</strong> and <strong>Annual</strong></li>
 <li>Under “Classification” select <strong>HS 12</strong></li>
-<li>Under “Select desired data” change <em>Trade flows</em> to <strong>Import</strong>, <em>Partners</em> to <strong>All</strong> and change the <em>HS2012 commodity codes</em> list to include the following</li>
+<li>Under “Select desired data” change <em>Trade flows</em> to <strong>Import</strong>, for <em>Reporters</em> and <em>Partners</em> add the following countries</li>
 </ol>
+<ul>
+<li>USA</li>
+<li>Canada</li>
+<li>Mexico</li>
+<li>China</li>
+<li>Japan</li>
+</ul>
+<p>and change the <em>HS2012 commodity codes</em> list to include the following</p>
 <ul>
 <li>1006 - Rice</li>
 <li>1005 - Maize (corn)</li>
@@ -455,8 +470,9 @@ trade_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(comtrade
 trade_plot +
 <span class="st">  </span><span class="kw">geom_net</span>()</code></pre></div>
 <p><img src="13-networks_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>We can use <code>facet_wrap()</code> to facet by <code>Commodity</code>. There are a bunch of other features of <code>geom_net</code>, so the next figure shows many</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trade_plot +
-<span class="st">  </span><span class="kw">geom_net</span>(<span class="dt">colour =</span> <span class="st">&quot;darkred&quot;</span>, <span class="dt">layout.alg =</span> <span class="st">&quot;circle&quot;</span>, <span class="dt">labelon =</span> <span class="ot">TRUE</span>, 
+<span class="st">  </span><span class="kw">geom_net</span>(<span class="dt">colour =</span> <span class="st">&quot;darkred&quot;</span>, <span class="dt">labelon =</span> <span class="ot">TRUE</span>, 
            <span class="dt">size =</span> <span class="dv">15</span>, <span class="dt">directed =</span> <span class="ot">TRUE</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">labelcolour =</span> <span class="st">&quot;white&quot;</span>,
            <span class="dt">arrowsize =</span> <span class="fl">1.5</span>, <span class="dt">linewidth =</span> <span class="fl">0.5</span>, <span class="dt">arrowgap =</span> <span class="fl">0.05</span>,
            <span class="dt">selfloops =</span> <span class="ot">TRUE</span>, <span class="dt">ecolour =</span> <span class="st">&quot;green&quot;</span>) +
@@ -465,9 +481,105 @@ trade_plot +
 </div>
 <div id="ggnetwork" class="section level2">
 <h2><span class="header-section-number">13.3</span> ggnetwork</h2>
+<p>Up to now, we have not used the information of the amount/value of trade flowing through this network. The <code>ggnetwork</code> package gives us a little more control over the display of the network diagram.</p>
 <pre><code>install.packages(&quot;ggnetwork&quot;)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggnetwork)</code></pre></div>
+<p>Let’s create a network data obect with only the rice commodity.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggnetwork)
+<span class="kw">library</span>(network)
+rice_trade &lt;-<span class="st"> </span>comtrade[<span class="kw">grepl</span>(<span class="st">&quot;rice&quot;</span>, comtrade$Commodity, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>),]
+rice_net &lt;-<span class="st"> </span>network::<span class="kw">network</span>(rice_trade[, <span class="kw">c</span>(<span class="st">&quot;Partner ISO&quot;</span>, <span class="st">&quot;Reporter ISO&quot;</span>)], <span class="dt">directed =</span> <span class="ot">TRUE</span>)
+<span class="kw">set.edge.attribute</span>(rice_net, <span class="st">&quot;export_value&quot;</span>, rice_trade$<span class="st">`</span><span class="dt">Trade Value (US$)</span><span class="st">`</span>)
 
+<span class="kw">ggplot</span>(rice_net, <span class="kw">aes</span>(x, y, <span class="dt">xend =</span> xend, <span class="dt">yend =</span> yend)) +
+<span class="st">  </span><span class="kw">geom_edges</span>() +
+<span class="st">  </span><span class="kw">geom_nodelabel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> vertex.names))</code></pre></div>
+<p><img src="13-networks_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Lets add some information by varying the thickness of the edges based on the value of trade.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(rice_net, <span class="kw">aes</span>(x, y, <span class="dt">xend =</span> xend, <span class="dt">yend =</span> yend)) +
+<span class="st">  </span><span class="kw">geom_edges</span>(<span class="kw">aes</span>(<span class="dt">size =</span> export_value)) +
+<span class="st">  </span><span class="kw">geom_nodelabel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> vertex.names)) +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Rice trade&quot;</span>) +
+<span class="st">  </span><span class="kw">theme_void</span>()</code></pre></div>
+<p><img src="13-networks_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>We can improve this further by adding curvature to the edges, since right now the rice heading to Mexico from the USA is ovelapping the rice heading to the USA from Mexico.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(rice_net, <span class="kw">aes</span>(x, y, <span class="dt">xend =</span> xend, <span class="dt">yend =</span> yend)) +
+<span class="st">  </span><span class="kw">geom_edges</span>(<span class="kw">aes</span>(<span class="dt">size =</span> export_value), <span class="dt">curvature =</span> <span class="fl">0.1</span>) +
+<span class="st">  </span><span class="kw">geom_nodelabel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> vertex.names)) +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Rice trade&quot;</span>) +
+<span class="st">  </span><span class="kw">theme_void</span>()</code></pre></div>
+<p><img src="13-networks_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Let’s color each edge by the origin of the goods flowing along it. That is, the edge that represents goods moving from the USA to Mexico will be reported as an import by Mexico with the USA as the partner. We initialized our network by setting <code>Partner ISO</code> as the <code>from_id</code>. So to associate the flow of trade with the origin country, we will want to set the color of the edge the same as the corresponding origin vertex.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(rice_net, <span class="kw">aes</span>(x, y, <span class="dt">xend =</span> xend, <span class="dt">yend =</span> yend)) +
+<span class="st">  </span><span class="kw">geom_edges</span>(
+    <span class="kw">aes</span>(<span class="dt">size =</span> export_value, <span class="dt">color =</span> vertex.names),
+    <span class="dt">curvature =</span> <span class="fl">0.1</span>
+  ) +
+<span class="st">  </span><span class="kw">geom_nodes</span>(<span class="kw">aes</span>(<span class="dt">color =</span> vertex.names)) +
+<span class="st">  </span><span class="kw">geom_nodelabel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> vertex.names, <span class="dt">color =</span> vertex.names)) +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Rice trade&quot;</span>, <span class="dt">subtitle=</span><span class="st">&quot;Arrows in direction of goods&quot;</span>) +
+<span class="st">  </span><span class="kw">theme_void</span>()</code></pre></div>
+<p><img src="13-networks_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>We can also add arrows to clarify the direction of the flow of goods.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(rice_net, <span class="kw">aes</span>(x, y, <span class="dt">xend =</span> xend, <span class="dt">yend =</span> yend)) +
+<span class="st">  </span><span class="kw">geom_edges</span>(
+    <span class="kw">aes</span>(<span class="dt">size =</span> export_value, <span class="dt">color =</span> vertex.names), 
+    <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">length =</span> <span class="kw">unit</span>(<span class="dv">1</span>, <span class="st">&quot;lines&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;closed&quot;</span>),
+    <span class="dt">curvature =</span> <span class="fl">0.1</span>
+  ) +
+<span class="st">  </span><span class="kw">geom_nodes</span>(<span class="kw">aes</span>(<span class="dt">color =</span> vertex.names)) +
+<span class="st">  </span><span class="kw">geom_nodelabel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> vertex.names, <span class="dt">color =</span> vertex.names)) +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Rice trade&quot;</span>, <span class="dt">subtitle=</span><span class="st">&quot;Arrows in direction of goods&quot;</span>) +
+<span class="st">  </span><span class="kw">theme_void</span>()</code></pre></div>
+<p><img src="13-networks_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Finally, we can also label the edges.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(rice_net, <span class="kw">aes</span>(x, y, <span class="dt">xend =</span> xend, <span class="dt">yend =</span> yend)) +
+<span class="st">  </span><span class="kw">geom_edges</span>(
+    <span class="kw">aes</span>(<span class="dt">size =</span> export_value, <span class="dt">color =</span> vertex.names), 
+    <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">length =</span> <span class="kw">unit</span>(<span class="dv">1</span>, <span class="st">&quot;lines&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;closed&quot;</span>),
+    <span class="dt">curvature =</span> <span class="fl">0.1</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>
+  ) +
+<span class="st">  </span><span class="kw">geom_edgelabel_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> export_value, <span class="dt">color =</span> vertex.names)) +
+<span class="st">  </span><span class="kw">geom_nodelabel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> vertex.names, <span class="dt">color =</span> vertex.names)) +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Rice trade&quot;</span>, <span class="dt">subtitle=</span><span class="st">&quot;Arrows in direction of goods&quot;</span>) +
+<span class="st">  </span><span class="kw">theme_void</span>()</code></pre></div>
+<p><img src="13-networks_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="nodevertex-summary" class="section level2">
+<h2><span class="header-section-number">13.4</span> Node/Vertex Summary</h2>
+<p>Let’s encode the total amount exported from a country (the partners in our data). It’s important here to not use the same attribute name that we used earlier.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vertex_summary &lt;-<span class="st"> </span>rice_trade %&gt;%<span class="st"> </span>
+<span class="st">    </span><span class="kw">group_by</span>(<span class="st">`</span><span class="dt">Partner ISO</span><span class="st">`</span>) %&gt;%<span class="st"> </span>
+<span class="st">    </span><span class="kw">summarize</span>(<span class="dt">value =</span> <span class="kw">sum</span>(<span class="st">`</span><span class="dt">Trade Value (US$)</span><span class="st">`</span>))
+<span class="kw">set.vertex.attribute</span>(
+  rice_net, 
+  <span class="st">&quot;values&quot;</span>, 
+  vertex_summary$value
+)</code></pre></div>
+<p>Let’s encode the sum of export values in the size of each node.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(rice_net, <span class="kw">aes</span>(x, y, <span class="dt">xend =</span> xend, <span class="dt">yend =</span> yend)) +
+<span class="st">  </span><span class="kw">geom_edges</span>(
+    <span class="kw">aes</span>(<span class="dt">size =</span> export_value, <span class="dt">alpha =</span> export_value, <span class="dt">color =</span> vertex.names), 
+    <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">length =</span> <span class="kw">unit</span>(<span class="dv">1</span>, <span class="st">&quot;lines&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;closed&quot;</span>),
+    <span class="dt">curvature =</span> <span class="fl">0.1</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>
+  ) +
+<span class="st">  </span><span class="kw">geom_edgelabel_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> export_value, <span class="dt">color =</span> vertex.names), <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) +
+<span class="st">  </span><span class="kw">geom_nodelabel_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> <span class="kw">paste</span>(vertex.names, values), <span class="dt">color =</span> vertex.names), <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) +
+<span class="st">  </span><span class="kw">geom_nodes</span>(<span class="kw">aes</span>(<span class="dt">size =</span> values, <span class="dt">color =</span> vertex.names), <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Rice trade&quot;</span>, <span class="dt">subtitle=</span><span class="st">&quot;Arrows in direction of goods&quot;</span>) +
+<span class="st">  </span><span class="kw">theme_void</span>()</code></pre></div>
+<p><img src="13-networks_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="assignment-12" class="section level2">
+<h2><span class="header-section-number">13.5</span> Assignment</h2>
+<div id="download-a-new-dataset" class="section level3">
+<h3><span class="header-section-number">13.5.1</span> Download a new dataset</h3>
+<p>Download new data from comtrade. Replace two of the countries we have used with two of your choosing. Remeber that the list of partner and reporter countries must match. Choose a different commodity use a 2 or 4 digit commodity code to increase the chances of trade between your selected countries. Make sure to list the countries you used and the commodity code so I can download your data (you may also submit your CSV with your Rmd).</p>
+</div>
+<div id="create-a-visualization" class="section level3">
+<h3><span class="header-section-number">13.5.2</span> Create a visualization</h3>
+<p>Your network visualization must use the <code>ggnetwork</code> package and display the country codes, the traded values, and have a meaningful title.</p>
+
+</div>
 </div>
 </div>
 
