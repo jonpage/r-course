@@ -5,7 +5,7 @@ subtitle: |
   | ECON 396 (Fall 2017)
   | TR 10:30-11:45, DURP Computer Lab (first floor Saunders)
 author: "Jonathan Page"
-date: "2017-11-04"
+date: "2017-11-06"
 site: bookdown::bookdown_site
 output: 
   bookdown::gitbook:
@@ -160,21 +160,21 @@ period, except for the last several weeks when you are completing your final pro
 ### Week 12 {-}
 
 * **R** [Text Analysis (Natural Language Processing)](#nlp)
-  * **Data** Twitter *[twitteR API]*
+    * **Data** Twitter *[twitteR API]*
 * **Topic** [Linear Regression](#linear-regression)
 * **Project Assignment** Work on final project (cont.)
 
 ### Week 13 {-}
 
 * **R** [networks, geomnet extension](#networks)
-  * **Data** UN Comtrade 
+    * **Data** UN Comtrade 
 <!-- -->
 * **Topic** [Multiple Regression](#multiple-regression)
 * **Project Assignment** Work on final project (cont.)
 
 ### Week 14 {-}
 
-* **R** git and GitHub for R
+* **R** [Log Scales](#log)
 * **Topic** [Putting your work online]()
 * **Project Assignment** Work on final project (cont.)
 

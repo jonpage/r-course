@@ -1,0 +1,268 @@
+# Log scales {#log}
+
+The focus of this lecture is on log scales. The goal is to give you an
+intuition about when to use log scales and how to interpret them. We will
+refresh on basic log transformations and see how they affect how we can encode
+data in a variety of visualizations.
+
+This lecture uses the following packages:
+```
+tidyverse
+```
+
+## Basic Log Review
+
+### Order of magnitude
+
+Remember that the log of a number is the exponent required to transform the base into the
+input.
+
+So that,
+
+\[ log_{10} (x) = y  \]
+
+implies
+
+\[ 10^y = x \]
+
+Let's use a concrete example where $x$ is a vector of the integers from 1 to 100.
+
+```{r}
+x <- 1:100
+x
+```
+
+Let's store the base 10 log of $x$ in the vector $y$:
+
+```{r}
+y <- log(x, base = 10)
+y <- log10(x)
+y
+```
+
+Notice in particular the following pattern:
+
+```{r}
+log10(c(1, 10, 100, 1000, 10000))
+```
+
+It is useful to think of the logarithm (log) as recording the order of magnitude of the input value.
+
+```{r}
+library(tidyverse)
+ggplot(data.frame(x = x, y = y), aes(x, y)) +
+  geom_point()
+```
+
+From looking at the scatter plot of $x$ and $y$ you should notice that the space between larger
+values is diminished relative to the space between smaller values.
+
+### Percent change
+
+A useful feature of logged variables is that the difference between two logged values is proportional to
+the percentage change in the original values. So, if the difference between two logged values is the same
+as the difference between two other logged values, the percentage change across both sets is the same.
+
+```{r}
+log10(110) - log10(100)
+(110 - 100)/100
+log10(220) - log10(200)
+(220 - 200)/200
+```
+
+This is useful in visualizations because similar gaps in a log variable in different regions of the
+chart correspond to the same percentage change.
+
+To test this let's create a variable that grows by a fixed percentage.
+
+```{r}
+constant_growth = 100 * (1.10) ^ (1:100)
+constant_growth
+```
+
+```{r}
+qplot(1:100, constant_growth)
+```
+
+```{r}
+qplot(1:100, log(constant_growth))
+```
+
+`diff(x)` returns a vector of the differences between consecutive values of `x`:
+
+```{r}
+diff(constant_growth)
+```
+
+Taking a look at the differences of the logged constant growth variable we see that
+we the change across values is now constant.
+
+```{r}
+diff(log(constant_growth))
+```
+
+
+### Histogram comparison
+
+We can also compare the histogram of a normal distribution to a distribition that
+would be normal if we applied logs.
+```{r}
+qplot(rnorm(10000, mean = 10, sd = 1), main = "Normal Distribution")
+```
+
+```{r}
+qplot(exp(rnorm(10000, mean = 10, sd = 1)), main = "Log-normal distribution")
+```
+
+
+## Data
+
+For a practical application of logs we'll look back at income. 
+This time we're using zip-code level data from the 
+[IRS Statistics of Income (SOI)](https://www.irs.gov/statistics/soi-tax-stats-statistics-of-income)
+program.
+
+There are a variety of datasets available on [individual income (form 1040)]( https://www.irs.gov/statistics/soi-tax-stats-individual-income-tax-return-form-1040-statistics).
+From the main [zip-code data page](https://www.irs.gov/statistics/soi-tax-stats-individual-income-tax-statistics-zip-code-data-soi), click the link to the [2015 data](https://www.irs.gov/statistics/soi-tax-stats-individual-income-tax-statistics-2015-zip-code-data-soi), then download the 
+[CSV for all states without AGI](https://www.irs.gov/pub/irs-soi/15zpallnoagi.csv). The file
+with AGI breaks down the observations further into ranges of adjusted gross income (AGI).
+We will instead focus on the zip-level data across all AGI groups.
+You will also want to [download the documentation](https://www.irs.gov/pub/irs-soi/15zpdoc.doc) 
+to determine which variables we want to  keep and how to interpret them.
+
+```{r}
+raw_irs <- read_csv("data/15zpallnoagi.csv")
+
+irs <- raw_irs %>%
+  filter(ZIPCODE != '00000') %>% # remove state-level summary
+  transmute(
+    zip = ZIPCODE,
+    state = STATE,
+    households = N1,
+    population = N2,
+    agi = A00100,
+    agi_pc = agi / population,
+    total_income = A02650,
+    wages = A00200,
+    farms = SCHF,
+    farm_proportion = farms / households,
+    taxes = A10300,
+    taxes_pc = taxes / population,
+    taxes_agi = taxes / agi,
+    taxes_total_income = taxes / total_income
+  )
+as.tibble(irs)
+```
+
+
+## Logs in position
+
+### Population size and AGI per capita
+
+Let's take a look first at the distribution of population and 
+adjusted gross income per capita across zipcodes:
+
+```{r}
+ggplot(irs, aes(population, agi_pc)) +
+  geom_point()
+```
+
+Remember that the log transformation compresses the space between larger values. Our scatter plot
+indicates that smaller values are currently more compressed. This is a signal that we should log transform
+our variables. The log transformation is useful for some of the assumptions of linear modelling. 
+In the visual explorations here, the choice to log transform is largely aesthetic. If log transforming
+a variable makes it easier to visually inspect and understand your data, than it is useful.
+
+### Histogram comparison
+
+Let's look at the histogram for the `population`:
+```{r}
+ggplot(irs, aes(population)) + geom_histogram()
+```
+
+And now the logged version:
+```{r}
+ggplot(irs, aes(population)) + geom_histogram() + scale_x_log10()
+```
+
+While the logged version of `population` feels closer to a normal distribution, it is clearly not
+normally distributed. Even though population across zip codes is not exactly log-normally distributed,
+it is still useful for creating easier to interpret and analyze visualizations.
+
+```{r}
+ggplot(irs, aes(population, agi_pc)) +
+  geom_point(alpha = 0.1) +
+  geom_smooth() +
+  scale_x_log10(labels = scales::comma) +
+  scale_y_log10()
+```
+
+
+### Taxes and Farms
+
+Let's plot two proportions: the proportion of returns in a zipcode representing farms, `farm_proportion`,
+and the proportion of total income that is tax liability, `taxes_total_income`.
+
+```{r}
+ggplot(irs, aes(farm_proportion, taxes_total_income)) +
+  geom_point() + 
+  geom_smooth()
+```
+
+While the data is densely packed near the origin, it does not mean it would be appropriate to
+log these variables. Keep in mind that the log of 0 is undefined and in the limit 
+from the right is negative infinty. We can manually remove these values with a filter.
+
+```{r}
+ggplot(irs, aes(farm_proportion, taxes_total_income)) +
+  geom_point() +
+  geom_smooth() +
+  scale_x_continuous(labels = scales::percent) +
+  scale_y_log10(labels = scales::percent) 
+```
+
+
+## Logs in color
+
+Let's tweak the last visualization by encoding `agi_pc` in the color of the points.
+
+```{r}
+ggplot(irs %>% filter(farm_proportion > 0), aes(farm_proportion, taxes_total_income, color = agi_pc)) +
+  geom_point() +
+  scale_x_log10(labels = scales::percent) +
+  scale_y_log10(labels = scales::percent) 
+```
+
+Using the transformation `log10` (see `trans` in the `?continuous_scale` documentation), we
+get a more gradual shift in color that makes it easier to see the changes in per capita
+adjusted gross income.
+
+
+```{r}
+ggplot(irs %>% filter(farm_proportion > 0), aes(farm_proportion, taxes_total_income, color = agi_pc)) +
+  geom_point() +
+  scale_x_log10(labels = scales::percent) +
+  scale_y_log10(labels = scales::percent) +
+  scale_color_continuous(trans = "log10")
+```
+
+We can finally change the `low` and `high` colors and add `alpha` to make our scatter plot easier to read.
+Note that I have added a log transformation to the size, which is tied to the `population` variable. Remove
+the log transformation to see the difference.
+
+```{r}
+library(scales)
+ggplot(irs %>% filter(farm_proportion > 0), aes(farm_proportion, taxes_total_income, color = agi_pc)) +
+  geom_point(aes(size = population), alpha = 0.1) +
+  scale_x_log10(labels = scales::percent) +
+  scale_y_log10(labels = scales::percent) +
+  scale_color_continuous(trans = "log10", low = scales::muted("red"), high = scales::muted("blue")) +
+  scale_size_continuous(trans = "log10")
+```
+
+
+## Assignment
+
+Choose two different variables from the `irs` dataset to visualize. Choose whether or not to log each variable
+in your visualization and explain why that was the right choice. Show at least one alternative (logged version
+vs. raw values) visualization and discuss how it compares to your preferred choice.
