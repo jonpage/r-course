@@ -5,7 +5,7 @@ subtitle: |
   | ECON 396 (Fall 2017)
   | TR 10:30-11:45, DURP Computer Lab (first floor Saunders)
 author: "Jonathan Page"
-date: "2017-11-06"
+date: "2017-11-12"
 site: bookdown::bookdown_site
 output: 
   bookdown::gitbook:
@@ -146,7 +146,7 @@ period, except for the last several weeks when you are completing your final pro
 ### Week 10 {-}
 
 * **R** [Themes, Labels, and Colors](#themes-labels-colors)
-    * **Data** Zillow Real Estate Data *[CSV]*
+    * **Data** Zillow Age of Real Estate Inventory Data *[CSV]*
 * **Topic** [Inference for Numerical Data](#inference-numerical)
 * **Project Assignment** Work on final project
 
@@ -167,7 +167,7 @@ period, except for the last several weeks when you are completing your final pro
 ### Week 13 {-}
 
 * **R** [networks, geomnet extension](#networks)
-    * **Data** UN Comtrade 
+    * **Data** UN Comtrade *[CSV]*
 <!-- -->
 * **Topic** [Multiple Regression](#multiple-regression)
 * **Project Assignment** Work on final project (cont.)
@@ -175,10 +175,17 @@ period, except for the last several weeks when you are completing your final pro
 ### Week 14 {-}
 
 * **R** [Log Scales](#log)
+    * **Data** IRS Statistics of Income *[CSV]*
 * **Topic** [Putting your work online]()
 * **Project Assignment** Work on final project (cont.)
 
 ### Week 15 {-}
+
+* **R** [Cross-Section Modeling](#cross-section)
+    * **Data** NSF National Survey of College Graduates *[DAT (Fixed-Width)]*
+* **R** [Time-Series Modeling](#time-series)
+
+### Week 16 {-}
 
 * Final Project presentations
 
