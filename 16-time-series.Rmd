@@ -1,8 +1,210 @@
 # Time-Series Modeling {#time-series}
 
 This lecture uses the following packages:
+
 ```
 tidyverse
+tidyquant
+vars
+```
+
+## Introduction
+
+The focus of this lecture is on time-series data. We will be making use of a
+new package that helps us apply the tools of the tidyverse to time series. To
+read more about the `tidyquant` package, check out its website:
+
+https://business-science.github.io/tidyquant/
+
+## Data
+
+To explore time-series modeling, we will download a few macroeconomic time series from  
+[FRED](https://fred.stlouisfed.org/). The data list I compiled for this lecture can be
+accessed at the following link:
+
+https://research.stlouisfed.org/pdl/988
+
+The following steps assume you used the `Zipped Tab Delimted Text` option with `1972-01-01`
+as the start date.
+
+```{r}
+library(tidyverse)
+
+daily <- read_tsv(
+  "data/Time_series_lecture_txt/Time_series_lecture_Daily.txt",
+  na = c(".")
+)
+monthly <- read_tsv(
+  "data/Time_series_lecture_txt/Time_series_lecture_Monthly.txt",
+  na = c(".")
+)
+quarterly <- read_tsv(
+  "data/Time_series_lecture_txt/Time_series_lecture_Quarterly.txt",
+  na = c(".")
+) %>%
+  mutate(GDPC1_CHG = c(NA, diff(GDPC1)))
+```
+
+Since we have data in multiple frequencies, we first need to aggregate up to the
+quarterly level.
+
+```{r}
+library(tidyquant)
+daily_q <- daily %>%
+  tq_transmute(mutate_fun = to.quarterly)
+monthly_q <- monthly %>%
+  tq_transmute(mutate_fun = to.quarterly)
+all_q <- quarterly %>%
+  mutate(DATE = as.yearqtr(DATE, format = "%Y-%m-%d")) %>%
+  merge(monthly_q, all = TRUE) %>%
+  merge(daily_q, all = TRUE)
+head(all_q)
+```
+
+
+## Hold-Out Set
+
+Just like in the previous lecture we want to use a training set so that
+we can evaluate the accuracy of our model on new data. In the context of
+time-series data, the validation/test sets are usually referred to as
+the hold-out set.
+
+```{r}
+train <- all_q %>% filter(DATE < "2010 Q1")
+hold_out <- all_q %>% filter(DATE >= "2010 Q1")
+```
+
+## GDP
+
+Let's begin by plotting the series we want to predict (GDP):
+```{r}
+ggplot(train, aes(x = DATE, y = GDPC1)) +
+  geom_line() +
+  scale_x_yearqtr() +
+  labs(title = "Real GDP")
+```
+
+The GDP series in [not stationary](https://en.wikipedia.org/wiki/Stationary_process) 
+(you can see that the mean changes over time). Let's look at `GDPC1_CHG`, which is real 
+GDP change from one quarter to the next.
+
+```{r}
+ggplot(train) +
+  geom_line(aes(DATE, GDPC1_CHG)) +
+  scale_x_yearqtr() +
+  labs(title = "Real GDP Change")
+```
+
+This series appears stationary so we'll use it when the model we look at requires a stationary series.
+
+## Autoregressive Model
+
+The Autoregressive (AR) model says that previous values are our best
+predictors of the future. 
+
+Here is the equation for an AR(1) model:
+
+\[ y_t = \rho y_{t-1} + \varepsilon_t \]
+
+$y_{t-1}$ is the value last period.
+
+There are many options possible with the `ar()` function, but we will
+stick to the defaults.
+
+```{r}
+ar_model <- ar(train$GDPC1_CHG, na.action = na.omit)
+ar_model
+```
+
+### AR Performance
+
+```{r}
+ar_prediction <- predict(ar_model, newdata = c(0), n.ahead = 12)
+ar_prediction
+```
+
+```{r}
+ggplot(cbind(hold_out[1:12,c("DATE", "GDPC1_CHG")], as.data.frame(ar_prediction)), aes(x = DATE)) +
+  geom_ribbon(aes(ymin = pred - se, ymax = pred + se), alpha = 0.25, fill = scales::muted("green")) +
+  geom_line(aes(y = pred), lty = 2) +
+  geom_line(aes(y = GDPC1_CHG)) +
+  scale_x_yearqtr() +
+  scale_y_continuous() +
+  labs(title = "AR prediction of GDP Change", subtitle = "Actual = solid, prediciton = dashed, se = green")
+```
+
+## ARIMA
+
+An Autoregressive integrated moving average (ARIMA) model is able to model non-stationary series.
+Just like the `ar()` function, the `arima()` function has many options for tuning the 
+results. Again we will stick to the defaults, but we do need to specify the `order` parameter. 
+The order is a three integer vector, (`p`, `d`, `q`), where `p` is the autoregressive
+order (above we had 2), `d` is the degree of differecing (we implicitly assumed this to be 1), 
+and `q` is the moving average order. 
+Since ARIMA can handle non-stationary series we will model `GDPC1`.
+
+```{r}
+arima_model <- arima(train$GDPC1, c(2, 1, 0))
+arima_model
+```
+
+### ARIMA Performance
+
+```{r}
+arima_prediction <- predict(arima_model, n.ahead = 12)
+arima_prediction
+```
+
+
+We can compare the ARIMA prediction to the actual values.
+
+```{r}
+ggplot(cbind(hold_out[1:12,c("DATE", "GDPC1")], as.data.frame(arima_prediction)), aes(x = DATE)) +
+  geom_ribbon(aes(ymin = pred - se, ymax = pred + se), alpha = 0.25, fill = scales::muted("green")) +
+  geom_line(aes(y = pred), lty = 2) +
+  geom_line(aes(y = GDPC1)) +
+  scale_x_yearqtr() +
+  scale_y_continuous() +
+  labs(title = "ARIMA prediction of GDP", subtitle = "Actual = solid, prediciton = dashed, se = green")
+```
+
+
+## Vector Autoregression
+
+Another approach is using a system of variables and allowing old values of each variable
+to affect the others.
+
+```{r}
+library(vars)
+var_model <- VAR(train %>% dplyr::select(GDPC1, CBIC1, PERMIT), p = 2)
+var_model
+```
+
+```{r}
+var_prediction <- predict(var_model, n.ahead = 12)
+var_prediction
+```
+
+```{r}
+ggplot(
+  cbind(hold_out[1:12,c("DATE", "GDPC1")], as.data.frame(var_prediction$fcst$GDPC1)), 
+  aes(x = DATE)
+) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.25, fill = scales::muted("green")) +
+  geom_line(aes(y = fcst), lty = 2) +
+  geom_line(aes(y = GDPC1)) +
+  scale_x_yearqtr() +
+  scale_y_continuous() +
+  labs(
+    title = "VAR prediction of GDP", 
+    subtitle = "Actual = solid, prediciton = dashed, 95% CI = green"
+  )
 ```
 
 ## Assignment
+
+Pick your preferred model and test its performance in the entire hold-out dataset.
+Report the RMSE (see the [previous lesson](#cross-setion)) and create a chart like
+the ones above showing lines for the actual and predicted values with a blue ribbon
+indicating one standard error (for AR or ARIME) or the confidence interval (for VAR)
+about the prediciton.
