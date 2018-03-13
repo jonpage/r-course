@@ -110,7 +110,7 @@ wind %>%
 The `gganimate` package lets us animate the above chart.
 If you want to be able to save animations as an mp4, you will need install 
 `ffmpeg` (https://www.ffmpeg.org/download.html). If you are running macOS, you will
-need also need ImageMagick (http://www.imagemagick.org/script/binary-releases.php#macosx).
+need also need ImageMagick (http://www.imagemagick.org/).
 
 You can install `gganimate` with `devtools`:
 ```
