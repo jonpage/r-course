@@ -1,8 +1,8 @@
 --- 
 title: "R for Data Analysis and Visualization"
 subtitle: |
-  | ECON 396 (Fall 2017)
-  | TR 10:30-11:45, DURP Computer Lab (first floor Saunders)
+  | ECON 396 (Fall 2018)
+  | MWF 10:30-11:20 AM, Kuykendall Hall 310
 author: "Jonathan Page"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
